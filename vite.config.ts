@@ -19,4 +19,8 @@ export default defineConfig({
 
   // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
   assetsInclude: ['**/*.svg', '**/*.csv'],
+
+  server: {
+    host: true, // listen on 0.0.0.0 so you can open http://<your-local-ip>:5173 on your phone (same Wi‑Fi)
+  },
 })

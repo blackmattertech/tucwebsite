@@ -1,7 +1,14 @@
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
+import { TextType } from './TextType';
+import { ShinyText } from './ShinyText';
 
 const DESKTOP_VIDEO = '/desktop/apparel-manufacturer-in-bangalore.mp4';
 const MOBILE_VIDEO = '/mobile/custom%20apparel%20manufacturer.mp4';
+
+const HERO_HEADING_LINES = [
+  'Private Label Clothing & Knitwear\nManufacturer in Bangalore',
+  'High-Quality Apparel Manufacturing in Bangalore',
+];
 
 export function HeroSection() {
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
@@ -53,12 +60,38 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12 text-center">
-        <h1 className="text-white mb-6" style={{ fontSize: 'clamp(2rem, 5vw, 4.5rem)', fontWeight: 800, lineHeight: 1.1 }}>
-          Private Label Clothing & Knitwear<br />Manufacturer in Bangalore
+        <h1
+          className="text-white mb-6 min-h-[1.2em] flex flex-wrap items-center justify-center gap-x-2 gap-y-0"
+          style={{ fontSize: 'clamp(2.5rem, 7vw, 6rem)', fontWeight: 800, lineHeight: 1.1 }}
+        >
+          <TextType
+            as="span"
+            text={HERO_HEADING_LINES}
+            typingSpeed={70}
+            deletingSpeed={40}
+            pauseDuration={2500}
+            initialDelay={600}
+            loop
+            showCursor
+            cursorCharacter="|"
+            cursorClassName="text-white"
+            cursorBlinkDuration={0.6}
+            className="text-white inline"
+            startOnVisible
+          />
         </h1>
         
-        <p className="text-white/90 max-w-3xl mx-auto mb-10" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: 1.6, fontWeight: 400 }}>
-          High-capacity apparel manufacturing for T-Shirts, Hoodies, Shirts and Custom Garments with structured production systems and reliable on-time delivery.
+        <p className="max-w-3xl mx-auto mb-10" style={{ fontSize: 'clamp(1.375rem, 2.75vw, 1.875rem)', lineHeight: 1.6, fontWeight: 400 }}>
+          <ShinyText
+            text="High-capacity apparel manufacturing for T-Shirts, Hoodies, Shirts and Custom Garments with structured production systems and reliable on-time delivery."
+            color="rgba(255,255,255,0.85)"
+            shineColor="#ffffff"
+            speed={2.5}
+            spread={100}
+            yoyo
+            pauseOnHover
+            className="block text-center"
+          />
         </p>
 
         {/* CTA Buttons */}

@@ -1,6 +1,9 @@
+import React from 'react';
 import { Link } from 'react-router';
+import { useContactModal } from '../context/ContactModalContext';
 
 export function Footer() {
+  const modal = useContactModal();
   const footerLinks = {
     company: [
       { label: 'About Manufacturer', href: '/about-apparel-manufacturer-bangalore' },
@@ -80,13 +83,24 @@ export function Footer() {
             <ul className="space-y-3">
               {footerLinks.resources.map((link, index) => (
                 <li key={index}>
-                  <Link
-                    to={link.href}
-                    className="text-white/70 hover:text-white transition-colors"
-                    style={{ fontSize: '15px' }}
-                  >
-                    {link.label}
-                  </Link>
+                  {link.label === 'Contact' && modal?.openModal ? (
+                    <button
+                      type="button"
+                      onClick={modal.openModal}
+                      className="text-white/70 hover:text-white transition-colors text-left"
+                      style={{ fontSize: '15px' }}
+                    >
+                      {link.label}
+                    </button>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className="text-white/70 hover:text-white transition-colors"
+                      style={{ fontSize: '15px' }}
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

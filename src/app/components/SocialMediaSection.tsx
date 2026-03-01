@@ -1,4 +1,6 @@
+import React from 'react';
 import { Instagram } from 'lucide-react';
+import { CircularText } from './CircularText';
 
 export function SocialMediaSection() {
   const posts = [
@@ -18,9 +20,20 @@ export function SocialMediaSection() {
               Inside Our Apparel Manufacturing Facility
             </h2>
           </div>
-          <p className="text-gray-600" style={{ fontSize: '18px' }}>
+          <p className="text-gray-600 mb-10" style={{ fontSize: '18px' }}>
             Follow us @apparelmfg for daily updates
           </p>
+
+          <div className="flex justify-center">
+            <CircularText
+              text="FOLLOW US . INSTAGRAM . @TAGUNLIMITED . "
+              spinDuration={20}
+              onHover="speedUp"
+              className="text-gray-900"
+              radius={90}
+              size={200}
+            />
+          </div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

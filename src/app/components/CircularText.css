@@ -1,0 +1,43 @@
+.circular-text {
+  margin: 0 auto;
+  border-radius: 50%;
+  width: 200px;
+  position: relative;
+  height: 200px;
+  font-weight: 900;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  transform-origin: 50% 50%;
+}
+
+.circular-text span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: inherit;
+  transform-origin: 50% 50%;
+  pointer-events: none;
+}
+
+.circular-text .circular-text-char {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2em;
+  height: 1.2em;
+  margin-left: -0.6em;
+  margin-top: -0.6em;
+  font-size: inherit;
+}
+
+.circular-text .circular-text-circle {
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  min-height: 14px;
+  border-radius: 50%;
+  background: currentColor;
+  margin-left: -7px;
+  margin-top: -7px;
+}

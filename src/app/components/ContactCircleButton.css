@@ -1,0 +1,134 @@
+.contact-circle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 116px;
+  height: 116px;
+  text-decoration: none;
+  color: inherit;
+  flex-shrink: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+}
+
+@media (max-width: 1023px) {
+  .contact-circle-btn {
+    width: 88px;
+    height: 88px;
+  }
+  .contact-circle-btn__glow {
+    inset: -3px;
+    filter: blur(5px);
+  }
+  .contact-circle-btn__inner {
+    width: 70px;
+    height: 70px;
+  }
+  .contact-circle-btn__text {
+    transform: scale(0.729);
+    transform-origin: center center;
+  }
+  .contact-circle-btn__circular-text {
+    font-size: 11px !important;
+  }
+  .contact-circle-btn__arrow {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.contact-circle-btn__glow {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    #ff3366 0%,
+    #ff3366 25%,
+    #ff6b35 40%,
+    #00d4ff 70%,
+    #0099ff 100%
+  );
+  background-size: 200% 200%;
+  animation: contact-circle-glow 4s ease-in-out infinite;
+  filter: blur(8px);
+  opacity: 0.9;
+  z-index: 0;
+}
+
+.contact-circle-btn__inner {
+  position: relative;
+  z-index: 1;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.25s ease;
+}
+
+.contact-circle-btn:hover .contact-circle-btn__inner {
+  transform: scale(1.02);
+}
+
+.contact-circle-btn__text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.contact-circle-btn__circular-text {
+  color: #fff !important;
+  font-weight: 700 !important;
+  font-family: system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.contact-circle-btn__arrow {
+  position: relative;
+  z-index: 2;
+  width: 22px;
+  height: 22px;
+  color: #fff;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.contact-circle-btn:hover .contact-circle-btn__arrow {
+  transform: translate(2px, -2px);
+}
+
+/* CTA variant: yellow center, dark text, black arrow, no glow */
+.contact-circle-btn--cta .contact-circle-btn__inner {
+  background: #fecc00;
+}
+.contact-circle-btn--cta .contact-circle-btn__arrow {
+  color: #0a0a0a;
+}
+.contact-circle-btn--cta .contact-circle-btn__circular-text {
+  color: #2d2a2e !important;
+  font-weight: 600 !important;
+}
+.contact-circle-btn--cta:hover .contact-circle-btn__inner {
+  transform: scale(1.04);
+}
+
+@keyframes contact-circle-glow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}

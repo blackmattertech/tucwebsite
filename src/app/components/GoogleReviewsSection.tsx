@@ -196,18 +196,18 @@ export function GoogleReviewsSection() {
           slidesToShow: 2,
           slidesToScroll: 1,
           autoplay: true,
-          autoplaySpeed: 4500
-        }
+          autoplaySpeed: 4500,
+        },
       },
       {
-        breakpoint: 640,
+        breakpoint: 768,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
           autoplay: true,
-          autoplaySpeed: 4000
-        }
-      }
+          autoplaySpeed: 4000,
+        },
+      },
     ]
   };
 
@@ -218,14 +218,27 @@ export function GoogleReviewsSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-12">
           <div className="lg:col-span-5">
             <h2
-              className="text-gray-900 font-bold leading-tight mb-6"
-              style={{ fontSize: 'clamp(2rem, 4vw, 2.75rem)', fontWeight: 700 }}
+              className="text-gray-900 mb-12 md:mb-16"
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                fontWeight: 400,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
+              }}
             >
-              Our customers praise us
+              Our Customers Praise Us
             </h2>
             <div className="flex flex-wrap gap-x-8 gap-y-2">
               <div className="relative inline-block">
-                <span className="text-gray-900 font-bold" style={{ fontSize: 'clamp(1.5rem, 2.5vw, 1.875rem)' }}>
+                <span
+                  className="text-gray-900 font-bold"
+                  style={{
+                    fontSize: 'clamp(1.5rem, 2.5vw, 1.875rem)',
+                    fontFamily: 'var(--font-heading)',
+                    letterSpacing: '-0.02em',
+                  }}
+                >
                   180+
                 </span>
                 <span className="text-gray-600 ml-1.5" style={{ fontSize: '0.9375rem' }}>
@@ -237,7 +250,14 @@ export function GoogleReviewsSection() {
                 />
               </div>
               <div>
-                <span className="text-gray-900 font-bold" style={{ fontSize: 'clamp(1.5rem, 2.5vw, 1.875rem)' }}>
+                <span
+                  className="text-gray-900 font-bold"
+                  style={{
+                    fontSize: 'clamp(1.5rem, 2.5vw, 1.875rem)',
+                    fontFamily: 'var(--font-heading)',
+                    letterSpacing: '-0.02em',
+                  }}
+                >
                   5.0
                 </span>
                 <span className="text-gray-600 ml-1.5" style={{ fontSize: '0.9375rem' }}>
@@ -313,6 +333,20 @@ export function GoogleReviewsSection() {
         @media (min-width: 768px) {
           .reviews-carousel .slick-list {
             margin: 0 -12px;
+          }
+        }
+        @media (max-width: 768px) {
+          .reviews-carousel .slick-list {
+            margin: 0;
+            overflow: hidden;
+          }
+          .reviews-carousel .slick-slide {
+            padding-left: 0;
+            padding-right: 0;
+          }
+          .reviews-carousel .slick-slide > div {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
           }
         }
       `}</style>

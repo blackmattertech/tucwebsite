@@ -166,8 +166,8 @@ export function TShirtManufacturer() {
       <CTASection
         title="Ready to Manufacture Your T-Shirts?"
         description="Get a detailed quote for your t-shirt manufacturing requirements"
-        buttonText="Request Quote"
-        buttonLink="/get-production-quote"
+        buttonText="Contact Us"
+        buttonLink="/contact-apparel-manufacturer-bangalore"
       />
     </>
   );

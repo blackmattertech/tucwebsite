@@ -143,8 +143,8 @@ export function HoodieManufacturer() {
       <CTASection
         title="Start Your Hoodie Manufacturing Project"
         description="Get a customized quote for your hoodie production requirements"
-        buttonText="Get Quote"
-        buttonLink="/get-production-quote"
+        buttonText="Contact Us"
+        buttonLink="/contact-apparel-manufacturer-bangalore"
       />
     </>
   );

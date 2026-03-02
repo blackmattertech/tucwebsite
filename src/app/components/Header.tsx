@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router';
 import { PillNav } from './PillNav';
+import { HeaderSocial } from './HeaderSocial';
 
 const NAV_ITEMS = [
   { label: 'Home', href: '/' },
@@ -63,21 +64,10 @@ export function Header() {
 
           <div className="hidden lg:flex items-center gap-4">
             <PillNav items={NAV_ITEMS} {...pillNavProps} />
-            <Link
-              to="/get-production-quote"
-              className={`inline-block px-6 py-3 rounded-full font-semibold text-[15px] transition-colors whitespace-nowrap ${btnPrimaryClass}`}
-            >
-              Request Quote
-            </Link>
+            <HeaderSocial lightBackground={isScrolled} />
           </div>
 
           <div className="flex lg:hidden items-center gap-2">
-            <Link
-              to="/get-production-quote"
-              className={`inline-block px-4 py-2.5 rounded-full font-semibold text-sm ${btnPrimaryClass}`}
-            >
-              Request Quote
-            </Link>
             <PillNav items={NAV_ITEMS} {...pillNavProps} />
           </div>
         </div>

@@ -122,11 +122,11 @@ export function BlogPost() {
                   Get started with our comprehensive private label manufacturing services
                 </p>
                 <Link
-                  to="/get-production-quote"
+                  to="/contact-apparel-manufacturer-bangalore"
                   className="inline-block bg-white text-gray-900 px-8 py-4 hover:bg-gray-100 transition-colors"
                   style={{ fontSize: '16px', fontWeight: 600 }}
                 >
-                  Request Quote
+                  Contact Us
                 </Link>
               </div>
 

@@ -154,8 +154,8 @@ export function Products() {
       <CTASection
         title="Need Custom Product Manufacturing?"
         description="Contact us to discuss your specific product requirements and customization needs"
-        buttonText="Get Quote"
-        buttonLink="/get-production-quote"
+        buttonText="Contact Us"
+        buttonLink="/contact-apparel-manufacturer-bangalore"
       />
     </>
   );

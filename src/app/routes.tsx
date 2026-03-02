@@ -13,7 +13,6 @@ import { ShirtManufacturer } from './pages/ShirtManufacturer';
 import { Blog } from './pages/Blog';
 import { BlogPost } from './pages/BlogPost';
 import { Contact } from './pages/Contact';
-import { Quote } from './pages/Quote';
 import { Social } from './pages/Social';
 
 export const router = createBrowserRouter([
@@ -80,10 +79,6 @@ export const router = createBrowserRouter([
       {
         path: 'contact-apparel-manufacturer-bangalore',
         Component: Contact
-      },
-      {
-        path: 'get-production-quote',
-        Component: Quote
       },
       {
         path: 'social',

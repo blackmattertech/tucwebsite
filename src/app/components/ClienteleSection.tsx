@@ -10,7 +10,7 @@ export function ClienteleSection() {
   const duplicated = [...logos, ...logos];
 
   return (
-    <section className="bg-gray-50 border-y border-gray-200/80 overflow-hidden mt-12 md:mt-16" aria-label="Our clients">
+    <section className="overflow-hidden mt-12 md:mt-16" aria-label="Our clients">
       <div className="w-full py-8 md:py-10">
         <div className="marquee-track">
           <div className="marquee-inner">
@@ -48,21 +48,25 @@ export function ClienteleSection() {
           display: flex;
           align-items: center;
           justify-content: center;
-          padding-left: 2rem;
-          padding-right: 2rem;
-          height: 3rem;
+          padding-left: 2.5rem;
+          padding-right: 2.5rem;
+          height: 9rem;
         }
         .marquee-logo {
-          max-height: 2.5rem;
-          max-width: 8rem;
+          max-height: 7.5rem;
+          max-width: 12rem;
           width: auto;
           height: auto;
           object-fit: contain;
           filter: grayscale(0.4) opacity(0.85);
-          transition: filter 0.2s ease;
+          transition: filter 0.25s ease, transform 0.25s ease;
+        }
+        .marquee-inner:hover .marquee-item:not(:hover) .marquee-logo {
+          filter: grayscale(0.8) blur(1px) opacity(0.45);
         }
         .marquee-item:hover .marquee-logo {
-          filter: grayscale(0) opacity(1);
+          filter: none;
+          transform: translateY(-6px) scale(1.03);
         }
         @keyframes marquee {
           0% { transform: translateX(0); }

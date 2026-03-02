@@ -150,8 +150,8 @@ export function Manufacturing() {
       <CTASection
         title="Need Bulk Manufacturing Services?"
         description="Contact us to discuss your production requirements and capacity needs"
-        buttonText="Request Quote"
-        buttonLink="/get-production-quote"
+        buttonText="Contact Us"
+        buttonLink="/contact-apparel-manufacturer-bangalore"
       />
     </>
   );

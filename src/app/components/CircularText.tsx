@@ -31,6 +31,57 @@ export interface CircularTextProps {
   className?: string;
   radius?: number;
   size?: number;
+  /** Use SVG textPath for even, readable circular text. Recommended. */
+  useSvgPath?: boolean;
+}
+
+function CircularTextSvg({
+  text,
+  size,
+  radius,
+  fontSize,
+  className,
+  pathId,
+}: {
+  text: string;
+  size: number;
+  radius: number;
+  fontSize: number;
+  className: string;
+  pathId: string;
+}) {
+  const cx = size / 2;
+  const cy = size / 2;
+  const d = `M ${cx},${cy - radius} A ${radius},${radius} 0 1,1 ${cx},${cy + radius} A ${radius},${radius} 0 1,1 ${cx},${cy - radius}`;
+  const pathLength = 2 * Math.PI * radius;
+
+  return (
+    <svg
+      className={`circular-text-svg ${className}`.trim()}
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      overflow="visible"
+      aria-hidden
+    >
+      <defs>
+        <path id={pathId} d={d} />
+      </defs>
+      <text
+        className="circular-text-svg-text"
+        fontFamily="system-ui, -apple-system, sans-serif"
+        fontWeight="700"
+        fontSize={fontSize}
+        textLength={pathLength}
+        lengthAdjust="spacingAndGlyphs"
+        xmlSpace="preserve"
+      >
+        <textPath href={`#${pathId}`} startOffset="0" xmlSpace="preserve">
+          {text}
+        </textPath>
+      </text>
+    </svg>
+  );
 }
 
 export function CircularText({
@@ -40,7 +91,9 @@ export function CircularText({
   className = '',
   radius = 100,
   size = 200,
+  useSvgPath = false,
 }: CircularTextProps) {
+  const pathId = React.useId().replace(/:/g, '');
   const letters = Array.from(text);
   const controls = useAnimation();
   const rotation = useMotionValue(0);
@@ -96,6 +149,37 @@ export function CircularText({
     });
   }, [spinDuration, rotation, controls]);
 
+  const baseFontSize = Math.max(11, (size / 200) * 20);
+
+  if (useSvgPath) {
+    return (
+      <motion.div
+        className={`circular-text circular-text--svg ${className}`.trim()}
+        style={{
+          rotate: rotation,
+          width: size,
+          height: size,
+        }}
+        initial={{ rotate: 0 }}
+        animate={controls}
+        onMouseEnter={handleHoverStart}
+        onMouseLeave={handleHoverEnd}
+      >
+        <CircularTextSvg
+          text={text}
+          size={size}
+          radius={radius}
+          fontSize={baseFontSize}
+          className={className}
+          pathId={pathId}
+        />
+      </motion.div>
+    );
+  }
+
+  const isSeparator = (char: string) =>
+    char === '.' || char === '·' || char === '•' || char === '—';
+
   return (
     <motion.div
       className={`circular-text ${className}`.trim()}
@@ -113,7 +197,7 @@ export function CircularText({
         const angleDeg = (360 / letters.length) * i;
         const transform = `rotate(${angleDeg}deg) translateY(-${radius}px) rotate(${angleDeg}deg)`;
 
-        if (letter === '.' || letter === '·') {
+        if (isSeparator(letter)) {
           return (
             <span
               key={`circle-${i}`}
@@ -134,7 +218,7 @@ export function CircularText({
             style={{
               transform,
               WebkitTransform: transform,
-              fontSize: `${Math.max(12, (size / 200) * 22)}px`,
+              fontSize: `${baseFontSize}px`,
             }}
           >
             {letter}

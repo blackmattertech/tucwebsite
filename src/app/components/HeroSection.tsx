@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { TextType } from './TextType';
-import { ShinyText } from './ShinyText';
+import RotatingText from './RotatingText';
 
 const DESKTOP_VIDEO = '/desktop/apparel-manufacturer-in-bangalore.mp4';
 const MOBILE_VIDEO = '/mobile/custom%20apparel%20manufacturer.mp4';
@@ -9,6 +9,26 @@ const HERO_HEADING_LINES = [
   'Private Label Clothing & Knitwear\nManufacturer in Bangalore',
   'High-Quality Apparel Manufacturing in Bangalore',
 ];
+
+const HERO_ROTATING_PHRASES = [
+  'Private Label T-Shirts',
+  'Premium Polo T-Shirts',
+  'Custom Hoodies',
+  'Formal & Casual Shirts',
+  'Corporate Uniforms',
+  'Industrial Workwear',
+  'School Uniforms',
+  'Sportswear',
+  'Trackpants & Shorts',
+  'Custom Jackets',
+  'Caps & Accessories',
+  'Private Label Apparel',
+  'OEM Apparel',
+  'Bulk Garment Orders',
+  'Export Quality Garments',
+];
+
+const BRAND_YELLOW = '#FECC00';
 
 export function HeroSection() {
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
@@ -27,7 +47,7 @@ export function HeroSection() {
 
   return (
     <section className="relative w-screen min-h-[600px] h-[100dvh] min-h-[100vh] flex items-center justify-center overflow-hidden">
-      {/* Background Video - Desktop (full screen, muted, loop) */}
+      {/* Background Video - Desktop */}
       <video
         ref={desktopVideoRef}
         autoPlay
@@ -41,7 +61,7 @@ export function HeroSection() {
         <source src={DESKTOP_VIDEO} type="video/mp4" />
       </video>
 
-      {/* Background Video - Mobile (full screen, muted, loop) */}
+      {/* Background Video - Mobile */}
       <video
         ref={mobileVideoRef}
         autoPlay
@@ -60,9 +80,14 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12 text-center">
+        {/* H1: Original typing headline - slightly smaller */}
         <h1
-          className="text-white mb-6 min-h-[1.2em] flex flex-wrap items-center justify-center gap-x-2 gap-y-0"
-          style={{ fontSize: 'clamp(2.5rem, 7vw, 6rem)', fontWeight: 800, lineHeight: 1.1 }}
+          className="text-white mb-5 min-h-[1.2em] flex flex-wrap items-center justify-center gap-x-2 gap-y-0"
+          style={{
+            fontSize: 'clamp(1.95rem, 5vw, 4.25rem)',
+            fontWeight: 800,
+            lineHeight: 1.1,
+          }}
         >
           <TextType
             as="span"
@@ -80,35 +105,64 @@ export function HeroSection() {
             startOnVisible
           />
         </h1>
-        
-        <p className="max-w-3xl mx-auto mb-10" style={{ fontSize: 'clamp(1.375rem, 2.75vw, 1.875rem)', lineHeight: 1.6, fontWeight: 400 }}>
-          <ShinyText
-            text="High-capacity apparel manufacturing for T-Shirts, Hoodies, Shirts and Custom Garments with structured production systems and reliable on-time delivery."
-            color="rgba(255,255,255,0.85)"
-            shineColor="#ffffff"
-            speed={2.5}
-            spread={100}
-            yoyo
-            pauseOnHover
-            className="block text-center"
-          />
-        </p>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-          <button className="w-full sm:w-auto bg-white text-gray-900 px-8 py-4 hover:bg-gray-100 transition-colors" style={{ fontSize: '16px', fontWeight: 600 }}>
-            Request Production Quote
-          </button>
-          <button className="w-full sm:w-auto bg-transparent text-white border-2 border-white px-8 py-4 hover:bg-white/10 transition-colors" style={{ fontSize: '16px', fontWeight: 600 }}>
-            Contact Manufacturer
-          </button>
+        {/* We Manufacture [ Rotating Highlight ] - slightly smaller */}
+        <div
+          className="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 mb-10"
+          style={{
+            fontSize: 'clamp(1.5rem, 3.75vw, 3.25rem)',
+            fontWeight: 700,
+            lineHeight: 1.2,
+            fontFamily: 'var(--font-family)',
+          }}
+        >
+          <span className="text-white" style={{ color: '#E5E5E5' }}>
+            We Manufacture
+          </span>
+          <span
+            className="inline-flex items-center justify-center shrink-0"
+            style={{
+              backgroundColor: BRAND_YELLOW,
+              color: '#111',
+              padding: '10px 18px',
+              borderRadius: '12px',
+              fontWeight: 700,
+            }}
+          >
+            <RotatingText
+              texts={HERO_ROTATING_PHRASES}
+              splitBy="lines"
+              rotationInterval={2800}
+              transition={{ type: 'spring', damping: 28, stiffness: 280 }}
+              initial={{ y: '100%', opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: '-100%', opacity: 0 }}
+              animatePresenceMode="wait"
+              mainClassName="hero-rotating-text"
+              elementLevelClassName="hero-rotating-element"
+              style={{
+                color: '#111',
+                fontSize: 'inherit',
+                fontWeight: 700,
+              }}
+            />
+          </span>
         </div>
 
         {/* Trust Text */}
-        <p className="text-white/80" style={{ fontSize: '15px', fontWeight: 500, letterSpacing: '0.5px' }}>
-          Trusted Apparel Manufacturing Partner for Brands and Businesses Across India
+        <p
+          className="text-white/80"
+          style={{ fontSize: '15px', fontWeight: 500, letterSpacing: '0.5px' }}
+        >
+          Trusted Apparel Manufacturing Partner for Brands and Businesses Across
+          India
         </p>
       </div>
+
+      <style>{`
+        .hero-rotating-text { color: #111; font-weight: 700; }
+        .hero-rotating-element { color: #111; font-weight: 700; }
+      `}</style>
     </section>
   );
 }

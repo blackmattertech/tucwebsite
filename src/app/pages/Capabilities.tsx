@@ -124,8 +124,8 @@ export function Capabilities() {
       <CTASection
         title="Ready to Start Your Manufacturing Project?"
         description="Contact our team to discuss your requirements and get a detailed quote"
-        buttonText="Get Production Quote"
-        buttonLink="/get-production-quote"
+        buttonText="Contact Us"
+        buttonLink="/contact-apparel-manufacturer-bangalore"
       />
     </>
   );

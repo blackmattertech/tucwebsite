@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { useContactModal } from '../context/ContactModalContext';
 import { CircularText } from './CircularText';
@@ -6,17 +6,35 @@ import './ContactCircleButton.css';
 
 const CONTACT_HREF = '/contact-apparel-manufacturer-bangalore';
 
-const CIRCLE_SIZE = 96;
-const TEXT_RADIUS = 38;
+const CIRCLE_SIZE = 110;
+const CIRCLE_RADIUS = CIRCLE_SIZE / 2;
+const TEXT_RADIUS = CIRCLE_RADIUS - 14;
+const CIRCLE_SIZE_MOBILE = 68;
+const TEXT_RADIUS_MOBILE = CIRCLE_SIZE_MOBILE / 2 - 8;
 
 export type ContactCircleButtonVariant = 'default' | 'cta';
 
+const MOBILE_MAX_WIDTH = 640;
+
 export function ContactCircleButton({ variant = 'default' }: { variant?: ContactCircleButtonVariant }) {
   const modal = useContactModal();
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== 'undefined' && window.innerWidth <= MOBILE_MAX_WIDTH
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${MOBILE_MAX_WIDTH}px)`);
+    const handle = () => setIsMobile(mq.matches);
+    mq.addEventListener('change', handle);
+    return () => mq.removeEventListener('change', handle);
+  }, []);
+
   const isCta = variant === 'cta';
   const circularText = isCta
-    ? 'contact us . contact us . '
-    : 'CONTACT US . CONTACT US . ';
+    ? 'CONTACT US * CONTACT US *'
+    : 'CONTACT US * CONTACT US *';
+  const textRadius = isMobile ? TEXT_RADIUS_MOBILE : TEXT_RADIUS;
+  const circleSize = isMobile ? CIRCLE_SIZE_MOBILE : CIRCLE_SIZE;
 
   const className = `contact-circle-btn ${isCta ? 'contact-circle-btn--cta' : ''}`;
 
@@ -30,8 +48,9 @@ export function ContactCircleButton({ variant = 'default' }: { variant?: Contact
             spinDuration={10}
             onHover="speedUp"
             className="contact-circle-btn__circular-text"
-            radius={TEXT_RADIUS}
-            size={CIRCLE_SIZE}
+            radius={textRadius}
+            size={circleSize}
+            useSvgPath
           />
         </span>
         <svg
@@ -39,7 +58,7 @@ export function ContactCircleButton({ variant = 'default' }: { variant?: Contact
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          strokeWidth={isCta ? 2.25 : 2.5}
+          strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
           aria-hidden

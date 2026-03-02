@@ -212,7 +212,7 @@ export function GoogleReviewsSection() {
   };
 
   return (
-    <section className="bg-white py-16 md:py-24" style={{ fontFamily: 'var(--font-family)' }}>
+    <section id="reviews" className="bg-white py-16 md:py-24" style={{ fontFamily: 'var(--font-family)' }}>
       <div className="max-w-[1200px] mx-auto px-6 lg:px-12">
         {/* Header: title + stats + paragraph */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-12">
@@ -341,6 +341,8 @@ export function GoogleReviewsSection() {
             overflow: hidden;
           }
           .reviews-carousel .slick-slide {
+            width: 100%;
+            min-width: 100%;
             padding-left: 0;
             padding-right: 0;
           }

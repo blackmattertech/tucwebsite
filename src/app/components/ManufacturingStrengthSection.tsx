@@ -12,7 +12,7 @@ export function ManufacturingStrengthSection() {
   ];
 
   return (
-    <section className="py-24 bg-gray-900">
+    <section id="manufacturing" className="py-24 bg-gray-900">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
         <h2 className="text-white text-center mb-12" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, lineHeight: 1.2 }}>
           High-Capacity Apparel Manufacturing Facility

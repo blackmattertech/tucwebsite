@@ -11,7 +11,7 @@ export function SocialMediaSection() {
   ];
 
   return (
-    <section className="py-24 bg-white">
+    <section id="social" className="py-24 bg-white">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-4">

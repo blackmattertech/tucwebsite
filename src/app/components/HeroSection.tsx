@@ -46,7 +46,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative w-screen min-h-[600px] h-[100dvh] min-h-[100vh] flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative w-screen min-h-[600px] h-[100dvh] min-h-[100vh] flex items-center justify-center overflow-hidden">
       {/* Background Video - Desktop */}
       <video
         ref={desktopVideoRef}

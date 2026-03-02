@@ -10,7 +10,7 @@ const CIRCLE_SIZE = 110;
 const CIRCLE_RADIUS = CIRCLE_SIZE / 2;
 const TEXT_RADIUS = CIRCLE_RADIUS - 14;
 const CIRCLE_SIZE_MOBILE = 68;
-const TEXT_RADIUS_MOBILE = CIRCLE_SIZE_MOBILE / 2 - 8;
+const TEXT_RADIUS_MOBILE = CIRCLE_SIZE_MOBILE / 2 - 2;
 
 export type ContactCircleButtonVariant = 'default' | 'cta';
 
@@ -50,6 +50,7 @@ export function ContactCircleButton({ variant = 'default' }: { variant?: Contact
             className="contact-circle-btn__circular-text"
             radius={textRadius}
             size={circleSize}
+            fontSize={isMobile ? 8 : undefined}
             useSvgPath
           />
         </span>

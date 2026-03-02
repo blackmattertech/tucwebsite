@@ -88,10 +88,10 @@
     height: 16px;
   }
   .contact-circle-btn__circular-text {
-    letter-spacing: 0.12em;
+    letter-spacing: 0;
   }
   .contact-circle-btn__circular-text .circular-text-svg-text {
-    letter-spacing: 0.12em;
+    letter-spacing: 0;
   }
 }
 

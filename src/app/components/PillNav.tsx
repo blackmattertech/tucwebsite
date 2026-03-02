@@ -1,7 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router';
+import { Facebook, Instagram, Youtube, X } from 'lucide-react';
 import { gsap } from 'gsap';
 import './PillNav.css';
+import { useContactModal } from '../context/ContactModalContext';
+
+const MOBILE_MENU_SOCIAL = [
+  { label: 'Facebook', href: 'https://www.facebook.com/', Icon: Facebook, brand: 'facebook' as const },
+  { label: 'Instagram', href: 'https://www.instagram.com/', Icon: Instagram, brand: 'instagram' as const },
+  { label: 'YouTube', href: 'https://www.youtube.com/', Icon: Youtube, brand: 'youtube' as const },
+];
 
 export interface PillNavItem {
   label: string;
@@ -35,6 +44,7 @@ export function PillNav({
   const location = useLocation();
   const activeHref = location.pathname;
   const resolvedPillTextColor = pillTextColor ?? baseColor;
+  const modal = useContactModal();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const circleRefs = useRef<(HTMLSpanElement | null)[]>([]);
@@ -42,7 +52,10 @@ export function PillNav({
   const activeTweenRefs = useRef<gsap.core.Tween[]>([]);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const mobileMenuPanelRef = useRef<HTMLDivElement>(null);
   const navItemsRef = useRef<HTMLDivElement>(null);
+
+  const handleBackdropClick = () => toggleMobileMenu();
 
   useEffect(() => {
     const layout = () => {
@@ -158,6 +171,8 @@ export function PillNav({
     }
 
     if (menu) {
+      const isMobile = window.matchMedia('(max-width: 1023px)').matches;
+      const transformOrigin = isMobile ? 'top right' : 'top center';
       if (newState) {
         gsap.set(menu, { visibility: 'visible' });
         gsap.fromTo(
@@ -169,7 +184,7 @@ export function PillNav({
             scaleY: 1,
             duration: 0.3,
             ease,
-            transformOrigin: 'top center',
+            transformOrigin: transformOrigin,
           }
         );
       } else {
@@ -179,7 +194,7 @@ export function PillNav({
           scaleY: 1,
           duration: 0.2,
           ease,
-          transformOrigin: 'top center',
+          transformOrigin: transformOrigin,
           onComplete: () => {
             gsap.set(menu, { visibility: 'hidden' });
           },
@@ -279,31 +294,97 @@ export function PillNav({
         </button>
       </nav>
 
-      <div className="mobile-menu-popover mobile-only" ref={mobileMenuRef} style={cssVars}>
-        <ul className="mobile-menu-list">
-          {items.map((item) => (
-            <li key={item.href || `mobile-item-${item.label}`}>
-              {isRouterLink(item.href) ? (
-                <Link
-                  to={item.href}
-                  className={`mobile-menu-link${activeHref === item.href ? ' is-active' : ''}`}
-                  onClick={() => setIsMobileMenuOpen(false)}
+      {createPortal(
+        <div
+          className={`mobile-menu-overlay mobile-only${isMobileMenuOpen ? ' is-open' : ''}`}
+          ref={mobileMenuRef}
+          style={cssVars}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu"
+        >
+          <div className="mobile-menu-backdrop" onClick={handleBackdropClick} aria-hidden />
+          <div className="mobile-menu-top-bar">
+            <Link to="/" className="mobile-menu-logo" onClick={toggleMobileMenu}>
+              <img src="/logo.svg" alt="TAG UNLIMITED" className="mobile-menu-logo-img" width={120} height={42} />
+            </Link>
+            <button
+              type="button"
+              className="mobile-menu-close"
+              onClick={toggleMobileMenu}
+              aria-label="Close menu"
+            >
+              <X size={24} strokeWidth={2} aria-hidden />
+            </button>
+          </div>
+          <div className="mobile-menu-panel" ref={mobileMenuPanelRef}>
+            <nav className="mobile-menu-nav">
+              <ul className="mobile-menu-list navbar-nav">
+                {items.map((item) => (
+                  <li key={item.href || `mobile-item-${item.label}`} className="nav-item">
+                    {isRouterLink(item.href) ? (
+                      <Link
+                        to={item.href}
+                        className={`mobile-menu-link nav-link${activeHref === item.href ? ' active' : ''}`}
+                        onClick={toggleMobileMenu}
+                      >
+                        {item.label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={item.href}
+                        className={`mobile-menu-link nav-link${activeHref === item.href ? ' active' : ''}`}
+                        onClick={toggleMobileMenu}
+                      >
+                        {item.label}
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+              {modal?.openModal ? (
+                <button
+                  type="button"
+                  className="mobile-menu-contact-btn"
+                  onClick={() => {
+                    toggleMobileMenu();
+                    modal.openModal();
+                  }}
+                  aria-label="Contact us"
                 >
-                  {item.label}
-                </Link>
+                  Contact
+                </button>
               ) : (
-                <a
-                  href={item.href}
-                  className={`mobile-menu-link${activeHref === item.href ? ' is-active' : ''}`}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                <Link
+                  to="/contact-apparel-manufacturer-bangalore"
+                  className="mobile-menu-contact-btn"
+                  onClick={toggleMobileMenu}
                 >
-                  {item.label}
-                </a>
+                  Contact
+                </Link>
               )}
-            </li>
-          ))}
-        </ul>
-      </div>
+              <div className="mobile-menu-social">
+              <span className="mobile-menu-social-label">Follow us</span>
+              <div className="mobile-menu-social-icons">
+                {MOBILE_MENU_SOCIAL.map(({ label, href, Icon, brand }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`mobile-menu-social-link mobile-menu-social-link--${brand}`}
+                    aria-label={label}
+                  >
+                    <Icon size={22} strokeWidth={2} aria-hidden />
+                  </a>
+                ))}
+              </div>
+            </div>
+            </nav>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }

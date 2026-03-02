@@ -31,6 +31,8 @@ export interface CircularTextProps {
   className?: string;
   radius?: number;
   size?: number;
+  /** Override font size (e.g. for mobile so circular text fits). */
+  fontSize?: number;
   /** Use SVG textPath for even, readable circular text. Recommended. */
   useSvgPath?: boolean;
 }
@@ -91,6 +93,7 @@ export function CircularText({
   className = '',
   radius = 100,
   size = 200,
+  fontSize: fontSizeOverride,
   useSvgPath = false,
 }: CircularTextProps) {
   const pathId = React.useId().replace(/:/g, '');
@@ -149,7 +152,7 @@ export function CircularText({
     });
   }, [spinDuration, rotation, controls]);
 
-  const baseFontSize = Math.max(11, (size / 200) * 20);
+  const baseFontSize = fontSizeOverride ?? Math.max(11, (size / 200) * 20);
 
   if (useSvgPath) {
     return (

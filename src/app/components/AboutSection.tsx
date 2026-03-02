@@ -1,39 +1,150 @@
 import { Link } from 'react-router';
+import { motion, useInView } from 'motion/react';
+import { useRef, useEffect, useState } from 'react';
+
+const STATS = [
+  { target: 100000, suffix: '+', label: 'Pieces Manufactured Monthly' },
+  { target: 3000, suffix: '+', label: 'Brands Served Globally' },
+  { target: 200, suffix: '+', label: 'Industrial Machines' },
+  { target: 20, suffix: '+', label: 'Years of Experience' },
+];
+
+function AnimatedCount({
+  target,
+  suffix,
+  inView,
+  delay = 0,
+}: {
+  target: number;
+  suffix: string;
+  inView: boolean;
+  delay?: number;
+}) {
+  const [count, setCount] = useState(0);
+  const [started, setStarted] = useState(false);
+  const duration = 1800;
+  const startRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!inView) return;
+    const t = setTimeout(() => {
+      setStarted(true);
+    }, delay);
+    return () => clearTimeout(t);
+  }, [inView, delay]);
+
+  useEffect(() => {
+    if (!started) return;
+    startRef.current = null;
+    setCount(0);
+    let rafId: number;
+
+    const tick = (timestamp: number) => {
+      if (startRef.current === null) startRef.current = timestamp;
+      const elapsed = timestamp - startRef.current;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * target));
+      if (progress < 1) rafId = requestAnimationFrame(tick);
+    };
+
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, [started, target]);
+
+  const formatted = count.toLocaleString();
+  return (
+    <>
+      {formatted}
+      {suffix}
+    </>
+  );
+}
+
+const LOGO_YELLOW = '#fecc00';
+
+const ABOUT_IMAGE = '/best%20garment%20factory%20in%20bangalore.png';
+const ABOUT_IMAGE_ALT =
+  'Best garment factory in Bangalore – TAG Unlimited, leading best apparel manufacturer in India for private label clothing, knitwear, T-shirts, hoodies and bulk garment production';
 
 export function AboutSection() {
+  const statsRef = useRef<HTMLDivElement>(null);
+  const statsInView = useInView(statsRef, { once: true, amount: 0.3 });
+
   return (
-    <section className="py-24 bg-white" id="about">
+    <section className="bg-white py-16 md:py-24 lg:py-28" id="about">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Image - Mobile First */}
-          <div className="order-1 lg:order-2">
-            <div className="relative aspect-[4/3] rounded-sm overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1684259499086-93cb3e555803?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
-                alt="Apparel Manufacturing Facility in Bangalore"
-                className="w-full h-full object-cover"
-              />
+        <h2
+          className="text-gray-900 font-bold uppercase mb-12 md:mb-16"
+          style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'clamp(1.875rem, 4vw, 3rem)',
+            letterSpacing: '0.05em',
+          }}
+        >
+          About Us
+        </h2>
+        {/* Main content: description + image */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-16 md:mb-20">
+          <div className="lg:col-span-5 order-2 lg:order-1">
+            <div
+              className="text-gray-600 mb-8 text-base md:text-lg lg:text-xl leading-relaxed space-y-4"
+              style={{ lineHeight: 1.8 }}
+            >
+              <p>
+                <span style={{ color: LOGO_YELLOW, fontWeight: 700 }}>TAG Unlimited</span> is a Bangalore-based private label clothing and knitwear manufacturer specializing in bulk production of T-Shirts, Hoodies, Shirts and custom apparel for fashion brands and businesses.
+              </p>
+              <p>
+                Our manufacturing facility is designed for structured production with consistent quality standards and reliable delivery timelines. From sampling to final dispatch, every order follows organized workflows that ensure efficiency and accuracy.
+              </p>
+              <p>
+                Our operations are powered by integrated production management systems that allow us to track every order stage and maintain clear production timelines, ensuring dependable delivery and consistent manufacturing quality.
+              </p>
+              <p>
+                We work with fashion brands, startups, corporate buyers and export clients across India, supporting them with scalable apparel manufacturing solutions.
+              </p>
             </div>
-          </div>
-
-          {/* Content */}
-          <div className="order-2 lg:order-1">
-            <h2 className="text-gray-900 mb-6" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, lineHeight: 1.2 }}>
-              Leading Apparel Manufacturer in Bangalore
-            </h2>
-            
-            <p className="text-gray-600 mb-8" style={{ fontSize: '18px', lineHeight: 1.8, fontWeight: 400 }}>
-              We are a Bangalore-based private label clothing manufacturer specializing in bulk knitwear production including T-shirts, hoodies and custom garments. Our structured manufacturing processes ensure consistent quality and reliable delivery.
-            </p>
-
-            <Link 
+            <Link
               to="/about-apparel-manufacturer-bangalore"
-              className="inline-block bg-gray-900 text-white px-8 py-4 hover:bg-gray-800 transition-colors"
-              style={{ fontSize: '16px', fontWeight: 600 }}
+              className="inline-block text-gray-900 font-semibold px-8 py-4 rounded-lg hover:opacity-90 transition-opacity duration-300"
+              style={{ backgroundColor: LOGO_YELLOW, fontSize: '1rem' }}
             >
               Learn More About Our Manufacturing
             </Link>
           </div>
+          <div className="lg:col-span-7 order-1 lg:order-2">
+            <div className="relative aspect-[4/3] lg:aspect-video rounded-2xl overflow-hidden shadow-2xl">
+              <img
+                src={ABOUT_IMAGE}
+                alt={ABOUT_IMAGE_ALT}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Statistics grid - yellow cards */}
+        <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {STATS.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.6, delay: 0.1 * (i + 1) }}
+              whileHover={{ scale: 1.05 }}
+              className="p-4 sm:p-5 md:p-8 rounded-xl shadow-lg transition-shadow duration-300"
+              style={{ backgroundColor: LOGO_YELLOW }}
+            >
+              <div className="text-white font-black text-2xl sm:text-3xl md:text-5xl leading-tight mb-2">
+                <AnimatedCount target={stat.target} suffix={stat.suffix} inView={statsInView} delay={i * 120} />
+              </div>
+              <div className="text-gray-700 font-medium text-xs sm:text-sm md:text-base">
+                {stat.label}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

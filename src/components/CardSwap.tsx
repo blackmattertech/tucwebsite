@@ -16,11 +16,11 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ customClass, ...rest }, ref) => (
+  ({ customClass, className, ...rest }, ref) => (
     <div
       ref={ref}
       {...rest}
-      className={`card ${customClass ?? ''} ${rest.className ?? ''}`.trim()}
+      className={`card ${customClass ?? ''} ${className ?? ''}`.trim()}
     />
   )
 );
@@ -113,7 +113,6 @@ const CardSwap = ({
   const childArr = useMemo(() => Children.toArray(children), [children]);
   const refs = useMemo(
     () => childArr.map(() => React.createRef<HTMLDivElement>()),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [childArr.length]
   );
 
@@ -202,7 +201,7 @@ const CardSwap = ({
     swap();
     intervalRef.current = window.setInterval(swap, delay);
 
-    if (pauseOnHover) {
+    if (pauseOnHover && container.current) {
       const node = container.current;
       const pause = () => {
         tlRef.current?.pause();
@@ -212,16 +211,15 @@ const CardSwap = ({
         tlRef.current?.play();
         intervalRef.current = window.setInterval(swap, delay);
       };
-      node?.addEventListener('mouseenter', pause);
-      node?.addEventListener('mouseleave', resume);
+      node.addEventListener('mouseenter', pause);
+      node.addEventListener('mouseleave', resume);
       return () => {
-        node?.removeEventListener('mouseenter', pause);
-        node?.removeEventListener('mouseleave', resume);
+        node.removeEventListener('mouseenter', pause);
+        node.removeEventListener('mouseleave', resume);
         clearInterval(intervalRef.current);
       };
     }
     return () => clearInterval(intervalRef.current);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing]);
 
   const rendered = childArr.map((child, i) =>
@@ -239,7 +237,11 @@ const CardSwap = ({
   );
 
   return (
-    <div ref={container} className="card-swap-container" style={{ width, height }}>
+    <div
+      ref={container}
+      className="card-swap-container"
+      style={{ width, height }}
+    >
       {rendered}
     </div>
   );

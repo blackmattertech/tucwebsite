@@ -2,6 +2,7 @@ import { HeroSection } from '../components/HeroSection';
 import { AboutSection } from '../components/AboutSection';
 import { PrinciplesSection } from '../components/PrinciplesSection';
 import { CapabilitiesSection } from '../components/CapabilitiesSection';
+import { BlankSection } from '../components/BlankSection';
 import { ProductsSection } from '../components/ProductsSection';
 import { ManufacturingStrengthSection } from '../components/ManufacturingStrengthSection';
 import { TrustSection } from '../components/TrustSection';
@@ -18,6 +19,7 @@ export function Home() {
       <PrinciplesSection />
       <TrustSection />
       <CapabilitiesSection />
+      <BlankSection />
       <ProductsSection />
       <ManufacturingStrengthSection />
       <GoogleReviewsSection />

@@ -25,6 +25,13 @@ const CAPABILITY_ITEMS = [
     description:
       'We deliver end-to-end garment manufacturing—from sourcing and cutting to stitching, finishing, and quality control—so you get a single, reliable partner for your full production run.',
   },
+  {
+    image: 'ERP-Driven Production Management.png',
+    label: 'ERP-Driven Production Management',
+    title: 'ERP-Driven Production Management',
+    description:
+      'Our ERP system tracks every stage of garment production—from sampling to final dispatch—providing real-time visibility, structured workflows, and reliable delivery timelines.',
+  },
 ];
 
 function CapabilityCardContent({
@@ -88,6 +95,22 @@ export function CapabilitiesSection() {
         backgroundSize: '12px 12px',
       }}
     >
+      <h2 className="capabilities-section-heading">Our Capabilities</h2>
+      <h3 className="capabilities-subheading">Manufacturing</h3>
+      <div className="capability-pills-wrap">
+        <div className="capability-pills" role="tablist" aria-label="Capabilities">
+          {CAPABILITY_ITEMS.map(({ label }, index) => (
+            <span
+              key={label}
+              className={`capability-pill ${index === safeIndex ? 'capability-pill-active' : ''}`}
+              role="tab"
+              aria-selected={index === safeIndex}
+            >
+              {label}
+            </span>
+          ))}
+        </div>
+      </div>
       <div className="capabilities-container">
         <div className="capabilities-left">
           <h2 className="capabilities-title" key={safeIndex}>
@@ -96,24 +119,11 @@ export function CapabilitiesSection() {
           <p className="capabilities-description" key={`desc-${safeIndex}`}>
             {currentItem.description}
           </p>
-          <ul className="capability-list">
-            {CAPABILITY_ITEMS.map(({ label }, index) => (
-              <li
-                key={label}
-                className={index === safeIndex ? 'capability-list-item-active' : ''}
-              >
-                {label}
-              </li>
-            ))}
-          </ul>
           <Link to="/capabilities" className="primary-btn">
             Explore Our Manufacturing Capabilities
           </Link>
         </div>
         <div className="capabilities-right">
-          <p className="capabilities-right-label" aria-live="polite">
-            {currentItem.label}
-          </p>
           <div className="capabilities-cardswap-wrapper">
             <CardSwap
               width={640}

@@ -163,22 +163,6 @@ export function CapabilitiesSection() {
         backgroundSize: '12px 12px',
       }}
     >
-      <h2 className="capabilities-section-heading">Our Capabilities</h2>
-      <h3 className="capabilities-subheading">Manufacturing</h3>
-      <div className="capability-pills-wrap">
-        <div className="capability-pills" role="tablist" aria-label="Capabilities">
-          {CAPABILITY_ITEMS.map(({ label }, index) => (
-            <span
-              key={label}
-              className={`capability-pill ${index === safeIndex ? 'capability-pill-active' : ''}`}
-              role="tab"
-              aria-selected={index === safeIndex}
-            >
-              {label}
-            </span>
-          ))}
-        </div>
-      </div>
       <div className="capabilities-container">
         <header className="capabilities-header">
           <h2 className="capabilities-heading">OUR CAPABILITIES</h2>

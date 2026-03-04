@@ -1,0 +1,13 @@
+.blank-section {
+  position: relative;
+  padding: 120px 0;
+  width: 100%;
+  min-height: 200px;
+}
+
+.blank-section-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: clamp(32px, 6vw, 80px);
+  padding-right: clamp(32px, 6vw, 80px);
+}

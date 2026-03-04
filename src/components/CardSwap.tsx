@@ -14,7 +14,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ customClass, ...rest }, ref) => (
+  ({ customClass, className, ...rest }, ref) => (
     <div
       ref={ref}
       {...rest}
@@ -114,7 +114,6 @@ const CardSwap = ({
   const childArr = useMemo(() => Children.toArray(children), [children]);
   const refs = useMemo(
     () => childArr.map(() => React.createRef<HTMLDivElement>()),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [childArr.length]
   );
 
@@ -262,7 +261,7 @@ const CardSwap = ({
     const runSwap = () => swapImplRef.current?.();
     intervalRef.current = window.setInterval(runSwap, delay) as unknown as number;
 
-    if (pauseOnHover) {
+    if (pauseOnHover && container.current) {
       const node = container.current;
       const pause = () => {
         tlRef.current?.pause();
@@ -272,11 +271,11 @@ const CardSwap = ({
         tlRef.current?.play();
         intervalRef.current = window.setInterval(runSwap, delay) as unknown as number;
       };
-      node?.addEventListener('mouseenter', pause);
-      node?.addEventListener('mouseleave', resume);
+      node.addEventListener('mouseenter', pause);
+      node.addEventListener('mouseleave', resume);
       return () => {
-        node?.removeEventListener('mouseenter', pause);
-        node?.removeEventListener('mouseleave', resume);
+        node.removeEventListener('mouseenter', pause);
+        node.removeEventListener('mouseleave', resume);
         clearInterval(intervalRef.current);
       };
     }

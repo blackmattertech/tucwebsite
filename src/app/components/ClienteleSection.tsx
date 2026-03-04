@@ -2,6 +2,30 @@ import { clientLogos } from '../../data/client-logos';
 
 const LOGOS_BASE = '/client logos';
 
+/** Derive SEO-friendly alt from logo filename (e.g. "kfc_logo.svg" → "KFC"). */
+function logoAlt(filename: string): string {
+  const known: Record<string, string> = {
+    "1024px-Cisco_logo.svg_.png": "Cisco",
+    "98b4e8_d71ea6626990460c8891b856b61618bamv2.webp": "Client",
+    "Acc_Logo_Black_Purple_RGB.png": "Accenture",
+    "Bank_of_Baroda_logo-3.svg": "Bank of Baroda",
+    "Tesco_Logo.svg_.png": "Tesco",
+    "Zomato-Logo.png": "Zomato",
+    "basf_logo.svg": "BASF",
+    "download-17.png": "Client",
+    "huawei_  logo.svg": "Huawei",
+    "john_deere logo.svg": "John Deere",
+    "kellogg's_logo.svg": "Kellogg's",
+    "kfc_logo.svg": "KFC",
+    "philips_logo.svg": "Philips",
+    "pwc_logo.svg": "PwC",
+    "red_bull logo.svg": "Red Bull",
+  };
+  if (known[filename]) return known[filename];
+  const base = filename.replace(/\.[^.]+$/, '').replace(/[_\-]+/g, ' ').replace(/\s*logo\s*$/i, '').trim();
+  return base.length > 2 && base.length < 50 ? base : 'Client';
+}
+
 export function ClienteleSection() {
   const logos = clientLogos;
   if (logos.length === 0) return null;
@@ -18,7 +42,7 @@ export function ClienteleSection() {
               <div key={`${name}-${i}`} className="marquee-item">
                 <img
                   src={`${LOGOS_BASE}/${encodeURIComponent(name)}`}
-                  alt=""
+                  alt={logoAlt(name)}
                   className="marquee-logo"
                   loading="lazy"
                   width={120}

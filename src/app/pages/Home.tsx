@@ -16,10 +16,10 @@ export function Home() {
       <HeroSection />
       <AboutSection />
       <PrinciplesSection />
+      <TrustSection />
       <CapabilitiesSection />
       <ProductsSection />
       <ManufacturingStrengthSection />
-      <TrustSection />
       <GoogleReviewsSection />
       <BlogSection />
       <SocialMediaSection />

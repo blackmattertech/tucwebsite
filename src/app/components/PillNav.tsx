@@ -16,6 +16,8 @@ export interface PillNavItem {
   label: string;
   href: string;
   ariaLabel?: string;
+  /** When true, render as download link (e.g. PDF). */
+  download?: boolean;
 }
 
 export interface PillNavProps {
@@ -213,7 +215,8 @@ export function PillNav({
     href.startsWith('tel:') ||
     href.startsWith('#');
 
-  const isRouterLink = (href: string) => href && !isExternalLink(href);
+  const isRouterLink = (href: string, item?: PillNavItem) =>
+    href && !isExternalLink(href) && !item?.download;
 
   const cssVars: React.CSSProperties = {
     ['--base' as string]: baseColor,
@@ -229,7 +232,7 @@ export function PillNav({
           <ul className="pill-list" role="menubar">
             {items.map((item, i) => (
               <li key={item.href || `item-${i}`} role="none">
-                {isRouterLink(item.href) ? (
+                {isRouterLink(item.href, item) ? (
                   <Link
                     role="menuitem"
                     to={item.href}
@@ -258,6 +261,7 @@ export function PillNav({
                     href={item.href}
                     className={`pill${activeHref === item.href ? ' is-active' : ''}`}
                     aria-label={item.ariaLabel || item.label}
+                    {...(item.download ? { download: true } : {})}
                     onMouseEnter={() => handleEnter(i)}
                     onMouseLeave={() => handleLeave(i)}
                   >
@@ -322,7 +326,7 @@ export function PillNav({
               <ul className="mobile-menu-list navbar-nav">
                 {items.map((item) => (
                   <li key={item.href || `mobile-item-${item.label}`} className="nav-item">
-                    {isRouterLink(item.href) ? (
+                    {isRouterLink(item.href, item) ? (
                       <Link
                         to={item.href}
                         className={`mobile-menu-link nav-link${activeHref === item.href ? ' active' : ''}`}
@@ -334,6 +338,7 @@ export function PillNav({
                       <a
                         href={item.href}
                         className={`mobile-menu-link nav-link${activeHref === item.href ? ' active' : ''}`}
+                        {...(item.download ? { download: true } : {})}
                         onClick={toggleMobileMenu}
                       >
                         {item.label}

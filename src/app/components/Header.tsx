@@ -3,12 +3,15 @@ import { Link } from 'react-router';
 import { PillNav } from './PillNav';
 import { HeaderSocial } from './HeaderSocial';
 
+const CATALOGUE_PDF = '/tshirt%20manufacturing%20hoodies%20manufacturing%20catalogue.pdf';
+
 const NAV_ITEMS = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about-apparel-manufacturer-bangalore' },
   { label: 'Capabilities', href: '/capabilities' },
   { label: 'Products', href: '/products' },
   { label: 'Blog', href: '/blog-apparel-manufacturing-guides' },
+  { label: 'Catalogue', href: CATALOGUE_PDF, download: true },
 ];
 
 const LOGO_YELLOW = '#fecc00';

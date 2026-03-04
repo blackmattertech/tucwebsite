@@ -20,7 +20,7 @@ export function ProductsSection() {
   ];
 
   return (
-    <section className="py-24 bg-white" id="products">
+    <section className="py-24 bg-white overflow-hidden" id="products">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
         <h2 className="text-gray-900 text-center mb-16" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, lineHeight: 1.2 }}>
           Knitwear Products We Manufacture

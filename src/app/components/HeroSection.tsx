@@ -1,9 +1,13 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { TextType } from './TextType';
 import RotatingText from './RotatingText';
 
-const DESKTOP_VIDEO = '/desktop/apparel-manufacturer-in-bangalore.mp4';
-const MOBILE_VIDEO = '/mobile/custom%20apparel%20manufacturer.mp4';
+/** Set to your CDN origin (e.g. https://cdn.example.com) to serve hero video from CDN; leave empty to use same origin. */
+const VIDEO_BASE = typeof import.meta.env !== 'undefined' && import.meta.env.VITE_VIDEO_CDN ? import.meta.env.VITE_VIDEO_CDN : '';
+const DESKTOP_VIDEO = `${VIDEO_BASE}/desktop/apparel-manufacturer-in-bangalore.mp4`;
+const MOBILE_VIDEO = `${VIDEO_BASE}/mobile/custom%20apparel%20manufacturer.mp4`;
+/** Poster shown until video loads (improves LCP). Use a frame or representative image. */
+const HERO_POSTER = '/best%20garment%20factory%20in%20bangalore.png';
 
 const HERO_HEADING_LINES = [
   'Private Label Clothing & Knitwear\nManufacturer in Bangalore',
@@ -33,6 +37,9 @@ const BRAND_YELLOW = '#FECC00';
 export function HeroSection() {
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
+  const [isMobileViewport, setIsMobileViewport] = useState(
+    typeof window !== 'undefined' && window.innerWidth < 768
+  );
 
   const ensurePlaying = (el: HTMLVideoElement | null) => {
     if (!el) return;
@@ -41,34 +48,44 @@ export function HeroSection() {
   };
 
   useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)');
+    const handle = () => setIsMobileViewport(mq.matches);
+    handle();
+    mq.addEventListener('change', handle);
+    return () => mq.removeEventListener('change', handle);
+  }, []);
+
+  useEffect(() => {
     ensurePlaying(desktopVideoRef.current);
     ensurePlaying(mobileVideoRef.current);
   }, []);
 
   return (
     <section id="hero" className="relative w-screen min-h-[600px] h-[100dvh] min-h-[100vh] flex items-center justify-center overflow-hidden">
-      {/* Background Video - Desktop */}
+      {/* Background Video - Desktop: poster improves LCP; only visible video preloads fully */}
       <video
         ref={desktopVideoRef}
         autoPlay
         loop
         muted
         playsInline
-        preload="auto"
+        poster={HERO_POSTER}
+        preload={isMobileViewport ? 'metadata' : 'auto'}
         className="absolute inset-0 w-full h-full object-cover hidden md:block"
         onEnded={(e) => e.currentTarget.play()}
       >
         <source src={DESKTOP_VIDEO} type="video/mp4" />
       </video>
 
-      {/* Background Video - Mobile */}
+      {/* Background Video - Mobile: poster improves LCP; only visible video preloads fully */}
       <video
         ref={mobileVideoRef}
         autoPlay
         loop
         muted
         playsInline
-        preload="auto"
+        poster={HERO_POSTER}
+        preload={isMobileViewport ? 'auto' : 'metadata'}
         className="absolute inset-0 w-full h-full object-cover md:hidden"
         onEnded={(e) => e.currentTarget.play()}
       >

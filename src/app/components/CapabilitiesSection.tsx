@@ -1,68 +1,152 @@
+import { useState } from 'react';
 import { Link } from 'react-router';
+import CardSwap, { Card } from '../../components/CardSwap';
+import './CapabilitiesSection.css';
+
+const CAPABILITY_ITEMS = [
+  {
+    image: 'Deep Design Proficiency.png',
+    label: 'Deep Design Proficiency',
+    title: 'Deep Design Proficiency',
+    description:
+      'Our team brings deep design proficiency to every project—from concept to final artwork—ensuring your apparel reflects your brand vision with precision and creativity.',
+  },
+  {
+    image: 'Expert Product Development.png',
+    label: 'Expert Product Development',
+    title: 'Expert Product Development',
+    description:
+      'From concept to production, we bring expert product development to every garment—refining designs, materials, and fit so your product meets quality and commercial goals.',
+  },
+  {
+    image: 'End-to-End Garment Manufacturing.png',
+    label: 'End-to-End Garment Manufacturing',
+    title: 'End-to-End Garment Manufacturing',
+    description:
+      'We deliver end-to-end garment manufacturing—from sourcing and cutting to stitching, finishing, and quality control—so you get a single, reliable partner for your full production run.',
+  },
+  {
+    image: 'ERP-Driven Production Management.png',
+    label: 'ERP-Driven Production Management',
+    title: 'ERP-Driven Production Management',
+    description:
+      'Our ERP system tracks every stage of garment production—from sampling to final dispatch—providing real-time visibility, structured workflows, and reliable delivery timelines.',
+  },
+];
+
+function CapabilityCardContent({
+  image,
+  label,
+  index,
+  errored,
+  onError,
+}: {
+  image: string;
+  label: string;
+  index: number;
+  errored: boolean;
+  onError: () => void;
+}) {
+  if (errored) {
+    return (
+      <div className="capability-card-fallback">
+        <span>{label}</span>
+      </div>
+    );
+  }
+  return (
+    <img
+      src={`/capabilities/${encodeURIComponent(image)}`}
+      alt={label}
+      onError={onError}
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        borderRadius: 12,
+        display: 'block',
+      }}
+    />
+  );
+}
 
 export function CapabilitiesSection() {
-  const capabilities = [
-    {
-      title: 'Manufacturing',
-      description: 'Bulk apparel manufacturing with modern production lines and experienced operators.',
-      image: 'https://images.unsplash.com/photo-1758271141001-e4ff47f2b1c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-      link: '/capabilities/apparel-manufacturing-bangalore'
-    },
-    {
-      title: 'Private Label',
-      description: 'Complete private label clothing manufacturing including branding and packaging.',
-      image: 'https://images.unsplash.com/photo-1724155090003-fd4e48ab8c8f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-      link: '/capabilities/private-label-clothing-manufacturer'
-    },
-    {
-      title: 'Infrastructure',
-      description: 'Modern garment factory infrastructure designed for scalable production.',
-      image: 'https://images.unsplash.com/photo-1716191299945-4c5b89703971?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-      link: '/capabilities/garment-factory-infrastructure'
-    }
-  ];
+  const [imageErrored, setImageErrored] = useState<Record<number, boolean>>({});
+  const [frontCardIndex, setFrontCardIndex] = useState(0);
+
+  const safeIndex = Math.max(0, Math.min(frontCardIndex, CAPABILITY_ITEMS.length - 1));
+  const currentItem = CAPABILITY_ITEMS[safeIndex];
+
+  const handleImageError = (index: number) => {
+    setImageErrored((prev) => ({ ...prev, [index]: true }));
+  };
+
+  const handleFrontCardChange = (index: number) => {
+    setFrontCardIndex(Math.max(0, Math.min(index, CAPABILITY_ITEMS.length - 1)));
+  };
 
   return (
-    <section className="py-24 bg-gray-50" id="capabilities">
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-        <h2 className="text-gray-900 text-center mb-16" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, lineHeight: 1.2 }}>
-          End-to-End Apparel Manufacturing Capabilities
-        </h2>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {capabilities.map((capability, index) => (
-            <Link
-              key={index}
-              to={capability.link}
-              className="group bg-white overflow-hidden hover:shadow-xl transition-shadow duration-300"
+    <section
+      id="capabilities"
+      className="capabilities-section"
+      style={{
+        backgroundColor: '#FFFFFF',
+        backgroundImage: 'radial-gradient(circle at center, #AAAAEE 0, #AAAAEE 1px, transparent 1px)',
+        backgroundSize: '12px 12px',
+      }}
+    >
+      <h2 className="capabilities-section-heading">Our Capabilities</h2>
+      <h3 className="capabilities-subheading">Manufacturing</h3>
+      <div className="capability-pills-wrap">
+        <div className="capability-pills" role="tablist" aria-label="Capabilities">
+          {CAPABILITY_ITEMS.map(({ label }, index) => (
+            <span
+              key={label}
+              className={`capability-pill ${index === safeIndex ? 'capability-pill-active' : ''}`}
+              role="tab"
+              aria-selected={index === safeIndex}
             >
-              <div className="aspect-[4/3] overflow-hidden">
-                <img
-                  src={capability.image}
-                  alt={capability.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-gray-900 mb-3" style={{ fontSize: '24px', fontWeight: 600 }}>
-                  {capability.title}
-                </h3>
-                <p className="text-gray-600" style={{ fontSize: '16px', lineHeight: 1.6 }}>
-                  {capability.description}
-                </p>
-              </div>
-            </Link>
+              {label}
+            </span>
           ))}
         </div>
-
-        <div className="text-center">
-          <Link
-            to="/capabilities"
-            className="inline-block bg-gray-900 text-white px-8 py-4 hover:bg-gray-800 transition-colors"
-            style={{ fontSize: '16px', fontWeight: 600 }}
-          >
-            View All Capabilities
+      </div>
+      <div className="capabilities-container">
+        <div className="capabilities-left">
+          <h2 className="capabilities-title" key={safeIndex}>
+            {currentItem.title}
+          </h2>
+          <p className="capabilities-description" key={`desc-${safeIndex}`}>
+            {currentItem.description}
+          </p>
+          <Link to="/capabilities" className="primary-btn">
+            Explore Our Manufacturing Capabilities
           </Link>
+        </div>
+        <div className="capabilities-right">
+          <div className="capabilities-cardswap-wrapper">
+            <CardSwap
+              width={640}
+              height={450}
+              cardDistance={24}
+              verticalDistance={36}
+              delay={300}
+              pauseOnHover
+              onFrontCardChange={handleFrontCardChange}
+            >
+              {CAPABILITY_ITEMS.map(({ image, label }, index) => (
+                <Card key={label}>
+                  <CapabilityCardContent
+                    image={image}
+                    label={label}
+                    index={index}
+                    errored={!!imageErrored[index]}
+                    onError={() => handleImageError(index)}
+                  />
+                </Card>
+              ))}
+            </CardSwap>
+          </div>
         </div>
       </div>
     </section>

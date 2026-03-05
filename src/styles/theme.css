@@ -1,7 +1,12 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --font-size: 16px;
+  /* Fluid base: scales from 14px (small screens) to 20px (large screens) so all rem-based layout scales */
+  --font-size: clamp(14px, 0.5rem + 1vw, 20px);
+  /* Optional: section spacing and container scale with viewport */
+  --section-padding-y: clamp(3rem, 6vw, 6rem);
+  --section-padding-x: clamp(1rem, 4vw, 3rem);
+  --container-max: min(1440px, 96vw);
   --background: #ffffff;
   --foreground: oklch(0.145 0 0);
   --card: #ffffff;

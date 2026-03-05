@@ -21,13 +21,13 @@ export function BlogSection() {
   ];
 
   return (
-    <section className="py-24 bg-gray-50" id="blog">
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-        <h2 className="text-gray-900 text-center mb-16" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, lineHeight: 1.2 }}>
+    <section className="py-16 md:py-24 bg-gray-50" id="blog">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+        <h2 className="text-gray-900 text-center mb-10 md:mb-16" style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)', fontWeight: 700, lineHeight: 1.2 }}>
           Latest Insights on Apparel Manufacturing
         </h2>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {blogs.map((blog, index) => (
             <a
               key={index}
@@ -41,11 +41,11 @@ export function BlogSection() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div className="p-6">
-                <h3 className="text-gray-900 mb-3 group-hover:text-gray-700 transition-colors" style={{ fontSize: '20px', fontWeight: 600, lineHeight: 1.4 }}>
+              <div className="p-4 md:p-6">
+                <h3 className="text-gray-900 mb-2 md:mb-3 group-hover:text-gray-700 transition-colors" style={{ fontSize: 'clamp(1rem, 1.35vw, 1.25rem)', fontWeight: 600, lineHeight: 1.4 }}>
                   {blog.title}
                 </h3>
-                <p className="text-gray-600" style={{ fontSize: '15px', lineHeight: 1.6 }}>
+                <p className="text-gray-600" style={{ fontSize: 'clamp(0.85rem, 1vw, 0.9375rem)', lineHeight: 1.6 }}>
                   {blog.excerpt}
                 </p>
               </div>

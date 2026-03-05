@@ -3,8 +3,8 @@ import { ClienteleSection } from './ClienteleSection';
 
 export function TrustSection() {
   return (
-    <section id="trust" className="py-20 md:py-28 bg-white">
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <section id="trust" className="py-14 md:py-20 lg:py-28 bg-white">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
         <h2
           className="text-gray-900 text-center"
           style={{

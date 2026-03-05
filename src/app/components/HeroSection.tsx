@@ -61,7 +61,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section id="hero" className="relative w-screen min-h-[600px] h-[100dvh] min-h-[100vh] flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative w-screen h-[100dvh] min-h-[100vh] flex items-center justify-center overflow-hidden">
       {/* Background Video - Desktop: poster improves LCP; only visible video preloads fully */}
       <video
         ref={desktopVideoRef}
@@ -141,8 +141,8 @@ export function HeroSection() {
             style={{
               backgroundColor: BRAND_YELLOW,
               color: '#111',
-              padding: '10px 18px',
-              borderRadius: '12px',
+              padding: 'clamp(0.5rem, 1.2vw, 0.75rem) clamp(0.9rem, 1.5vw, 1.125rem)',
+              borderRadius: 'clamp(8px, 0.75vw, 14px)',
               fontWeight: 700,
             }}
           >
@@ -169,7 +169,7 @@ export function HeroSection() {
         {/* Trust Text */}
         <p
           className="text-white/80"
-          style={{ fontSize: '15px', fontWeight: 500, letterSpacing: '0.5px' }}
+          style={{ fontSize: 'clamp(0.875rem, 1vw, 1rem)', fontWeight: 500, letterSpacing: '0.5px' }}
         >
           Trusted Apparel Manufacturing Partner for Brands and Businesses Across
           India

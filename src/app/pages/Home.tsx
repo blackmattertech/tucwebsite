@@ -4,6 +4,7 @@ import { PrinciplesSection } from '../components/PrinciplesSection';
 import { CapabilitiesSection } from '../components/CapabilitiesSection';
 import { BlankSection } from '../components/BlankSection';
 import { ProductsSection } from '../components/ProductsSection';
+import { ProductCarouselSection } from '../components/ProductCarouselSection';
 import { ManufacturingStrengthSection } from '../components/ManufacturingStrengthSection';
 import { TrustSection } from '../components/TrustSection';
 import { GoogleReviewsSection } from '../components/GoogleReviewsSection';
@@ -21,6 +22,7 @@ export function Home() {
       <CapabilitiesSection />
       <BlankSection />
       <ProductsSection />
+      <ProductCarouselSection />
       <ManufacturingStrengthSection />
       <GoogleReviewsSection />
       <BlogSection />

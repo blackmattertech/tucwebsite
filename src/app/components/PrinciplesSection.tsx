@@ -153,8 +153,7 @@ export function PrinciplesSection() {
   };
 
   return (
-    <div ref={containerRef} id="principles" className="relative h-[400vh] w-full"
-      style={{ backgroundColor: '#1C1C1D' }}>
+    <div ref={containerRef} id="principles" className="relative h-[400vh] w-full bg-black">
       <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden px-6 md:px-8 lg:px-12">
         {/* Background apparel icons */}
         <ApparelIconGrid />

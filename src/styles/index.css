@@ -1,3 +1,8 @@
 @import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
+
+/* Global responsive: hero and section containers scale with viewport */
+#hero {
+  min-height: clamp(400px, 85dvh, 900px);
+}

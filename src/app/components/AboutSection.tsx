@@ -73,7 +73,7 @@ export function AboutSection() {
 
   return (
     <section className="bg-white py-16 md:py-24 lg:py-28" id="about">
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+      <div className="max-w-[1440px] xl:max-w-[1600px] 2xl:max-w-[1680px] mx-auto px-6 lg:px-12 xl:px-16">
         <h2
           className="text-gray-900 font-bold uppercase mb-12 md:mb-16"
           style={{
@@ -85,7 +85,7 @@ export function AboutSection() {
           About Us
         </h2>
         {/* Main content: description + image */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-16 md:mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-center mb-16 md:mb-20">
           <div className="lg:col-span-5 order-2 lg:order-1">
             <div
               className="text-gray-600 mb-8 text-base md:text-lg lg:text-xl leading-relaxed space-y-4"
@@ -112,11 +112,19 @@ export function AboutSection() {
               Learn More About Our Manufacturing
             </Link>
           </div>
-          <div className="lg:col-span-7 order-1 lg:order-2">
-            <div className="relative aspect-[4/3] lg:aspect-video rounded-2xl overflow-hidden shadow-2xl">
+          <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col gap-4 md:gap-6">
+            <div className="relative aspect-[4/3] lg:aspect-video lg:min-h-[380px] xl:min-h-[440px] 2xl:min-h-[500px] rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src={ABOUT_IMAGE}
                 alt={ABOUT_IMAGE_ALT}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div className="relative aspect-[4/3] lg:aspect-video rounded-2xl overflow-hidden shadow-2xl">
+              <img
+                src="/capabilities/fabric rolls.png"
+                alt="Fabric rolls and materials at TAG Unlimited garment manufacturing facility"
                 className="w-full h-full object-cover"
                 loading="lazy"
               />

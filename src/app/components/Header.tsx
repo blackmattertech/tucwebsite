@@ -53,13 +53,13 @@ export function Header() {
         isScrolled ? 'bg-white/80 shadow-md backdrop-blur-md' : 'bg-black/20 backdrop-blur-md'
       }`}
     >
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-        <div className="flex items-center justify-between h-20 gap-4">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="flex items-center justify-between h-16 md:h-20 gap-3 md:gap-4">
           <Link to="/" className="flex-shrink-0 flex items-center gap-2">
             <img
               src="/logo.svg"
               alt="TAG UNLIMITED - Private Label Apparel Manufacturer Bangalore"
-              className="h-14 w-auto md:h-16"
+              className="h-12 w-auto md:h-14 lg:h-16"
               width={160}
               height={56}
             />

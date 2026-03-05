@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Outlet } from 'react-router';
 import { ContactModalProvider } from '../context/ContactModalContext';
 import { Header } from './Header';
@@ -16,7 +17,9 @@ function LayoutContent() {
         <ContactCircleButton />
       </div>
       <main>
-        <Outlet />
+        <Suspense fallback={<div className="min-h-[60vh]" aria-hidden />}>
+          <Outlet />
+        </Suspense>
       </main>
       <Footer />
       <FloatingContactButtons />

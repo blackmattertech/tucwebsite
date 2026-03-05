@@ -70,14 +70,14 @@ export function HeroSection() {
         muted
         playsInline
         poster={HERO_POSTER}
-        preload={isMobileViewport ? 'metadata' : 'auto'}
+        preload="metadata"
         className="absolute inset-0 w-full h-full object-cover hidden md:block"
         onEnded={(e) => e.currentTarget.play()}
       >
         <source src={DESKTOP_VIDEO} type="video/mp4" />
       </video>
 
-      {/* Background Video - Mobile: poster improves LCP; only visible video preloads fully */}
+      {/* Background Video - Mobile: poster improves LCP; preload=metadata for fast initial load */}
       <video
         ref={mobileVideoRef}
         autoPlay
@@ -85,7 +85,7 @@ export function HeroSection() {
         muted
         playsInline
         poster={HERO_POSTER}
-        preload={isMobileViewport ? 'auto' : 'metadata'}
+        preload="metadata"
         className="absolute inset-0 w-full h-full object-cover md:hidden"
         onEnded={(e) => e.currentTarget.play()}
       >

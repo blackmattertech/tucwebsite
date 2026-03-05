@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import './ProductCarouselSection.css';
 
 const HOODIES_VIDEO_SRC = '/products/hoodies%20manufacturers%20in%20bangalore.mp4';
@@ -89,23 +90,53 @@ const PRODUCT_ITEMS = [
 
 type ProductItem = (typeof PRODUCT_ITEMS)[0];
 
+/** Only load and play video when the panel is in or near the viewport (performance). */
+function LazyCarouselVideo({ src, label }: { src: string; label: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) setInView(true);
+      },
+      { rootMargin: '120px', threshold: 0.01 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="product-carousel-lazy-wrap">
+      {!inView ? (
+        <div className="product-carousel-media product-carousel-media-placeholder" aria-hidden>
+          <span className="product-carousel-placeholder-text">Video</span>
+        </div>
+      ) : (
+        <video
+          src={src}
+          className="product-carousel-media-el"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          aria-label={label}
+        />
+      )}
+    </div>
+  );
+}
+
 /**
  * Media slot for each panel. Uses video when videoSrc is set; otherwise placeholder.
  * Grayscale → color on hover is applied via CSS to .product-carousel-media-el.
  */
 function ProductPanelMedia({ item }: { item: ProductItem }) {
   if (item.videoSrc) {
-    return (
-      <video
-        src={item.videoSrc}
-        className="product-carousel-media-el"
-        autoPlay
-        loop
-        muted
-        playsInline
-        aria-label={item.label}
-      />
-    );
+    return <LazyCarouselVideo src={item.videoSrc} label={item.label} />;
   }
   return (
     <div className="product-carousel-media product-carousel-media-placeholder" aria-hidden>

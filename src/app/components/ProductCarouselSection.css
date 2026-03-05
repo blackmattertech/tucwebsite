@@ -60,6 +60,11 @@
   overflow: hidden;
 }
 
+.product-carousel-lazy-wrap {
+  position: absolute;
+  inset: 0;
+}
+
 /* Media (image or video): grayscale by default, color on panel hover */
 .product-carousel-media,
 .product-carousel-media-el {

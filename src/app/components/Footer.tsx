@@ -23,30 +23,30 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-gray-900 text-white pt-16 pb-8">
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+    <footer className="bg-gray-900 text-white pt-12 md:pt-16 pb-6 md:pb-8">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-10 md:mb-12">
           {/* Company */}
           <div>
-            <Link to="/" className="mb-6 block inline-block">
+            <Link to="/" className="mb-4 md:mb-6 block inline-block">
               <img
                 src="/logo.svg"
                 alt="TAG UNLIMITED - Private Label Apparel Manufacturer Bangalore"
-                className="h-10 w-auto brightness-0 invert"
+                className="h-8 md:h-10 w-auto brightness-0 invert"
                 width={120}
                 height={40}
               />
             </Link>
-            <h3 className="text-white mb-4" style={{ fontSize: '16px', fontWeight: 600 }}>
+            <h3 className="text-white mb-3 md:mb-4" style={{ fontSize: 'clamp(0.9rem, 1vw, 1rem)', fontWeight: 600 }}>
               Company
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-2 md:space-y-3">
               {footerLinks.company.map((link, index) => (
                 <li key={index}>
                   <Link
                     to={link.href}
                     className="text-white/70 hover:text-white transition-colors"
-                    style={{ fontSize: '15px' }}
+                    style={{ fontSize: 'clamp(0.85rem, 1vw, 0.9375rem)' }}
                   >
                     {link.label}
                   </Link>
@@ -57,7 +57,7 @@ export function Footer() {
 
           {/* Products */}
           <div>
-            <h3 className="text-white mb-4" style={{ fontSize: '16px', fontWeight: 600 }}>
+            <h3 className="text-white mb-4" style={{ fontSize: 'clamp(0.9rem, 1vw, 1rem)', fontWeight: 600 }}>
               Products
             </h3>
             <ul className="space-y-3">
@@ -66,7 +66,7 @@ export function Footer() {
                   <Link
                     to={link.href}
                     className="text-white/70 hover:text-white transition-colors"
-                    style={{ fontSize: '15px' }}
+                    style={{ fontSize: 'clamp(0.85rem, 1vw, 0.9375rem)' }}
                   >
                     {link.label}
                   </Link>
@@ -77,7 +77,7 @@ export function Footer() {
 
           {/* Resources */}
           <div>
-            <h3 className="text-white mb-4" style={{ fontSize: '16px', fontWeight: 600 }}>
+            <h3 className="text-white mb-4" style={{ fontSize: 'clamp(0.9rem, 1vw, 1rem)', fontWeight: 600 }}>
               Resources
             </h3>
             <ul className="space-y-3">
@@ -88,7 +88,7 @@ export function Footer() {
                       type="button"
                       onClick={modal.openModal}
                       className="text-white/70 hover:text-white transition-colors text-left"
-                      style={{ fontSize: '15px' }}
+                      style={{ fontSize: 'clamp(0.85rem, 1vw, 0.9375rem)' }}
                     >
                       {link.label}
                     </button>
@@ -96,7 +96,7 @@ export function Footer() {
                     <Link
                       to={link.href}
                       className="text-white/70 hover:text-white transition-colors"
-                      style={{ fontSize: '15px' }}
+                      style={{ fontSize: 'clamp(0.85rem, 1vw, 0.9375rem)' }}
                     >
                       {link.label}
                     </Link>
@@ -108,11 +108,11 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-white mb-4" style={{ fontSize: '16px', fontWeight: 600 }}>
+            <h3 className="text-white mb-4" style={{ fontSize: 'clamp(0.9rem, 1vw, 1rem)', fontWeight: 600 }}>
               Contact
             </h3>
             <div className="space-y-3">
-              <p className="text-white/70" style={{ fontSize: '15px', lineHeight: 1.6 }}>
+              <p className="text-white/70" style={{ fontSize: 'clamp(0.85rem, 1vw, 0.9375rem)', lineHeight: 1.6 }}>
                 Bangalore<br />
                 Karnataka<br />
                 India
@@ -121,7 +121,7 @@ export function Footer() {
                 <a
                   href="mailto:contact@apparelmfg.com"
                   className="text-white/70 hover:text-white transition-colors"
-                  style={{ fontSize: '15px' }}
+                  style={{ fontSize: 'clamp(0.85rem, 1vw, 0.9375rem)' }}
                 >
                   contact@apparelmfg.com
                 </a>

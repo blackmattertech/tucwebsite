@@ -12,7 +12,7 @@ function LayoutContent() {
     <div className="min-h-screen bg-white">
       <Header />
       <SectionScrollIndicators />
-      <div className="fixed top-24 right-4 lg:right-6 z-40">
+      <div className="fixed top-20 right-3 md:top-24 md:right-4 lg:right-6 z-40">
         <ContactCircleButton />
       </div>
       <main>

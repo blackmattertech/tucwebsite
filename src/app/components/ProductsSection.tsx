@@ -1,62 +1,59 @@
 import { Link } from 'react-router';
+import './ProductsSection.css';
+
+const VALUE_ADDED_ITEMS = [
+  {
+    title: 'Embroidery',
+    image: '/capabilities/embroidery.png',
+    description:
+      'Premium embroidery for logos and branding on caps, polos, and apparel. Dense stitch options and quick turnaround for bulk orders.',
+  },
+  {
+    title: 'DTF Printing',
+    image: '/capabilities/DTF Printing.png',
+    description:
+      'Direct-to-film printing for full-color, detailed designs on any fabric. No minimums, vibrant results, and durable finishes.',
+  },
+  {
+    title: 'Screen Printing',
+    image: '/capabilities/Screen Printing.png',
+    description:
+      'Classic screen printing for bold graphics and high opacity on tees, hoodies, and more. Ideal for large runs and brand consistency.',
+  },
+  {
+    title: 'Vinyl Printing',
+    image: '/capabilities/vinayl printing.png',
+    description:
+      'Vinyl printing for custom graphics, numbers, and names on apparel. Durable and vibrant, ideal for sportswear and small batches.',
+  },
+];
 
 export function ProductsSection() {
-  const products = [
-    {
-      title: 'T-Shirt Manufacturer Bangalore',
-      image: 'https://images.unsplash.com/photo-1485920784995-d65789b1c3af?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-      link: '/products/t-shirt-manufacturer-bangalore'
-    },
-    {
-      title: 'Hoodie Manufacturer India',
-      image: 'https://images.unsplash.com/photo-1667586680656-6b8e381cddb5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-      link: '/products/hoodie-manufacturer-india'
-    },
-    {
-      title: 'Shirt Manufacturer Bangalore',
-      image: 'https://images.unsplash.com/photo-1765614766382-2ff118e9095d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-      link: '/products/shirt-manufacturer-bangalore'
-    }
-  ];
-
   return (
-    <section className="py-24 bg-white overflow-hidden" id="products">
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-        <h2 className="text-gray-900 text-center mb-16" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, lineHeight: 1.2 }}>
-          Knitwear Products We Manufacture
-        </h2>
+    <section className="value-added-section" id="value-added-services">
+      <div className="section-heading-wrap">
+        <h2 className="section-heading">Value Added Services</h2>
+      </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {products.map((product, index) => (
-            <Link
-              key={index}
-              to={product.link}
-              className="group relative overflow-hidden bg-gray-100 aspect-[3/4]"
-            >
+      <div className="value-added-cards">
+        {VALUE_ADDED_ITEMS.map((item, index) => (
+          <Link key={index} to="/capabilities" className="value-added-card">
+            <div className="value-added-card-top">
               <img
-                src={product.image}
-                alt={product.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                src={item.image}
+                alt={item.title}
+                className="value-added-card-image"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                <h3 className="text-white" style={{ fontSize: '22px', fontWeight: 600, lineHeight: 1.3 }}>
-                  {product.title}
-                </h3>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        <div className="text-center">
-          <Link
-            to="/products"
-            className="inline-block bg-gray-900 text-white px-8 py-4 hover:bg-gray-800 transition-colors"
-            style={{ fontSize: '16px', fontWeight: 600 }}
-          >
-            View All Products
+            </div>
+            <div className="value-added-card-bottom">
+              <h3 className="value-added-card-title">
+                {item.title}
+                <span className="check" aria-hidden>✓</span>
+              </h3>
+              <p className="value-added-card-description">{item.description}</p>
+            </div>
           </Link>
-        </div>
+        ))}
       </div>
     </section>
   );

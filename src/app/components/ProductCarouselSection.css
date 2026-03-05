@@ -1,0 +1,116 @@
+/* Product carousel – infinite scroll, grayscale → color on hover, vertical labels */
+
+.product-carousel-section {
+  position: relative;
+  width: 100%;
+  padding: clamp(3rem, 6vw, 4.5rem) 0 clamp(2rem, 4vw, 3rem);
+  background: #000000;
+  overflow: hidden;
+}
+
+.product-carousel-heading {
+  margin: 0 0 clamp(2rem, 4vw, 3rem);
+  padding: 0 clamp(1rem, 4vw, 2rem);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.product-carousel-track {
+  width: 100%;
+  overflow: hidden;
+}
+
+.product-carousel-inner {
+  display: flex;
+  width: max-content;
+  animation: product-carousel-scroll 25s linear infinite;
+  will-change: transform;
+}
+
+.product-carousel-inner:hover {
+  animation-play-state: paused;
+}
+
+@keyframes product-carousel-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.product-carousel-panel {
+  position: relative;
+  flex-shrink: 0;
+  width: clamp(220px, 22vw, 320px);
+  min-height: clamp(480px, 58vw, 680px);
+  display: flex;
+  background: #0a0a0a;
+}
+
+.product-carousel-panel-media-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Media (image or video): grayscale by default, color on panel hover */
+.product-carousel-media,
+.product-carousel-media-el {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+  transition: filter 0.5s ease;
+}
+
+.product-carousel-panel:hover .product-carousel-media,
+.product-carousel-panel:hover .product-carousel-media-el {
+  filter: grayscale(0%);
+}
+
+/* Placeholder until videos are added */
+.product-carousel-media-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+}
+
+.product-carousel-placeholder-text {
+  font-size: clamp(0.875rem, 1.2vw, 1rem);
+  color: rgba(255, 255, 255, 0.25);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* Vertical label on the right edge of each panel, positioned toward bottom */
+.product-carousel-panel-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: clamp(2.5rem, 4vw, 3.5rem);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 0 clamp(1.5rem, 4vw, 2.5rem) 0;
+  z-index: 1;
+  pointer-events: none;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+  white-space: nowrap;
+}

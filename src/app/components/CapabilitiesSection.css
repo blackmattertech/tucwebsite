@@ -64,27 +64,58 @@
 }
 
 .capabilities-left {
+  grid-area: left;
   font-family: var(--font-family);
-  text-align: left;
+  padding-top: 0;
+}
+
+/* Fade-in when slide changes so text stays in sync with card swap */
+.capabilities-text-block {
+  animation: capabilities-text-in 0.35s ease-out forwards;
+}
+
+.capabilities-text-block .capabilities-title,
+.capabilities-text-block .capabilities-description,
+.capabilities-text-block .capability-list li {
+  transition: opacity 0.25s ease;
+}
+
+@keyframes capabilities-text-in {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.capabilities-label {
+  font-size: clamp(0.75rem, 1vw, 0.8125rem);
+  font-weight: 600;
+  color: #fecc00;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.5rem;
+  transition: opacity 0.25s ease;
 }
 
 .capabilities-title {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.5rem, 3.5vw, 3rem);
   font-weight: 700;
   line-height: 1.2;
   color: #111827;
   margin: 0 0 1rem;
   letter-spacing: -0.02em;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.25s ease;
 }
 
 .capabilities-description {
-  font-size: 1rem;
-  line-height: 1.75;
+  font-size: clamp(0.9375rem, 1.2vw, 1rem);
+  line-height: 1.6;
   color: #4b5563;
-  margin: 0 0 1.25rem;
-  transition: opacity 0.2s ease;
+  margin: 0 0 1rem;
+  transition: opacity 0.25s ease;
 }
 
 .capability-pills {
@@ -104,9 +135,8 @@
   font-weight: 500;
   line-height: 1.4;
   color: #374151;
-  background: #f3f4f6;
-  border-radius: 9999px;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  font-weight: 500;
+  transition: color 0.2s ease, font-weight 0.2s ease;
 }
 
 .capability-pill-active {
@@ -137,10 +167,10 @@
   min-height: clamp(400px, 45vw, 680px);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   position: relative;
-  overflow: visible;
+  padding-bottom: clamp(24px, 4vw, 48px);
 }
 
 .capabilities-cardswap-wrapper {
@@ -149,16 +179,20 @@
   width: 100%;
   max-width: min(720px, 90vw);
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   overflow: visible;
+  margin-top: 0;
 }
 
-/* Position CardSwap stack centred */
+/* Cards start from container top: stack pulled up so it begins at top */
 .capabilities-right .card-swap-container {
   left: 50%;
   right: auto;
-  transform: translate(-50%, 5%);
-  transform-origin: center center;
+  top: 0;
+  bottom: auto;
+  transform: translate(0, -45%);
+  transform-origin: top left;
 }
 
 .capability-card-fallback {
@@ -176,6 +210,21 @@
   border-radius: 12px;
 }
 
+/* Tablet and below: single column, centered cards */
+@media (max-width: 1024px) {
+  .capabilities-container {
+    padding-right: clamp(24px, 5vw, 64px);
+  }
+
+  .capabilities-right {
+    min-height: clamp(380px, 45vw, 540px);
+  }
+
+  .capabilities-cardswap-wrapper {
+    height: clamp(300px, 50vw, 540px);
+  }
+}
+
 @media (max-width: 768px) {
   .capabilities-section {
     padding: clamp(3rem, 6vw, 5rem) 0;
@@ -189,6 +238,7 @@
   .capabilities-right {
     min-height: clamp(340px, 70vw, 540px);
     align-items: center;
+    padding-bottom: clamp(24px, 4vw, 40px);
   }
 
   .capabilities-cardswap-wrapper {
@@ -198,13 +248,31 @@
   .capabilities-right .card-swap-container {
     left: 50%;
     right: auto;
-    transform: scale(0.75) translate(45%, 25%);
-    transform-origin: bottom center;
+    top: 50%;
+    bottom: auto;
+    transform: translate(-50%, -50%) scale(0.75);
+    transform-origin: center center;
+  }
+}
+
+@media (max-width: 640px) {
+  .capabilities-container {
+    padding-left: clamp(16px, 4vw, 24px);
+    padding-right: clamp(16px, 4vw, 32px);
+  }
+
+  .capabilities-right .card-swap-container {
+    transform: translate(-50%, -50%) scale(0.65);
   }
 }
 
 @media (max-width: 480px) {
+  .capabilities-section {
+    padding-bottom: clamp(40px, 10vw, 64px);
+  }
+
   .capabilities-right .card-swap-container {
-    transform: scale(0.55) translate(-55%, 25%);
+    transform: translate(-50%, -50%) scale(0.55);
+    transform-origin: center center;
   }
 }

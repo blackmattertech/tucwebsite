@@ -62,13 +62,11 @@ const CAPABILITY_ITEMS = [
 function CapabilityCardContent({
   image,
   label,
-  index,
   errored,
   onError,
 }: {
   image: string;
   label: string;
-  index: number;
   errored: boolean;
   onError: () => void;
 }) {
@@ -101,7 +99,7 @@ export function CapabilitiesSection() {
   const [jumpToIndex, setJumpToIndex] = useState<number | null>(null);
   const cardDims = useCardSwapDimensions();
 
-  /** Ref that CardSwap keeps updated with the visible front card index; we sync state from it so text/pill always match the image. */
+  /** Ref that CardSwap keeps updated with the visible front card index */
   const frontIndexRef = useRef<number | null>(0);
 
   // Single index for both card stack and text: card at front and content always match.
@@ -112,46 +110,25 @@ export function CapabilitiesSection() {
     setImageErrored((prev) => ({ ...prev, [index]: true }));
   };
 
-  const setFrontIndexRef = useRef<(index: number) => void>(() => {});
-  setFrontIndexRef.current = (index: number) => {
-    const next = Math.max(0, Math.min(index, CAPABILITY_ITEMS.length - 1));
-    setFrontCardIndex(next);
-    setJumpToIndex(null);
-  };
-
-  const setFrontCardIndexRef = useRef(setFrontCardIndex);
-  setFrontCardIndexRef.current = setFrontCardIndex;
-
-  /** When the front card changes (auto-rotate or pill click), update state so left title/label/description and active pill stay in sync. */
+  /** When the front card changes (auto-rotate), update state so pills and text match the visible card */
   const handleFrontCardChange = useCallback((index: number) => {
     const next = Math.max(0, Math.min(index, CAPABILITY_ITEMS.length - 1));
     setFrontCardIndex(next);
-    setJumpToIndex(null);
   }, []);
 
+  /** When user clicks a pill, update both the text/pill state and tell CardSwap to jump to that card */
   const handlePillClick = (index: number) => {
-    setFrontCardIndex(Math.max(0, Math.min(index, CAPABILITY_ITEMS.length - 1)));
-    setJumpToIndex(index);
+    const next = Math.max(0, Math.min(index, CAPABILITY_ITEMS.length - 1));
+    setFrontCardIndex(next);
+    setJumpToIndex(next);
   };
 
+  // Clear jumpToIndex after CardSwap has processed it
   useEffect(() => {
     if (jumpToIndex === null) return;
-    const t = setTimeout(() => setJumpToIndex(null), 0);
+    const t = setTimeout(() => setJumpToIndex(null), 100);
     return () => clearTimeout(t);
   }, [jumpToIndex]);
-
-  // Sync state from CardSwap's frontIndexRef so left text and active pill always match the visible front card (fixes desync when image changes but callback didn't update state).
-  useEffect(() => {
-    const sync = () => {
-      if (jumpToIndex !== null) return; // don't overwrite user's pill selection
-      const idx = frontIndexRef.current;
-      if (idx === null || idx === frontCardIndex) return;
-      const next = Math.max(0, Math.min(idx, CAPABILITY_ITEMS.length - 1));
-      if (next !== frontCardIndex) setFrontCardIndex(next);
-    };
-    const id = setInterval(sync, 200);
-    return () => clearInterval(id);
-  }, [frontCardIndex, jumpToIndex]);
 
   return (
     <section
@@ -193,16 +170,7 @@ export function CapabilitiesSection() {
           <p className="capabilities-description" key={`desc-${activeCapabilityIndex}`}>
             {currentItem.description}
           </p>
-          <ul className="capability-list" key={`list-${activeCapabilityIndex}`}>
-            {CAPABILITY_ITEMS.map(({ label }, index) => (
-              <li
-                key={label}
-                className={index === activeCapabilityIndex ? 'capability-list-item-active' : ''}
-              >
-                {label}
-              </li>
-            ))}
-          </ul>
+         
           <Link to="/capabilities" className="primary-btn">
             Explore Our Manufacturing Capabilities
           </Link>
@@ -218,8 +186,6 @@ export function CapabilitiesSection() {
               pauseOnHover
               initialFrontIndex={jumpToIndex ?? undefined}
               onFrontCardChange={handleFrontCardChange}
-              setFrontIndexRef={setFrontIndexRef}
-              setFrontCardIndexRef={setFrontCardIndexRef}
               frontIndexRef={frontIndexRef}
             >
               {CAPABILITY_ITEMS.map(({ image, label }, index) => (
@@ -227,7 +193,6 @@ export function CapabilitiesSection() {
                   <CapabilityCardContent
                     image={image}
                     label={label}
-                    index={index}
                     errored={!!imageErrored[index]}
                     onError={() => handleImageError(index)}
                   />

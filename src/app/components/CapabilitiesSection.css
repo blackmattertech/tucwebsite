@@ -44,22 +44,85 @@
   max-width: min(1680px, 96vw);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 2.3fr;
-  gap: clamp(3rem, 6vw, 7.5rem);
-  align-items: center;
+  grid-template-columns: 1fr 1.2fr;
+  grid-template-areas:
+    "header header"
+    "left right";
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: start;
   padding-left: clamp(1rem, 4vw, 5rem);
   padding-right: clamp(1rem, 4vw, 5rem);
 }
 
+.capabilities-header {
+  grid-area: header;
+  margin-bottom: 1rem;
+}
+
+.capabilities-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 0.25rem;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.capabilities-header .capabilities-subheading {
+  font-family: var(--font-family);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 700;
+  color: #fecc00;
+  margin: 0 0 1rem;
+  padding: 0;
+  max-width: none;
+}
+
+.capabilities-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.capabilities-pill {
+  font-family: var(--font-family);
+  font-size: clamp(0.7125rem, 1vw, 0.875rem);
+  font-weight: 500;
+  color: #374151;
+  background: #e5e7eb;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.capabilities-pill:hover {
+  background: #d1d5db;
+  color: #111827;
+}
+
+.capabilities-pill-active {
+  background: #fecc00;
+  color: #111827;
+}
+
+.capabilities-pill-active:hover {
+  background: #e6b800;
+  color: #111827;
+}
+
 @media (min-width: 1280px) {
   .capabilities-container {
-    grid-template-columns: 1.15fr 2.2fr;
+    grid-template-columns: 1fr 1.3fr;
   }
 }
 
 @media (min-width: 1536px) {
   .capabilities-container {
-    grid-template-columns: 1.2fr 2fr;
+    grid-template-columns: 1fr 1.4fr;
   }
 }
 
@@ -118,6 +181,37 @@
   transition: opacity 0.25s ease;
 }
 
+.capability-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+
+.capability-list li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-size: clamp(0.875rem, 1.1vw, 1rem);
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+.capability-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fecc00;
+}
+
+.capability-list-item-active {
+  font-weight: 700;
+  color: #111827;
+}
+
 .capability-pills {
   display: flex;
   flex-wrap: nowrap;
@@ -164,35 +258,37 @@
 }
 
 .capabilities-right {
+  grid-area: right;
   min-height: clamp(400px, 45vw, 680px);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: flex-start;
   position: relative;
   padding-bottom: clamp(24px, 4vw, 48px);
 }
 
 .capabilities-cardswap-wrapper {
-  height: clamp(400px, 45vw, 680px);
+  height: clamp(400px,50vw, 450px);
   position: relative;
+  margin-right: 60px;
   width: 100%;
   max-width: min(720px, 90vw);
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-start;
   overflow: visible;
   margin-top: 0;
 }
 
-/* Cards start from container top: stack pulled up so it begins at top */
+/* Position card stack in the center of the wrapper */
 .capabilities-right .card-swap-container {
   left: 50%;
   right: auto;
-  top: 0;
+  top: 50%;
   bottom: auto;
-  transform: translate(0, -45%);
-  transform-origin: top left;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
 }
 
 .capability-card-fallback {
@@ -232,6 +328,10 @@
 
   .capabilities-container {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "left"
+      "right";
     gap: clamp(2rem, 5vw, 3rem);
   }
 

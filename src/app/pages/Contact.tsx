@@ -1,5 +1,6 @@
 import { PageHero } from '../components/PageHero';
 import { FormInput } from '../components/FormInput';
+import { LazyMapEmbed } from '../components/LazyMapEmbed';
 import { Mail, MapPin, Phone } from 'lucide-react';
 
 export function Contact() {
@@ -141,19 +142,8 @@ export function Contact() {
                 </div>
               </div>
 
-              {/* Google Maps Embed */}
-              <div className="aspect-video bg-gray-200 rounded-sm overflow-hidden shadow-md">
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31094.52455313618!2d77.5460981347656!3d13.047408599999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3d62de87f213%3A0xc7e1898b5896eb34!2sTAG%20UNLIMITED!5e0!3m2!1sen!2sin!4v1772317833150!5m2!1sen!2sin" 
-                  width="100%" 
-                  height="100%" 
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy" 
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="TAG UNLIMITED Factory Location"
-                />
-              </div>
+              {/* Google Maps Embed - lazy loaded when in view */}
+              <LazyMapEmbed />
             </div>
           </div>
         </div>

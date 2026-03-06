@@ -35,6 +35,7 @@ export function Footer() {
                 className="h-8 md:h-10 w-auto brightness-0 invert"
                 width={120}
                 height={40}
+                decoding="async"
               />
             </Link>
             <h3 className="text-white mb-3 md:mb-4" style={{ fontSize: 'clamp(0.9rem, 1vw, 1rem)', fontWeight: 600 }}>
@@ -155,6 +156,7 @@ export function Footer() {
               className="h-8 w-auto transition-transform duration-300 group-hover:scale-105"
               width={96}
               height={32}
+              decoding="async"
             />
             <span
               className="text-black font-bold tracking-tight transition-colors duration-300 group-hover:text-[#fecc00]"

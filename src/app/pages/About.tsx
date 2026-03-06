@@ -52,6 +52,8 @@ export function About() {
                 src="https://images.unsplash.com/photo-1768746350424-ee28a364dcf5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
                 alt="Apparel Manufacturing Facility"
                 className="w-full h-full object-cover"
+                width={1080}
+                height={720}
               />
             </div>
           </div>
@@ -143,6 +145,8 @@ export function About() {
                   src={img}
                   alt={`Factory view ${index + 1}`}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  width={800}
+                  height={450}
                 />
               </div>
             ))}

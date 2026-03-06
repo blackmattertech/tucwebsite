@@ -1,10 +1,32 @@
-/* Font URLs loaded via <link> in index.html to avoid render-blocking @import */
+/**
+ * Self-hosted fonts via @fontsource (Vite equivalent of next/font).
+ * - font-display: swap (included in @fontsource)
+ * - No external requests; fonts bundled with app
+ * - font-size-adjust reduces layout shift when font loads
+ */
+
+/* Plus Jakarta Sans - latin subset (weights used in design) */
+@import '@fontsource/plus-jakarta-sans/latin-300.css';
+@import '@fontsource/plus-jakarta-sans/latin-400.css';
+@import '@fontsource/plus-jakarta-sans/latin-400-italic.css';
+@import '@fontsource/plus-jakarta-sans/latin-500.css';
+@import '@fontsource/plus-jakarta-sans/latin-600.css';
+@import '@fontsource/plus-jakarta-sans/latin-700.css';
+@import '@fontsource/plus-jakarta-sans/latin-800.css';
+
+/* DM Serif Display - latin subset */
+@import '@fontsource/dm-serif-display/latin-400.css';
+@import '@fontsource/dm-serif-display/latin-400-italic.css';
 
 :root {
-  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-heading: 'DM Serif Display', Georgia, serif;
 }
 
 body {
   font-family: var(--font-family);
+  /* Reduce layout shift when font loads (match x-height of fallback) */
+  font-size-adjust: 0.5;
+  /* Prevent synthesized bold/italic from causing layout shift */
+  font-synthesis: none;
 }

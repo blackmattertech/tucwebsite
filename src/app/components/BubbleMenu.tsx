@@ -189,7 +189,7 @@ export function BubbleMenu({
           >
             <span className="logo-content">
               {typeof logo === 'string' ? (
-                <img src={logo} alt="Logo" className="bubble-logo" />
+                <img src={logo} alt="Logo" className="bubble-logo" width={120} height={40} />
               ) : (
                 logo
               )}

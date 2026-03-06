@@ -1,7 +1,9 @@
+import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { motion, useInView } from 'motion/react';
-import { useRef, useEffect, useState } from 'react';
 import { capabilityImageUrl } from '../lib/supabaseStorage';
+import { HERO_POSTER } from '../../hero-poster-config';
+import { OptimizedImage } from './OptimizedImage';
 
 const STATS = [
   { target: 100000, suffix: '+', label: 'Pieces Manufactured Monthly' },
@@ -64,11 +66,12 @@ function AnimatedCount({
 
 const LOGO_YELLOW = '#fecc00';
 
-const ABOUT_IMAGE = '/best%20garment%20factory%20in%20bangalore.png';
+/** Reuse optimized hero poster (WebP when available) */
+const ABOUT_IMAGE = HERO_POSTER;
 const ABOUT_IMAGE_ALT =
   'Best garment factory in Bangalore – TAG Unlimited, leading best apparel manufacturer in India for private label clothing, knitwear, T-shirts, hoodies and bulk garment production';
 
-export function AboutSection() {
+export const AboutSection = React.memo(function AboutSection() {
   const statsRef = useRef<HTMLDivElement>(null);
   const statsInView = useInView(statsRef, { once: true, amount: 0.3 });
 
@@ -119,17 +122,20 @@ export function AboutSection() {
                 src={ABOUT_IMAGE}
                 alt={ABOUT_IMAGE_ALT}
                 className="w-full h-full object-cover"
+                width={800}
+                height={600}
                 loading="lazy"
                 decoding="async"
               />
             </div>
             <div className="relative aspect-[4/3] lg:aspect-video rounded-2xl overflow-hidden shadow-2xl">
-              <img
+              <OptimizedImage
                 src={capabilityImageUrl('fabric rolls.webp')}
                 alt="Fabric rolls and materials at TAG Unlimited garment manufacturing facility"
+                width={800}
+                height={450}
                 className="w-full h-full object-cover"
                 loading="lazy"
-                decoding="async"
                 referrerPolicy="no-referrer"
               />
             </div>
@@ -161,4 +167,4 @@ export function AboutSection() {
       </div>
     </section>
   );
-}
+});

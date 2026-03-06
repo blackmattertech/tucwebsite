@@ -1,3 +1,5 @@
+import { OptimizedImage } from './OptimizedImage';
+
 export function BlogSection() {
   const blogs = [
     {
@@ -35,12 +37,13 @@ export function BlogSection() {
               className="group bg-white overflow-hidden hover:shadow-xl transition-shadow duration-300"
             >
               <div className="aspect-[16/10] overflow-hidden">
-                <img
+                <OptimizedImage
                   src={blog.image}
                   alt={blog.title}
+                  width={800}
+                  height={500}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
-                  decoding="async"
                 />
               </div>
               <div className="p-4 md:p-6">

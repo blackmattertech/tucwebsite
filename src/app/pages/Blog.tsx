@@ -111,6 +111,8 @@ export function Blog() {
                   src={featuredPost.image}
                   alt={featuredPost.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  width={800}
+                  height={450}
                 />
               </div>
               <div className="p-8 lg:p-12 flex flex-col justify-center">
@@ -143,6 +145,8 @@ export function Blog() {
                     src={post.image}
                     alt={post.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    width={400}
+                    height={225}
                   />
                 </div>
                 <div className="p-6">

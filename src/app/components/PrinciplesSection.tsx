@@ -1,5 +1,6 @@
 import { motion, useScroll, AnimatePresence } from 'motion/react';
-import { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { OptimizedImage } from './OptimizedImage';
 
 const LOGO_YELLOW = '#fecc00';
 
@@ -102,7 +103,7 @@ const principles = [
   },
 ];
 
-export function PrinciplesSection() {
+export const PrinciplesSection = React.memo(function PrinciplesSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollDirection, setScrollDirection] = useState<'down' | 'up'>('down');
@@ -204,11 +205,12 @@ export function PrinciplesSection() {
                 transition={{ duration: 0.7 }}
                 className="relative w-full aspect-video rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl max-w-2xl"
               >
-                <img
+                <OptimizedImage
                   src={activePrinciple.imageSrc}
                   alt={activePrinciple.imageAlt}
+                  width={800}
+                  height={450}
                   className="absolute inset-0 w-full h-full object-cover"
-                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/40" />
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -270,11 +272,12 @@ export function PrinciplesSection() {
                 transition={{ duration: 0.7 }}
                 className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl hidden lg:block w-full"
               >
-                <img
+                <OptimizedImage
                   src={activePrinciple.imageSrc}
                   alt={activePrinciple.imageAlt}
+                  width={800}
+                  height={450}
                   className="absolute inset-0 w-full h-full object-cover"
-                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/40" />
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -328,4 +331,4 @@ export function PrinciplesSection() {
       </div>
     </div>
   );
-}
+});

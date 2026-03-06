@@ -1,6 +1,7 @@
 import React from 'react';
 import { Instagram } from 'lucide-react';
 import { CircularText } from './CircularText';
+import { OptimizedImage } from './OptimizedImage';
 
 export function SocialMediaSection() {
   const posts = [
@@ -43,12 +44,13 @@ export function SocialMediaSection() {
               href="#"
               className="group relative aspect-square overflow-hidden bg-gray-100"
             >
-              <img
+              <OptimizedImage
                 src={post}
                 alt={`Manufacturing facility post ${index + 1}`}
+                width={400}
+                height={400}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"
-                decoding="async"
               />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                 <Instagram className="text-white" size={32} />

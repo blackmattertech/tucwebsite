@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import { capabilityImageUrl } from '../lib/supabaseStorage';
+import { OptimizedImage } from './OptimizedImage';
 import './ProductsSection.css';
 
 const VALUE_ADDED_ITEMS = [
@@ -40,12 +41,13 @@ export function ProductsSection() {
         {VALUE_ADDED_ITEMS.map((item, index) => (
           <Link key={index} to="/capabilities" className="value-added-card">
             <div className="value-added-card-top">
-              <img
+              <OptimizedImage
                 src={item.image}
                 alt={item.title}
+                width={400}
+                height={300}
                 className="value-added-card-image"
                 loading="lazy"
-                decoding="async"
                 referrerPolicy="no-referrer"
               />
             </div>

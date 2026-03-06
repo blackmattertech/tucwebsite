@@ -27,7 +27,9 @@ export default defineConfig({
           if (id.includes('node_modules')) {
             if (id.includes('react-router')) return 'router';
             if (id.includes('react-dom') || id.includes('/react/')) return 'react-vendor';
-            // Let Rollup group other node_modules automatically to avoid circular chunks
+            if (id.includes('motion') || id.includes('framer-motion')) return 'motion';
+            if (id.includes('gsap')) return 'gsap';
+            if (id.includes('@radix-ui')) return 'radix';
           }
         },
       },

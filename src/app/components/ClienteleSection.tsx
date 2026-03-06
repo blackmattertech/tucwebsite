@@ -1,5 +1,6 @@
 import { clientLogos } from '../../data/client-logos';
 import { clientLogoUrl } from '../lib/supabaseStorage';
+import { OptimizedImage } from './OptimizedImage';
 
 /** Derive SEO-friendly alt from logo filename (e.g. "kfc_logo.svg" → "KFC"). */
 function logoAlt(filename: string): string {
@@ -39,14 +40,14 @@ export function ClienteleSection() {
           <div className="marquee-inner">
             {duplicated.map((name, i) => (
               <div key={`${name}-${i}`} className="marquee-item">
-                <img
+                <OptimizedImage
                   src={clientLogoUrl(name)}
                   alt={logoAlt(name)}
-                  className="marquee-logo"
-                  loading="lazy"
-                  decoding="async"
                   width={120}
                   height={48}
+                  unoptimized={name.endsWith('.svg')}
+                  className="marquee-logo"
+                  loading="lazy"
                 />
               </div>
             ))}

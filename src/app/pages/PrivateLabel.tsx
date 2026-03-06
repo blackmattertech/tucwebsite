@@ -144,6 +144,8 @@ export function PrivateLabel() {
                 src="https://images.unsplash.com/photo-1724155090003-fd4e48ab8c8f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
                 alt="Private Label Manufacturing"
                 className="w-full h-full object-cover"
+                width={1080}
+                height={720}
               />
             </div>
           </div>

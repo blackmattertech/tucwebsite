@@ -62,6 +62,7 @@ export function Header() {
               className="h-12 w-auto md:h-14 lg:h-16"
               width={160}
               height={56}
+              decoding="async"
             />
           </Link>
 

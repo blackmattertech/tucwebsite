@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router';
 import CardSwap, { Card } from '../../components/CardSwap';
 import { capabilityImageUrl } from '../lib/supabaseStorage';
+import { OptimizedImage } from './OptimizedImage';
 import './CapabilitiesSection.css';
 
 /** Responsive card dimensions so all 4 slides fit inside container at any viewport */
@@ -79,20 +80,16 @@ function CapabilityCardContent({
     );
   }
   return (
-    <img
+    <OptimizedImage
       src={capabilityImageUrl(image)}
       alt={label}
       onError={onError}
+      width={640}
+      height={450}
       loading="lazy"
-      decoding="async"
       referrerPolicy="no-referrer"
-      style={{
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        borderRadius: 12,
-        display: 'block',
-      }}
+      className="w-full h-full object-cover block"
+      style={{ borderRadius: 12 }}
     />
   );
 }

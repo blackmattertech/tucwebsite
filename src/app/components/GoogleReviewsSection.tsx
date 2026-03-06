@@ -1,8 +1,6 @@
-import { useRef } from 'react';
-import Slider from 'react-slick';
+import { useRef, useEffect, useState, useCallback } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
 import { Star } from 'lucide-react';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
 interface Review {
   id: number;
@@ -104,7 +102,7 @@ function GoogleLogoIcon({ className }: { className?: string }) {
 function ReviewCard({ review }: { review: Review }) {
   return (
     <div
-      className="bg-white rounded-2xl p-6 h-full shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-gray-100/80 min-h-[280px] flex flex-col"
+      className="bg-white rounded-2xl p-6 h-full shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-gray-100/80 min-h-[280px] flex flex-col flex-shrink-0"
       style={{ fontFamily: 'var(--font-family)' }}
     >
       <div className="flex items-center gap-2 mb-3">
@@ -137,7 +135,7 @@ function ReviewCard({ review }: { review: Review }) {
 function CTAPanel() {
   return (
     <div
-      className="bg-[#0f0f0f] rounded-2xl p-6 md:p-8 h-full min-h-[280px] flex flex-col items-center justify-center text-center relative overflow-hidden"
+      className="bg-[#0f0f0f] rounded-2xl p-6 md:p-8 h-full min-h-[280px] flex flex-col items-center justify-center text-center relative overflow-hidden flex-shrink-0"
       style={{ fontFamily: 'var(--font-family)' }}
     >
       <div
@@ -176,45 +174,65 @@ function CTAPanel() {
   );
 }
 
-export function GoogleReviewsSection() {
-  const sliderRef = useRef<Slider>(null);
+const slides = [<CTAPanel key="cta" />, ...reviews.map((r) => <ReviewCard key={r.id} review={r} />)];
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 600,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4500,
-    pauseOnHover: true,
-    arrows: false,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          autoplay: true,
-          autoplaySpeed: 4500,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          autoplay: true,
-          autoplaySpeed: 4000,
-        },
-      },
-    ]
-  };
+export function GoogleReviewsSection() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    align: 'start',
+    skipSnaps: false,
+    breakpoints: {
+      '(max-width: 768px)': { containScroll: 'trimSnaps' },
+    },
+  });
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const scrollTo = useCallback((index: number) => {
+    emblaApi?.scrollTo(index);
+  }, [emblaApi]);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on('select', onSelect);
+    return () => emblaApi.off('select', onSelect);
+  }, [emblaApi, onSelect]);
+
+  // Autoplay: 4.5s on desktop, 4s on mobile
+  useEffect(() => {
+    if (!emblaApi) return;
+    const startAutoplay = () => {
+      autoplayRef.current = setInterval(() => {
+        emblaApi.scrollNext();
+      }, typeof window !== 'undefined' && window.innerWidth < 768 ? 4000 : 4500);
+    };
+    const stopAutoplay = () => {
+      if (autoplayRef.current) {
+        clearInterval(autoplayRef.current);
+        autoplayRef.current = null;
+      }
+    };
+    startAutoplay();
+    const container = emblaRef.current;
+    if (!container) return;
+    container.addEventListener('mouseenter', stopAutoplay);
+    container.addEventListener('mouseleave', startAutoplay);
+    return () => {
+      stopAutoplay();
+      container?.removeEventListener('mouseenter', stopAutoplay);
+      container?.removeEventListener('mouseleave', startAutoplay);
+    };
+  }, [emblaApi, emblaRef]);
 
   return (
     <section id="reviews" className="bg-white py-16 md:py-24" style={{ fontFamily: 'var(--font-family)' }}>
       <div className="max-w-[1200px] mx-auto px-6 lg:px-12">
-        {/* Header: title + stats + paragraph */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-12">
           <div className="lg:col-span-5">
             <h2
@@ -278,18 +296,32 @@ export function GoogleReviewsSection() {
           </div>
         </div>
 
-        {/* Carousel: CTA panel + review cards, auto loop */}
-        <div className="reviews-carousel">
-          <Slider ref={sliderRef} {...settings}>
-            <div className="px-2 md:px-3">
-              <CTAPanel />
-            </div>
-            {reviews.map((review) => (
-              <div key={review.id} className="px-2 md:px-3">
-                <ReviewCard review={review} />
+        <div className="relative overflow-hidden" ref={emblaRef}>
+          <div className="flex gap-4 md:gap-6 -mx-2 md:-mx-3">
+            {slides.map((slide, i) => (
+              <div
+                key={i}
+                className="flex-[0_0_100%] min-w-0 px-2 md:px-3 md:flex-[0_0_calc(50%-12px)] lg:flex-[0_0_calc(33.333%-16px)]"
+              >
+                {slide}
               </div>
             ))}
-          </Slider>
+          </div>
+        </div>
+
+        <div className="flex justify-center gap-2 mt-10">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => scrollTo(i)}
+              className="w-2 h-2 rounded-full transition-colors"
+              style={{
+                backgroundColor: i === selectedIndex ? '#ea4335' : '#cbd5e1',
+              }}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
         </div>
 
         <div className="flex justify-center mt-10">
@@ -304,54 +336,6 @@ export function GoogleReviewsSection() {
           </a>
         </div>
       </div>
-
-      <style>{`
-        .reviews-carousel {
-          font-family: var(--font-family);
-        }
-        .reviews-carousel .slick-dots {
-          bottom: -36px;
-        }
-        .reviews-carousel .slick-dots li {
-          margin: 0 4px;
-        }
-        .reviews-carousel .slick-dots li button:before {
-          color: #cbd5e1;
-          font-size: 8px;
-          opacity: 1;
-        }
-        .reviews-carousel .slick-dots li.slick-active button:before {
-          color: #ea4335;
-          opacity: 1;
-        }
-        .reviews-carousel .slick-slide > div {
-          height: 100%;
-        }
-        .reviews-carousel .slick-list {
-          margin: 0 -8px;
-        }
-        @media (min-width: 768px) {
-          .reviews-carousel .slick-list {
-            margin: 0 -12px;
-          }
-        }
-        @media (max-width: 768px) {
-          .reviews-carousel .slick-list {
-            margin: 0;
-            overflow: hidden;
-          }
-          .reviews-carousel .slick-slide {
-            width: 100%;
-            min-width: 100%;
-            padding-left: 0;
-            padding-right: 0;
-          }
-          .reviews-carousel .slick-slide > div {
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
-          }
-        }
-      `}</style>
     </section>
   );
 }

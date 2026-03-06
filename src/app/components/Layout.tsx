@@ -7,10 +7,12 @@ import { FloatingContactButtons } from './FloatingContactButtons';
 import { ContactCircleButton } from './ContactCircleButton';
 import { ContactModal } from './ContactModal';
 import { SectionScrollIndicators } from './SectionScrollIndicators';
+import { ThirdPartyScripts } from './ThirdPartyScripts';
 
 function LayoutContent() {
   return (
     <div className="min-h-screen bg-white relative">
+      <ThirdPartyScripts />
       <Header />
       <SectionScrollIndicators />
       <div className="fixed top-20 right-3 md:top-24 md:right-4 lg:right-6 z-40">

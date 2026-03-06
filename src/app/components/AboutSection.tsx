@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import { motion, useInView } from 'motion/react';
 import { useRef, useEffect, useState } from 'react';
+import { capabilityImageUrl } from '../lib/supabaseStorage';
 
 const STATS = [
   { target: 100000, suffix: '+', label: 'Pieces Manufactured Monthly' },
@@ -123,10 +124,11 @@ export function AboutSection() {
             </div>
             <div className="relative aspect-[4/3] lg:aspect-video rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="/capabilities/fabric rolls.png"
+                src={capabilityImageUrl('fabric rolls.webp')}
                 alt="Fabric rolls and materials at TAG Unlimited garment manufacturing facility"
                 className="w-full h-full object-cover"
                 loading="lazy"
+                referrerPolicy="no-referrer"
               />
             </div>
           </div>

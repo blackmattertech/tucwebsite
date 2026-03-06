@@ -10,7 +10,7 @@ import { SectionScrollIndicators } from './SectionScrollIndicators';
 
 function LayoutContent() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white relative">
       <Header />
       <SectionScrollIndicators />
       <div className="fixed top-20 right-3 md:top-24 md:right-4 lg:right-6 z-40">

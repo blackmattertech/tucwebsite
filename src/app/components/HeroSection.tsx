@@ -4,8 +4,8 @@ import RotatingText from './RotatingText';
 
 /** Set to your CDN origin (e.g. https://cdn.example.com) to serve hero video from CDN; leave empty to use same origin. */
 const VIDEO_BASE = typeof import.meta.env !== 'undefined' && import.meta.env.VITE_VIDEO_CDN ? import.meta.env.VITE_VIDEO_CDN : '';
-const DESKTOP_VIDEO = `${VIDEO_BASE}/desktop/apparel-manufacturer-in-bangalore.mp4`;
-const MOBILE_VIDEO = `${VIDEO_BASE}/mobile/custom%20apparel%20manufacturer.mp4`;
+const DESKTOP_VIDEO = `https://vwpseddaghxktpjtriaj.supabase.co/storage/v1/object/public/website%20videos/herosection/apparel-manufacturer-in-bangalore%20(2).mp4`;
+const MOBILE_VIDEO = `https://vwpseddaghxktpjtriaj.supabase.co/storage/v1/object/public/website%20videos/herosection/custom%20apparel%20manufacturer.mp4`;
 /** Poster shown until video loads (improves LCP). Use a frame or representative image. */
 const HERO_POSTER = '/best%20garment%20factory%20in%20bangalore.png';
 

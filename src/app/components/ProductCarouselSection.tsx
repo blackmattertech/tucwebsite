@@ -1,19 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
+import { productVideoUrl } from '../lib/supabaseStorage';
 import './ProductCarouselSection.css';
 
-const HOODIES_VIDEO_SRC = '/products/hoodies%20manufacturers%20in%20bangalore.mp4';
-const POLOS_VIDEO_SRC = '/products/polo%20manufacturers%20in%20bangalore.mp4';
-const TSHIRTS_VIDEO_SRC = '/products/tshirt%20manufacturer%20in%20india-%20best%20thsirt%20manufacturer.mp4';
-const CROP_TOP_VIDEO_SRC = '/products/premium%20private%20label%20manufacturer.mp4';
-const CAPS_VIDEO_SRC =
-  '/products/cap%20manufacturer%20in%20bangalore%20cap%20manufacturer%20in%20india%20private%20label%20cap%20manufacturing.mp4';
-const JACKETS_VIDEO_SRC = '/products/jackets%20manufacturers%20in%20bangalore.mp4';
-const DENIM_SHIRT_VIDEO_SRC = '/products/shirt%20manufacturers%20in%20india.mp4';
-const FORMAL_SHIRT_VIDEO_SRC =
-  '/products/shirt%20manufacturer%20in%20bangalore-%20best%20manufacturer%20for%20apparel%20in%20india.mp4';
-const JOGGERS_VIDEO_SRC =
-  '/products/trackpant%20manufacturers%20in%20india-%20joggers%20manufacturer%20in%20bangalore-%20sportswear%20manufacturer.mp4';
-const SHORTS_VIDEO_SRC = '/products/sports%20apparel%20manufacturers%20in%20bangalore.mp4';
+const HOODIES_VIDEO_SRC = productVideoUrl('hoodies manufacturers in bangalore.mp4');
+const POLOS_VIDEO_SRC = productVideoUrl('polo manufacturers in bangalore.mp4');
+const TSHIRTS_VIDEO_SRC = productVideoUrl('tshirt manufacturer in india- best thsirt manufacturer.mp4');
+const CROP_TOP_VIDEO_SRC = productVideoUrl('premium private label manufacturer.mp4');
+const CAPS_VIDEO_SRC = productVideoUrl('cap manufacturer in bangalore cap manufacturer in india private label cap manufacturing.mp4');
+const JACKETS_VIDEO_SRC = productVideoUrl('jackets manufacturers in bangalore.mp4');
+const DENIM_SHIRT_VIDEO_SRC = productVideoUrl('shirt manufacturers in india.mp4');
+const FORMAL_SHIRT_VIDEO_SRC = productVideoUrl('shirt manufacturer in bangalore- best manufacturer for apparel in india.mp4');
+const JOGGERS_VIDEO_SRC = productVideoUrl('trackpant manufacturers in india- joggers manufacturer in bangalore- sportswear manufacturer.mp4');
+const SHORTS_VIDEO_SRC = productVideoUrl('sports apparel manufacturers in bangalore.mp4');
 
 const PRODUCT_ITEMS = [
   {
@@ -94,6 +92,7 @@ type ProductItem = (typeof PRODUCT_ITEMS)[0];
 function LazyCarouselVideo({ src, label }: { src: string; label: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
+  const [errored, setErrored] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -108,11 +107,13 @@ function LazyCarouselVideo({ src, label }: { src: string; label: string }) {
     return () => io.disconnect();
   }, []);
 
+  const showPlaceholder = !inView || errored;
+
   return (
     <div ref={ref} className="product-carousel-lazy-wrap">
-      {!inView ? (
+      {showPlaceholder ? (
         <div className="product-carousel-media product-carousel-media-placeholder" aria-hidden>
-          <span className="product-carousel-placeholder-text">Video</span>
+          <span className="product-carousel-placeholder-text">{errored ? 'Video unavailable' : 'Video'}</span>
         </div>
       ) : (
         <video
@@ -124,6 +125,7 @@ function LazyCarouselVideo({ src, label }: { src: string; label: string }) {
           playsInline
           preload="metadata"
           aria-label={label}
+          onError={() => setErrored(true)}
         />
       )}
     </div>

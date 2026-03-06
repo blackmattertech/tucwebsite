@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router';
 import CardSwap, { Card } from '../../components/CardSwap';
+import { capabilityImageUrl } from '../lib/supabaseStorage';
 import './CapabilitiesSection.css';
 
 /** Responsive card dimensions so all 4 slides fit inside container at any viewport */
@@ -30,28 +31,28 @@ function useCardSwapDimensions() {
 
 const CAPABILITY_ITEMS = [
   {
-    image: 'Deep Design Proficiency.png',
+    image: 'Deep Design Proficiency.webp',
     label: 'Deep Design Proficiency',
     title: 'Deep Design Proficiency',
     description:
       'Our team brings deep design proficiency to every project—from concept to final artwork—ensuring your apparel reflects your brand vision with precision and creativity.',
   },
   {
-    image: 'Expert Product Development.png',
+    image: 'Expert Product Development.webp',
     label: 'Expert Product Development',
     title: 'Expert Product Development',
     description:
       'From concept to production, we bring expert product development to every garment—refining designs, materials, and fit so your product meets quality and commercial goals.',
   },
   {
-    image: 'End-to-End Garment Manufacturing.png',
+    image: 'End-to-End Garment Manufacturing.webp',
     label: 'End-to-End Garment Manufacturing',
     title: 'End-to-End Garment Manufacturing',
     description:
       'We deliver end-to-end garment manufacturing—from sourcing and cutting to stitching, finishing, and quality control—so you get a single, reliable partner for your full production run.',
   },
   {
-    image: 'image.png',
+    image: 'image.webp',
     label: 'Our Capabilities',
     title: 'Our Capabilities',
     description:
@@ -79,9 +80,11 @@ function CapabilityCardContent({
   }
   return (
     <img
-      src={`/capabilities/${encodeURIComponent(image)}`}
+      src={capabilityImageUrl(image)}
       alt={label}
       onError={onError}
+      loading="lazy"
+      referrerPolicy="no-referrer"
       style={{
         width: '100%',
         height: '100%',

@@ -53,10 +53,10 @@ const CAPABILITY_ITEMS = [
   },
   {
     image: 'image.webp',
-    label: 'Our Capabilities',
-    title: 'Our Capabilities',
+    label: 'ERP-Driven Production Managements',
+    title: 'ERP-Driven Production Management',
     description:
-      'Explore our full range of design, development, and manufacturing capabilities for your apparel needs.',
+      'Our ERP system tracks every stage of garment production — from sampling to final dispatch — providing real-time visibility into order status, production timelines and delivery schedules.',
   },
 ];
 
@@ -84,6 +84,7 @@ function CapabilityCardContent({
       alt={label}
       onError={onError}
       loading="lazy"
+      decoding="async"
       referrerPolicy="no-referrer"
       style={{
         width: '100%',

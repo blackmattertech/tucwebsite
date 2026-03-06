@@ -44,6 +44,7 @@ export function ClienteleSection() {
                   alt={logoAlt(name)}
                   className="marquee-logo"
                   loading="lazy"
+                  decoding="async"
                   width={120}
                   height={48}
                 />

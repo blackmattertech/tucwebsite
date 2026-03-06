@@ -120,6 +120,7 @@ export function AboutSection() {
                 alt={ABOUT_IMAGE_ALT}
                 className="w-full h-full object-cover"
                 loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="relative aspect-[4/3] lg:aspect-video rounded-2xl overflow-hidden shadow-2xl">
@@ -128,6 +129,7 @@ export function AboutSection() {
                 alt="Fabric rolls and materials at TAG Unlimited garment manufacturing facility"
                 className="w-full h-full object-cover"
                 loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
               />
             </div>

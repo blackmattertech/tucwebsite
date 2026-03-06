@@ -45,6 +45,7 @@ export function ProductsSection() {
                 alt={item.title}
                 className="value-added-card-image"
                 loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
               />
             </div>

@@ -57,6 +57,7 @@ function ApparelIconGrid() {
               width={ICON_SIZE}
               height={ICON_SIZE}
               className="object-contain"
+              decoding="async"
               style={{ filter: 'brightness(0) invert(1)' }}
             />
           </div>
@@ -207,6 +208,7 @@ export function PrinciplesSection() {
                   src={activePrinciple.imageSrc}
                   alt={activePrinciple.imageAlt}
                   className="absolute inset-0 w-full h-full object-cover"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/40" />
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -272,6 +274,7 @@ export function PrinciplesSection() {
                   src={activePrinciple.imageSrc}
                   alt={activePrinciple.imageAlt}
                   className="absolute inset-0 w-full h-full object-cover"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/40" />
                 <div className="absolute inset-0 flex items-center justify-center">

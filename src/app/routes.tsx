@@ -2,7 +2,24 @@ import { createBrowserRouter } from 'react-router';
 import { lazy, Suspense } from 'react';
 import { Layout } from './components/Layout';
 
-const Home = lazy(() => import('./pages/Home').then((m) => ({ default: m.Home })));
+/** Retry a dynamic import (e.g. after dev server restart or network blip). */
+function lazyWithRetry<T>(
+  importFn: () => Promise<T>,
+  retries = 2,
+  delay = 1000
+): () => Promise<T> {
+  return () =>
+    importFn().catch((err) => {
+      if (retries <= 0) throw err;
+      return new Promise((resolve, reject) => {
+        setTimeout(() => lazyWithRetry(importFn, retries - 1, delay)().then(resolve).catch(reject), delay);
+      });
+    });
+}
+
+const Home = lazy(
+  lazyWithRetry(() => import('./pages/Home').then((m) => ({ default: m.Home })))
+);
 const About = lazy(() => import('./pages/About').then((m) => ({ default: m.About })));
 const Capabilities = lazy(() => import('./pages/Capabilities').then((m) => ({ default: m.Capabilities })));
 const Manufacturing = lazy(() => import('./pages/Manufacturing').then((m) => ({ default: m.Manufacturing })));
@@ -21,6 +38,28 @@ export const router = createBrowserRouter([
   {
     path: '/',
     Component: Layout,
+    errorElement: (
+      <div style={{ padding: '2rem', textAlign: 'center', fontFamily: 'system-ui' }}>
+        <h1 style={{ marginBottom: '0.5rem' }}>Something went wrong</h1>
+        <p style={{ color: '#666', marginBottom: '1rem' }}>
+          The page failed to load. This can happen after a refresh or when the dev server restarts.
+        </p>
+        <button
+          type="button"
+          onClick={() => window.location.reload()}
+          style={{
+            padding: '0.5rem 1rem',
+            fontSize: '1rem',
+            cursor: 'pointer',
+            background: '#fecc00',
+            border: 'none',
+            borderRadius: 6,
+          }}
+        >
+          Reload page
+        </button>
+      </div>
+    ),
     children: [
       {
         index: true,

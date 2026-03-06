@@ -20,6 +20,20 @@ export default defineConfig({
   // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
   assetsInclude: ['**/*.svg', '**/*.csv'],
 
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react-router')) return 'router';
+            if (id.includes('react-dom') || id.includes('/react/')) return 'react-vendor';
+            // Let Rollup group other node_modules automatically to avoid circular chunks
+          }
+        },
+      },
+    },
+  },
+
   server: {
     host: true, // listen on 0.0.0.0 so you can open http://<your-local-ip>:5173 on your phone (same Wi‑Fi)
   },

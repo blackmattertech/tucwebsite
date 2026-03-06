@@ -55,14 +55,20 @@ export function HeroSection() {
     return () => mq.removeEventListener('change', handle);
   }, []);
 
+  // Only the active viewport's video has a source (performance: avoid loading both)
   useEffect(() => {
-    ensurePlaying(desktopVideoRef.current);
-    ensurePlaying(mobileVideoRef.current);
-  }, []);
+    if (isMobileViewport) {
+      ensurePlaying(mobileVideoRef.current);
+      desktopVideoRef.current?.pause();
+    } else {
+      ensurePlaying(desktopVideoRef.current);
+      mobileVideoRef.current?.pause();
+    }
+  }, [isMobileViewport]);
 
   return (
     <section id="hero" className="relative w-screen h-[100dvh] min-h-[100vh] flex items-center justify-center overflow-hidden">
-      {/* Background Video - Desktop: poster improves LCP; only visible video preloads fully */}
+      {/* Desktop video: only set source when desktop viewport to avoid loading both */}
       <video
         ref={desktopVideoRef}
         autoPlay
@@ -74,10 +80,10 @@ export function HeroSection() {
         className="absolute inset-0 w-full h-full object-cover hidden md:block"
         onEnded={(e) => e.currentTarget.play()}
       >
-        <source src={DESKTOP_VIDEO} type="video/mp4" />
+        {!isMobileViewport && <source src={DESKTOP_VIDEO} type="video/mp4" />}
       </video>
 
-      {/* Background Video - Mobile: poster improves LCP; preload=metadata for fast initial load */}
+      {/* Mobile video: only set source when mobile viewport */}
       <video
         ref={mobileVideoRef}
         autoPlay
@@ -89,7 +95,7 @@ export function HeroSection() {
         className="absolute inset-0 w-full h-full object-cover md:hidden"
         onEnded={(e) => e.currentTarget.play()}
       >
-        <source src={MOBILE_VIDEO} type="video/mp4" />
+        {isMobileViewport && <source src={MOBILE_VIDEO} type="video/mp4" />}
       </video>
 
       {/* Dark Overlay Gradient */}

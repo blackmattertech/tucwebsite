@@ -1,0 +1,140 @@
+/* The TAG Factor – black section, dotted right half, title + 4 marquee lines */
+
+/* Left side solid black; dots only on right from centre */
+.tag-factor-section {
+  position: relative;
+  width: 100%;
+  min-height: clamp(400px, 50vw, 560px);
+  background: #000000;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Dot background: right side from centre (50% to 100%) – subtle grid */
+.tag-factor-dots {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  right: 0;
+  background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.14) 0, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+  background-size: 12px 12px;
+  pointer-events: none;
+}
+
+/* Image: no container – positioned on left, no wrapper */
+.tag-factor-image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  max-width: 50%;
+  object-fit: contain;
+  object-position: left center;
+  z-index: 0;
+  display: block;
+}
+
+.tag-factor-image-placeholder {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  max-width: 50%;
+  background: #000000;
+  z-index: 0;
+}
+
+@media (max-width: 768px) {
+  .tag-factor-marquees-wrap {
+    margin-left: 0;
+    width: 100%;
+  }
+  .tag-factor-marquees {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+/* TAG Factor + marquee: start from dot background (from centre), no container */
+.tag-factor-marquees-wrap {
+  position: relative;
+  z-index: 1;
+  margin-left: 50%;
+  width: 50%;
+  padding: clamp(2rem, 4vw, 4rem) clamp(1.5rem, 4vw, 3rem) clamp(1.25rem, 3vw, 2rem);
+  overflow: visible;
+}
+
+.tag-factor-marquees-wrap .tag-factor-heading {
+  font-family: 'Khand', sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0 0 clamp(1rem, 2vw, 1.5rem);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  padding: 0;
+}
+
+.tag-factor-heading-line {
+  display: block;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.tag-factor-heading-main {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+}
+
+
+/* Marquee strip: full width from left corner to right edge, no left padding */
+.tag-factor-marquees {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.5vw, 0.75rem);
+  width: 100vw;
+  margin-left: -50vw;
+  box-sizing: border-box;
+}
+
+.tag-factor-marquee-track {
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+}
+
+.tag-factor-marquee-inner {
+  display: flex;
+  width: max-content;
+  animation: tag-factor-marquee 40s linear infinite;
+  padding-right: 2rem;
+}
+
+/* Outline-only text: transparent fill, colored stroke – 80px Khand to match reference */
+.tag-factor-marquee-text {
+  flex-shrink: 0;
+  font-family: 'Khand', sans-serif;
+  font-size: clamp(2rem, 10vw, 5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding-right: 3rem;
+  letter-spacing: 0.02em;
+  paint-order: stroke fill;
+  -webkit-text-stroke-width: 2px;
+}
+
+/* Seamless loop: 3 copies so text never ends on screen (right to left) */
+@keyframes tag-factor-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}

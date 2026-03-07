@@ -3,6 +3,7 @@ import { HeroSection } from '../components/HeroSection';
 import { BlankSection } from '../components/BlankSection';
 import { ProductsSection } from '../components/ProductsSection';
 import { TrustSection } from '../components/TrustSection';
+import { TagFactorSection } from '../components/TagFactorSection';
 import { LazySection } from '../components/LazySection';
 
 const PrinciplesSection = lazy(() =>
@@ -13,9 +14,6 @@ const CapabilitiesSection = lazy(() =>
 );
 const ProductCarouselSection = lazy(() =>
   import('../components/ProductCarouselSection').then((m) => ({ default: m.ProductCarouselSection }))
-);
-const ManufacturingStrengthSection = lazy(() =>
-  import('../components/ManufacturingStrengthSection').then((m) => ({ default: m.ManufacturingStrengthSection }))
 );
 const GoogleReviewsSection = lazy(() =>
   import('../components/GoogleReviewsSection').then((m) => ({ default: m.GoogleReviewsSection }))
@@ -44,17 +42,24 @@ export function Home() {
         <PrinciplesSection />
       </LazySection>
       <TrustSection />
-      <LazySection minHeightClass="min-h-[50vh]">
-        <CapabilitiesSection />
-      </LazySection>
-      <BlankSection />
-      <ProductsSection />
+      <div
+        className="dotted-bg-wrap"
+        style={{
+          backgroundColor: '#FFFFFF',
+          backgroundImage: 'radial-gradient(circle at center, #AAAAEE 0, #AAAAEE 1px, transparent 1px)',
+          backgroundSize: '12px 12px',
+        }}
+      >
+        <LazySection minHeightClass="min-h-[50vh]">
+          <CapabilitiesSection />
+        </LazySection>
+        <BlankSection />
+        <ProductsSection />
+      </div>
       <LazySection minHeightClass="min-h-[520px]">
         <ProductCarouselSection />
       </LazySection>
-      <LazySection minHeightClass="min-h-[120px]">
-        <ManufacturingStrengthSection />
-      </LazySection>
+      <TagFactorSection />
       <LazySection minHeightClass="min-h-[420px]">
         <GoogleReviewsSection />
       </LazySection>

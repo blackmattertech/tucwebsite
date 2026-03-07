@@ -9,7 +9,7 @@ const SECTION_IDS = [
   'capabilities',
   'value-added-services',
   'product-carousel',
-  'manufacturing',
+  'tag-factor',
   'reviews',
   'blog',
   'social',

@@ -155,7 +155,12 @@ export const PrinciplesSection = React.memo(function PrinciplesSection() {
   };
 
   return (
-    <div ref={containerRef} id="principles" className="h-[400vh] w-full bg-black" style={{ position: 'relative' }}>
+    <div
+      ref={containerRef}
+      id="principles"
+      className="h-[400vh] w-full bg-black relative"
+      style={{ position: 'relative' }}
+    >
       <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden px-6 md:px-8 lg:px-12">
         {/* Background apparel icons */}
         <ApparelIconGrid />
@@ -167,9 +172,12 @@ export const PrinciplesSection = React.memo(function PrinciplesSection() {
           className="absolute top-20 md:top-28 left-0 right-0 text-center z-10"
         >
           <h2
-            className="text-3xl md:text-5xl lg:text-6xl font-bold text-white uppercase"
+            className="text-white uppercase"
             style={{
               fontFamily: 'var(--font-heading)',
+              fontSize: 'var(--text-h2)',
+              fontWeight: 600,
+              lineHeight: 1.2,
               letterSpacing: '0.05em',
             }}
           >
@@ -190,7 +198,15 @@ export const PrinciplesSection = React.memo(function PrinciplesSection() {
                 transition={{ duration: 0.6 }}
                 className="text-center"
               >
-                <h3 className="text-3xl md:text-5xl font-bold text-white" style={{ fontFamily: 'var(--font-heading)' }}>
+                <h3
+                  className="text-white"
+                  style={{
+                    fontFamily: 'var(--font-heading)',
+                    fontSize: 'var(--text-h3)',
+                    fontWeight: 500,
+                    lineHeight: 1.3,
+                  }}
+                >
                   {activePrinciple.title}
                 </h3>
               </motion.div>
@@ -239,7 +255,14 @@ export const PrinciplesSection = React.memo(function PrinciplesSection() {
                 transition={{ duration: 0.6 }}
                 className="text-center max-w-2xl"
               >
-                <p className="text-base md:text-lg text-gray-300 leading-relaxed">
+                <p
+                  className="text-gray-300 max-w-[720px] mx-auto"
+                  style={{
+                    fontFamily: 'var(--font-family)',
+                    fontSize: 'var(--text-body)',
+                    lineHeight: 1.6,
+                  }}
+                >
                   {activePrinciple.description}
                 </p>
               </motion.div>
@@ -257,7 +280,15 @@ export const PrinciplesSection = React.memo(function PrinciplesSection() {
                 transition={{ duration: 0.6 }}
                 className="text-left hidden lg:block"
               >
-                <h3 className="text-4xl lg:text-6xl font-bold text-white" style={{ fontFamily: 'var(--font-heading)' }}>
+                <h3
+                  className="text-white"
+                  style={{
+                    fontFamily: 'var(--font-heading)',
+                    fontSize: 'var(--text-h3)',
+                    fontWeight: 500,
+                    lineHeight: 1.3,
+                  }}
+                >
                   {activePrinciple.title}
                 </h3>
               </motion.div>
@@ -306,7 +337,14 @@ export const PrinciplesSection = React.memo(function PrinciplesSection() {
                 transition={{ duration: 0.6 }}
                 className="text-right hidden lg:block"
               >
-                <p className="text-lg lg:text-xl text-gray-300 leading-relaxed">
+                <p
+                  className="text-gray-300 max-w-[720px] ml-auto"
+                  style={{
+                    fontFamily: 'var(--font-family)',
+                    fontSize: 'var(--text-body)',
+                    lineHeight: 1.6,
+                  }}
+                >
                   {activePrinciple.description}
                 </p>
               </motion.div>

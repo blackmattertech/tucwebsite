@@ -38,7 +38,10 @@ export function Footer() {
                 decoding="async"
               />
             </Link>
-            <h3 className="text-white mb-3 md:mb-4" style={{ fontSize: 'clamp(0.9rem, 1vw, 1rem)', fontWeight: 600 }}>
+            <h3
+              className="text-white mb-3 md:mb-4"
+              style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-footer-heading)', fontWeight: 600 }}
+            >
               Company
             </h3>
             <ul className="space-y-2 md:space-y-3">
@@ -47,7 +50,7 @@ export function Footer() {
                   <Link
                     to={link.href}
                     className="text-white/70 hover:text-white transition-colors"
-                    style={{ fontSize: 'clamp(0.85rem, 1vw, 0.9375rem)' }}
+                    style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--text-footer)' }}
                   >
                     {link.label}
                   </Link>
@@ -58,7 +61,10 @@ export function Footer() {
 
           {/* Products */}
           <div>
-            <h3 className="text-white mb-4" style={{ fontSize: 'clamp(0.9rem, 1vw, 1rem)', fontWeight: 600 }}>
+            <h3
+              className="text-white mb-4"
+              style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-footer-heading)', fontWeight: 600 }}
+            >
               Products
             </h3>
             <ul className="space-y-3">
@@ -67,7 +73,7 @@ export function Footer() {
                   <Link
                     to={link.href}
                     className="text-white/70 hover:text-white transition-colors"
-                    style={{ fontSize: 'clamp(0.85rem, 1vw, 0.9375rem)' }}
+                    style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--text-footer)' }}
                   >
                     {link.label}
                   </Link>
@@ -78,7 +84,10 @@ export function Footer() {
 
           {/* Resources */}
           <div>
-            <h3 className="text-white mb-4" style={{ fontSize: 'clamp(0.9rem, 1vw, 1rem)', fontWeight: 600 }}>
+            <h3
+              className="text-white mb-4"
+              style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-footer-heading)', fontWeight: 600 }}
+            >
               Resources
             </h3>
             <ul className="space-y-3">
@@ -89,7 +98,7 @@ export function Footer() {
                       type="button"
                       onClick={modal.openModal}
                       className="text-white/70 hover:text-white transition-colors text-left"
-                      style={{ fontSize: 'clamp(0.85rem, 1vw, 0.9375rem)' }}
+                      style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--text-footer)' }}
                     >
                       {link.label}
                     </button>
@@ -97,7 +106,7 @@ export function Footer() {
                     <Link
                       to={link.href}
                       className="text-white/70 hover:text-white transition-colors"
-                      style={{ fontSize: 'clamp(0.85rem, 1vw, 0.9375rem)' }}
+                      style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--text-footer)' }}
                     >
                       {link.label}
                     </Link>
@@ -109,11 +118,17 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-white mb-4" style={{ fontSize: 'clamp(0.9rem, 1vw, 1rem)', fontWeight: 600 }}>
+            <h3
+              className="text-white mb-4"
+              style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-footer-heading)', fontWeight: 600 }}
+            >
               Contact
             </h3>
             <div className="space-y-3">
-              <p className="text-white/70" style={{ fontSize: 'clamp(0.85rem, 1vw, 0.9375rem)', lineHeight: 1.6 }}>
+              <p
+                className="text-white/70"
+                style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--text-footer)', lineHeight: 1.6 }}
+              >
                 Bangalore<br />
                 Karnataka<br />
                 India
@@ -122,7 +137,7 @@ export function Footer() {
                 <a
                   href="mailto:contact@apparelmfg.com"
                   className="text-white/70 hover:text-white transition-colors"
-                  style={{ fontSize: 'clamp(0.85rem, 1vw, 0.9375rem)' }}
+                  style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--text-footer)' }}
                 >
                   contact@apparelmfg.com
                 </a>
@@ -133,14 +148,25 @@ export function Footer() {
 
         <div className="border-t border-white/10 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-white/60 text-center md:text-left" style={{ fontSize: '14px' }}>
+            <p
+              className="text-white/60 text-center md:text-left"
+              style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--text-footer)' }}
+            >
               © 2026 Apparel Manufacturing. All rights reserved.
             </p>
             <div className="flex gap-6">
-              <Link to="#" className="text-white/60 hover:text-white transition-colors" style={{ fontSize: '14px' }}>
+              <Link
+                to="#"
+                className="text-white/60 hover:text-white transition-colors"
+                style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--text-footer)' }}
+              >
                 Privacy Policy
               </Link>
-              <Link to="#" className="text-white/60 hover:text-white transition-colors" style={{ fontSize: '14px' }}>
+              <Link
+                to="#"
+                className="text-white/60 hover:text-white transition-colors"
+                style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--text-footer)' }}
+              >
                 Terms of Service
               </Link>
             </div>
@@ -159,8 +185,8 @@ export function Footer() {
               decoding="async"
             />
             <span
-              className="text-black font-bold tracking-tight transition-colors duration-300 group-hover:text-[#fecc00]"
-              style={{ fontSize: '1.25rem', fontWeight: 700 }}
+              className="text-black tracking-tight transition-colors duration-300 group-hover:text-[#fecc00]"
+              style={{ fontFamily: 'var(--font-heading)', fontSize: 'var(--text-footer-heading)', fontWeight: 600 }}
             >
               TAG UNLIMITED
             </span>

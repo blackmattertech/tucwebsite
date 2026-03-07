@@ -60,9 +60,10 @@
   text-decoration: none;
   border-radius: 9999px;
   box-sizing: border-box;
-  font-weight: 600;
-  font-size: 15px;
-  line-height: 0;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: var(--text-nav);
+  line-height: 1;
   text-transform: uppercase;
   letter-spacing: 0.2px;
   white-space: nowrap;

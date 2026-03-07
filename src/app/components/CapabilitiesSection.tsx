@@ -135,11 +135,7 @@ export function CapabilitiesSection() {
     <section
       id="capabilities"
       className="capabilities-section"
-      style={{
-        backgroundColor: '#FFFFFF',
-        backgroundImage: 'radial-gradient(circle at center, #AAAAEE 0, #AAAAEE 1px, transparent 1px)',
-        backgroundSize: '12px 12px',
-      }}
+      style={{ backgroundColor: 'transparent' }}
     >
       <div className="capabilities-container">
         <header className="capabilities-header">

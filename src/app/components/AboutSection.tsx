@@ -79,10 +79,12 @@ export const AboutSection = React.memo(function AboutSection() {
     <section className="bg-white py-16 md:py-24 lg:py-28" id="about">
       <div className="max-w-[1440px] xl:max-w-[1600px] 2xl:max-w-[1680px] mx-auto px-6 lg:px-12 xl:px-16">
         <h2
-          className="text-gray-900 font-bold uppercase mb-12 md:mb-16"
+          className="text-gray-900 uppercase mb-12 md:mb-16"
           style={{
             fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(1.875rem, 4vw, 3rem)',
+            fontSize: 'var(--text-h2)',
+            fontWeight: 600,
+            lineHeight: 1.2,
             letterSpacing: '0.05em',
           }}
         >
@@ -92,8 +94,13 @@ export const AboutSection = React.memo(function AboutSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-center mb-16 md:mb-20">
           <div className="lg:col-span-5 order-2 lg:order-1">
             <div
-              className="text-gray-600 mb-8 text-base md:text-lg lg:text-xl leading-relaxed space-y-4"
-              style={{ lineHeight: 1.8 }}
+              className="text-gray-600 mb-8 space-y-4"
+              style={{
+                fontFamily: 'var(--font-family)',
+                fontSize: 'var(--text-body)',
+                lineHeight: 1.6,
+                maxWidth: '720px',
+              }}
             >
               <p>
                 <span style={{ color: LOGO_YELLOW, fontWeight: 700 }}>TAG Unlimited</span> is a Bangalore-based private label clothing and knitwear manufacturer specializing in bulk production of T-Shirts, Hoodies, Shirts and custom apparel for fashion brands and businesses.

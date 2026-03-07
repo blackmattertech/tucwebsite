@@ -172,6 +172,11 @@ export function ProductCarouselSection() {
       id="product-carousel"
       className="product-carousel-section"
       aria-label="Product categories"
+      style={{
+        backgroundColor: '#FFFFFF',
+        backgroundImage: 'radial-gradient(circle at center, #AAAAEE 0, #AAAAEE 1px, transparent 1px)',
+        backgroundSize: '12px 12px',
+      }}
     >
       <h2 className="product-carousel-heading">THE TAG UNLIMITED CLOSET</h2>
       <div className="product-carousel-track">

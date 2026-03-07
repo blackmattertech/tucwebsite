@@ -36,6 +36,7 @@ const BRAND_YELLOW = '#FECC00';
 const VIDEO_LOAD_DELAY_MS = 2000;
 
 export const HeroSection = React.memo(function HeroSection() {
+  const posterImgRef = useRef<HTMLImageElement>(null);
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
   const [isMobileViewport, setIsMobileViewport] = useState(
@@ -81,15 +82,20 @@ export const HeroSection = React.memo(function HeroSection() {
     }
   }, [isMobileViewport, shouldLoadVideo, videoError]);
 
+  // Set fetchpriority via DOM to avoid React prop warning (HTML attribute is lowercase)
+  useEffect(() => {
+    posterImgRef.current?.setAttribute('fetchpriority', 'high');
+  }, []);
+
   return (
     <section id="hero" className="relative w-screen h-[100dvh] min-h-[100vh] flex items-center justify-center overflow-hidden">
-      {/* LCP element: poster image loads immediately with priority (WebP <120kb) */}
+      {/* LCP element: poster image loads immediately with priority (WebP <120kb); fetchpriority set via ref */}
       <img
+        ref={posterImgRef}
         src={HERO_POSTER}
         alt="TAG Unlimited - Private label apparel manufacturer in Bangalore"
         width={1920}
         height={1080}
-        fetchPriority="high"
         sizes="100vw"
         className="absolute inset-0 w-full h-full object-cover"
         style={{ zIndex: videoError || !shouldLoadVideo ? 0 : -1 }}
@@ -133,13 +139,17 @@ export const HeroSection = React.memo(function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12 text-center">
-        {/* H1: Original typing headline - slightly smaller */}
+        {/* H1: Hero title – Montserrat, fluid, max-width for readability */}
         <h1
-          className="text-white mb-5 min-h-[1.2em] flex flex-wrap items-center justify-center gap-x-2 gap-y-0"
+          className="text-white min-h-[1.2em] flex flex-wrap items-center justify-center gap-x-2 gap-y-0 mx-auto"
           style={{
-            fontSize: 'clamp(1.95rem, 5vw, 4.25rem)',
-            fontWeight: 800,
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'clamp(36px, 6vw, 64px)',
+            fontWeight: 700,
             lineHeight: 1.1,
+            letterSpacing: '-0.02em',
+            marginBottom: '24px',
+            maxWidth: '900px',
           }}
         >
           <TextType
@@ -159,14 +169,14 @@ export const HeroSection = React.memo(function HeroSection() {
           />
         </h1>
 
-        {/* We Manufacture [ Rotating Highlight ] - slightly smaller */}
+        {/* We Manufacture [ Rotating Highlight ] – subheading scale */}
         <div
           className="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 mb-10"
           style={{
-            fontSize: 'clamp(1.5rem, 3.75vw, 3.25rem)',
-            fontWeight: 700,
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'clamp(26px, 4vw, 36px)',
+            fontWeight: 600,
             lineHeight: 1.2,
-            fontFamily: 'var(--font-family)',
           }}
         >
           <span className="text-white" style={{ color: '#E5E5E5' }}>
@@ -202,10 +212,16 @@ export const HeroSection = React.memo(function HeroSection() {
           </span>
         </div>
 
-        {/* Trust Text */}
+        {/* Trust Text – lead paragraph */}
         <p
-          className="text-white/80"
-          style={{ fontSize: 'clamp(0.875rem, 1vw, 1rem)', fontWeight: 500, letterSpacing: '0.5px' }}
+          className="text-white/80 mx-auto"
+          style={{
+            fontFamily: 'var(--font-family)',
+            fontSize: 'clamp(18px, 1.5vw, 20px)',
+            fontWeight: 400,
+            lineHeight: 1.6,
+            maxWidth: '720px',
+          }}
         >
           Trusted Apparel Manufacturing Partner for Brands and Businesses Across
           India

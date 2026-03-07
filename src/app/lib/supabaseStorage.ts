@@ -9,6 +9,9 @@ export const CAPABILITIES_IMAGES_BASE = `${SUPABASE_PROJECT_URL}/storage/v1/obje
 /** Product carousel videos: bucket "website videos", folder "products". */
 export const WEBSITE_VIDEOS_BASE = `${SUPABASE_PROJECT_URL}/storage/v1/object/public/website%20videos/products/`;
 
+/** Tag Factor section media: bucket "website videos", folder "tagfactor". */
+export const TAG_FACTOR_MEDIA_BASE = `${SUPABASE_PROJECT_URL}/storage/v1/object/public/website%20videos/tagfactor/`;
+
 /** Client logos: bucket "website images", folder "client-logos". */
 export const CLIENT_LOGOS_BASE = `${SUPABASE_PROJECT_URL}/storage/v1/object/public/website%20images/client-logos/`;
 
@@ -25,4 +28,9 @@ export function productVideoUrl(filename: string): string {
 /** Build full Supabase URL for a client logo (filename, e.g. "kfc_logo.svg"). */
 export function clientLogoUrl(filename: string): string {
   return `${CLIENT_LOGOS_BASE}${encodeURIComponent(filename)}`;
+}
+
+/** Build full Supabase URL for Tag Factor media (filename, e.g. "tagfactor.gif"). */
+export function tagFactorMediaUrl(filename: string): string {
+  return `${TAG_FACTOR_MEDIA_BASE}${encodeURIComponent(filename)}`;
 }

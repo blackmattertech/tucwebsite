@@ -24,29 +24,20 @@
   pointer-events: none;
 }
 
-/* Image: no container – positioned on left, no wrapper */
-.tag-factor-image {
+/* Image (tagfactor folder): larger, minimal top padding */
+.tag-factor-gif {
   position: absolute;
-  left: 0;
+  left: 18%;
   top: 0;
   bottom: 0;
-  width: 50%;
-  max-width: 50%;
+  width: clamp(480px, 56vw, 760px);
+  max-width: 66%;
   object-fit: contain;
-  object-position: left center;
-  z-index: 0;
+  object-position: left bottom;
+  z-index: 2;
   display: block;
-}
-
-.tag-factor-image-placeholder {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  max-width: 50%;
-  background: #000000;
-  z-index: 0;
+  pointer-events: none;
+  background: transparent;
 }
 
 @media (max-width: 768px) {
@@ -60,7 +51,7 @@
   }
 }
 
-/* TAG Factor + marquee: start from dot background (from centre), no container */
+/* TAG Factor + marquee: behind GIF (z-index 1); text scrolls full width, passes behind GIF */
 .tag-factor-marquees-wrap {
   position: relative;
   z-index: 1;
@@ -82,7 +73,7 @@
 }
 
 .tag-factor-heading-line {
-  display: block;
+  display: inline;
   font-size: clamp(1.5rem, 3vw, 2rem);
 }
 

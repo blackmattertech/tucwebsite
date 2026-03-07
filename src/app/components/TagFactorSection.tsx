@@ -1,5 +1,8 @@
 import React from 'react';
+import { tagFactorMediaUrl } from '../lib/supabaseStorage';
 import './TagFactorSection.css';
+
+const TAG_FACTOR_IMAGE = 'apparel manufacturer in bangalore.png';
 
 const MARQUEE_LINES = [
   { text: 'Well-diversified products.', color: '#FECC00' },
@@ -8,8 +11,8 @@ const MARQUEE_LINES = [
   { text: 'Professionally managed and focused on sustainable business processes.', color: '#FFFFFF' },
 ] as const;
 
-/** Image slot: pass src to show image, or leave unset for placeholder until you add one. */
-export function TagFactorSection({ imageSrc, imageAlt }: { imageSrc?: string; imageAlt?: string }) {
+/** Left side: image from Supabase (website videos / tagfactor). Marquee scrolls behind it. */
+export function TagFactorSection() {
   return (
     <section
       id="tag-factor"
@@ -19,22 +22,11 @@ export function TagFactorSection({ imageSrc, imageAlt }: { imageSrc?: string; im
       {/* Dot background – right side from centre only */}
       <div className="tag-factor-dots" aria-hidden />
 
-      {/* Image: no container, sits on left */}
-      {imageSrc ? (
-        <img
-          src={imageSrc}
-          alt={imageAlt ?? 'The TAG Factor'}
-          className="tag-factor-image"
-        />
-      ) : (
-        <div className="tag-factor-image-placeholder" aria-hidden />
-      )}
-
-      {/* TAG Factor + marquee: start from dot background (from centre), full width */}
+      {/* TAG Factor + marquee: full width; text scrolls right-to-left (behind the image) */}
       <div className="tag-factor-marquees-wrap">
         <h2 className="tag-factor-heading">
-          <span className="tag-factor-heading-line">The</span>
-          <span className="tag-factor-heading-line tag-factor-heading-main">TAG</span>
+          <span className="tag-factor-heading-line">The </span>
+          <span className="tag-factor-heading-line tag-factor-heading-main">TAG </span>
           <span className="tag-factor-heading-line">Factor</span>
         </h2>
         <div className="tag-factor-marquees">
@@ -59,6 +51,14 @@ export function TagFactorSection({ imageSrc, imageAlt }: { imageSrc?: string; im
             ))}
         </div>
       </div>
+
+      {/* Image on left, on top – marquee text passes behind */}
+      <img
+        src={tagFactorMediaUrl(TAG_FACTOR_IMAGE)}
+        alt="Apparel manufacturer in Bangalore"
+        className="tag-factor-gif"
+        loading="lazy"
+      />
     </section>
   );
 }

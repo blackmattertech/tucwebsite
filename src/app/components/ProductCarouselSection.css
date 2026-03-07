@@ -9,14 +9,14 @@
 
 .product-carousel-heading {
   font-family: var(--font-heading);
-  font-size: var(--text-h2);
-  font-weight: 600;
+  font-size: var(--text-section-heading);
+  font-weight: 700;
   line-height: 1.2;
   margin: 0 0 clamp(2rem, 4vw, 3rem);
   padding: 0 clamp(1rem, 4vw, 2rem);
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: #111827;
+  color: var(--section-heading-color);
   text-align: left;
 }
 

@@ -1,0 +1,12 @@
+/* Trust section – same section heading font/size as other sections */
+.trust-section-heading {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-section-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--section-heading-color);
+  text-align: center;
+}

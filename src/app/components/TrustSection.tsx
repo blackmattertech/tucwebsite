@@ -1,4 +1,5 @@
 import React from 'react';
+import './TrustSection.css';
 import { ClienteleSection } from './ClienteleSection';
 
 export function TrustSection() {
@@ -13,15 +14,7 @@ export function TrustSection() {
       }}
     >
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
-        <h2
-          className="text-gray-900 text-center"
-          style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(26px, 4vw, 36px)',
-            fontWeight: 600,
-            lineHeight: 1.2,
-          }}
-        >
+        <h2 className="trust-section-heading">
           Trusted Clothing Manufacturer for Growing Brands
         </h2>
       </div>

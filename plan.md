@@ -1,5 +1,7 @@
 # Plan: Fix `net::ERR_BLOCKED_BY_ORB` for Supabase Product Videos
 
+**Note (post-refactor):** Media now uses ImageKit and the `media_assets` table; `src/app/lib/supabaseStorage.ts` has been removed. This plan is kept for historical context only.
+
 ## Problem Summary
 
 Product carousel videos loaded from Supabase storage (`website videos` bucket) fail with **`net::ERR_BLOCKED_BY_ORB`** in the browser Network tab. This prevents videos from playing in `ProductCarouselSection.tsx`.
@@ -14,7 +16,7 @@ Product carousel videos loaded from Supabase storage (`website videos` bucket) f
 
 | File | Role |
 |------|------|
-| `src/app/lib/supabaseStorage.ts` | Builds public URLs for Supabase storage. `productVideoUrl()` returns `{project}/storage/v1/object/public/website%20videos/{filename}` |
+| *(removed)* `supabaseStorage.ts` | Previously built Supabase storage URLs; replaced by ImageKit + `media_assets` |
 | `src/app/components/ProductCarouselSection.tsx` | Uses `productVideoUrl()` for 10 product videos, renders them in `<video>` via `LazyCarouselVideo` |
 | `SUPABASE_STORAGE_CORS.md` | Existing notes on CORS fix (Settings → API → CORS) |
 

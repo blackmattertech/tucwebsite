@@ -7,12 +7,14 @@
 
 .value-added-section .section-heading {
   font-family: var(--font-heading);
-  font-size: var(--text-h2);
-  font-weight: 600;
+  font-size: var(--text-section-heading);
+  font-weight: 700;
   line-height: 1.2;
-  color: #1a1a1a;
+  color: var(--section-heading-color);
   text-align: left;
   margin: 0 0 16px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .value-added-section .section-heading-wrap {

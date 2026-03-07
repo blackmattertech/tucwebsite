@@ -5,6 +5,9 @@
   --font-size: clamp(16px, 1.2vw, 18px);
   /* Typography scale: Montserrat headings, Inter body */
   --text-hero: clamp(36px, 6vw, 64px);
+  /* Section headers (all sections except Hero): bold, uppercase, same size – match Principles / “We never get bored” style */
+  --text-section-heading: clamp(1.75rem, 4.5vw, 2.5rem);
+  --section-heading-color: #1a1a1a;
   --text-h2: clamp(26px, 4vw, 36px);
   --text-h3: clamp(20px, 2.5vw, 22px);
   --text-h4: 18px;

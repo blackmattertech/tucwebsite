@@ -7,12 +7,16 @@
     "build": "node scripts/optimize-hero-poster.mjs && node scripts/list-client-logos.mjs && vite build && node scripts/inject-font-preload.mjs",
     "dev": "node scripts/list-client-logos.mjs && vite",
     "list-logos": "node scripts/list-client-logos.mjs",
-    "migrate-media": "npx tsx scripts/migrate-media-to-imagekit.ts"
+    "migrate-media": "npx tsx scripts/migrate-media-to-imagekit.ts",
+    "copy-fonts": "node scripts/copy-fonts.mjs"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
     "@fontsource/dm-serif-display": "^5.2.8",
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/khand": "^5.2.8",
+    "@fontsource/montserrat": "^5.2.8",
     "@fontsource/plus-jakarta-sans": "^5.2.8",
     "@mui/icons-material": "7.3.5",
     "@mui/material": "7.3.5",
@@ -70,8 +74,8 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.1.12",
-    "dotenv": "^16.4.5",
     "@vitejs/plugin-react": "4.7.0",
+    "dotenv": "^16.4.5",
     "shadcn": "^3.8.5",
     "sharp": "^0.34.5",
     "tailwindcss": "4.1.12",

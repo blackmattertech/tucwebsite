@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { motion, useInView } from 'motion/react';
-import { capabilityImageUrl } from '../lib/supabaseStorage';
+import { useMediaAssets } from '../lib/useMediaAssets';
 import { HERO_POSTER } from '../../hero-poster-config';
 import { OptimizedImage } from './OptimizedImage';
 
@@ -74,6 +74,7 @@ const ABOUT_IMAGE_ALT =
 export const AboutSection = React.memo(function AboutSection() {
   const statsRef = useRef<HTMLDivElement>(null);
   const statsInView = useInView(statsRef, { once: true, amount: 0.3 });
+  const { getUrl } = useMediaAssets();
 
   return (
     <section className="bg-white py-16 md:py-24 lg:py-28" id="about">
@@ -137,7 +138,7 @@ export const AboutSection = React.memo(function AboutSection() {
             </div>
             <div className="relative aspect-[4/3] lg:aspect-video rounded-2xl overflow-hidden shadow-2xl">
               <OptimizedImage
-                src={capabilityImageUrl('fabric rolls.webp')}
+                src={getUrl('other images', 'fabric rolls.webp')}
                 alt="Fabric rolls and materials at TAG Unlimited garment manufacturing facility"
                 width={800}
                 height={450}

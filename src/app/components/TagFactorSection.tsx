@@ -1,5 +1,5 @@
 import React from 'react';
-import { tagFactorMediaUrl } from '../lib/supabaseStorage';
+import { useMediaAssets } from '../lib/useMediaAssets';
 import './TagFactorSection.css';
 
 const TAG_FACTOR_IMAGE = 'apparel manufacturer in bangalore.png';
@@ -11,8 +11,9 @@ const MARQUEE_LINES = [
   { text: 'Professionally managed and focused on sustainable business processes.', color: '#FFFFFF' },
 ] as const;
 
-/** Left side: image from Supabase (website videos / tagfactor). Marquee scrolls behind it. */
+/** Left side: image from media_assets (tagfactor). Marquee scrolls behind it. */
 export function TagFactorSection() {
+  const { getUrl } = useMediaAssets();
   return (
     <section
       id="tag-factor"
@@ -54,7 +55,7 @@ export function TagFactorSection() {
 
       {/* Image on left, on top – marquee text passes behind */}
       <img
-        src={tagFactorMediaUrl(TAG_FACTOR_IMAGE)}
+        src={getUrl('tagfactor', TAG_FACTOR_IMAGE)}
         alt="Apparel manufacturer in Bangalore"
         className="tag-factor-gif"
         loading="lazy"

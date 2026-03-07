@@ -9,9 +9,11 @@
     <link rel="canonical" href="https://tucwebsite.vercel.app/" />
     <!-- LCP: preload hero poster so above-the-fold image loads immediately -->
     <link rel="preload" as="image" href="/hero-poster.webp" fetchpriority="high" />
-    <!-- DNS prefetch + preconnect for Supabase (hero + carousel media) -->
+    <!-- DNS prefetch + preconnect for Supabase (media_assets) and ImageKit (media URLs) -->
     <link rel="dns-prefetch" href="https://vwpseddaghxktpjtriaj.supabase.co" />
     <link rel="preconnect" href="https://vwpseddaghxktpjtriaj.supabase.co" crossorigin />
+    <link rel="dns-prefetch" href="https://ik.imagekit.io" />
+    <link rel="preconnect" href="https://ik.imagekit.io" crossorigin />
     <!-- Preconnect for Unsplash (OptimizedImage remote) -->
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
     <!-- Typography: Montserrat (headings) + Inter (body/UI) + Khand (TAG Factor section) -->

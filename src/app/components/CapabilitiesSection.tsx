@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router';
 import CardSwap, { Card } from '../../components/CardSwap';
-import { capabilityImageUrl } from '../lib/supabaseStorage';
+import { useMediaAssets } from '../lib/useMediaAssets';
 import { OptimizedImage } from './OptimizedImage';
 import './CapabilitiesSection.css';
 
@@ -66,11 +66,13 @@ function CapabilityCardContent({
   label,
   errored,
   onError,
+  getUrl,
 }: {
   image: string;
   label: string;
   errored: boolean;
   onError: () => void;
+  getUrl: (folder: string, file_name: string) => string;
 }) {
   if (errored) {
     return (
@@ -81,7 +83,7 @@ function CapabilityCardContent({
   }
   return (
     <OptimizedImage
-      src={capabilityImageUrl(image)}
+      src={getUrl('other images', image)}
       alt={label}
       onError={onError}
       width={640}
@@ -95,6 +97,7 @@ function CapabilityCardContent({
 }
 
 export function CapabilitiesSection() {
+  const { getUrl } = useMediaAssets();
   const [imageErrored, setImageErrored] = useState<Record<number, boolean>>({});
   const [frontCardIndex, setFrontCardIndex] = useState(0);
   const [jumpToIndex, setJumpToIndex] = useState<number | null>(null);
@@ -192,6 +195,7 @@ export function CapabilitiesSection() {
                     label={label}
                     errored={!!imageErrored[index]}
                     onError={() => handleImageError(index)}
+                    getUrl={getUrl}
                   />
                 </Card>
               ))}

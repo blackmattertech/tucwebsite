@@ -1,92 +1,89 @@
 import { useEffect, useRef, useState } from 'react';
-import { productVideoUrl } from '../lib/supabaseStorage';
+import { useMediaAssets } from '../lib/useMediaAssets';
 import './ProductCarouselSection.css';
 
-const HOODIES_VIDEO_SRC = productVideoUrl('hoodies manufacturers in bangalore.mp4');
-const POLOS_VIDEO_SRC = productVideoUrl('polo manufacturers in bangalore.mp4');
-const TSHIRTS_VIDEO_SRC = productVideoUrl('tshirt manufacturer in india- best thsirt manufacturer.mp4');
-const CROP_TOP_VIDEO_SRC = productVideoUrl('premium private label manufacturer.mp4');
-const CAPS_VIDEO_SRC = productVideoUrl('cap manufacturer in bangalore cap manufacturer in india private label cap manufacturing.mp4');
-const JACKETS_VIDEO_SRC = productVideoUrl('jackets manufacturers in bangalore.mp4');
-const DENIM_SHIRT_VIDEO_SRC = productVideoUrl('shirt manufacturers in india.mp4');
-const FORMAL_SHIRT_VIDEO_SRC = productVideoUrl('shirt manufacturer in bangalore- best manufacturer for apparel in india.mp4');
-const JOGGERS_VIDEO_SRC = productVideoUrl('trackpant manufacturers in india- joggers manufacturer in bangalore- sportswear manufacturer.mp4');
-const SHORTS_VIDEO_SRC = productVideoUrl('sports apparel manufacturers in bangalore.mp4');
-
-const PRODUCT_ITEMS = [
+const PRODUCT_VIDEOS: { id: string; label: string; file: string; mediaAlt: string }[] = [
   {
     id: 'hoodies',
     label: 'Hoodies',
-    videoSrc: HOODIES_VIDEO_SRC,
+    file: 'hoodies manufacturers in bangalore.mp4',
     mediaAlt:
       'Hoodies manufacturing in Bangalore - custom hoodies, bulk hoodie manufacturer, private label hoodies, fleece hoodies, pullover hoodies',
   },
   {
     id: 'polos',
     label: 'Polos',
-    videoSrc: POLOS_VIDEO_SRC,
+    file: 'polo manufacturers in bangalore.mp4',
     mediaAlt:
       'Polo manufacturers in Bangalore - custom polo shirts, bulk polo t-shirts, private label polos, premium polo manufacturing',
   },
   {
     id: 'tshirts',
     label: 'T-Shirts',
-    videoSrc: TSHIRTS_VIDEO_SRC,
+    file: 'tshirt manufacturer in india- best thsirt manufacturer.mp4',
     mediaAlt:
       'T-shirt manufacturers in India - custom t-shirts, bulk t-shirt manufacturing, private label t-shirts, wholesale t-shirts',
   },
   {
     id: 'crop-top',
     label: 'Crop Top',
-    videoSrc: CROP_TOP_VIDEO_SRC,
+    file: 'premium private label manufacturer.mp4',
     mediaAlt:
       'Premium private label manufacturer - crop top manufacturing, custom crop tops, bulk crop tops, private label apparel',
   },
   {
     id: 'caps',
     label: 'Caps',
-    videoSrc: CAPS_VIDEO_SRC,
+    file: 'cap manufacturer in bangalore cap manufacturer in india private label cap manufacturing.mp4',
     mediaAlt:
       'Cap manufacturer in Bangalore, cap manufacturer in India - private label cap manufacturing, custom caps, bulk caps, baseball caps',
   },
   {
     id: 'shorts',
     label: 'Shorts',
-    videoSrc: SHORTS_VIDEO_SRC,
+    file: 'sports apparel manufacturers in bangalore.mp4',
     mediaAlt:
       'Sports apparel manufacturers in Bangalore - shorts manufacturing, custom shorts, bulk shorts, athletic shorts, sportswear manufacturer',
   },
   {
     id: 'joggers',
     label: 'Joggers',
-    videoSrc: JOGGERS_VIDEO_SRC,
+    file: 'trackpant manufacturers in india- joggers manufacturer in bangalore- sportswear manufacturer.mp4',
     mediaAlt:
       'Trackpant manufacturers in India, joggers manufacturer in Bangalore - sportswear manufacturer, custom joggers, bulk joggers',
   },
   {
     id: 'denim-shirt',
     label: 'Denim Shirt',
-    videoSrc: DENIM_SHIRT_VIDEO_SRC,
+    file: 'shirt manufacturers in india.mp4',
     mediaAlt:
       'Shirt manufacturers in India - denim shirt manufacturing, custom denim shirts, bulk shirts, private label shirts, formal and casual shirts',
   },
   {
     id: 'formal-shirt',
     label: 'Formal Shirt',
-    videoSrc: FORMAL_SHIRT_VIDEO_SRC,
+    file: 'shirt manufacturer in bangalore- best manufacturer for apparel in india.mp4',
     mediaAlt:
       'Shirt manufacturer in Bangalore, best manufacturer for apparel in India - formal shirt manufacturing, custom formal shirts, bulk shirts',
   },
   {
     id: 'jackets',
     label: 'Jackets',
-    videoSrc: JACKETS_VIDEO_SRC,
+    file: 'jackets manufacturers in bangalore.mp4',
     mediaAlt:
       'Jackets manufacturers in Bangalore - custom jackets, bulk jacket manufacturing, private label jackets, bomber jackets, denim jackets',
   },
 ];
 
-type ProductItem = (typeof PRODUCT_ITEMS)[0];
+function useProductItems() {
+  const { getUrl } = useMediaAssets();
+  return PRODUCT_VIDEOS.map((item) => ({
+    ...item,
+    videoSrc: getUrl('products', item.file),
+  }));
+}
+
+type ProductItem = { id: string; label: string; file: string; mediaAlt: string; videoSrc: string };
 
 /** Only load and play video when the panel is in or near the viewport (performance). */
 function LazyCarouselVideo({ src, label }: { src: string; label: string }) {
@@ -165,7 +162,8 @@ function ProductPanel({ item, index }: { item: ProductItem; index: number }) {
 }
 
 export function ProductCarouselSection() {
-  const duplicated = [...PRODUCT_ITEMS, ...PRODUCT_ITEMS];
+  const productItems = useProductItems();
+  const duplicated = [...productItems, ...productItems];
 
   return (
     <section

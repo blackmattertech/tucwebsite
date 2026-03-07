@@ -1,5 +1,6 @@
 import { motion, useScroll, AnimatePresence } from 'motion/react';
 import React, { useRef, useState, useEffect } from 'react';
+import { useMediaAssets } from '../lib/useMediaAssets';
 import { OptimizedImage } from './OptimizedImage';
 
 const LOGO_YELLOW = '#fecc00';
@@ -10,7 +11,6 @@ const GRID_COLS = 6;
 const GRID_ROWS = 5;
 const GRID_GAP = 72;
 
-const APPAREL_ICONS_BASE = '/apparel%20icons';
 const APPAREL_ICON_FILES = [
   'tshirt.png',
   'jacket.png',
@@ -22,9 +22,14 @@ const APPAREL_ICON_FILES = [
   'dress.png',
 ];
 
-const PRINCIPAL_IMAGES_BASE = '/our principal images';
+const PRINCIPLES_DATA = [
+  { number: '01', title: 'Quality', file: 'best_tshirt_manufacturer_in_bangalore.png', imageAlt: 'best_tshirt_manufacturer_in_bangalore', description: 'Quality and performance never happen by chance; they define every action we take. After all, excellence is the only thing that guarantees our long-term success.' },
+  { number: '02', title: 'Integrity', file: 'jacketmanufacturer in india.png', imageAlt: 'jacketmanufacturer in india', description: "We believe that strong moral principles must exist in any field of activity, and the quality of being honest and open with clients and potential clients defines us as a company." },
+  { number: '03', title: 'The right price', file: 'white_label_hoodie_manufacturer.png', imageAlt: 'best_cap_manufacturer in india', description: 'We pride ourselves on our ability to estimate and budget the services we provide, which we consider fair. You will not pay a little or a lot, cheap or expensive, but exactly what it is worth.' },
+  { number: '04', title: 'Innovation', file: 'best_cap_manufacturer in india.png', imageAlt: 'white_label_hoodie_manufacturer', description: "It's clear that innovation is part of our DNA. At TAG Unlimited Clothing, we believe that success belongs to the brave, which is why we are not afraid to implement visionary ideas from the future." },
+];
 
-function ApparelIconGrid() {
+function ApparelIconGrid({ getUrl }: { getUrl: (folder: string, file_name: string) => string }) {
   const total = GRID_COLS * GRID_ROWS;
 
   return (
@@ -41,7 +46,7 @@ function ApparelIconGrid() {
     >
       {Array.from({ length: total }, (_, i) => {
         const file = APPAREL_ICON_FILES[i % APPAREL_ICON_FILES.length];
-        const src = `${APPAREL_ICONS_BASE}/${encodeURIComponent(file)}`;
+        const src = getUrl('other images', file);
         const rotation = (i % 5) * 3 - 6;
         return (
           <div
@@ -68,46 +73,16 @@ function ApparelIconGrid() {
   );
 }
 
-const principles = [
-  {
-    number: '01',
-    title: 'Quality',
-    description:
-      'Quality and performance never happen by chance; they define every action we take. After all, excellence is the only thing that guarantees our long-term success.',
-    imageSrc: `https://vwpseddaghxktpjtriaj.supabase.co/storage/v1/object/public/website%20images/our%20principles/best_tshirt_manufacturer_in_bangalore.png`,
-    imageAlt: 'best_tshirt_manufacturer_in_bangalore',
-  },
-  {
-    number: '02',
-    title: 'Integrity',
-    description:
-      'We believe that strong moral principles must exist in any field of activity, and the quality of being honest and open with clients and potential clients defines us as a company.',
-    imageSrc: `https://vwpseddaghxktpjtriaj.supabase.co/storage/v1/object/public/website%20images/our%20principles/jacketmanufacturer%20in%20india.png`,
-    imageAlt: 'jacketmanufacturer in india',
-  },
-  {
-    number: '03',
-    title: 'The right price',
-    description:
-      'We pride ourselves on our ability to estimate and budget the services we provide, which we consider fair. You will not pay a little or a lot, cheap or expensive, but exactly what it is worth.',
-    imageSrc: `https://vwpseddaghxktpjtriaj.supabase.co/storage/v1/object/public/website%20images/our%20principles/white_label_hoodie_manufacturer.png`,
-    imageAlt: 'best_cap_manufacturer in india',
-  },
-  {
-    number: '04',
-    title: 'Innovation',
-    description:
-      "It's clear that innovation is part of our DNA. At TAG Unlimited Clothing, we believe that success belongs to the brave, which is why we are not afraid to implement visionary ideas from the future.",
-    imageSrc: `https://vwpseddaghxktpjtriaj.supabase.co/storage/v1/object/public/website%20images/our%20principles/best_cap_manufacturer%20in%20india.png`,
-    imageAlt: 'white_label_hoodie_manufacturer',
-  },
-];
-
 export const PrinciplesSection = React.memo(function PrinciplesSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollDirection, setScrollDirection] = useState<'down' | 'up'>('down');
   const prevIndexRef = useRef(0);
+  const { getUrl } = useMediaAssets();
+  const principles = PRINCIPLES_DATA.map((p) => ({
+    ...p,
+    imageSrc: getUrl('our principles', p.file),
+  }));
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -163,7 +138,7 @@ export const PrinciplesSection = React.memo(function PrinciplesSection() {
     >
       <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden px-6 md:px-8 lg:px-12">
         {/* Background apparel icons */}
-        <ApparelIconGrid />
+        <ApparelIconGrid getUrl={getUrl} />
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}

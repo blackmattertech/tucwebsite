@@ -6,7 +6,8 @@
   "scripts": {
     "build": "node scripts/optimize-hero-poster.mjs && node scripts/list-client-logos.mjs && vite build && node scripts/inject-font-preload.mjs",
     "dev": "node scripts/list-client-logos.mjs && vite",
-    "list-logos": "node scripts/list-client-logos.mjs"
+    "list-logos": "node scripts/list-client-logos.mjs",
+    "migrate-media": "npx tsx scripts/migrate-media-to-imagekit.ts"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
@@ -69,6 +70,7 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.1.12",
+    "dotenv": "^16.4.5",
     "@vitejs/plugin-react": "4.7.0",
     "shadcn": "^3.8.5",
     "sharp": "^0.34.5",

@@ -2,11 +2,12 @@ import React, { useRef, useEffect, useState } from 'react';
 import { TextType } from './TextType';
 import RotatingText from './RotatingText';
 import { HERO_POSTER } from '../../hero-poster-config';
+import { useMediaAssets } from '../lib/useMediaAssets';
 
 /** Set to your CDN origin (e.g. https://cdn.example.com) to serve hero video from CDN; leave empty to use same origin. */
 const VIDEO_BASE = typeof import.meta.env !== 'undefined' && import.meta.env.VITE_VIDEO_CDN ? import.meta.env.VITE_VIDEO_CDN : '';
-const DESKTOP_VIDEO = `https://vwpseddaghxktpjtriaj.supabase.co/storage/v1/object/public/website%20videos/herosection/apparel-manufacturer-in-bangalore%20(2).mp4`;
-const MOBILE_VIDEO = `https://vwpseddaghxktpjtriaj.supabase.co/storage/v1/object/public/website%20videos/herosection/custom%20apparel%20manufacturer.mp4`;
+const DESKTOP_VIDEO_FILE = 'apparel-manufacturer-in-bangalore (2).mp4';
+const MOBILE_VIDEO_FILE = 'custom apparel manufacturer.mp4';
 
 const HERO_HEADING_LINES = [
   'Private Label Clothing & Knitwear\nManufacturer in Bangalore',
@@ -36,9 +37,12 @@ const BRAND_YELLOW = '#FECC00';
 const VIDEO_LOAD_DELAY_MS = 2000;
 
 export const HeroSection = React.memo(function HeroSection() {
+  const { getUrl } = useMediaAssets();
   const posterImgRef = useRef<HTMLImageElement>(null);
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
+  const desktopVideoSrc = getUrl('herosection', DESKTOP_VIDEO_FILE);
+  const mobileVideoSrc = getUrl('herosection', MOBILE_VIDEO_FILE);
   const [isMobileViewport, setIsMobileViewport] = useState(
     typeof window !== 'undefined' && window.innerWidth < 768
   );
@@ -115,7 +119,7 @@ export const HeroSection = React.memo(function HeroSection() {
             onEnded={(e) => e.currentTarget.play()}
             onError={() => setVideoError(true)}
           >
-            {!isMobileViewport && <source src={DESKTOP_VIDEO} type="video/mp4" />}
+            {!isMobileViewport && <source src={desktopVideoSrc} type="video/mp4" />}
           </video>
           <video
             ref={mobileVideoRef}
@@ -129,7 +133,7 @@ export const HeroSection = React.memo(function HeroSection() {
             onEnded={(e) => e.currentTarget.play()}
             onError={() => setVideoError(true)}
           >
-            {isMobileViewport && <source src={MOBILE_VIDEO} type="video/mp4" />}
+            {isMobileViewport && <source src={mobileVideoSrc} type="video/mp4" />}
           </video>
         </>
       )}

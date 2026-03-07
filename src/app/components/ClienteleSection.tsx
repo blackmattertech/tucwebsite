@@ -1,5 +1,5 @@
 import { clientLogos } from '../../data/client-logos';
-import { clientLogoUrl } from '../lib/supabaseStorage';
+import { useMediaAssets } from '../lib/useMediaAssets';
 import { OptimizedImage } from './OptimizedImage';
 
 /** Derive SEO-friendly alt from logo filename (e.g. "kfc_logo.svg" → "KFC"). */
@@ -28,6 +28,7 @@ function logoAlt(filename: string): string {
 
 export function ClienteleSection() {
   const logos = clientLogos;
+  const { getUrl } = useMediaAssets();
   if (logos.length === 0) return null;
 
   // Duplicate set for seamless loop
@@ -41,7 +42,7 @@ export function ClienteleSection() {
             {duplicated.map((name, i) => (
               <div key={`${name}-${i}`} className="marquee-item">
                 <OptimizedImage
-                  src={clientLogoUrl(name)}
+                  src={getUrl('client-logos', name)}
                   alt={logoAlt(name)}
                   width={120}
                   height={48}

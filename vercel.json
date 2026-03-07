@@ -6,9 +6,9 @@
     "remotePatterns": [
       {
         "protocol": "https",
-        "hostname": "vwpseddaghxktpjtriaj.supabase.co",
+        "hostname": "ik.imagekit.io",
         "port": "",
-        "pathname": "/storage/v1/object/public/**",
+        "pathname": "/**",
         "search": ""
       },
       {

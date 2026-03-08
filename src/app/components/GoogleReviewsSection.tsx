@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { Star } from 'lucide-react';
+import './GoogleReviewsSection.css';
 
 interface Review {
   id: number;
@@ -12,62 +13,124 @@ interface Review {
 }
 
 const GOOGLE_REVIEWS_LINK =
-  'https://www.google.com/search?q=TAG+UNLIMITED+Reviews&sa=X&ved=2ahUKEwj97ZGAn_2SAxXOSGwGHQVwHdAQ0bkNegQIKRAH';
+  'https://www.google.com/search?sca_esv=d68f2633f4bc5039&sxsrf=ANbL-n4Ns-QCRSdlx7qqnBF2EjPkOkhl5A:1772981154050&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOQcgV4fW5XOKh3v0nLjFxkCB8UMoLxMK-EACCiu2PfBx_LE8_U035IoRbWhbsDPjQ6wC0XkKrz6ihETQBpjModofqFo6&q=TAG+UNLIMITED+Reviews&sa=X&ved=2ahUKEwiet4W_xZCTAxWgTmwGHc3CHOsQ0bkNegQIQhAH&biw=2048&bih=1158&dpr=2';
 
 const reviews: Review[] = [
   {
     id: 1,
-    reviewerName: 'AJsVIEW',
-    reviewerCompany: 'Local Guide • 46 reviews',
+    reviewerName: 'Disha B S',
+    reviewerCompany: '3 reviews · 2 photos',
     rating: 5,
-    reviewTitle: 'Love at first sight ❤️',
+    reviewTitle: 'Highly recommend!',
     reviewText:
-      "We've been purchasing Tees for our Club from Rahul (Tag Unlimited) for the past 3 years, and we've always been satisfied with the product quality and service. Rahul and team are swift and professional."
+      "I've been using Tag Unlimited products since 2023, and the experience has been excellent. The quality of their products is top notch, delivery is always quick, and they offer a wide range of merchandise from jackets to caps and everything in between. Truly a one-stop shop for all things merchandise. Highly recommend!"
   },
   {
     id: 2,
-    reviewerName: 'Priya Sharma',
-    reviewerCompany: 'Local Guide • 32 reviews',
+    reviewerName: 'Pavan Medheramitla',
+    reviewerCompany: 'Local Guide · 93 reviews · 684 photos',
     rating: 5,
-    reviewTitle: 'Outstanding quality and service',
+    reviewTitle: 'Wide range and great quality',
     reviewText:
-      "Outstanding quality and professional service. TAG UNLIMITED delivered our bulk order of 5,000 custom hoodies exactly on time with perfect finishing. Highly recommend for any serious apparel manufacturing needs."
+      "Wide range of varieties and cloth quality is really good and comparatively price is very reasonable. They are very professional and always helpful."
   },
   {
     id: 3,
-    reviewerName: 'Rajesh Kumar',
-    reviewerCompany: 'Local Guide • 28 reviews',
+    reviewerName: 'Harshith B.',
+    reviewerCompany: 'Local Guide · 19 reviews · 19 photos',
     rating: 5,
-    reviewTitle: 'Best in Bangalore',
+    reviewTitle: 'Picture perfect embroidery',
     reviewText:
-      "Best apparel manufacturer in Bangalore! Their attention to detail and quality control is exceptional. We've worked with many manufacturers, but TAG UNLIMITED stands out for their reliability and professionalism."
+      "Best place to get ur tees customised. I ordered 22 tees for my college fest which needed to be embroidered with a complex design - it came out picture perfect. Timely delivery and good customer support."
   },
   {
     id: 4,
-    reviewerName: 'Sarah Johnson',
-    reviewerCompany: 'Local Guide • 54 reviews',
+    reviewerName: 'Piyush Goyal',
+    reviewerCompany: 'Local Guide · 28 reviews',
     rating: 5,
-    reviewTitle: 'Exceeded expectations',
+    reviewTitle: 'Couldn\'t be happier',
     reviewText:
-      "Excellent private label manufacturing partner. From initial samples to final delivery, everything was handled professionally. The quality of fabrics and stitching exceeded our expectations."
+      "I recently ordered a batch of custom t-shirts from this manufacturer and I couldn't be happier with the result! The team was incredibly helpful throughout the entire process, from helping me choose the right shirt style and color to making sure my design was just right. The quality of the t-shirts is top-notch and the printing is sharp and vibrant. The turnaround time was impressively quick - I received my order well ahead of schedule. I highly recommend this custom t-shirt manufacturer. Thanks for the excellent service!"
   },
   {
     id: 5,
-    reviewerName: 'Michael Chen',
-    reviewerCompany: 'Local Guide • 19 reviews',
+    reviewerName: 'Madhu M',
+    reviewerCompany: '3 reviews',
     rating: 5,
-    reviewTitle: 'Go-to manufacturer',
+    reviewTitle: 'Everything at one place',
     reviewText:
-      "TAG UNLIMITED has been our go-to manufacturer for custom apparel. Their production capacity, quality standards, and timely delivery make them ideal for large-scale orders. Highly professional team!"
+      "One of the best place where people can buy customised T-shirt, Hoodies, Varsitys, Sports wearing and also best engraving. Everything at one place with an affordable price."
   },
   {
     id: 6,
-    reviewerName: 'Anita Desai',
-    reviewerCompany: 'Local Guide • 41 reviews',
+    reviewerName: 'Sharvesh mohan raj',
+    reviewerCompany: '1 review',
     rating: 5,
-    reviewTitle: 'Impressive infrastructure',
+    reviewTitle: 'Very nice t-shirt, good staff',
+    reviewText: 'Wow very nice t-shirt good staffs.'
+  },
+  {
+    id: 7,
+    reviewerName: 'Naved Ahmed',
+    reviewerCompany: 'Local Guide · 28 reviews · 1 photo',
+    rating: 5,
+    reviewTitle: 'Sub-24 hours and hassle free',
     reviewText:
-      "Impressed with their infrastructure and manufacturing capabilities. They handled our complex requirements with ease and delivered premium quality garments. Great communication throughout the process."
+      "Got a print done on urgent basis. Quick (sub-24 hours). Good quality and affordable. The staff was communicative and hassle free. Definitely recommend over other places."
+  },
+  {
+    id: 8,
+    reviewerName: '1MS19CH020 LAILA',
+    reviewerCompany: '1 review',
+    rating: 5,
+    reviewTitle: 'Pretty satisfied!',
+    reviewText:
+      "Great quality for the price - varsity jacket and hoodies. They accurately reproduced my submitted design and the customer service from Kavitha and the owner Rahul was excellent. The order came in pretty soon, exactly when I wanted it. Pretty satisfied!"
+  },
+  {
+    id: 9,
+    reviewerName: 'Maheshwari N',
+    reviewerCompany: '1 review',
+    rating: 5,
+    reviewTitle: 'One stop for all custom products',
+    reviewText:
+      "One stop place for all custom products. We ordered 200 t-shirts for our Fest (Bishop Cottons) with super fast delivery - literally in 2 working days - and the best price. Excellent work in such short notice, always catering to customers' needs."
+  },
+  {
+    id: 10,
+    reviewerName: 'Abhishek Rao',
+    reviewerCompany: 'Local Guide · 45 reviews · 249 photos',
+    rating: 5,
+    reviewTitle: 'Customization is next level',
+    reviewText:
+      "#TagMyTee & #RahulTheTeeShirtGuy have done wonders. With #TagUnlimited since the beginning. Customization is next level - Quality, Time, Designs are the best. The team in Bengaluru is the most reliable for bringing our ideas into reality. Service provided all over India. Just go ahead without a second thought - it's just #Unlimited. Thanks Team for being so wonderful!"
+  },
+  {
+    id: 11,
+    reviewerName: 'Rahul Gohrani',
+    reviewerCompany: 'Local Guide · 8 reviews · 694 photos',
+    rating: 5,
+    reviewTitle: 'Top notch quality, delivered on time',
+    reviewText:
+      "Top notch quality, delivered on time, open to feedback and modifications - these are the few qualities you can expect when dealing with Rahul. I have had two purchases from TAG unlimited and Rahul has been very patient and professional. Will definitely recommend him to my peers."
+  },
+  {
+    id: 12,
+    reviewerName: 'Riza Deka',
+    reviewerCompany: '1 review',
+    rating: 5,
+    reviewTitle: 'Fastest delivery as per commitment',
+    reviewText:
+      "The fastest delivery that I ever got as per their commitment. Very satisfying fabric and the design was awesome. In future I would recommend to all my known people. Keep up your good work and all the best for the future."
+  },
+  {
+    id: 13,
+    reviewerName: 'Shivangini B',
+    reviewerCompany: '11 reviews',
+    rating: 5,
+    reviewTitle: 'Product quality and fabric awesome',
+    reviewText:
+      "I had ordered t-shirts with Rahul for the first time. Their product quality was very good and their fabric is just awesome. The print on the t-shirt is just amazing. I would highly recommend going here to get your tees customized - they are customer friendly and get it delivered on time. Kudos to the team and their work."
   }
 ];
 
@@ -167,7 +230,7 @@ function CTAPanel() {
         </a>
         <div className="flex items-center justify-center gap-1.5 mt-4 text-white/90" style={{ fontSize: '0.875rem' }}>
           <GoogleLogoIcon className="w-4 h-4" />
-          <span>180+ reviews</span>
+          <span>294+ reviews</span>
         </div>
       </div>
     </div>
@@ -232,63 +295,31 @@ export function GoogleReviewsSection() {
 
   return (
     <section id="reviews" className="bg-white py-16 md:py-24" style={{ fontFamily: 'var(--font-family)' }}>
-      <div className="max-w-[1200px] mx-auto px-6 lg:px-12">
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-12">
           <div className="lg:col-span-5">
-            <h2
-              className="text-gray-900 mb-12 md:mb-16"
-              style={{
-                fontFamily: 'var(--font-heading)',
-                fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-                fontWeight: 400,
-                lineHeight: 1.15,
-                letterSpacing: '-0.02em',
-              }}
-            >
-              Our Customers Praise Us
+            <h2 className="reviews-section-heading">
+              Our Customers
+              <br />
+              Praise Us
             </h2>
-            <div className="flex flex-wrap gap-x-8 gap-y-2">
+            <div className="reviews-section-stats">
               <div className="relative inline-block">
-                <span
-                  className="text-gray-900 font-bold"
-                  style={{
-                    fontSize: 'clamp(1.5rem, 2.5vw, 1.875rem)',
-                    fontFamily: 'var(--font-heading)',
-                    letterSpacing: '-0.02em',
-                  }}
-                >
-                  180+
-                </span>
-                <span className="text-gray-600 ml-1.5" style={{ fontSize: '0.9375rem' }}>
-                  verified reviews
-                </span>
+                <span className="reviews-section-metric-num">294+</span>
+                <span className="reviews-section-metric-label">verified reviews</span>
                 <span
                   className="absolute -bottom-1 left-0 w-full h-0.5 rounded-full"
                   style={{ background: 'linear-gradient(90deg, #ea4335 0%, transparent 100%)' }}
                 />
               </div>
               <div>
-                <span
-                  className="text-gray-900 font-bold"
-                  style={{
-                    fontSize: 'clamp(1.5rem, 2.5vw, 1.875rem)',
-                    fontFamily: 'var(--font-heading)',
-                    letterSpacing: '-0.02em',
-                  }}
-                >
-                  5.0
-                </span>
-                <span className="text-gray-600 ml-1.5" style={{ fontSize: '0.9375rem' }}>
-                  average number of stars
-                </span>
+                <span className="reviews-section-metric-num">4.9</span>
+                <span className="reviews-section-metric-label">average number of stars</span>
               </div>
             </div>
           </div>
-          <div className="lg:col-span-7 flex items-center">
-            <p
-              className="text-gray-600 leading-relaxed max-w-xl"
-              style={{ fontSize: '1rem', lineHeight: 1.6 }}
-            >
+          <div className="lg:col-span-7 flex items-center reviews-section-paragraph-wrap">
+            <p className="reviews-section-paragraph">
               The results so far confirm our vision. Our customers appreciate the
               courage to explore territories that others dare not even dream of,
               as evidenced by the over 180 impeccable, 5-star reviews.
@@ -329,8 +360,8 @@ export function GoogleReviewsSection() {
             href={GOOGLE_REVIEWS_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-gray-900 font-medium transition-colors"
-            style={{ fontSize: '0.875rem' }}
+            className="inline-flex items-center justify-center rounded-full px-6 py-2.5 font-semibold text-gray-900 transition-colors hover:bg-[#e6b800]"
+            style={{ backgroundColor: '#fecc00', fontSize: '0.875rem' }}
           >
             View all reviews →
           </a>

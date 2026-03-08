@@ -11,7 +11,6 @@ const SECTION_IDS = [
   'product-carousel',
   'tag-factor',
   'reviews',
-  'blog',
   'social',
   'contact',
 ] as const;

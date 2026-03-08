@@ -12,6 +12,25 @@ const outTs = path.join(dataDir, 'client-logos.ts');
 
 const IMG_EXT = /\.(png|jpe?g|svg|gif|webp)$/i;
 
+// Fallback when public/client logos is missing or empty – logos load from ImageKit (client-logos folder)
+const FALLBACK_CLIENT_LOGOS = [
+  '1024px-Cisco_logo.svg_.png',
+  '98b4e8_d71ea6626990460c8891b856b61618bamv2.webp',
+  'Acc_Logo_Black_Purple_RGB.png',
+  'Bank_of_Baroda_logo-3.svg',
+  'Tesco_Logo.svg_.png',
+  'Zomato-Logo.png',
+  'basf_logo.svg',
+  'download-17.png',
+  'huawei_  logo.svg',
+  "john_deere logo.svg",
+  "kellogg's_logo.svg",
+  'kfc_logo.svg',
+  'philips_logo.svg',
+  'pwc_logo.svg',
+  'red_bull logo.svg',
+];
+
 function listLogos() {
   let names = [];
   try {
@@ -22,6 +41,9 @@ function listLogos() {
     }
   } catch (_) {
     // ignore
+  }
+  if (names.length === 0) {
+    names = FALLBACK_CLIENT_LOGOS;
   }
   if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir, { recursive: true });

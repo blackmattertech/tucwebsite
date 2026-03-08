@@ -1,5 +1,4 @@
 import { Link } from 'react-router';
-import { PageHero } from '../components/PageHero';
 import { Search } from 'lucide-react';
 
 export function Blog() {
@@ -67,11 +66,57 @@ export function Blog() {
 
   return (
     <>
-      <PageHero
-        title="Apparel Manufacturing Blog & Guides"
-        subtitle="Expert insights, manufacturing guides, and industry knowledge for apparel brands"
-        dark={false}
-      />
+      {/* Blog header: title left, subheading right, category filters below (reference layout) */}
+      <section className="pt-8 pb-4 md:pt-12 md:pb-6" style={{ backgroundColor: '#1a1a1a' }}>
+        <div
+          className="max-w-[1440px] mx-auto pt-10 md:pt-14 pb-10 md:pb-14 px-6 lg:px-12 rounded-t-2xl"
+          style={{ backgroundColor: '#f0f0f0' }}
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            <div className="lg:col-span-7">
+              <h1
+                className="text-gray-900 mb-6 md:mb-8"
+                style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
+                  fontWeight: 700,
+                  lineHeight: 1.2,
+                }}
+              >
+                Inside Apparel Manufacturing: Insights, Trends & Expertise
+              </h1>
+              <div className="flex flex-wrap gap-2">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    type="button"
+                    className={`px-4 py-2 rounded-full border transition-colors ${
+                      category === 'All'
+                        ? 'bg-gray-900 text-white border-gray-900'
+                        : 'border-gray-400 text-gray-700 hover:border-gray-900 bg-transparent'
+                    }`}
+                    style={{ fontFamily: 'var(--font-family)', fontSize: '14px', fontWeight: 500 }}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="lg:col-span-5 lg:text-right lg:pt-1">
+              <p
+                className="text-gray-700"
+                style={{
+                  fontFamily: 'var(--font-family)',
+                  fontSize: 'clamp(0.9375rem, 1.1vw, 1.0625rem)',
+                  lineHeight: 1.6,
+                }}
+              >
+                Explore expert insights on apparel manufacturing, private label clothing production, fabric sourcing and garment development. Our articles help brands, startups and businesses understand how high-quality clothing is designed, produced and delivered at scale.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="py-24 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12">

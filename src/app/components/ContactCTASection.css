@@ -1,0 +1,92 @@
+/* Contact CTA: full-width light grey section, two-column grid per reference */
+
+.contact-cta-section {
+  width: 100%;
+}
+
+.contact-cta-inner {
+  padding: 80px 24px;
+}
+
+/* Two-column layout: heading left, paragraph right – aligned to section start (same as image row above) */
+.contact-cta-heading-block {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 0;
+  margin-bottom: 2.5rem;
+  width: 100%;
+}
+
+.contact-cta-heading {
+  margin: 0;
+  font-weight: 900;
+  font-size: clamp(48px, 12vw, 72px);
+  line-height: 0.9;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  color: #000;
+}
+
+.contact-cta-subtext {
+  margin: 2rem 0 0;
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 320px;
+  color: #222;
+}
+
+.contact-cta-button-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+/* Contact details: 3 columns in one row, centered */
+.contact-cta-details {
+  min-width: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-cta-detail {
+  min-width: 0;
+}
+
+/* Icon hover: background → logo yellow, icon → black */
+.contact-cta-detail-icon-wrap {
+  background-color: rgba(0, 0, 0, 0.06);
+  transition: background-color 0.2s ease;
+}
+
+.contact-cta-detail-icon {
+  transition: color 0.2s ease;
+}
+
+.contact-cta-detail:hover .contact-cta-detail-icon-wrap {
+  background-color: #fecc00;
+}
+
+.contact-cta-detail:hover .contact-cta-detail-icon {
+  color: #000;
+}
+
+/* Desktop: 60% 40% grid, content starts at same left as section (align with image row) */
+@media (min-width: 768px) {
+  .contact-cta-inner {
+    padding: 120px 8vw;
+  }
+
+  .contact-cta-heading-block {
+    grid-template-columns: 60% 40%;
+    column-gap: 2.5rem;
+  }
+
+  .contact-cta-heading {
+    font-size: clamp(90px, 10vw, 160px);
+  }
+
+  .contact-cta-subtext {
+    margin-top: 2rem;
+  }
+}

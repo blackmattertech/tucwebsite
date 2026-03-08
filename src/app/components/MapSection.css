@@ -1,0 +1,78 @@
+/* Hero section: black background, yellow headline only. */
+.map-section {
+  width: 100%;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 3rem);
+  background: #000;
+  scroll-margin-top: 0;
+}
+
+.map-section-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.map-section-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  max-width: 900px;
+}
+
+.map-section-heading-line1,
+.map-section-heading-line2 {
+  margin: 0;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 12vw, 144px);
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: #fecc00;
+  text-align: left;
+  transition: color 0.3s ease, text-shadow 0.3s ease, letter-spacing 0.6s ease;
+}
+
+.map-section-heading-line2 {
+  margin-top: 0.12em;
+}
+
+/* Letter-spacing eases when section enters viewport */
+.map-section.is-in-view .map-section-heading-line1 {
+  letter-spacing: -0.02em;
+}
+
+/* Hover: subtle glow on yellow headline */
+.map-section-heading:hover .map-section-heading-line1,
+.map-section-heading:hover .map-section-heading-line2 {
+  color: #ffdd33;
+  text-shadow: 0 0 20px rgba(254, 204, 0, 0.4), 0 0 40px rgba(254, 204, 0, 0.2);
+}
+
+@media (max-width: 1024px) {
+  .map-section-inner {
+    padding: 0 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .map-section-inner {
+    padding-left: clamp(1rem, 4vw, 1.5rem);
+  }
+
+  .map-section-heading-line1,
+  .map-section-heading-line2 {
+    font-size: clamp(2rem, 10vw, 3.5rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .map-section {
+    padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 4vw, 1.5rem);
+  }
+
+  .map-section-heading-line1,
+  .map-section-heading-line2 {
+    font-size: clamp(1.75rem, 9vw, 2.5rem);
+  }
+}

@@ -7,11 +7,7 @@ export function TrustSection() {
     <section
       id="trust"
       className="py-14 md:py-20 lg:py-28"
-      style={{
-        backgroundColor: '#FFFFFF',
-        backgroundImage: 'radial-gradient(circle at center, #AAAAEE 0, #AAAAEE 1px, transparent 1px)',
-        backgroundSize: '12px 12px',
-      }}
+      style={{ backgroundColor: '#FFFFFF' }}
     >
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
         <h2 className="trust-section-heading">

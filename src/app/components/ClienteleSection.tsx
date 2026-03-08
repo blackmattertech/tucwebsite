@@ -1,4 +1,3 @@
-import { clientLogos } from '../../data/client-logos';
 import { useMediaAssets } from '../lib/useMediaAssets';
 import { OptimizedImage } from './OptimizedImage';
 
@@ -26,9 +25,11 @@ function logoAlt(filename: string): string {
   return base.length > 2 && base.length < 50 ? base : 'Client';
 }
 
+const CLIENT_LOGOS_FOLDER = 'client-logos';
+
 export function ClienteleSection() {
-  const logos = clientLogos;
-  const { getUrl } = useMediaAssets();
+  const { getUrl, getFileNamesByFolder } = useMediaAssets();
+  const logos = getFileNamesByFolder(CLIENT_LOGOS_FOLDER);
   if (logos.length === 0) return null;
 
   // Duplicate set for seamless loop

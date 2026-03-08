@@ -12,6 +12,8 @@ export type MediaAssetsContextValue = {
   getUrl: (folder: string, file_name: string) => string;
   /** True once media_assets has been fetched (may be empty). */
   ready: boolean;
+  /** File names for a given folder (e.g. client-logos). Empty until loaded. */
+  getFileNamesByFolder: (folder: string) => string[];
 };
 
 export const MediaAssetsContext = createContext<MediaAssetsContextValue | null>(null);
@@ -25,12 +27,14 @@ function buildKey(folder: string, file_name: string): string {
 
 export function MediaAssetsProvider({ children }: { children: React.ReactNode }) {
   const [map, setMap] = useState<Map<string, string>>(new Map());
+  const [byFolder, setByFolder] = useState<Map<string, string[]>>(new Map());
 
   useEffect(() => {
     const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
     const key = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
     if (!url || !key) {
       setMap(new Map());
+      setByFolder(new Map());
       return;
     }
     let cancelled = false;
@@ -46,11 +50,21 @@ export function MediaAssetsProvider({ children }: { children: React.ReactNode })
           return;
         }
         const next = new Map<string, string>();
+        const folderToFiles = new Map<string, string[]>();
         for (const row of data ?? []) {
-          const key = buildKey(String(row.folder ?? ''), String(row.file_name ?? ''));
-          if (key && row.url) next.set(key, String(row.url));
+          const folder = String(row.folder ?? '').trim();
+          const file_name = String(row.file_name ?? '').trim();
+          if (folder && file_name && row.url) {
+            next.set(buildKey(folder, file_name), String(row.url));
+            const list = folderToFiles.get(folder) ?? [];
+            list.push(file_name);
+            folderToFiles.set(folder, list);
+          }
         }
-        if (!cancelled) setMap(next);
+        if (!cancelled) {
+          setMap(next);
+          setByFolder(folderToFiles);
+        }
       } catch (e) {
         if (!cancelled) console.warn('[media_assets]', e);
       }
@@ -66,7 +80,10 @@ export function MediaAssetsProvider({ children }: { children: React.ReactNode })
       if (url) return url;
       return getMediaUrl(`${folder}/${file_name}`);
     },
-  }), [map]);
+    getFileNamesByFolder(folder: string) {
+      return byFolder.get((folder ?? '').trim()) ?? [];
+    },
+  }), [map, byFolder]);
 
   return (
     <MediaAssetsContext.Provider value={value}>

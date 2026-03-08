@@ -11,7 +11,7 @@ import { ThirdPartyScripts } from './ThirdPartyScripts';
 
 function LayoutContent() {
   return (
-    <div className="min-h-screen bg-white relative">
+    <div className="min-h-screen bg-white relative overflow-x-hidden">
       <ThirdPartyScripts />
       <Header />
       <SectionScrollIndicators />

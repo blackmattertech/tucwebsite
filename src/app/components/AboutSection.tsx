@@ -4,6 +4,7 @@ import { motion, useInView } from 'motion/react';
 import { useMediaAssets } from '../lib/useMediaAssets';
 import { HERO_POSTER } from '../../hero-poster-config';
 import { OptimizedImage } from './OptimizedImage';
+import './AboutSection.css';
 
 const STATS = [
   { target: 100000, suffix: '+', label: 'Pieces Manufactured Monthly' },
@@ -79,23 +80,68 @@ export const AboutSection = React.memo(function AboutSection() {
   return (
     <section className="bg-white py-16 md:py-24 lg:py-28" id="about">
       <div className="max-w-[1440px] xl:max-w-[1600px] 2xl:max-w-[1680px] mx-auto px-6 lg:px-12 xl:px-16">
-        <h2
-          className="text-gray-900 uppercase mb-12 md:mb-16"
-          style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: 'var(--text-h2)',
-            fontWeight: 600,
-            lineHeight: 1.2,
-            letterSpacing: '0.05em',
-          }}
-        >
+        <h2 className="about-section-heading">
           About Us
         </h2>
-        {/* Main content: description + image */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-center mb-16 md:mb-20">
+        {/* Mobile only: flow – para1, image1, para2+3, image2, para4, button */}
+        <div
+          className="about-section-mobile-flow text-gray-600 mb-16"
+          style={{
+            fontFamily: 'var(--font-family)',
+            fontSize: 'var(--text-body)',
+            lineHeight: 1.6,
+          }}
+        >
+          <p className="about-section-flow-p">
+            <span style={{ color: LOGO_YELLOW, fontWeight: 700 }}>TAG Unlimited</span> is a Bangalore-based private label clothing and knitwear manufacturer specializing in bulk production of T-Shirts, Hoodies, Shirts and custom apparel for fashion brands and businesses.
+          </p>
+          <div className="about-section-flow-image">
+            <img
+              src={ABOUT_IMAGE}
+              alt={ABOUT_IMAGE_ALT}
+              className="about-section-image w-full rounded-2xl overflow-hidden shadow-2xl"
+              width={800}
+              height={600}
+              loading="lazy"
+              decoding="async"
+              sizes="100vw"
+            />
+          </div>
+          <p className="about-section-flow-p">
+            Our manufacturing facility is designed for structured production with consistent quality standards and reliable delivery timelines. From sampling to final dispatch, every order follows organized workflows that ensure efficiency and accuracy.
+          </p>
+          <p className="about-section-flow-p">
+            Our operations are powered by integrated production management systems that allow us to track every order stage and maintain clear production timelines, ensuring dependable delivery and consistent manufacturing quality.
+          </p>
+          <div className="about-section-flow-image">
+            <OptimizedImage
+              src={getUrl('other images', 'fabric rolls.webp')}
+              alt="Fabric rolls and materials at TAG Unlimited garment manufacturing facility"
+              width={800}
+              height={450}
+              className="about-section-image w-full rounded-2xl overflow-hidden shadow-2xl"
+              loading="lazy"
+              referrerPolicy="no-referrer"
+              sizes="100vw"
+            />
+          </div>
+          <p className="about-section-flow-p">
+            We work with fashion brands, startups, corporate buyers and export clients across India, supporting them with scalable apparel manufacturing solutions.
+          </p>
+          <Link
+            to="/about-apparel-manufacturer-bangalore"
+            className="inline-block text-gray-900 font-semibold px-8 py-4 rounded-lg hover:opacity-90 transition-opacity duration-300 mt-6"
+            style={{ backgroundColor: LOGO_YELLOW, fontSize: '1rem' }}
+          >
+            Learn More About Us
+          </Link>
+        </div>
+
+        {/* Desktop: grid – text left, images right */}
+        <div className="about-section-content grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-start mb-16 md:mb-20">
           <div className="lg:col-span-5 order-2 lg:order-1">
             <div
-              className="text-gray-600 mb-8 space-y-4"
+              className="text-gray-600 mb-6 space-y-4"
               style={{
                 fontFamily: 'var(--font-family)',
                 fontSize: 'var(--text-body)',
@@ -124,27 +170,29 @@ export const AboutSection = React.memo(function AboutSection() {
               Learn More About Our Manufacturing
             </Link>
           </div>
-          <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col gap-4 md:gap-6">
-            <div className="relative aspect-[4/3] lg:aspect-video lg:min-h-[380px] xl:min-h-[440px] 2xl:min-h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+          <div className="lg:col-span-7 order-1 lg:order-2 about-section-images">
+            <div className="about-section-image-wrap relative w-full rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src={ABOUT_IMAGE}
                 alt={ABOUT_IMAGE_ALT}
-                className="w-full h-full object-cover"
+                className="about-section-image"
                 width={800}
                 height={600}
                 loading="lazy"
                 decoding="async"
+                sizes="(max-width: 1023px) 100vw, 58vw"
               />
             </div>
-            <div className="relative aspect-[4/3] lg:aspect-video rounded-2xl overflow-hidden shadow-2xl">
+            <div className="about-section-image-wrap relative w-full rounded-2xl overflow-hidden shadow-2xl">
               <OptimizedImage
                 src={getUrl('other images', 'fabric rolls.webp')}
                 alt="Fabric rolls and materials at TAG Unlimited garment manufacturing facility"
                 width={800}
                 height={450}
-                className="w-full h-full object-cover"
+                className="about-section-image"
                 loading="lazy"
                 referrerPolicy="no-referrer"
+                sizes="(max-width: 1023px) 100vw, 58vw"
               />
             </div>
           </div>

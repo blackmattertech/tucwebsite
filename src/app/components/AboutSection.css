@@ -1,0 +1,106 @@
+/* About section: heading matches ContactCTASection "Ready for Commitment?" – single line */
+.about-section-heading {
+  margin: 0 0 1rem;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: clamp(48px, 12vw, 72px);
+  line-height: 0.9;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  color: #000;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .about-section-heading {
+    font-size: clamp(90px, 10vw, 160px);
+  }
+}
+
+/* Mobile only: single-column flow – para, image1, paras, image2, paras, button */
+.about-section-mobile-flow {
+  display: block;
+}
+
+.about-section-flow-p {
+  margin: 0 0 1rem;
+}
+
+.about-section-flow-p:last-of-type {
+  margin-bottom: 0;
+}
+
+.about-section-flow-image {
+  margin: 1.25rem 0;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  aspect-ratio: 4 / 3;
+}
+
+.about-section-flow-image .about-section-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .about-section-mobile-flow {
+    display: none;
+  }
+}
+
+/* Desktop: grid layout */
+.about-section-content {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .about-section-content {
+    display: grid;
+  }
+}
+
+/* Image column: both images share the same vertical space and fit within the section */
+.about-section-images {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .about-section-images {
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-section-images {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 1rem;
+    max-height: min(70vh, 560px);
+    min-height: 320px;
+  }
+}
+
+/* Each image: on mobile use aspect ratio; on desktop takes half of fixed-height column */
+.about-section-image-wrap {
+  min-height: 0;
+  flex: 1;
+  aspect-ratio: 4 / 3;
+}
+
+@media (min-width: 1024px) {
+  .about-section-image-wrap {
+    aspect-ratio: auto;
+  }
+}
+
+.about-section-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

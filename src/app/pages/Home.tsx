@@ -3,6 +3,7 @@ import { HeroSection } from '../components/HeroSection';
 import { BlankSection } from '../components/BlankSection';
 import { ProductsSection } from '../components/ProductsSection';
 import { TrustSection } from '../components/TrustSection';
+import { MapSection } from '../components/MapSection';
 import { TagFactorSection } from '../components/TagFactorSection';
 import { LazySection } from '../components/LazySection';
 
@@ -17,12 +18,6 @@ const ProductCarouselSection = lazy(() =>
 );
 const GoogleReviewsSection = lazy(() =>
   import('../components/GoogleReviewsSection').then((m) => ({ default: m.GoogleReviewsSection }))
-);
-const BlogSection = lazy(() =>
-  import('../components/BlogSection').then((m) => ({ default: m.BlogSection }))
-);
-const SocialMediaSection = lazy(() =>
-  import('../components/SocialMediaSection').then((m) => ({ default: m.SocialMediaSection }))
 );
 const ContactCTASection = lazy(() =>
   import('../components/ContactCTASection').then((m) => ({ default: m.ContactCTASection }))
@@ -41,7 +36,6 @@ export function Home() {
       <LazySection minHeightClass="min-h-[50vh]">
         <PrinciplesSection />
       </LazySection>
-      <TrustSection />
       <div
         className="dotted-bg-wrap"
         style={{
@@ -53,21 +47,19 @@ export function Home() {
         <LazySection minHeightClass="min-h-[50vh]">
           <CapabilitiesSection />
         </LazySection>
-        <BlankSection />
         <ProductsSection />
       </div>
+      <LazySection minHeightClass="min-h-[320px]">
+        <MapSection />
+      </LazySection>
+      <BlankSection />
+      <TrustSection />
       <LazySection minHeightClass="min-h-[520px]">
         <ProductCarouselSection />
       </LazySection>
       <TagFactorSection />
       <LazySection minHeightClass="min-h-[420px]">
         <GoogleReviewsSection />
-      </LazySection>
-      <LazySection minHeightClass="min-h-[480px]">
-        <BlogSection />
-      </LazySection>
-      <LazySection minHeightClass="min-h-[320px]">
-        <SocialMediaSection />
       </LazySection>
       <LazySection minHeightClass="min-h-[360px]">
         <ContactCTASection />

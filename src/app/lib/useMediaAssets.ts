@@ -14,6 +14,7 @@ export function useMediaAssets(): MediaAssetsContextValue {
       getUrl(folder: string, file_name: string) {
         return getMediaUrl(`${folder}/${file_name}`);
       },
+      getFileNamesByFolder: () => [],
     };
   }
   return ctx;

@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useMediaAssets } from '../lib/useMediaAssets';
 import './ProductCarouselSection.css';
 
-const PRODUCT_VIDEOS: { id: string; label: string; file: string; mediaAlt: string }[] = [
+/** Product labels used in carousel; exported for footer Products column */
+export const PRODUCT_CAROUSEL_ITEMS: { id: string; label: string; file: string; mediaAlt: string }[] = [
   {
     id: 'hoodies',
     label: 'Hoodies',
@@ -77,7 +78,7 @@ const PRODUCT_VIDEOS: { id: string; label: string; file: string; mediaAlt: strin
 
 function useProductItems() {
   const { getUrl } = useMediaAssets();
-  return PRODUCT_VIDEOS.map((item) => ({
+  return PRODUCT_CAROUSEL_ITEMS.map((item) => ({
     ...item,
     videoSrc: getUrl('products', item.file),
   }));
@@ -176,7 +177,9 @@ export function ProductCarouselSection() {
         backgroundSize: '12px 12px',
       }}
     >
-      <h2 className="product-carousel-heading">THE TAG UNLIMITED CLOSET</h2>
+      <h2 className="product-carousel-heading" style={{ fontFamily: 'var(--font-heading)' }}>
+        APPAREL WE MANUFACTURE
+      </h2>
       <div className="product-carousel-track">
         <div className="product-carousel-inner">
           {duplicated.map((item, index) => (

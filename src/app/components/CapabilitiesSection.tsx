@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import { Link } from 'react-router';
+import { motion, useInView } from 'motion/react';
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from './ui/carousel';
 import { useIsMobile } from './ui/use-mobile';
 import { useMediaAssets } from '../lib/useMediaAssets';
@@ -106,6 +107,8 @@ function CapabilityCardContent({
 export function CapabilitiesSection() {
   const { getUrl } = useMediaAssets();
   const isMobile = useIsMobile();
+  const sectionRef = useRef<HTMLElement>(null);
+  const sectionInView = useInView(sectionRef, { once: true, amount: 0.15 });
   const [imageErrored, setImageErrored] = useState<Record<number, boolean>>({});
   const [frontCardIndex, setFrontCardIndex] = useState(0);
   const [jumpToIndex, setJumpToIndex] = useState<number | null>(null);
@@ -170,11 +173,12 @@ export function CapabilitiesSection() {
 
   return (
     <section
+      ref={sectionRef}
       id="capabilities"
       className="capabilities-section"
       style={{ backgroundColor: 'transparent' }}
     >
-      <div className="capabilities-container">
+      <motion.div className="capabilities-container" initial={{ opacity: 0, y: 32 }} animate={sectionInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
         <header className="capabilities-header">
           <h2 className="capabilities-heading">OUR CAPABILITIES</h2>
           <p className="capabilities-subheading">Manufacturing</p>
@@ -260,7 +264,7 @@ export function CapabilitiesSection() {
           </div>
           )}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

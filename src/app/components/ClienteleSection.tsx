@@ -1,5 +1,6 @@
 import { useMediaAssets } from '../lib/useMediaAssets';
 import { OptimizedImage } from './OptimizedImage';
+import { Link } from 'react-router';
 
 /** Derive SEO-friendly alt from logo filename (e.g. "kfc_logo.svg" → "KFC"). */
 function logoAlt(filename: string): string {
@@ -107,6 +108,18 @@ export function ClienteleSection() {
           100% { transform: translateX(-50%); }
         }
       `}</style>
+      <div className="flex justify-center mt-8 md:mt-10">
+        <Link
+          to="/contact-apparel-manufacturer-bangalore"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-gray-900 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#fecc00]"
+          style={{ backgroundColor: '#fecc00' }}
+        >
+          <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          Download Catalog
+        </Link>
+      </div>
     </section>
   );
 }

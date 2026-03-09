@@ -47,6 +47,8 @@ export const HeroSection = React.memo(function HeroSection() {
   const posterImgRef = useRef<HTMLImageElement>(null);
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [parallaxY, setParallaxY] = useState(0);
   const desktopVideoSrc = getUrl('herosection', DESKTOP_VIDEO_FILE);
   const mobileVideoSrc = getUrl('herosection', MOBILE_VIDEO_FILE);
   const [isMobileViewport, setIsMobileViewport] = useState(
@@ -97,58 +99,89 @@ export const HeroSection = React.memo(function HeroSection() {
     posterImgRef.current?.setAttribute('fetchpriority', 'high');
   }, []);
 
+  // Subtle parallax on hero background (scroll-based)
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    let rafId: number;
+    const onScroll = () => {
+      rafId = requestAnimationFrame(() => {
+        const rect = section.getBoundingClientRect();
+        const height = section.offsetHeight;
+        if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+        const scrollProgress = -rect.top / (window.innerHeight + height);
+        setParallaxY(scrollProgress * height * 0.15);
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
+
   return (
-    <section id="hero" className="relative w-screen h-[100dvh] min-h-[100vh] flex items-center justify-center overflow-hidden">
-      {/* LCP element: poster image loads immediately with priority (WebP <120kb); fetchpriority set via ref */}
-      <img
-        ref={posterImgRef}
-        src={HERO_POSTER}
-        alt="TAG Unlimited - Private label apparel manufacturer in Bangalore"
-        width={1920}
-        height={1080}
-        sizes="100vw"
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ zIndex: videoError || !shouldLoadVideo ? 0 : -1 }}
+    <section ref={sectionRef} id="hero" className="relative w-screen h-[100dvh] min-h-[100vh] flex items-center justify-center overflow-hidden">
+      {/* Background layer: parallax translate */}
+      <div className="absolute inset-0 overflow-hidden" style={{ transform: `translate3d(0, ${parallaxY}px, 0)` }}>
+        <img
+          ref={posterImgRef}
+          src={HERO_POSTER}
+          alt="TAG Unlimited - Private label apparel manufacturer in Bangalore"
+          width={1920}
+          height={1080}
+          sizes="100vw"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ zIndex: videoError || !shouldLoadVideo ? 0 : -1 }}
+        />
+        {shouldLoadVideo && !videoError && (
+          <>
+            <video
+              ref={desktopVideoRef}
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster={HERO_POSTER}
+              preload="none"
+              className="absolute inset-0 w-full h-full object-cover hidden md:block"
+              onEnded={(e) => e.currentTarget.play()}
+              onError={() => setVideoError(true)}
+            >
+              {!isMobileViewport && <source src={desktopVideoSrc} type="video/mp4" />}
+            </video>
+            <video
+              ref={mobileVideoRef}
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster={HERO_POSTER}
+              preload="none"
+              className="absolute inset-0 w-full h-full object-cover md:hidden"
+              onEnded={(e) => e.currentTarget.play()}
+              onError={() => setVideoError(true)}
+            >
+              {isMobileViewport && <source src={mobileVideoSrc} type="video/mp4" />}
+            </video>
+          </>
+        )}
+      </div>
+
+      {/* Fabric wave motion overlay (subtle) */}
+      <div
+        className="absolute inset-0 pointer-events-none hero-fabric-wave"
+        style={{ zIndex: 1 }}
+        aria-hidden
       />
-      {/* Video: lazy-loaded after 2s or first scroll, preload="none" to avoid blocking render */}
-      {shouldLoadVideo && !videoError && (
-        <>
-          <video
-            ref={desktopVideoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            poster={HERO_POSTER}
-            preload="none"
-            className="absolute inset-0 w-full h-full object-cover hidden md:block"
-            onEnded={(e) => e.currentTarget.play()}
-            onError={() => setVideoError(true)}
-          >
-            {!isMobileViewport && <source src={desktopVideoSrc} type="video/mp4" />}
-          </video>
-          <video
-            ref={mobileVideoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            poster={HERO_POSTER}
-            preload="none"
-            className="absolute inset-0 w-full h-full object-cover md:hidden"
-            onEnded={(e) => e.currentTarget.play()}
-            onError={() => setVideoError(true)}
-          >
-            {isMobileViewport && <source src={mobileVideoSrc} type="video/mp4" />}
-          </video>
-        </>
-      )}
 
       {/* Dark Overlay Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" style={{ zIndex: 2 }} />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12 text-center">
+      {/* Content – min-height reserves space to reduce CLS when fonts/typing load */}
+      <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12 text-center" style={{ minHeight: 'min(280px, 38vh)' }}>
         {/* H1: Hero title – Montserrat, fluid, max-width for readability */}
         <h1
           className="text-white min-h-[1.2em] flex flex-wrap items-center justify-center gap-x-2 gap-y-0 mx-auto"
@@ -247,6 +280,21 @@ export const HeroSection = React.memo(function HeroSection() {
       <style>{`
         .hero-rotating-text { color: #111; font-weight: 700; }
         .hero-rotating-element { color: #111; font-weight: 700; }
+        .hero-fabric-wave {
+          background: repeating-linear-gradient(
+            105deg,
+            transparent,
+            transparent 40px,
+            rgba(255,255,255,0.02) 40px,
+            rgba(255,255,255,0.02) 41px
+          );
+          animation: hero-fabric-wave 12s ease-in-out infinite;
+        }
+        @keyframes hero-fabric-wave {
+          0%, 100% { opacity: 1; transform: translateX(0) scale(1.02); }
+          50% { opacity: 0.85; transform: translateX(2%) scale(1.03); }
+        }
+        @media (prefers-reduced-motion: reduce) { .hero-fabric-wave { animation: none; } }
       `}</style>
     </section>
   );

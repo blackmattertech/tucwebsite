@@ -77,6 +77,11 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
+  transition: transform 0.5s ease;
+}
+
+.product-carousel-panel:hover .product-carousel-panel-media-wrap {
+  transform: scale(1.08);
 }
 
 .product-carousel-lazy-wrap {

@@ -3,11 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TAG UNLIMITED - Private Label Apparel Manufacturer Bangalore</title>
-    <meta name="description" content="TAG UNLIMITED is a trusted private label apparel manufacturer in Bangalore. We manufacture premium t-shirts, hoodies, shirts, corporate uniforms, and custom garments. 180+ five-star reviews." />
+    <!-- Critical CSS: allow first paint before main stylesheet (reduces render-blocking impact) -->
+    <style>
+      body{margin:0;background:#0a0a0a;font-family:system-ui,sans-serif}
+      #root{min-height:100vh;display:block}
+      #hero{min-height:clamp(400px,85dvh,900px);position:relative}
+    </style>
+    <title>Premium Apparel Manufacturer | Custom Clothing &amp; Private Label Production</title>
+    <meta name="description" content="Leading apparel manufacturer offering custom clothing, private label production, and bulk garment manufacturing with premium quality and on-time delivery." />
     <meta name="theme-color" content="#0a0a0a" />
+    <!-- SEO Indexing -->
     <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href="https://tucwebsite.vercel.app/" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://tucwebsite.vercel.app/sitemap.xml" />
     <!-- LCP: preload hero poster so above-the-fold image loads immediately -->
     <link rel="preload" as="image" href="/hero-poster.webp" fetchpriority="high" />
     <!-- DNS prefetch + preconnect for Supabase (media_assets) and ImageKit (media URLs) -->
@@ -22,21 +31,86 @@
     <link rel="preload" href="/assets/fonts/montserrat-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:title" content="Premium Apparel Manufacturer for Global Brands" />
+    <meta property="og:description" content="Custom apparel manufacturing, private label clothing production, and bulk garment solutions with premium quality and on-time delivery." />
     <meta property="og:url" content="https://tucwebsite.vercel.app/" />
-    <meta property="og:title" content="TAG UNLIMITED - Private Label Apparel Manufacturer Bangalore" />
-    <meta property="og:description" content="Trusted private label apparel manufacturer in Bangalore. Premium t-shirts, hoodies, shirts, corporate uniforms. 180+ five-star reviews." />
-    <meta property="og:image" content="https://tucwebsite.vercel.app/logo.svg" />
+    <meta property="og:site_name" content="TAG Unlimited Clothing" />
+    <meta property="og:image" content="https://tucwebsite.vercel.app/og-apparel-manufacturer.jpg" />
+    <meta property="og:image:alt" content="Bulk custom apparel manufacturing and private label clothing production" />
     <meta property="og:locale" content="en_IN" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="TAG UNLIMITED - Private Label Apparel Manufacturer Bangalore" />
-    <meta name="twitter:description" content="Trusted private label apparel manufacturer in Bangalore. Premium garments &amp; bulk manufacturing." />
+    <meta name="twitter:title" content="Premium Apparel Manufacturer for Global Brands" />
+    <meta name="twitter:description" content="Custom apparel manufacturing, private label clothing production, and bulk garment solutions with premium quality and on-time delivery." />
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <link rel="apple-touch-icon" href="/logo.svg" />
+    <!-- Schema: Organization + LocalBusiness + FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://tucwebsite.vercel.app/#organization",
+          "name": "TAG Unlimited Clothing",
+          "url": "https://tucwebsite.vercel.app/",
+          "logo": { "@type": "ImageObject", "url": "https://tucwebsite.vercel.app/logo.svg" },
+          "description": "Leading apparel manufacturer offering custom clothing, private label production, and bulk garment manufacturing."
+        },
+        {
+          "@type": "LocalBusiness",
+          "@id": "https://tucwebsite.vercel.app/#localbusiness",
+          "name": "TAG Unlimited Clothing",
+          "image": "https://tucwebsite.vercel.app/og-apparel-manufacturer.jpg",
+          "url": "https://tucwebsite.vercel.app/",
+          "telephone": "+918095212121",
+          "email": "care@tagunlimitedclothing.com",
+          "address": { "@type": "PostalAddress", "addressLocality": "Bangalore", "addressCountry": "IN" },
+          "priceRange": "$$",
+          "openingHours": "Mo-Sa 09:00-18:00"
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "What is the minimum order quantity for apparel manufacturing?", "acceptedAnswer": { "@type": "Answer", "text": "Contact us for MOQ details based on product type and customization." } },
+            { "@type": "Question", "name": "Do you offer private label clothing manufacturing?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We offer full private label clothing manufacturing for brands and businesses." } },
+            { "@type": "Question", "name": "Can you handle bulk clothing production?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We handle bulk clothing production with scalable capacity and on-time delivery." } },
+            { "@type": "Question", "name": "Do you provide custom fabric sourcing?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We provide fabric sourcing as part of our end-to-end apparel manufacturing." } }
+          ]
+        }
+      ]
+    }
+    </script>
+    <!-- IndexNow (optional: set key and run after deploy for faster Bing indexing) -->
+    <script>
+    (function(){
+      var key = "YOUR_INDEXNOW_API_KEY";
+      var url = "https://tucwebsite.vercel.app/";
+      if (key && key !== "YOUR_INDEXNOW_API_KEY") {
+        fetch("https://api.indexnow.org/indexnow?url=" + encodeURIComponent(url) + "&key=" + key).catch(function(){});
+      }
+    })();
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- LCP placeholder: visible before React; stitching-thread loading animation -->
+      <div id="hero-lcp-placeholder" aria-hidden="true" style="position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0a0a0a;">
+        <div style="position:relative;width:80px;height:80px;margin-bottom:1.5rem;">
+          <svg viewBox="0 0 80 80" style="width:100%;height:100%;" aria-hidden="true">
+            <path id="hero-stitch-path" fill="none" stroke="#fecc00" stroke-width="2" stroke-dasharray="120" stroke-dashoffset="120" stroke-linecap="round" d="M40 10 L40 30 Q55 40 40 50 Q25 40 40 30 L40 70" style="stroke-dasharray:120;stroke-dashoffset:120;animation:hero-stitch-draw 1.8s ease-out forwards;"/>
+          </svg>
+        </div>
+        <p style="color:rgba(255,255,255,0.8);font-size:clamp(18px,1.5vw,20px);line-height:1.6;max-width:720px;margin:0;text-align:center;padding:0 1.5rem;font-family:system-ui,sans-serif">Trusted Apparel Manufacturing Partner for Brands and Businesses Across India</p>
+      </div>
+      <style>
+        @keyframes hero-stitch-draw{to{stroke-dashoffset:0}}
+        @media (prefers-reduced-motion: reduce){#hero-lcp-placeholder path{animation:none;stroke-dashoffset:0}}
+      </style>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

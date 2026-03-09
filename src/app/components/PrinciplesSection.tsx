@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
+import { motion, useInView } from 'motion/react';
 import GlareHover from './GlareHover';
 import './PrinciplesSection.css';
 
@@ -63,6 +64,10 @@ export const PrinciplesSection = React.memo(function PrinciplesSection() {
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const touchStartX = useRef<number | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const headerInView = useInView(headerRef, { once: true, amount: 0.3 });
+  const gridRef = useRef<HTMLDivElement>(null);
+  const gridInView = useInView(gridRef, { once: true, amount: 0.2 });
 
   const goTo = useCallback((index: number) => {
     const next = Math.max(0, Math.min(PRINCIPLES.length - 1, index));
@@ -126,12 +131,12 @@ export const PrinciplesSection = React.memo(function PrinciplesSection() {
 
   return (
     <section id="principles" className="principles-section" aria-labelledby="principles-heading">
-      <header className="principles-header">
+      <motion.header ref={headerRef} className="principles-header" initial={{ opacity: 0, y: 24 }} animate={headerInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
         <h2 id="principles-heading" className="principles-title">
           <span className="principles-title-accent">Four Principles</span>
           <span className="principles-title-main">We Never Get Bored Of Talking About</span>
         </h2>
-      </header>
+      </motion.header>
 
       {/* Mobile: card stack with swipe */}
       <div
@@ -173,11 +178,13 @@ export const PrinciplesSection = React.memo(function PrinciplesSection() {
       </div>
 
       {/* Desktop: grid of cards */}
-      <div className="principles-grid">
+      <motion.div ref={gridRef} className="principles-grid" initial="hidden" animate={gridInView ? 'visible' : 'hidden'} variants={{ visible: { transition: { staggerChildren: 0.12 } }, hidden: {} }}>
         {PRINCIPLES.map((item, index) => (
-          <PrincipleCard key={index} item={item} />
+          <motion.div key={index} variants={{ hidden: { opacity: 0, y: 28 }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.5 }}>
+            <PrincipleCard item={item} />
+          </motion.div>
         ))}
-    </div>
+    </motion.div>
     </section>
   );
 });

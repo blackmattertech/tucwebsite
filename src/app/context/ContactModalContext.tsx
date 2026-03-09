@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext, useState } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 
 type ContactModalContextValue = {
   isOpen: boolean;
@@ -6,7 +6,7 @@ type ContactModalContextValue = {
   closeModal: () => void;
 };
 
-const ContactModalContext = createContext<ContactModalContextValue | null>(null);
+export const ContactModalContext = createContext<ContactModalContextValue | null>(null);
 
 export function ContactModalProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,9 +18,4 @@ export function ContactModalProvider({ children }: { children: React.ReactNode }
       {children}
     </ContactModalContext.Provider>
   );
-}
-
-export function useContactModal() {
-  const ctx = useContext(ContactModalContext);
-  return ctx;
 }

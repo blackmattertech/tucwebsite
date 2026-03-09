@@ -21,14 +21,19 @@ export function LazySection({ children, minHeightClass = DEFAULT_MIN_HEIGHT }: L
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    let cancelled = false;
     const io = new IntersectionObserver(
       (entries) => {
+        if (cancelled) return;
         if (entries[0]?.isIntersecting) setInView(true);
       },
       { rootMargin: '120px', threshold: 0.01 }
     );
     io.observe(el);
-    return () => io.disconnect();
+    return () => {
+      cancelled = true;
+      io.disconnect();
+    };
   }, []);
 
   if (!inView) {

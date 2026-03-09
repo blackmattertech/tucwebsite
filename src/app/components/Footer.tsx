@@ -1,7 +1,7 @@
 import React, { useRef, useState, useCallback } from 'react';
 import { Link } from 'react-router';
-import { useContactModal } from '../context/ContactModalContext';
-import { PRODUCT_CAROUSEL_ITEMS } from './ProductCarouselSection';
+import { useContactModal } from '../context/useContactModal';
+import { PRODUCT_CAROUSEL_ITEMS } from '../data/productCarouselItems';
 import './Footer.css';
 
 export function Footer() {

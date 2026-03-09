@@ -71,13 +71,14 @@ export const PrinciplesSection = React.memo(function PrinciplesSection() {
   }, []);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    if (!e.touches?.length) return;
     touchStartX.current = e.touches[0].clientX;
     setDragOffset(0);
     setIsDragging(true);
   }, []);
 
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
+    if (touchStartX.current === null || !e.touches?.length) return;
     const dx = e.touches[0].clientX - touchStartX.current;
     setDragOffset(dx);
   }, []);

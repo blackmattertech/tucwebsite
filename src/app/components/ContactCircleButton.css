@@ -41,6 +41,8 @@
   .contact-circle-btn__text {
     transform: scale(0.745);
     transform-origin: center center;
+    overflow: hidden;
+    border-radius: 50%;
   }
   .contact-circle-btn__arrow {
     width: 18px;
@@ -82,13 +84,20 @@
   .contact-circle-btn__text {
     transform: none;
     transform-origin: center center;
+    overflow: hidden;
+    border-radius: 50%;
   }
   .contact-circle-btn__arrow {
     width: 16px;
     height: 16px;
   }
+  /* Keep circular text contained inside the button on small viewports */
   .contact-circle-btn__circular-text {
     letter-spacing: 0;
+    max-width: 100%;
+    max-height: 100%;
+    min-width: 0;
+    min-height: 0;
   }
   .contact-circle-btn__circular-text .circular-text-svg-text {
     letter-spacing: 0;
@@ -128,6 +137,15 @@
   z-index: 0;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .contact-circle-btn__glow {
+    animation: none;
+  }
+  .contact-circle-btn:not(.contact-circle-btn--cta) .contact-circle-btn__inner {
+    animation: none;
+  }
+}
+
 .contact-circle-btn__inner {
   position: relative;
   z-index: 1;
@@ -153,6 +171,8 @@
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  overflow: hidden;
+  border-radius: 50%;
 }
 
 .contact-circle-btn__circular-text {

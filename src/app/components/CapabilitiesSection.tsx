@@ -1,9 +1,15 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import { Link } from 'react-router';
-import CardSwap, { Card } from '../../components/CardSwap';
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from './ui/carousel';
+import { useIsMobile } from './ui/use-mobile';
 import { useMediaAssets } from '../lib/useMediaAssets';
 import { OptimizedImage } from './OptimizedImage';
 import './CapabilitiesSection.css';
+
+/** Loaded only on desktop – avoids CardSwap/GSAP on mobile. */
+const CapabilitiesSectionDesktopLazy = lazy(() =>
+  import('./CapabilitiesSectionDesktop').then((m) => ({ default: m.CapabilitiesSectionDesktop }))
+);
 
 /** Responsive card dimensions so all 4 slides fit inside container at any viewport */
 function useCardSwapDimensions() {
@@ -30,6 +36,7 @@ function useCardSwapDimensions() {
   return dims;
 }
 
+/** Single source of capability items; same sequence is used for CardSwap (desktop) and carousel (mobile). */
 const CAPABILITY_ITEMS = [
   {
     image: 'Deep Design Proficiency.webp',
@@ -59,7 +66,7 @@ const CAPABILITY_ITEMS = [
     description:
       'Our ERP system tracks every stage of garment production — from sampling to final dispatch — providing real-time visibility into order status, production timelines and delivery schedules.',
   },
-];
+] as const;
 
 function CapabilityCardContent({
   image,
@@ -98,13 +105,40 @@ function CapabilityCardContent({
 
 export function CapabilitiesSection() {
   const { getUrl } = useMediaAssets();
+  const isMobile = useIsMobile();
   const [imageErrored, setImageErrored] = useState<Record<number, boolean>>({});
   const [frontCardIndex, setFrontCardIndex] = useState(0);
   const [jumpToIndex, setJumpToIndex] = useState<number | null>(null);
+  const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
   const cardDims = useCardSwapDimensions();
 
   /** Ref that CardSwap keeps updated with the visible front card index */
   const frontIndexRef = useRef<number | null>(0);
+
+  /** Sync text content with carousel slide on mobile. Embla with loop can use duplicate slide indices, so map to content index 0..N-1. */
+  useEffect(() => {
+    if (!carouselApi) return;
+    const syncTextToSlide = () => {
+      const snapIndex = carouselApi.selectedScrollSnap();
+      const contentIndex = snapIndex % CAPABILITY_ITEMS.length;
+      setFrontCardIndex(contentIndex);
+    };
+    syncTextToSlide(); // sync immediately when API is ready
+    carouselApi.on('select', syncTextToSlide);
+    return () => {
+      carouselApi.off('select', syncTextToSlide);
+    };
+  }, [carouselApi]);
+
+  /** Auto-advance carousel on mobile (e.g. every 3s) */
+  const CAROUSEL_AUTO_DELAY_MS = 3000;
+  useEffect(() => {
+    if (!carouselApi) return;
+    const interval = window.setInterval(() => {
+      carouselApi.scrollNext();
+    }, CAROUSEL_AUTO_DELAY_MS);
+    return () => clearInterval(interval);
+  }, [carouselApi]);
 
   // Single index for both card stack and text: card at front and content always match.
   const activeCapabilityIndex = Math.max(0, Math.min(frontCardIndex, CAPABILITY_ITEMS.length - 1));
@@ -161,46 +195,70 @@ export function CapabilitiesSection() {
             ))}
           </div>
         </header>
-        {/* Left content and active pill are driven by the card currently in front (activeCapabilityIndex) */}
-        <div className="capabilities-left capabilities-text-block" key={activeCapabilityIndex} id="capabilities-content" role="region" aria-label={`Content for ${currentItem.label}`}>
-          <p className="capabilities-label" aria-live="polite">{currentItem.label}</p>
-          <h2 className="capabilities-title" aria-live="polite" key={`title-${activeCapabilityIndex}`}>
-            {currentItem.title}
-          </h2>
-          <p className="capabilities-description" key={`desc-${activeCapabilityIndex}`}>
-            {currentItem.description}
-          </p>
-         
-          <Link to="/capabilities" className="primary-btn">
+        {/* Left: changing text block + static button (button does not re-mount when slide changes) */}
+        <div className="capabilities-left" id="capabilities-content" role="region" aria-label={`Content for ${currentItem.label}`}>
+          <div className="capabilities-text-block" key={activeCapabilityIndex}>
+            <p className="capabilities-label" aria-live="polite">{currentItem.label}</p>
+            <h2 className="capabilities-title" aria-live="polite">{currentItem.title}</h2>
+            <p className="capabilities-description">{currentItem.description}</p>
+          </div>
+          <Link to="/capabilities" className="primary-btn capabilities-cta-btn">
             Explore Our Manufacturing Capabilities
           </Link>
         </div>
         <div className="capabilities-right">
-          <div className="capabilities-cardswap-wrapper">
-            <CardSwap
-              width={cardDims.width}
-              height={cardDims.height}
-              cardDistance={40}
-              verticalDistance={50}
-              delay={3000}
-              pauseOnHover
-              initialFrontIndex={jumpToIndex ?? undefined}
-              onFrontCardChange={handleFrontCardChange}
-              frontIndexRef={frontIndexRef}
+          {/* Desktop only: lazy-loaded so mobile never downloads CardSwap/GSAP */}
+          {!isMobile && (
+            <Suspense fallback={<div className="capabilities-cardswap-wrapper min-h-[280px]" aria-hidden />}>
+              <CapabilitiesSectionDesktopLazy
+                getUrl={getUrl}
+                imageErrored={imageErrored}
+                onImageError={handleImageError}
+                onFrontCardChange={handleFrontCardChange}
+                frontIndexRef={frontIndexRef}
+                jumpToIndex={jumpToIndex}
+                cardDims={cardDims}
+              />
+            </Suspense>
+          )}
+          {/* Mobile only: image carousel; text stays in sync because CardSwap is unmounted */}
+          {isMobile && (
+          <div className="capabilities-carousel-wrapper">
+            <Carousel
+              setApi={setCarouselApi}
+              opts={{ align: 'center', loop: true, skipSnaps: false }}
+              className="capabilities-carousel"
             >
-              {CAPABILITY_ITEMS.map(({ image, label }, index) => (
-                <Card key={label}>
-                  <CapabilityCardContent
-                    image={image}
-                    label={label}
-                    errored={!!imageErrored[index]}
-                    onError={() => handleImageError(index)}
-                    getUrl={getUrl}
-                  />
-                </Card>
+              <CarouselContent className="capabilities-carousel-content">
+                {/* Same sequence as CardSwap: CAPABILITY_ITEMS array order (index 0, 1, 2, 3) */}
+                {CAPABILITY_ITEMS.map((item, index) => (
+                  <CarouselItem key={`capability-${index}`} className="capabilities-carousel-item">
+                    <div className="capabilities-carousel-slide">
+                      <CapabilityCardContent
+                        image={item.image}
+                        label={item.label}
+                        errored={!!imageErrored[index]}
+                        onError={() => handleImageError(index)}
+                        getUrl={getUrl}
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+            <div className="capabilities-carousel-dots" aria-hidden>
+              {CAPABILITY_ITEMS.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  className={`capabilities-carousel-dot ${index === activeCapabilityIndex ? 'capabilities-carousel-dot-active' : ''}`}
+                  aria-label={`Go to slide ${index + 1}`}
+                  onClick={() => carouselApi?.scrollTo(index)}
+                />
               ))}
-            </CardSwap>
+            </div>
           </div>
+          )}
         </div>
       </div>
     </section>

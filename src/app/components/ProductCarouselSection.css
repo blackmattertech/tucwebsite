@@ -42,6 +42,19 @@
   animation-play-state: paused;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .product-carousel-inner {
+    animation: none;
+    will-change: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-carousel-inner {
+    will-change: auto;
+  }
+}
+
 @keyframes product-carousel-scroll {
   0% {
     transform: translateX(0);

@@ -1,8 +1,13 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, lazy, Suspense } from 'react';
 import { TextType } from './TextType';
-import RotatingText from './RotatingText';
 import { HERO_POSTER } from '../../hero-poster-config';
 import { useMediaAssets } from '../lib/useMediaAssets';
+import { useViewport } from '../context/ViewportContext';
+
+/** Loaded only on desktop – avoids Motion/heavy animation on mobile. */
+const RotatingTextLazy = lazy(() =>
+  import('./RotatingText').then((m) => ({ default: m.default }))
+);
 
 /** Set to your CDN origin (e.g. https://cdn.example.com) to serve hero video from CDN; leave empty to use same origin. */
 const VIDEO_BASE = typeof import.meta.env !== 'undefined' && import.meta.env.VITE_VIDEO_CDN ? import.meta.env.VITE_VIDEO_CDN : '';
@@ -38,6 +43,7 @@ const VIDEO_LOAD_DELAY_MS = 2000;
 
 export const HeroSection = React.memo(function HeroSection() {
   const { getUrl } = useMediaAssets();
+  const { isDesktop, ready } = useViewport();
   const posterImgRef = useRef<HTMLImageElement>(null);
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
@@ -196,23 +202,29 @@ export const HeroSection = React.memo(function HeroSection() {
               fontWeight: 700,
             }}
           >
-            <RotatingText
-              texts={HERO_ROTATING_PHRASES}
-              splitBy="lines"
-              rotationInterval={2800}
-              transition={{ type: 'spring', damping: 28, stiffness: 280 }}
-              initial={{ y: '100%', opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: '-100%', opacity: 0 }}
-              animatePresenceMode="wait"
-              mainClassName="hero-rotating-text"
-              elementLevelClassName="hero-rotating-element"
-              style={{
-                color: '#111',
-                fontSize: 'inherit',
-                fontWeight: 700,
-              }}
-            />
+            {ready && isDesktop ? (
+              <Suspense fallback={<span>Private Label Apparel</span>}>
+                <RotatingTextLazy
+                  texts={HERO_ROTATING_PHRASES}
+                  splitBy="lines"
+                  rotationInterval={2800}
+                  transition={{ type: 'spring', damping: 28, stiffness: 280 }}
+                  initial={{ y: '100%', opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: '-100%', opacity: 0 }}
+                  animatePresenceMode="wait"
+                  mainClassName="hero-rotating-text"
+                  elementLevelClassName="hero-rotating-element"
+                  style={{
+                    color: '#111',
+                    fontSize: 'inherit',
+                    fontWeight: 700,
+                  }}
+                />
+              </Suspense>
+            ) : (
+              <span>Private Label Apparel</span>
+            )}
           </span>
         </div>
 

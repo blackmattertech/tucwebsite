@@ -1,7 +1,13 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, lazy, Suspense } from 'react';
 import { Link } from 'react-router';
-import { PillNav } from './PillNav';
 import { HeaderSocial } from './HeaderSocial';
+import { MobileNav } from './MobileNav';
+import { useViewport } from '../context/ViewportContext';
+
+/** Loaded only on desktop – avoids GSAP and heavy PillNav on mobile. */
+const PillNavLazy = lazy(() =>
+  import('./PillNav').then((m) => ({ default: m.PillNav }))
+);
 
 const CATALOGUE_PDF = '/tshirt%20manufacturing%20hoodies%20manufacturing%20catalogue.pdf';
 
@@ -17,6 +23,7 @@ const NAV_ITEMS = [
 const LOGO_YELLOW = '#fecc00';
 
 export function Header() {
+  const { isDesktop, ready } = useViewport();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -37,15 +44,7 @@ export function Header() {
     [isScrolled]
   );
 
-  const linkClass = isScrolled
-    ? 'text-gray-900 hover:text-gray-700'
-    : 'text-white hover:text-white/90';
-  const btnPrimaryClass = isScrolled
-    ? 'bg-gray-900 text-white hover:bg-gray-800'
-    : 'bg-white text-gray-900 hover:bg-white/90';
-  const btnSecondaryClass = isScrolled
-    ? 'border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white'
-    : 'border-white text-white hover:bg-white hover:text-gray-900';
+  const showDesktopNav = ready && isDesktop;
 
   return (
     <header
@@ -66,14 +65,18 @@ export function Header() {
             />
           </Link>
 
-          <div className="hidden lg:flex items-center gap-4">
-            <PillNav items={NAV_ITEMS} {...pillNavProps} />
-            <HeaderSocial lightBackground={isScrolled} />
-          </div>
-
-          <div className="flex lg:hidden items-center gap-2">
-            <PillNav items={NAV_ITEMS} {...pillNavProps} />
-          </div>
+          {showDesktopNav ? (
+            <div className="flex items-center gap-4">
+              <Suspense fallback={<div className="h-10 w-64" aria-hidden />}>
+                <PillNavLazy items={NAV_ITEMS} {...pillNavProps} />
+              </Suspense>
+              <HeaderSocial lightBackground={isScrolled} />
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <MobileNav items={NAV_ITEMS} />
+            </div>
+          )}
         </div>
       </div>
     </header>

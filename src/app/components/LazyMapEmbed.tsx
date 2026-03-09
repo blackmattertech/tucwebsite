@@ -14,14 +14,19 @@ export function LazyMapEmbed() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    let cancelled = false;
     const io = new IntersectionObserver(
       (entries) => {
+        if (cancelled) return;
         if (entries[0]?.isIntersecting) setInView(true);
       },
       { rootMargin: '100px', threshold: 0.01 }
     );
     io.observe(el);
-    return () => io.disconnect();
+    return () => {
+      cancelled = true;
+      io.disconnect();
+    };
   }, []);
 
   return (

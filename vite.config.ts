@@ -38,5 +38,6 @@ export default defineConfig({
 
   server: {
     host: true, // listen on 0.0.0.0 so you can open http://<your-local-ip>:5173 on your phone (same Wi‑Fi)
+    allowedHosts: true, // allow ngrok and other tunnel hosts (e.g. vibraculoid-improbably-elfriede.ngrok-free.dev)
   },
 })

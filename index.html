@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Critical CSS: allow first paint before main stylesheet (reduces render-blocking impact) -->
+    <style>
+      body{margin:0;background:#0a0a0a;font-family:system-ui,sans-serif}
+      #root{min-height:100vh;display:block}
+      #hero{min-height:clamp(400px,85dvh,900px);position:relative}
+    </style>
     <title>TAG UNLIMITED - Private Label Apparel Manufacturer Bangalore</title>
     <meta name="description" content="TAG UNLIMITED is a trusted private label apparel manufacturer in Bangalore. We manufacture premium t-shirts, hoodies, shirts, corporate uniforms, and custom garments. 180+ five-star reviews." />
     <meta name="theme-color" content="#0a0a0a" />

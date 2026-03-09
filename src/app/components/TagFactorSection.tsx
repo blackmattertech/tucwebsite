@@ -58,7 +58,10 @@ export function TagFactorSection() {
         src={getUrl('tagfactor', TAG_FACTOR_IMAGE)}
         alt="Apparel manufacturer in Bangalore"
         className="tag-factor-gif"
+        width={640}
+        height={360}
         loading="lazy"
+        decoding="async"
       />
     </section>
   );

@@ -129,9 +129,9 @@ export function PillNav({
     }
 
     if (initialLoadAnimation && navItemsRef.current) {
-      gsap.set(navItemsRef.current, { width: 0, overflow: 'hidden' });
+      gsap.set(navItemsRef.current, { clipPath: 'inset(0 100% 0 0)', overflow: 'hidden' });
       gsap.to(navItemsRef.current, {
-        width: 'auto',
+        clipPath: 'inset(0 0 0 0)',
         duration: 0.6,
         ease,
       });

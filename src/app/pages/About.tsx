@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { AboutBanner } from '../components/AboutBanner';
 import { CTASection } from '../components/CTASection';
+import { JourneySection } from '../components/JourneySection';
 import './About.css';
 
 /* Factory/production imagery – replace with your own assets as needed */
@@ -38,14 +39,6 @@ const IMG = {
     'https://images.unsplash.com/photo-1582735689369-4fe89db7114c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1000',
   ],
 };
-
-const JOURNEY = [
-  { year: '2005', text: 'Started garment manufacturing' },
-  { year: '2010', text: 'Expanded production capacity' },
-  { year: '2016', text: 'Introduced modern industrial machines' },
-  { year: '2020', text: 'ERP-based production system' },
-  { year: '2024', text: 'Serving brands globally' },
-];
 
 /** Intro video – ImageKit (Welcome To Tag Unlimited) */
 const INTRO_VIDEO_SRC =
@@ -154,68 +147,47 @@ export function About() {
       {/* 3. Who We Are */}
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
-          <h2 className="about-section-heading">Who We Are</h2>
-          <div className="about-section-body max-w-3xl mb-10">
-            <p>
-              TAG Unlimited is a private label apparel manufacturer in India specializing in bulk
-              garment production of T-shirts, hoodies, shirts, jackets, caps, and custom apparel for
-              fashion brands, startups, and businesses worldwide.
-            </p>
-            <p>
-              Our production facility in Bangalore, India is designed to support scalable apparel
-              manufacturing, enabling brands to grow without concerns about production capacity,
-              consistent garment quality, or reliable delivery timelines.
-            </p>
-            <p>
-              With a strong focus on structured manufacturing workflows, modern industrial sewing
-              machines, and skilled production teams, we produce garments that meet both design
-              expectations and international apparel quality standards.
-            </p>
-            <p>
-              From product development and garment sampling to bulk apparel production and final
-              dispatch, every order follows a well-defined manufacturing process supported by our
-              ERP-driven production management system.
-            </p>
-          </div>
-          <div className="about-image-grid size-4">
-            <img src={IMG.designSamples} alt="Designers developing garment samples" width={1200} height={800} />
-            <img src={IMG.fabricInspection} alt="Fabric inspection" width={1200} height={800} />
-            <img src={IMG.patternMaking} alt="Pattern making (CAD)" width={1200} height={800} />
-            <img src={IMG.garmentSampling} alt="Garment sampling" width={1200} height={800} />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
+            <div>
+              <h2 className="about-section-heading">Who We Are</h2>
+              <div className="about-section-body max-w-3xl">
+                <p>
+                  TAG Unlimited is a private label apparel manufacturer in India specializing in bulk
+                  garment production of T-shirts, hoodies, shirts, jackets, caps, and custom apparel for
+                  fashion brands, startups, and businesses worldwide.
+                </p>
+                <p>
+                  Our production facility in Bangalore, India is designed to support scalable apparel
+                  manufacturing, enabling brands to grow without concerns about production capacity,
+                  consistent garment quality, or reliable delivery timelines.
+                </p>
+                <p>
+                  With a strong focus on structured manufacturing workflows, modern industrial sewing
+                  machines, and skilled production teams, we produce garments that meet both design
+                  expectations and international apparel quality standards.
+                </p>
+                <p>
+                  From product development and garment sampling to bulk apparel production and final
+                  dispatch, every order follows a well-defined manufacturing process supported by our
+                  ERP-driven production management system.
+                </p>
+              </div>
+            </div>
+            <div className="rounded-2xl overflow-hidden">
+              <img
+                src="https://ik.imagekit.io/tagunlimited/Indian%20apparel%20manufacturing%20factory%20in%20Bangalore%20with%20tailors%20stitching%20garments%20and%20fabric%20rolls%20_%20TAG%20Unlimited%20private%20label%20apparel%20manufacturer?updatedAt=1773079732034"
+                alt="Indian apparel manufacturing factory in Bangalore with tailors stitching garments and fabric rolls – TAG Unlimited private label apparel manufacturer"
+                className="w-full h-auto object-cover"
+                width={1200}
+                height={800}
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 4. Our Journey */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
-          <h2 className="about-section-heading">Our Journey</h2>
-          <div className="about-section-body max-w-2xl">
-            <p>
-              TAG Unlimited began with a vision to build a reliable apparel manufacturing partner
-              for fashion brands and businesses.
-            </p>
-            <p>
-              Over the years, we have expanded our manufacturing capabilities, invested in modern
-              industrial machinery, and built a skilled production team capable of handling
-              large-scale garment manufacturing projects.
-            </p>
-            <p>
-              Today, we support brands, startups, and corporate buyers across India and
-              international markets, helping them bring their apparel collections to life with
-              efficient production and consistent quality.
-            </p>
-          </div>
-          <ul className="about-timeline">
-            {JOURNEY.map((item) => (
-              <li key={item.year}>
-                <span className="about-timeline-year">{item.year}</span>
-                <span className="about-timeline-text">{item.text}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {/* 4. Our Journey – thread stitch timeline */}
+      <JourneySection />
 
       {/* 5. Manufacturing Strength */}
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">

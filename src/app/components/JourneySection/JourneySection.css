@@ -1,0 +1,25 @@
+/* Our Journey timeline – performance: containment, GPU layers */
+
+.journey-timeline-container {
+  padding: 3rem 1rem;
+}
+
+.journey-svg {
+  transform: translateZ(0);
+}
+
+.journey-svg path {
+  backface-visibility: hidden;
+}
+
+@media (min-width: 768px) {
+  .journey-timeline-container {
+    padding: 5rem 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey-card {
+    transition: none;
+  }
+}

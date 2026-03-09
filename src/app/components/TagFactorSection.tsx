@@ -11,14 +11,15 @@ const MARQUEE_LINES = [
   { text: 'Professionally managed and focused on sustainable business processes.', color: '#FFFFFF' },
 ] as const;
 
-/** ImageKit path-based resize (displayed ~756×872); reduces payload. Format: origin/tr:w-800,h-900/path */
+/** ImageKit path-based resize (displayed ~756×872). Format: .../imagekit_id/tr:w-800,h-900/rest */
 function tagFactorImageUrl(baseUrl: string): string {
   if (!baseUrl.includes('imagekit.io')) return baseUrl;
   try {
     const u = new URL(baseUrl);
-    const path = u.pathname.replace(/^\/+/, '');
-    if (!path) return baseUrl;
-    u.pathname = `tr:w-800,h-900,fo-auto/${path}`;
+    const path = u.pathname.replace(/^\/+/, '').split('/');
+    if (path.length < 2) return baseUrl;
+    const [id, ...rest] = path;
+    u.pathname = [id, 'tr:w-800,h-900,fo-auto', ...rest].join('/');
     return u.toString();
   } catch {
     return baseUrl;

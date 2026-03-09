@@ -42,8 +42,10 @@ function AnimatedCount({
     startRef.current = null;
     setCount(0);
     let rafId: number;
+    let cancelled = false;
 
     const tick = (timestamp: number) => {
+      if (cancelled) return;
       if (startRef.current === null) startRef.current = timestamp;
       const elapsed = timestamp - startRef.current;
       const progress = Math.min(elapsed / duration, 1);
@@ -53,7 +55,10 @@ function AnimatedCount({
     };
 
     rafId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafId);
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(rafId);
+    };
   }, [started, target]);
 
   const formatted = count.toLocaleString();

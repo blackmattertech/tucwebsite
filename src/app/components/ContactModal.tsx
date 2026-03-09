@@ -1,7 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { useContactModal } from '../context/ContactModalContext';
+import React, { useState, useEffect, Component, type ReactNode } from 'react';
+import { useContactModal } from '../context/useContactModal';
 import { submitContactForm } from '../lib/contactSubmission';
 import './ContactModal.css';
+
+/** Catches errors in modal content so the app doesn't crash when the form opens. */
+class ModalErrorBoundary extends Component<
+  { children: ReactNode; onClose: () => void },
+  { hasError: boolean }
+> {
+  state = { hasError: false };
+  static getDerivedStateFromError = () => ({ hasError: true });
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="contact-modal-panel" style={{ padding: '2rem', textAlign: 'center' }}>
+          <p style={{ marginBottom: '1rem' }}>Something went wrong loading the form.</p>
+          <button type="button" className="contact-modal-submit" onClick={this.props.onClose}>
+            Close
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 const REFERRAL_OPTIONS = [
   'Recommendation',
@@ -21,20 +43,28 @@ const INTEREST_OPTIONS = [
 ];
 
 export function ContactModal() {
-  const { isOpen, closeModal } = useContactModal();
+  const ctx = useContactModal();
+  const isOpen = ctx?.isOpen ?? false;
+  const closeModal = ctx?.closeModal ?? (() => {});
   const [referral, setReferral] = useState('');
   const [interest, setInterest] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
+    if (!isOpen) {
+      try {
+        document.body.style.overflow = '';
+      } catch (_) {}
+      return;
     }
+    try {
+      document.body.style.overflow = 'hidden';
+    } catch (_) {}
     return () => {
-      document.body.style.overflow = '';
+      try {
+        document.body.style.overflow = '';
+      } catch (_) {}
     };
   }, [isOpen]);
 
@@ -47,6 +77,12 @@ export function ContactModal() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [isOpen, closeModal]);
 
+  const getFormValue = (form: HTMLFormElement, name: string): string => {
+    const el = form.elements.namedItem(name);
+    if (!el || !('value' in el)) return '';
+    return String((el as HTMLInputElement | HTMLTextAreaElement).value).trim();
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!interest) {
@@ -57,13 +93,13 @@ export function ContactModal() {
     setSubmitting(true);
     const form = e.currentTarget;
     const payload = {
-      name: (form.elements.namedItem('name') as HTMLInputElement).value.trim(),
-      company_activity: (form.elements.namedItem('activity') as HTMLInputElement).value.trim(),
+      name: getFormValue(form, 'name'),
+      company_activity: getFormValue(form, 'activity'),
       referral,
       interest,
-      email: (form.elements.namedItem('email') as HTMLInputElement).value.trim(),
-      phone: (form.elements.namedItem('phone') as HTMLInputElement).value.trim(),
-      project_details: (form.elements.namedItem('details') as HTMLTextAreaElement).value.trim(),
+      email: getFormValue(form, 'email'),
+      phone: getFormValue(form, 'phone'),
+      project_details: getFormValue(form, 'details'),
     };
     try {
       await submitContactForm(payload);
@@ -90,6 +126,7 @@ export function ContactModal() {
       aria-modal="true"
       aria-labelledby="contact-modal-title"
     >
+      <ModalErrorBoundary onClose={closeModal}>
       <div className="contact-modal-panel">
         <button
           type="button"
@@ -221,6 +258,7 @@ export function ContactModal() {
           </div>
         </form>
       </div>
+      </ModalErrorBoundary>
     </div>
   );
 }

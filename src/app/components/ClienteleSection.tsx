@@ -26,14 +26,16 @@ function logoAlt(filename: string): string {
 }
 
 const CLIENT_LOGOS_FOLDER = 'client-logos';
+/** Cap marquee size to avoid excessive DOM/images on mobile if folder grows */
+const MAX_LOGOS_IN_MARQUEE = 20;
 
 export function ClienteleSection() {
   const { getUrl, getFileNamesByFolder } = useMediaAssets();
   const logos = getFileNamesByFolder(CLIENT_LOGOS_FOLDER);
   if (logos.length === 0) return null;
 
-  // Duplicate set for seamless loop
-  const duplicated = [...logos, ...logos];
+  const capped = logos.slice(0, MAX_LOGOS_IN_MARQUEE);
+  const duplicated = [...capped, ...capped];
 
   return (
     <section className="overflow-hidden mt-12 md:mt-16" aria-label="Our clients">
@@ -69,6 +71,11 @@ export function ClienteleSection() {
         }
         .marquee-inner:hover {
           animation-play-state: paused;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .marquee-inner {
+            animation: none;
+          }
         }
         .marquee-item {
           flex-shrink: 0;

@@ -27,8 +27,10 @@ export function SectionScrollIndicators() {
     const elements = SECTION_IDS.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
     if (elements.length === 0) return;
 
+    let cancelled = false;
     const observer = new IntersectionObserver(
       (entries) => {
+        if (cancelled) return;
         for (const entry of entries) {
           if (!entry.isIntersecting) continue;
           const id = entry.target.id;
@@ -40,7 +42,10 @@ export function SectionScrollIndicators() {
     );
 
     elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+    };
   }, [location.pathname]);
 
   const scrollToSection = (id: string) => {

@@ -41,10 +41,17 @@
 }
 
 @media (max-width: 768px) {
+  .tag-factor-section {
+    min-height: auto;
+  }
+
   .tag-factor-marquees-wrap {
     margin-left: 0;
     width: 100%;
+    padding-top: clamp(1.5rem, 4vw, 2.5rem);
+    padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
   }
+
   .tag-factor-marquees {
     width: 100%;
     margin-left: 0;
@@ -120,6 +127,12 @@
   width: max-content;
   animation: tag-factor-marquee 40s linear infinite;
   padding-right: 2rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tag-factor-marquee-inner {
+    animation: none;
+  }
 }
 
 /* Outline-only text: transparent fill, colored stroke – 80px Khand to match reference */

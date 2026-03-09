@@ -1,0 +1,228 @@
+/* Lightweight mobile-only nav – no GSAP. Same class names as PillNav mobile menu for layout. */
+
+.mobile-nav-hamburger {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 0;
+  color: inherit;
+}
+
+.mobile-nav-hamburger-line {
+  width: 16px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+}
+
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: visibility 0.25s ease, opacity 0.25s ease;
+}
+
+.mobile-nav-overlay.is-open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+
+.mobile-nav-top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem 0 1.25rem;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.mobile-nav-top-bar .mobile-nav-logo,
+.mobile-nav-top-bar .mobile-nav-close {
+  pointer-events: auto;
+}
+
+.mobile-nav-logo-img {
+  height: 2.5rem;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+}
+
+.mobile-nav-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 2px solid #111827;
+  border-radius: 50%;
+  background: transparent;
+  color: #111827;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.mobile-nav-close:hover {
+  background: rgba(17, 24, 39, 0.06);
+  transform: scale(1.05);
+}
+
+.mobile-nav-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  clip-path: polygon(73% 0, 100% 0, 100% 8%, 65% 100%, 0 100%, 0 50%);
+  -webkit-clip-path: polygon(73% 0, 100% 0, 100% 8%, 65% 100%, 0 100%, 0 50%);
+  background: #fff;
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 1.25rem;
+  padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: 100vh;
+  max-height: 100dvh;
+}
+
+.mobile-nav-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  width: 100%;
+  margin-left: 0.75rem;
+  max-width: 20rem;
+}
+
+.mobile-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  width: 100%;
+}
+
+.mobile-nav-link {
+  display: block;
+  padding: 0.5rem 0;
+  color: #111827;
+  background: transparent;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+  color: #b45309;
+}
+
+.mobile-nav-link.active {
+  font-weight: 600;
+}
+
+.mobile-nav-contact-btn {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border-radius: 0.375rem;
+  background: #fecc00;
+  color: #111827;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.mobile-nav-contact-btn:hover {
+  background: #e6b800;
+  transform: scale(1.02);
+}
+
+.mobile-nav-social {
+  flex-shrink: 0;
+  width: 100%;
+  padding-top: 0;
+}
+
+.mobile-nav-social-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #854d0e;
+  margin-bottom: 0.75rem;
+}
+
+.mobile-nav-social-icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobile-nav-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #fff;
+  background: #6c757d;
+  transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.mobile-nav-social-link:hover {
+  transform: scale(1.08);
+}
+
+.mobile-nav-social-link--facebook {
+  background: #1877f2;
+}
+
+.mobile-nav-social-link--instagram {
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+.mobile-nav-social-link--youtube {
+  background: #ff0000;
+}

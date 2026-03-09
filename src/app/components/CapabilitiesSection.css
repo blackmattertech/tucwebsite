@@ -143,6 +143,11 @@
   gap: 0;
 }
 
+/* On mobile: text block grows so CTA button stays static at bottom */
+.capabilities-left .capabilities-cta-btn {
+  flex-shrink: 0;
+}
+
 /* Fade-in when slide changes so text stays in sync with card swap */
 .capabilities-text-block {
   animation: capabilities-text-in 0.35s ease-out forwards;
@@ -339,58 +344,223 @@
   }
 }
 
+/* Mobile-only carousel: hidden on desktop */
+.capabilities-carousel-wrapper {
+  display: none;
+}
+
+.capabilities-carousel-wrapper .capabilities-carousel-content {
+  margin-left: 0;
+}
+
+.capabilities-carousel-wrapper .capabilities-carousel-item {
+  padding-left: 0;
+}
+
+/* Mobile: hide pills, show carousel instead of stack, fit in one viewport */
 @media (max-width: 768px) {
+  .capabilities-pills {
+    display: none !important;
+  }
+
   .capabilities-section {
-    padding: clamp(3rem, 6vw, 5rem) 0;
+    padding: 0;
+    height: 100dvh;
+    height: 100vh;
+    max-height: 100dvh;
+    max-height: 100vh;
+    display: flex;
+    align-items: stretch;
   }
 
   .capabilities-container {
     grid-template-columns: 1fr;
     grid-template-areas:
       "header"
-      "left"
-      "right";
-    gap: clamp(2rem, 5vw, 3rem);
+      "right"
+      "left";
+    grid-template-rows: auto 42dvh 1fr;
+    gap: 0.5rem 0;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    width: 100%;
+    max-height: 100%;
+    min-height: 0;
+    align-items: start;
+  }
+
+  .capabilities-header {
+    margin-bottom: 0;
+  }
+
+  .capabilities-heading {
+    margin-bottom: 0.15em;
+    font-size: clamp(36px, 10vw, 56px);
+  }
+
+  .capabilities-header .capabilities-subheading {
+    margin-bottom: 0;
   }
 
   .capabilities-right {
-    min-height: clamp(340px, 70vw, 540px);
+    min-height: 0;
     align-items: center;
-    padding-bottom: clamp(24px, 4vw, 40px);
+    justify-content: center;
+    padding-bottom: 0;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
+  /* Hide stacked cards on mobile */
   .capabilities-cardswap-wrapper {
-    height: clamp(340px, 70vw, 540px);
+    display: none !important;
   }
 
-  .capabilities-right .card-swap-container {
-    left: 50%;
-    right: auto;
-    top: 50%;
-    bottom: auto;
-    transform: translate(-50%, -50%) scale(0.75);
-    transform-origin: center center;
+  /* Show carousel on mobile */
+  .capabilities-carousel-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    min-height: 260px;
+    max-width: min(480px, 94vw);
+    margin-top: 0.6rem;
+  }
+
+  .capabilities-carousel {
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .capabilities-carousel-content {
+    height: 100%;
+  }
+
+  .capabilities-carousel-content > div {
+    height: 100%;
+  }
+
+  .capabilities-carousel-item {
+    height: 100%;
+    flex: 0 0 100%;
+    min-width: 0;
+  }
+
+  .capabilities-carousel-slide {
+    width: 100%;
+    height: 100%;
+    min-height: 220px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f3f4f6;
+  }
+
+  .capabilities-carousel-slide .capability-card-fallback,
+  .capabilities-carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .capabilities-carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0;
+    flex-shrink: 0;
+  }
+
+  .capabilities-carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: #d1d5db;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+
+  .capabilities-carousel-dot-active {
+    background: #fecc00;
+    transform: scale(1.2);
+  }
+
+  .capabilities-left .capabilities-label {
+    margin-bottom: 0.35rem;
+  }
+
+  .capabilities-left .capabilities-title {
+    margin-bottom: 0.4rem;
+    font-size: clamp(1.1rem, 4vw, 1.35rem);
+  }
+
+  .capabilities-left .capabilities-text-block {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .capabilities-left .capabilities-description {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .capabilities-left .primary-btn {
+    margin-top: 0.5rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
   }
 }
 
 @media (max-width: 640px) {
   .capabilities-container {
-    padding-left: clamp(16px, 4vw, 24px);
-    padding-right: clamp(16px, 4vw, 32px);
+    padding-left: clamp(12px, 3vw, 20px);
+    padding-right: clamp(12px, 3vw, 20px);
+    grid-template-rows: auto 44dvh 1fr;
+  }
+
+  .capabilities-cardswap-wrapper {
+    max-width: min(420px, 96vw);
   }
 
   .capabilities-right .card-swap-container {
-    transform: translate(-50%, -50%) scale(0.65);
+    transform: translate(-50%, -50%) scale(0.96);
   }
 }
 
 @media (max-width: 480px) {
-  .capabilities-section {
-    padding-bottom: clamp(40px, 10vw, 64px);
+  .capabilities-container {
+    grid-template-rows: auto 46dvh 1fr;
+    gap: 0.35rem 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .capabilities-heading {
+    font-size: clamp(28px, 9vw, 44px);
+  }
+
+  .capabilities-cardswap-wrapper {
+    max-width: 98vw;
+    min-height: 240px;
   }
 
   .capabilities-right .card-swap-container {
-    transform: translate(-50%, -50%) scale(0.55);
+    transform: translate(-50%, -50%) scale(0.94);
     transform-origin: center center;
+  }
+
+  .capabilities-left .capabilities-description {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 }

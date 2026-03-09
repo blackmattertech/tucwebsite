@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
+import { useViewport } from '../context/ViewportContext';
 import './MapSection.css';
 
 /**
- * Hero section: headline only; parallax on scroll.
+ * Hero section: headline only; parallax on scroll (desktop only – skip on mobile to save JS/layout).
  */
 export function MapSection() {
+  const { isDesktop } = useViewport();
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = useState(false);
@@ -23,21 +25,30 @@ export function MapSection() {
   }, []);
 
   useEffect(() => {
+    if (!isDesktop) return;
     const mapSection = sectionRef.current;
     const heading = headingRef.current;
     if (!mapSection || !heading) return;
 
+    let rafId: number | null = null;
     const onScroll = () => {
-      const rect = mapSection.getBoundingClientRect();
-      const scrollProgress = rect.top / window.innerHeight;
-      const headingMove = scrollProgress * -40;
-      heading.style.transform = `translateY(${headingMove}px)`;
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        const rect = mapSection.getBoundingClientRect();
+        const scrollProgress = rect.top / window.innerHeight;
+        const headingMove = scrollProgress * -40;
+        heading.style.transform = `translateY(${headingMove}px)`;
+      });
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
+  }, [isDesktop]);
 
   return (
     <section

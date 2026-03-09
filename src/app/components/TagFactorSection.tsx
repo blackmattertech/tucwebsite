@@ -11,9 +11,24 @@ const MARQUEE_LINES = [
   { text: 'Professionally managed and focused on sustainable business processes.', color: '#FFFFFF' },
 ] as const;
 
+/** ImageKit path-based resize (displayed ~756×872); reduces payload. Format: origin/tr:w-800,h-900/path */
+function tagFactorImageUrl(baseUrl: string): string {
+  if (!baseUrl.includes('imagekit.io')) return baseUrl;
+  try {
+    const u = new URL(baseUrl);
+    const path = u.pathname.replace(/^\/+/, '');
+    if (!path) return baseUrl;
+    u.pathname = `tr:w-800,h-900,fo-auto/${path}`;
+    return u.toString();
+  } catch {
+    return baseUrl;
+  }
+}
+
 /** Left side: image from media_assets (tagfactor). Marquee scrolls behind it. */
 export function TagFactorSection() {
   const { getUrl } = useMediaAssets();
+  const imageSrc = tagFactorImageUrl(getUrl('tagfactor', TAG_FACTOR_IMAGE));
   return (
     <section
       id="tag-factor"
@@ -55,7 +70,7 @@ export function TagFactorSection() {
 
       {/* Image on left, on top – marquee text passes behind */}
       <img
-        src={getUrl('tagfactor', TAG_FACTOR_IMAGE)}
+        src={imageSrc}
         alt="Apparel manufacturer in Bangalore"
         className="tag-factor-gif"
         width={640}

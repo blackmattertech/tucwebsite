@@ -31,7 +31,7 @@ function LayoutContent() {
         <ContactCircleButton />
       </div>
       <main>
-        <Suspense fallback={<div className="min-h-[60vh]" aria-hidden />}>
+        <Suspense fallback={<div className="min-h-[140vh]" aria-hidden />}>
           <Outlet />
         </Suspense>
       </main>

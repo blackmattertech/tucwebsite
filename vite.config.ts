@@ -3,8 +3,27 @@ import path from 'path'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 
+/** Make main CSS non-blocking: load with media=print then switch to all (saves ~850ms on mobile). */
+function nonBlockingCss() {
+  return {
+    name: 'non-blocking-css',
+    enforce: 'post' as const,
+    transformIndexHtml(html: string) {
+      return html.replace(
+        /<link\s[^>]*href="([^"]*\/assets\/[^"]+\.css)"[^>]*>/gi,
+        (match, href) => {
+          if (match.includes('media=')) return match
+          const nonBlocking = match.replace(/>$/, ' media="print" onload="this.media=\'all\'">')
+          return nonBlocking + `<noscript><link rel="stylesheet" href="${href}"></noscript>`
+        }
+      )
+    },
+  }
+}
+
 export default defineConfig({
   plugins: [
+    nonBlockingCss(),
     // The React and Tailwind plugins are both required for Make, even if
     // Tailwind is not being actively used – do not remove them
     react(),

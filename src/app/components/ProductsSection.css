@@ -130,6 +130,11 @@
   object-fit: cover;
   object-position: center;
   display: block;
+  transition: transform 0.5s ease;
+}
+
+.value-added-card:hover .value-added-card-image {
+  transform: scale(1.08);
 }
 
 /* Bottom section – title, description (no button) */

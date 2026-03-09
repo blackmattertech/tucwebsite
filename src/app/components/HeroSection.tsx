@@ -148,8 +148,8 @@ export const HeroSection = React.memo(function HeroSection() {
       {/* Dark Overlay Gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12 text-center">
+      {/* Content – min-height reserves space to reduce CLS when fonts/typing load */}
+      <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12 text-center" style={{ minHeight: 'min(280px, 38vh)' }}>
         {/* H1: Hero title – Montserrat, fluid, max-width for readability */}
         <h1
           className="text-white min-h-[1.2em] flex flex-wrap items-center justify-center gap-x-2 gap-y-0 mx-auto"

@@ -1,93 +1,66 @@
+import { useEffect, useRef, useState } from 'react';
+import { PRODUCT_CAROUSEL_ITEMS } from '../data/productCarouselItems';
+import { useMediaAssets } from '../lib/useMediaAssets';
 import './ProductCarouselSection.css';
 
-const HOODIES_VIDEO_SRC = '/products/hoodies%20manufacturers%20in%20bangalore.mp4';
-const POLOS_VIDEO_SRC = '/products/polo%20manufacturers%20in%20bangalore.mp4';
-const TSHIRTS_VIDEO_SRC = '/products/tshirt%20manufacturer%20in%20india-%20best%20thsirt%20manufacturer.mp4';
-const CROP_TOP_VIDEO_SRC = '/products/premium%20private%20label%20manufacturer.mp4';
-const CAPS_VIDEO_SRC =
-  '/products/cap%20manufacturer%20in%20bangalore%20cap%20manufacturer%20in%20india%20private%20label%20cap%20manufacturing.mp4';
-const JACKETS_VIDEO_SRC = '/products/jackets%20manufacturers%20in%20bangalore.mp4';
-const DENIM_SHIRT_VIDEO_SRC = '/products/shirt%20manufacturers%20in%20india.mp4';
-const FORMAL_SHIRT_VIDEO_SRC =
-  '/products/shirt%20manufacturer%20in%20bangalore-%20best%20manufacturer%20for%20apparel%20in%20india.mp4';
-const JOGGERS_VIDEO_SRC =
-  '/products/trackpant%20manufacturers%20in%20india-%20joggers%20manufacturer%20in%20bangalore-%20sportswear%20manufacturer.mp4';
-const SHORTS_VIDEO_SRC = '/products/sports%20apparel%20manufacturers%20in%20bangalore.mp4';
+function useProductItems() {
+  const { getUrl } = useMediaAssets();
+  return PRODUCT_CAROUSEL_ITEMS.map((item) => ({
+    ...item,
+    videoSrc: getUrl('products', item.file),
+  }));
+}
 
-const PRODUCT_ITEMS = [
-  {
-    id: 'hoodies',
-    label: 'Hoodies',
-    videoSrc: HOODIES_VIDEO_SRC,
-    mediaAlt:
-      'Hoodies manufacturing in Bangalore - custom hoodies, bulk hoodie manufacturer, private label hoodies, fleece hoodies, pullover hoodies',
-  },
-  {
-    id: 'polos',
-    label: 'Polos',
-    videoSrc: POLOS_VIDEO_SRC,
-    mediaAlt:
-      'Polo manufacturers in Bangalore - custom polo shirts, bulk polo t-shirts, private label polos, premium polo manufacturing',
-  },
-  {
-    id: 'tshirts',
-    label: 'T-Shirts',
-    videoSrc: TSHIRTS_VIDEO_SRC,
-    mediaAlt:
-      'T-shirt manufacturers in India - custom t-shirts, bulk t-shirt manufacturing, private label t-shirts, wholesale t-shirts',
-  },
-  {
-    id: 'crop-top',
-    label: 'Crop Top',
-    videoSrc: CROP_TOP_VIDEO_SRC,
-    mediaAlt:
-      'Premium private label manufacturer - crop top manufacturing, custom crop tops, bulk crop tops, private label apparel',
-  },
-  {
-    id: 'caps',
-    label: 'Caps',
-    videoSrc: CAPS_VIDEO_SRC,
-    mediaAlt:
-      'Cap manufacturer in Bangalore, cap manufacturer in India - private label cap manufacturing, custom caps, bulk caps, baseball caps',
-  },
-  {
-    id: 'shorts',
-    label: 'Shorts',
-    videoSrc: SHORTS_VIDEO_SRC,
-    mediaAlt:
-      'Sports apparel manufacturers in Bangalore - shorts manufacturing, custom shorts, bulk shorts, athletic shorts, sportswear manufacturer',
-  },
-  {
-    id: 'joggers',
-    label: 'Joggers',
-    videoSrc: JOGGERS_VIDEO_SRC,
-    mediaAlt:
-      'Trackpant manufacturers in India, joggers manufacturer in Bangalore - sportswear manufacturer, custom joggers, bulk joggers',
-  },
-  {
-    id: 'denim-shirt',
-    label: 'Denim Shirt',
-    videoSrc: DENIM_SHIRT_VIDEO_SRC,
-    mediaAlt:
-      'Shirt manufacturers in India - denim shirt manufacturing, custom denim shirts, bulk shirts, private label shirts, formal and casual shirts',
-  },
-  {
-    id: 'formal-shirt',
-    label: 'Formal Shirt',
-    videoSrc: FORMAL_SHIRT_VIDEO_SRC,
-    mediaAlt:
-      'Shirt manufacturer in Bangalore, best manufacturer for apparel in India - formal shirt manufacturing, custom formal shirts, bulk shirts',
-  },
-  {
-    id: 'jackets',
-    label: 'Jackets',
-    videoSrc: JACKETS_VIDEO_SRC,
-    mediaAlt:
-      'Jackets manufacturers in Bangalore - custom jackets, bulk jacket manufacturing, private label jackets, bomber jackets, denim jackets',
-  },
-];
+type ProductItem = { id: string; label: string; file: string; mediaAlt: string; videoSrc: string };
 
-type ProductItem = (typeof PRODUCT_ITEMS)[0];
+/** Only load and play video when the panel is in or near the viewport (performance). */
+function LazyCarouselVideo({ src, label }: { src: string; label: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  const [errored, setErrored] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let cancelled = false;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (cancelled) return;
+        if (entries[0]?.isIntersecting) setInView(true);
+      },
+      { rootMargin: '120px', threshold: 0.01 }
+    );
+    io.observe(el);
+    return () => {
+      cancelled = true;
+      io.disconnect();
+    };
+  }, []);
+
+  const showPlaceholder = !inView || errored;
+
+  return (
+    <div ref={ref} className="product-carousel-lazy-wrap">
+      {showPlaceholder ? (
+        <div className="product-carousel-media product-carousel-media-placeholder" aria-hidden>
+          <span className="product-carousel-placeholder-text">{errored ? 'Video unavailable' : 'Video'}</span>
+        </div>
+      ) : (
+        <video
+          src={src}
+          className="product-carousel-media-el"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          aria-label={label}
+          onError={() => setErrored(true)}
+        />
+      )}
+    </div>
+  );
+}
 
 /**
  * Media slot for each panel. Uses video when videoSrc is set; otherwise placeholder.
@@ -95,17 +68,7 @@ type ProductItem = (typeof PRODUCT_ITEMS)[0];
  */
 function ProductPanelMedia({ item }: { item: ProductItem }) {
   if (item.videoSrc) {
-    return (
-      <video
-        src={item.videoSrc}
-        className="product-carousel-media-el"
-        autoPlay
-        loop
-        muted
-        playsInline
-        aria-label={item.label}
-      />
-    );
+    return <LazyCarouselVideo src={item.videoSrc} label={item.label} />;
   }
   return (
     <div className="product-carousel-media product-carousel-media-placeholder" aria-hidden>
@@ -132,15 +95,23 @@ function ProductPanel({ item, index }: { item: ProductItem; index: number }) {
 }
 
 export function ProductCarouselSection() {
-  const duplicated = [...PRODUCT_ITEMS, ...PRODUCT_ITEMS];
+  const productItems = useProductItems();
+  const duplicated = [...productItems, ...productItems];
 
   return (
     <section
       id="product-carousel"
       className="product-carousel-section"
       aria-label="Product categories"
+      style={{
+        backgroundColor: '#FFFFFF',
+        backgroundImage: 'radial-gradient(circle at center, #AAAAEE 0, #AAAAEE 1px, transparent 1px)',
+        backgroundSize: '12px 12px',
+      }}
     >
-      <h2 className="product-carousel-heading">THE TAG UNLIMITED CLOSET</h2>
+      <h2 className="product-carousel-heading" style={{ fontFamily: 'var(--font-heading)' }}>
+        APPAREL WE MANUFACTURE
+      </h2>
       <div className="product-carousel-track">
         <div className="product-carousel-inner">
           {duplicated.map((item, index) => (

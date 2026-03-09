@@ -1,22 +1,39 @@
+import { Suspense, lazy } from 'react';
 import { Outlet } from 'react-router';
 import { ContactModalProvider } from '../context/ContactModalContext';
+import { ViewportProvider, useViewport } from '../context/ViewportContext';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { FloatingContactButtons } from './FloatingContactButtons';
 import { ContactCircleButton } from './ContactCircleButton';
 import { ContactModal } from './ContactModal';
-import { SectionScrollIndicators } from './SectionScrollIndicators';
+import { ThirdPartyScripts } from './ThirdPartyScripts';
+
+/** Loaded only on desktop – not used on mobile. */
+const SectionScrollIndicatorsLazy = lazy(() =>
+  import('./SectionScrollIndicators').then((m) => ({ default: m.SectionScrollIndicators }))
+);
 
 function LayoutContent() {
+  const { isDesktop, ready } = useViewport();
+  const showScrollIndicators = ready && isDesktop;
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white relative overflow-x-hidden">
+      <ThirdPartyScripts />
       <Header />
-      <SectionScrollIndicators />
+      {showScrollIndicators && (
+        <Suspense fallback={null}>
+          <SectionScrollIndicatorsLazy />
+        </Suspense>
+      )}
       <div className="fixed top-20 right-3 md:top-24 md:right-4 lg:right-6 z-40">
         <ContactCircleButton />
       </div>
       <main>
-        <Outlet />
+        <Suspense fallback={<div className="min-h-[140vh]" aria-hidden />}>
+          <Outlet />
+        </Suspense>
       </main>
       <Footer />
       <FloatingContactButtons />
@@ -27,8 +44,10 @@ function LayoutContent() {
 
 export function Layout() {
   return (
-    <ContactModalProvider>
-      <LayoutContent />
-    </ContactModalProvider>
+    <ViewportProvider>
+      <ContactModalProvider>
+        <LayoutContent />
+      </ContactModalProvider>
+    </ViewportProvider>
   );
 }

@@ -59,6 +59,8 @@ export function BlogPost() {
                 src="https://images.unsplash.com/photo-1684259499086-93cb3e555803?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200"
                 alt="Private Label Manufacturing Process"
                 className="w-full h-full object-cover"
+                width={1200}
+                height={675}
               />
             </div>
 
@@ -173,6 +175,8 @@ export function BlogPost() {
                     src={post.image}
                     alt={post.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    width={400}
+                    height={225}
                   />
                 </div>
                 <div className="p-6">

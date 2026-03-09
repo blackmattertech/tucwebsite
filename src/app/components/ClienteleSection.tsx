@@ -1,6 +1,6 @@
-import { clientLogos } from '../../data/client-logos';
-
-const LOGOS_BASE = '/client logos';
+import { useMediaAssets } from '../lib/useMediaAssets';
+import { OptimizedImage } from './OptimizedImage';
+import { Link } from 'react-router';
 
 /** Derive SEO-friendly alt from logo filename (e.g. "kfc_logo.svg" → "KFC"). */
 function logoAlt(filename: string): string {
@@ -26,12 +26,17 @@ function logoAlt(filename: string): string {
   return base.length > 2 && base.length < 50 ? base : 'Client';
 }
 
+const CLIENT_LOGOS_FOLDER = 'client-logos';
+/** Cap marquee size to avoid excessive DOM/images on mobile if folder grows */
+const MAX_LOGOS_IN_MARQUEE = 20;
+
 export function ClienteleSection() {
-  const logos = clientLogos;
+  const { getUrl, getFileNamesByFolder } = useMediaAssets();
+  const logos = getFileNamesByFolder(CLIENT_LOGOS_FOLDER);
   if (logos.length === 0) return null;
 
-  // Duplicate set for seamless loop
-  const duplicated = [...logos, ...logos];
+  const capped = logos.slice(0, MAX_LOGOS_IN_MARQUEE);
+  const duplicated = [...capped, ...capped];
 
   return (
     <section className="overflow-hidden mt-12 md:mt-16" aria-label="Our clients">
@@ -40,13 +45,14 @@ export function ClienteleSection() {
           <div className="marquee-inner">
             {duplicated.map((name, i) => (
               <div key={`${name}-${i}`} className="marquee-item">
-                <img
-                  src={`${LOGOS_BASE}/${encodeURIComponent(name)}`}
+                <OptimizedImage
+                  src={getUrl('client-logos', name)}
                   alt={logoAlt(name)}
-                  className="marquee-logo"
-                  loading="lazy"
                   width={120}
                   height={48}
+                  unoptimized={name.endsWith('.svg')}
+                  className="marquee-logo"
+                  loading="lazy"
                 />
               </div>
             ))}
@@ -66,6 +72,11 @@ export function ClienteleSection() {
         }
         .marquee-inner:hover {
           animation-play-state: paused;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .marquee-inner {
+            animation: none;
+          }
         }
         .marquee-item {
           flex-shrink: 0;
@@ -97,6 +108,18 @@ export function ClienteleSection() {
           100% { transform: translateX(-50%); }
         }
       `}</style>
+      <div className="flex justify-center mt-8 md:mt-10">
+        <Link
+          to="/contact-apparel-manufacturer-bangalore"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-gray-900 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#fecc00]"
+          style={{ backgroundColor: '#fecc00' }}
+        >
+          <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          Download Catalog
+        </Link>
+      </div>
     </section>
   );
 }

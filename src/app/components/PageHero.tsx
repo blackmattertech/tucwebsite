@@ -1,3 +1,5 @@
+import { OptimizedImage } from './OptimizedImage';
+
 interface PageHeroProps {
   title: string;
   subtitle?: string;
@@ -11,9 +13,12 @@ export function PageHero({ title, subtitle, backgroundImage, dark = true }: Page
       {backgroundImage && (
         <>
           <div className="absolute inset-0">
-            <img
+            <OptimizedImage
               src={backgroundImage}
               alt=""
+              width={1920}
+              height={1080}
+              quality={80}
               className="w-full h-full object-cover"
             />
           </div>

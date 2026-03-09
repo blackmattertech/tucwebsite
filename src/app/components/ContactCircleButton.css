@@ -41,6 +41,8 @@
   .contact-circle-btn__text {
     transform: scale(0.745);
     transform-origin: center center;
+    overflow: hidden;
+    border-radius: 50%;
   }
   .contact-circle-btn__arrow {
     width: 18px;
@@ -58,11 +60,17 @@
     max-width: 84px;
     max-height: 84px;
   }
-  /* Use box-shadow for circular glow on mobile (avoids Safari blur rendering as square) */
   .contact-circle-btn__glow {
     opacity: 0;
     pointer-events: none;
     visibility: hidden;
+  }
+  .contact-circle-btn:not(.contact-circle-btn--cta) .contact-circle-btn__inner {
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1),
+      0 0 20px 8px rgba(0, 153, 255, 0.5),
+      0 0 36px 12px rgba(0, 212, 255, 0.25);
+    /* Composited: opacity-only pulse (keyframes avoid box-shadow/background-position) */
+    animation: contact-circle-glow-mobile 4s ease-in-out infinite;
   }
   .contact-circle-btn__inner {
     width: 68px;
@@ -73,22 +81,23 @@
     max-width: 68px;
     max-height: 68px;
   }
-  .contact-circle-btn:not(.contact-circle-btn--cta) .contact-circle-btn__inner {
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1),
-      0 0 20px 8px rgba(0, 153, 255, 0.5),
-      0 0 36px 12px rgba(0, 212, 255, 0.25);
-    animation: contact-circle-glow-mobile 4s ease-in-out infinite;
-  }
   .contact-circle-btn__text {
     transform: none;
     transform-origin: center center;
+    overflow: hidden;
+    border-radius: 50%;
   }
   .contact-circle-btn__arrow {
     width: 16px;
     height: 16px;
   }
+  /* Keep circular text contained inside the button on small viewports */
   .contact-circle-btn__circular-text {
     letter-spacing: 0;
+    max-width: 100%;
+    max-height: 100%;
+    min-width: 0;
+    min-height: 0;
   }
   .contact-circle-btn__circular-text .circular-text-svg-text {
     letter-spacing: 0;
@@ -98,14 +107,10 @@
 @keyframes contact-circle-glow-mobile {
   0%,
   100% {
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1),
-      0 0 20px 8px rgba(0, 153, 255, 0.5),
-      0 0 36px 12px rgba(0, 212, 255, 0.25);
+    opacity: 0.9;
   }
   50% {
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1),
-      0 0 24px 10px rgba(0, 153, 255, 0.65),
-      0 0 40px 14px rgba(0, 212, 255, 0.35);
+    opacity: 1;
   }
 }
 
@@ -126,6 +131,15 @@
   filter: blur(8px);
   opacity: 0.9;
   z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-circle-btn__glow {
+    animation: none;
+  }
+  .contact-circle-btn:not(.contact-circle-btn--cta) .contact-circle-btn__inner {
+    animation: none;
+  }
 }
 
 .contact-circle-btn__inner {
@@ -153,6 +167,8 @@
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  overflow: hidden;
+  border-radius: 50%;
 }
 
 .contact-circle-btn__circular-text {
@@ -193,12 +209,13 @@
   transform: scale(1.04);
 }
 
+/* Composited: opacity-only so no background-position animation (avoids non-composited warning) */
 @keyframes contact-circle-glow {
   0%,
   100% {
-    background-position: 0% 50%;
+    opacity: 0.85;
   }
   50% {
-    background-position: 100% 50%;
+    opacity: 1;
   }
 }

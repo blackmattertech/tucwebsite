@@ -1,0 +1,108 @@
+/* Contact CTA: full-width light grey section, two-column grid per reference */
+
+.contact-cta-section {
+  width: 100%;
+}
+
+.contact-cta-inner {
+  padding: clamp(2rem, 8vw, 80px) clamp(1rem, 5vw, 24px);
+}
+
+/* Two-column layout: heading left, paragraph right – aligned to section start (same as image row above) */
+.contact-cta-heading-block {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 0;
+  margin-bottom: 2.5rem;
+  width: 100%;
+}
+
+.contact-cta-heading {
+  margin: 0;
+  font-weight: 900;
+  font-size: clamp(28px, 8vw, 48px);
+  line-height: 0.95;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  color: #000;
+}
+
+.contact-cta-subtext {
+  margin: clamp(1rem, 4vw, 2rem) 0 0;
+  font-size: clamp(0.9rem, 2.5vw, 16px);
+  line-height: 1.6;
+  max-width: min(320px, 100%);
+  color: #222;
+}
+
+.contact-cta-button-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+/* Contact details: 3 columns in one row, centered */
+.contact-cta-details {
+  min-width: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-cta-detail {
+  min-width: 0;
+}
+
+/* Icon hover: background → logo yellow, icon → black */
+.contact-cta-detail-icon-wrap {
+  background-color: rgba(0, 0, 0, 0.06);
+  transition: background-color 0.2s ease;
+}
+
+.contact-cta-detail-icon {
+  transition: color 0.2s ease;
+}
+
+.contact-cta-detail:hover .contact-cta-detail-icon-wrap {
+  background-color: #fecc00;
+}
+
+.contact-cta-detail:hover .contact-cta-detail-icon {
+  color: #000;
+}
+
+/* Tablet and up: larger heading */
+@media (min-width: 640px) {
+  .contact-cta-heading {
+    font-size: clamp(48px, 10vw, 72px);
+    letter-spacing: -1.5px;
+  }
+}
+
+/* Desktop: 60% 40% grid, content starts at same left as section (align with image row) */
+@media (min-width: 768px) {
+  .contact-cta-inner {
+    padding: 120px 8vw;
+  }
+
+  .contact-cta-heading-block {
+    grid-template-columns: 60% 40%;
+    column-gap: 2.5rem;
+  }
+
+  .contact-cta-heading {
+    font-size: clamp(56px, 5.5vw, 88px);
+    letter-spacing: -2px;
+  }
+
+  .contact-cta-subtext {
+    margin-top: 2rem;
+  }
+}
+
+/* Large desktop: keep heading smaller so it doesn't overlap subtext */
+@media (min-width: 1400px) {
+  .contact-cta-heading {
+    font-size: clamp(129px, 7vw, 130px);
+  }
+}

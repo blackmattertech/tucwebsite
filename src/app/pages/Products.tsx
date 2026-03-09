@@ -80,6 +80,8 @@ export function Products() {
                     src={product.image}
                     alt={product.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    width={400}
+                    height={300}
                   />
                 </div>
                 <div className="p-6">

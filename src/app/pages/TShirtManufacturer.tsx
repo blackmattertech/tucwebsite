@@ -63,6 +63,8 @@ export function TShirtManufacturer() {
                 src="https://images.unsplash.com/photo-1485920784995-d65789b1c3af?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
                 alt="T-Shirt Manufacturing"
                 className="w-full h-full object-cover"
+                width={1080}
+                height={720}
               />
             </div>
           </div>

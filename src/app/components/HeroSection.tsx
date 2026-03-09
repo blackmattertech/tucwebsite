@@ -1,13 +1,18 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, lazy, Suspense } from 'react';
 import { TextType } from './TextType';
-import RotatingText from './RotatingText';
+import { HERO_POSTER } from '../../hero-poster-config';
+import { useMediaAssets } from '../lib/useMediaAssets';
+import { useViewport } from '../context/ViewportContext';
+
+/** Loaded only on desktop – avoids Motion/heavy animation on mobile. */
+const RotatingTextLazy = lazy(() =>
+  import('./RotatingText').then((m) => ({ default: m.default }))
+);
 
 /** Set to your CDN origin (e.g. https://cdn.example.com) to serve hero video from CDN; leave empty to use same origin. */
 const VIDEO_BASE = typeof import.meta.env !== 'undefined' && import.meta.env.VITE_VIDEO_CDN ? import.meta.env.VITE_VIDEO_CDN : '';
-const DESKTOP_VIDEO = `${VIDEO_BASE}/desktop/apparel-manufacturer-in-bangalore.mp4`;
-const MOBILE_VIDEO = `${VIDEO_BASE}/mobile/custom%20apparel%20manufacturer.mp4`;
-/** Poster shown until video loads (improves LCP). Use a frame or representative image. */
-const HERO_POSTER = '/best%20garment%20factory%20in%20bangalore.png';
+const DESKTOP_VIDEO_FILE = 'apparel-manufacturer-in-bangalore (2).mp4';
+const MOBILE_VIDEO_FILE = 'custom apparel manufacturer.mp4';
 
 const HERO_HEADING_LINES = [
   'Private Label Clothing & Knitwear\nManufacturer in Bangalore',
@@ -34,12 +39,23 @@ const HERO_ROTATING_PHRASES = [
 
 const BRAND_YELLOW = '#FECC00';
 
-export function HeroSection() {
+const VIDEO_LOAD_DELAY_MS = 2000;
+
+export const HeroSection = React.memo(function HeroSection() {
+  const { getUrl } = useMediaAssets();
+  const { isDesktop, ready } = useViewport();
+  const posterImgRef = useRef<HTMLImageElement>(null);
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [parallaxY, setParallaxY] = useState(0);
+  const desktopVideoSrc = getUrl('herosection', DESKTOP_VIDEO_FILE);
+  const mobileVideoSrc = getUrl('herosection', MOBILE_VIDEO_FILE);
   const [isMobileViewport, setIsMobileViewport] = useState(
     typeof window !== 'undefined' && window.innerWidth < 768
   );
+  const [videoError, setVideoError] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
 
   const ensurePlaying = (el: HTMLVideoElement | null) => {
     if (!el) return;
@@ -55,55 +71,128 @@ export function HeroSection() {
     return () => mq.removeEventListener('change', handle);
   }, []);
 
+  // LCP optimization: load video only after 2s idle or first scroll (dramatically improves mobile PageSpeed)
   useEffect(() => {
-    ensurePlaying(desktopVideoRef.current);
-    ensurePlaying(mobileVideoRef.current);
+    const timer = setTimeout(() => setShouldLoadVideo(true), VIDEO_LOAD_DELAY_MS);
+    const onScroll = () => setShouldLoadVideo(true);
+    window.addEventListener('scroll', onScroll, { once: true, passive: true });
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, []);
+
+  // Only the active viewport's video has a source (performance: avoid loading both)
+  useEffect(() => {
+    if (!shouldLoadVideo || videoError) return;
+    if (isMobileViewport) {
+      ensurePlaying(mobileVideoRef.current);
+      desktopVideoRef.current?.pause();
+    } else {
+      ensurePlaying(desktopVideoRef.current);
+      mobileVideoRef.current?.pause();
+    }
+  }, [isMobileViewport, shouldLoadVideo, videoError]);
+
+  // Set fetchpriority via DOM to avoid React prop warning (HTML attribute is lowercase)
+  useEffect(() => {
+    posterImgRef.current?.setAttribute('fetchpriority', 'high');
+  }, []);
+
+  // Subtle parallax on hero background (scroll-based)
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    let rafId: number;
+    const onScroll = () => {
+      rafId = requestAnimationFrame(() => {
+        const rect = section.getBoundingClientRect();
+        const height = section.offsetHeight;
+        if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+        const scrollProgress = -rect.top / (window.innerHeight + height);
+        setParallaxY(scrollProgress * height * 0.15);
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (
-    <section id="hero" className="relative w-screen h-[100dvh] min-h-[100vh] flex items-center justify-center overflow-hidden">
-      {/* Background Video - Desktop: poster improves LCP; only visible video preloads fully */}
-      <video
-        ref={desktopVideoRef}
-        autoPlay
-        loop
-        muted
-        playsInline
-        poster={HERO_POSTER}
-        preload={isMobileViewport ? 'metadata' : 'auto'}
-        className="absolute inset-0 w-full h-full object-cover hidden md:block"
-        onEnded={(e) => e.currentTarget.play()}
-      >
-        <source src={DESKTOP_VIDEO} type="video/mp4" />
-      </video>
+    <section ref={sectionRef} id="hero" className="relative w-screen h-[100dvh] min-h-[100vh] flex items-center justify-center overflow-hidden">
+      {/* Background layer: parallax translate */}
+      <div className="absolute inset-0 overflow-hidden" style={{ transform: `translate3d(0, ${parallaxY}px, 0)` }}>
+        <img
+          ref={posterImgRef}
+          src={HERO_POSTER}
+          alt="TAG Unlimited - Private label apparel manufacturer in Bangalore"
+          width={1920}
+          height={1080}
+          sizes="100vw"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ zIndex: videoError || !shouldLoadVideo ? 0 : -1 }}
+        />
+        {shouldLoadVideo && !videoError && (
+          <>
+            <video
+              ref={desktopVideoRef}
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster={HERO_POSTER}
+              preload="none"
+              className="absolute inset-0 w-full h-full object-cover hidden md:block"
+              onEnded={(e) => e.currentTarget.play()}
+              onError={() => setVideoError(true)}
+            >
+              {!isMobileViewport && <source src={desktopVideoSrc} type="video/mp4" />}
+            </video>
+            <video
+              ref={mobileVideoRef}
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster={HERO_POSTER}
+              preload="none"
+              className="absolute inset-0 w-full h-full object-cover md:hidden"
+              onEnded={(e) => e.currentTarget.play()}
+              onError={() => setVideoError(true)}
+            >
+              {isMobileViewport && <source src={mobileVideoSrc} type="video/mp4" />}
+            </video>
+          </>
+        )}
+      </div>
 
-      {/* Background Video - Mobile: poster improves LCP; only visible video preloads fully */}
-      <video
-        ref={mobileVideoRef}
-        autoPlay
-        loop
-        muted
-        playsInline
-        poster={HERO_POSTER}
-        preload={isMobileViewport ? 'auto' : 'metadata'}
-        className="absolute inset-0 w-full h-full object-cover md:hidden"
-        onEnded={(e) => e.currentTarget.play()}
-      >
-        <source src={MOBILE_VIDEO} type="video/mp4" />
-      </video>
+      {/* Fabric wave motion overlay (subtle) */}
+      <div
+        className="absolute inset-0 pointer-events-none hero-fabric-wave"
+        style={{ zIndex: 1 }}
+        aria-hidden
+      />
 
       {/* Dark Overlay Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" style={{ zIndex: 2 }} />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12 text-center">
-        {/* H1: Original typing headline - slightly smaller */}
+      {/* Content – min-height reserves space to reduce CLS when fonts/typing load */}
+      <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12 text-center" style={{ minHeight: 'min(280px, 38vh)' }}>
+        {/* H1: Hero title – Montserrat, fluid, max-width for readability */}
         <h1
-          className="text-white mb-5 min-h-[1.2em] flex flex-wrap items-center justify-center gap-x-2 gap-y-0"
+          className="text-white min-h-[1.2em] flex flex-wrap items-center justify-center gap-x-2 gap-y-0 mx-auto"
           style={{
-            fontSize: 'clamp(1.95rem, 5vw, 4.25rem)',
-            fontWeight: 800,
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'clamp(36px, 6vw, 64px)',
+            fontWeight: 700,
             lineHeight: 1.1,
+            letterSpacing: '-0.02em',
+            marginBottom: '24px',
+            maxWidth: '900px',
           }}
         >
           <TextType
@@ -123,14 +212,14 @@ export function HeroSection() {
           />
         </h1>
 
-        {/* We Manufacture [ Rotating Highlight ] - slightly smaller */}
+        {/* We Manufacture [ Rotating Highlight ] – subheading scale */}
         <div
           className="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 mb-10"
           style={{
-            fontSize: 'clamp(1.5rem, 3.75vw, 3.25rem)',
-            fontWeight: 700,
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'clamp(26px, 4vw, 36px)',
+            fontWeight: 600,
             lineHeight: 1.2,
-            fontFamily: 'var(--font-family)',
           }}
         >
           <span className="text-white" style={{ color: '#E5E5E5' }}>
@@ -146,30 +235,42 @@ export function HeroSection() {
               fontWeight: 700,
             }}
           >
-            <RotatingText
-              texts={HERO_ROTATING_PHRASES}
-              splitBy="lines"
-              rotationInterval={2800}
-              transition={{ type: 'spring', damping: 28, stiffness: 280 }}
-              initial={{ y: '100%', opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: '-100%', opacity: 0 }}
-              animatePresenceMode="wait"
-              mainClassName="hero-rotating-text"
-              elementLevelClassName="hero-rotating-element"
-              style={{
-                color: '#111',
-                fontSize: 'inherit',
-                fontWeight: 700,
-              }}
-            />
+            {ready && isDesktop ? (
+              <Suspense fallback={<span>Private Label Apparel</span>}>
+                <RotatingTextLazy
+                  texts={HERO_ROTATING_PHRASES}
+                  splitBy="lines"
+                  rotationInterval={2800}
+                  transition={{ type: 'spring', damping: 28, stiffness: 280 }}
+                  initial={{ y: '100%', opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: '-100%', opacity: 0 }}
+                  animatePresenceMode="wait"
+                  mainClassName="hero-rotating-text"
+                  elementLevelClassName="hero-rotating-element"
+                  style={{
+                    color: '#111',
+                    fontSize: 'inherit',
+                    fontWeight: 700,
+                  }}
+                />
+              </Suspense>
+            ) : (
+              <span>Private Label Apparel</span>
+            )}
           </span>
         </div>
 
-        {/* Trust Text */}
+        {/* Trust Text – lead paragraph */}
         <p
-          className="text-white/80"
-          style={{ fontSize: 'clamp(0.875rem, 1vw, 1rem)', fontWeight: 500, letterSpacing: '0.5px' }}
+          className="text-white/80 mx-auto"
+          style={{
+            fontFamily: 'var(--font-family)',
+            fontSize: 'clamp(18px, 1.5vw, 20px)',
+            fontWeight: 400,
+            lineHeight: 1.6,
+            maxWidth: '720px',
+          }}
         >
           Trusted Apparel Manufacturing Partner for Brands and Businesses Across
           India
@@ -179,7 +280,22 @@ export function HeroSection() {
       <style>{`
         .hero-rotating-text { color: #111; font-weight: 700; }
         .hero-rotating-element { color: #111; font-weight: 700; }
+        .hero-fabric-wave {
+          background: repeating-linear-gradient(
+            105deg,
+            transparent,
+            transparent 40px,
+            rgba(255,255,255,0.02) 40px,
+            rgba(255,255,255,0.02) 41px
+          );
+          animation: hero-fabric-wave 12s ease-in-out infinite;
+        }
+        @keyframes hero-fabric-wave {
+          0%, 100% { opacity: 1; transform: translateX(0) scale(1.02); }
+          50% { opacity: 0.85; transform: translateX(2%) scale(1.03); }
+        }
+        @media (prefers-reduced-motion: reduce) { .hero-fabric-wave { animation: none; } }
       `}</style>
     </section>
   );
-}
+});

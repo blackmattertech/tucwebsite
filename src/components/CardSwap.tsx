@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useMemo,
   useRef,
+  useState,
 } from 'react';
 import gsap from 'gsap';
 
@@ -61,16 +62,13 @@ export interface CardSwapProps {
   delay?: number;
   pauseOnHover?: boolean;
   onCardClick?: (index: number) => void;
+  /** Called when the front card changes (auto-rotate or programmatic jump) */
   onFrontCardChange?: (index: number) => void;
-  /** Parent ref so text always updates when cards swap (avoids stale callback). */
-  setFrontIndexRef?: React.MutableRefObject<((index: number) => void) | undefined>;
-  /** Optional: parent's setState ref for direct index updates. */
-  setFrontCardIndexRef?: React.MutableRefObject<React.Dispatch<React.SetStateAction<number>> | undefined>;
   skewAmount?: number;
   easing?: 'elastic' | string;
   /** When set, this card index is shown at front (e.g. after user clicks a tab). */
   initialFrontIndex?: number;
-  /** Optional ref we keep updated with the current front card index so parent can sync text/pill. */
+  /** Ref we keep updated with the current front card index so parent can sync text/pill. */
   frontIndexRef?: React.MutableRefObject<number | null>;
   children?: React.ReactNode;
 }
@@ -80,12 +78,10 @@ const CardSwap = ({
   height = 400,
   cardDistance = 60,
   verticalDistance = 70,
-  delay = 5000,
+  delay = 300,
   pauseOnHover = false,
   onCardClick,
   onFrontCardChange,
-  setFrontIndexRef,
-  setFrontCardIndexRef,
   skewAmount = 6,
   easing = 'elastic',
   initialFrontIndex,
@@ -129,22 +125,22 @@ const CardSwap = ({
   const tlRef = useRef<gsap.core.Timeline | null>(null);
   const intervalRef = useRef<number | undefined>(undefined);
   const container = useRef<HTMLDivElement>(null);
+  const swapImplRef = useRef<(() => void) | null>(null);
+  
+  // Track the current front card index as React state so we can notify parent reliably
+  const [currentFrontIdx, setCurrentFrontIdx] = useState(initialOrder[0] ?? 0);
+  
+  // Keep callback ref updated so we always call the latest version
   const onFrontCardChangeRef = useRef(onFrontCardChange);
   onFrontCardChangeRef.current = onFrontCardChange;
-  const swapImplRef = useRef<(() => void) | null>(null);
+  
+  // Notify parent whenever the front card changes
+  useEffect(() => {
+    if (frontIndexRef) frontIndexRef.current = currentFrontIdx;
+    onFrontCardChangeRef.current?.(currentFrontIdx);
+  }, [currentFrontIdx, frontIndexRef]);
 
-  // Keep refs/callback current so swap() always notifies the latest handler
-  const parentNotifyRef = useRef({
-    setFrontIndexRef,
-    setFrontCardIndexRef,
-    onFrontCardChange,
-  });
-  parentNotifyRef.current = {
-    setFrontIndexRef,
-    setFrontCardIndexRef,
-    onFrontCardChange,
-  };
-
+  // Handle jumping to a specific card when initialFrontIndex changes (e.g. pill click)
   useEffect(() => {
     if (
       typeof initialFrontIndex === 'number' &&
@@ -155,10 +151,17 @@ const CardSwap = ({
         initialFrontIndex,
         ...Array.from({ length: total }, (_, i) => i).filter((i) => i !== initialFrontIndex),
       ];
-      frontIndexRef && (frontIndexRef.current = initialFrontIndex);
-      parentNotifyRef.current.onFrontCardChange?.(initialFrontIndex);
+      // Update state so parent gets notified
+      setCurrentFrontIdx(initialFrontIndex);
+      // Reposition cards immediately
+      refs.forEach((r, refIndex) => {
+        const position = order.current.indexOf(refIndex);
+        if (position !== -1) {
+          placeNow(r.current, makeSlot(position, cardDistance, verticalDistance, total), skewAmount);
+        }
+      });
     }
-  }, [initialFrontIndex, total]);
+  }, [initialFrontIndex, total, cardDistance, verticalDistance, skewAmount, refs]);
 
   useEffect(() => {
     refs.forEach((r, refIndex) => {
@@ -168,11 +171,10 @@ const CardSwap = ({
       }
     });
 
-    // Keep parent text in sync with which card is actually at the front
-    const currentFrontIndex = order.current[0];
-    if (typeof currentFrontIndex === 'number') {
-      frontIndexRef && (frontIndexRef.current = currentFrontIndex);
-      parentNotifyRef.current.onFrontCardChange?.(currentFrontIndex);
+    // On mount/re-run, sync state with the current front card
+    const frontOnMount = order.current[0];
+    if (typeof frontOnMount === 'number') {
+      setCurrentFrontIdx(frontOnMount);
     }
 
     const swap = () => {
@@ -180,17 +182,6 @@ const CardSwap = ({
 
       const [front, ...rest] = order.current;
       const newFrontIndex = rest[0];
-      const notifyParent = (index: number) => {
-        const next = Math.max(0, Math.min(index, total - 1));
-        frontIndexRef && (frontIndexRef.current = next);
-        const { setFrontIndexRef: sfi, setFrontCardIndexRef: sfci, onFrontCardChange: onFc } =
-          parentNotifyRef.current;
-        sfci?.current?.(next);
-        sfi?.current?.(index);
-        onFc?.(index);
-      };
-      // Update parent immediately so title/description match the front card as soon as we swap
-      notifyParent(newFrontIndex);
       const elFront = refs[front].current;
       const tl = gsap.timeline();
       tlRef.current = tl;
@@ -202,6 +193,10 @@ const CardSwap = ({
       });
 
       tl.addLabel('promote', `-=${config.durDrop * config.promoteOverlap}`);
+      // Notify parent when the new card starts becoming visible (at 'promote' label)
+      tl.call(() => {
+        setCurrentFrontIdx(newFrontIndex);
+      }, undefined, 'promote');
       rest.forEach((idx, i) => {
         const el = refs[idx].current;
         const slot = makeSlot(i, cardDistance, verticalDistance, refs.length);
@@ -242,8 +237,8 @@ const CardSwap = ({
 
       tl.call(() => {
         order.current = [...rest, front];
-        // Notify parent only when the new card is actually at the front (text stays in sync with visible card)
-        notifyParent(newFrontIndex);
+        // Update state so parent gets notified that the new card is now in front
+        setCurrentFrontIdx(newFrontIndex);
       });
     };
 
@@ -274,12 +269,16 @@ const CardSwap = ({
       node.addEventListener('mouseenter', pause);
       node.addEventListener('mouseleave', resume);
       return () => {
+        tlRef.current?.kill();
         node.removeEventListener('mouseenter', pause);
         node.removeEventListener('mouseleave', resume);
         clearInterval(intervalRef.current);
       };
     }
-    return () => clearInterval(intervalRef.current);
+    return () => {
+      tlRef.current?.kill();
+      clearInterval(intervalRef.current);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing, initialFrontIndex]);
 

@@ -111,6 +111,8 @@ export function Infrastructure() {
                   </div>
                   <div className={`aspect-[4/3] rounded-sm overflow-hidden ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
                     <img
+                      width={800}
+                      height={600}
                       src={[
                         'https://images.unsplash.com/photo-1771315938116-cd51af9489fc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
                         'https://images.unsplash.com/photo-1758271141001-e4ff47f2b1c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
@@ -150,6 +152,8 @@ export function Infrastructure() {
                   src={img}
                   alt={`Facility ${index + 1}`}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  width={800}
+                  height={600}
                 />
               </div>
             ))}

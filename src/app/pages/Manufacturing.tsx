@@ -140,6 +140,8 @@ export function Manufacturing() {
                   src={img}
                   alt={`Manufacturing ${index + 1}`}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  width={800}
+                  height={450}
                 />
               </div>
             ))}

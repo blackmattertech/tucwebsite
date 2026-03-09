@@ -67,7 +67,7 @@ function CircularTextSvg({
       aria-hidden
     >
       <defs>
-        <path id={pathId} d={d} />
+        <path id={pathId} d={d} pathLength={pathLength} />
       </defs>
       <text
         className="circular-text-svg-text"
@@ -108,6 +108,9 @@ export function CircularText({
       scale: 1,
       transition: getTransition(spinDuration, start),
     });
+    return () => {
+      (controls as { stop?: () => void }).stop?.();
+    };
   }, [spinDuration, text, controls, rotation]);
 
   const handleHoverStart = useCallback(() => {

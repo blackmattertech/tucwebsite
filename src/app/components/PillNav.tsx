@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router';
 import { Facebook, Instagram, Youtube, X } from 'lucide-react';
 import { gsap } from 'gsap';
 import './PillNav.css';
-import { useContactModal } from '../context/ContactModalContext';
+import { useContactModal } from '../context/useContactModal';
 
 const MOBILE_MENU_SOCIAL = [
   { label: 'Facebook', href: 'https://www.facebook.com/', Icon: Facebook, brand: 'facebook' as const },
@@ -61,8 +61,10 @@ export function PillNav({
 
   useEffect(() => {
     const layout = () => {
-      circleRefs.current.forEach((circle, index) => {
-        if (!circle?.parentElement) return;
+      if (cancelled) return;
+      try {
+        circleRefs.current.forEach((circle, index) => {
+          if (!circle?.parentElement) return;
 
         const pill = circle.parentElement;
         const rect = pill.getBoundingClientRect();
@@ -104,15 +106,21 @@ export function PillNav({
 
         tlRefs.current[index] = tl;
       });
+      } catch (e) {
+        if (import.meta.env.DEV) console.warn('[PillNav layout]', e);
+      }
     };
 
+    let cancelled = false;
     layout();
 
     const onResize = () => layout();
     window.addEventListener('resize', onResize);
 
     if (document.fonts?.ready) {
-      document.fonts.ready.then(layout).catch(() => {});
+      document.fonts.ready.then(() => {
+        if (!cancelled) layout();
+      }).catch(() => {});
     }
 
     const menu = mobileMenuRef.current;
@@ -121,15 +129,25 @@ export function PillNav({
     }
 
     if (initialLoadAnimation && navItemsRef.current) {
-      gsap.set(navItemsRef.current, { width: 0, overflow: 'hidden' });
+      gsap.set(navItemsRef.current, { clipPath: 'inset(0 100% 0 0)', overflow: 'hidden' });
       gsap.to(navItemsRef.current, {
-        width: 'auto',
+        clipPath: 'inset(0 0 0 0)',
         duration: 0.6,
         ease,
       });
     }
 
-    return () => window.removeEventListener('resize', onResize);
+    return () => {
+      cancelled = true;
+      window.removeEventListener('resize', onResize);
+      gsap.killTweensOf(navItemsRef.current);
+      tlRefs.current.forEach((tl) => tl?.kill());
+      tlRefs.current = [];
+      activeTweenRefs.current.forEach((t) => t?.kill());
+      activeTweenRefs.current = [];
+      if (mobileMenuRef.current) gsap.killTweensOf(mobileMenuRef.current);
+      if (hamburgerRef.current) gsap.killTweensOf(hamburgerRef.current);
+    };
   }, [items, ease, initialLoadAnimation]);
 
   const handleEnter = (i: number) => {

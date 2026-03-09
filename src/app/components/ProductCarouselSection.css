@@ -4,20 +4,26 @@
   position: relative;
   width: 100%;
   padding: clamp(3rem, 6vw, 4.5rem) 0 clamp(2rem, 4vw, 3rem);
-  background: #000000;
   overflow: hidden;
 }
 
+/* Match ContactCTASection heading: large display, bold, tight line-height */
 .product-carousel-heading {
   margin: 0 0 clamp(2rem, 4vw, 3rem);
   padding: 0 clamp(1rem, 4vw, 2rem);
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-weight: 900;
+  font-size: clamp(48px, 12vw, 72px);
+  line-height: 0.9;
+  letter-spacing: -2px;
   text-transform: uppercase;
-  color: #ffffff;
+  color: #000;
   text-align: left;
-  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .product-carousel-heading {
+    font-size: clamp(90px, 10vw, 160px);
+  }
 }
 
 .product-carousel-track {
@@ -34,6 +40,19 @@
 
 .product-carousel-inner:hover {
   animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-carousel-inner {
+    animation: none;
+    will-change: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-carousel-inner {
+    will-change: auto;
+  }
 }
 
 @keyframes product-carousel-scroll {
@@ -58,6 +77,16 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
+  transition: transform 0.5s ease;
+}
+
+.product-carousel-panel:hover .product-carousel-panel-media-wrap {
+  transform: scale(1.08);
+}
+
+.product-carousel-lazy-wrap {
+  position: absolute;
+  inset: 0;
 }
 
 /* Media (image or video): grayscale by default, color on panel hover */

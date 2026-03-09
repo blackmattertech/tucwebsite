@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Link } from 'react-router';
-import { useContactModal } from '../context/ContactModalContext';
-import { CircularText } from './CircularText';
+import { useContactModal } from '../context/useContactModal';
+import { useViewport } from '../context/ViewportContext';
 import './ContactCircleButton.css';
+
+/** Lazy-loaded so the contact button renders quickly; CircularText shows on both mobile and desktop. */
+const CircularTextLazy = lazy(() =>
+  import('./CircularText').then((m) => ({ default: m.CircularText }))
+);
 
 const CONTACT_HREF = '/contact-apparel-manufacturer-bangalore';
 
@@ -10,7 +15,8 @@ const CIRCLE_SIZE = 110;
 const CIRCLE_RADIUS = CIRCLE_SIZE / 2;
 const TEXT_RADIUS = CIRCLE_RADIUS - 14;
 const CIRCLE_SIZE_MOBILE = 68;
-const TEXT_RADIUS_MOBILE = CIRCLE_SIZE_MOBILE / 2 - 2;
+/** Slightly inset so circular text stays inside the button on small viewports */
+const TEXT_RADIUS_MOBILE = CIRCLE_SIZE_MOBILE / 2 - 6;
 
 export type ContactCircleButtonVariant = 'default' | 'cta';
 
@@ -18,41 +24,49 @@ const MOBILE_MAX_WIDTH = 640;
 
 export function ContactCircleButton({ variant = 'default' }: { variant?: ContactCircleButtonVariant }) {
   const modal = useContactModal();
-  const [isMobile, setIsMobile] = useState(
+  const { ready } = useViewport();
+  const [sizeMobile, setSizeMobile] = useState(
     typeof window !== 'undefined' && window.innerWidth <= MOBILE_MAX_WIDTH
   );
 
   useEffect(() => {
     const mq = window.matchMedia(`(max-width: ${MOBILE_MAX_WIDTH}px)`);
-    const handle = () => setIsMobile(mq.matches);
+    const handle = () => setSizeMobile(mq.matches);
     mq.addEventListener('change', handle);
     return () => mq.removeEventListener('change', handle);
   }, []);
 
   const isCta = variant === 'cta';
-  const circularText = isCta
-    ? 'CONTACT US * CONTACT US *'
-    : 'CONTACT US * CONTACT US *';
-  const textRadius = isMobile ? TEXT_RADIUS_MOBILE : TEXT_RADIUS;
-  const circleSize = isMobile ? CIRCLE_SIZE_MOBILE : CIRCLE_SIZE;
+  /* Repeat so text fills the full inner circumference on all viewports */
+  const circularText = 'CONTACT US * CONTACT US * CONTACT US * CONTACT US * ';
+  const textRadius = sizeMobile ? TEXT_RADIUS_MOBILE : TEXT_RADIUS;
+  const circleSize = sizeMobile ? CIRCLE_SIZE_MOBILE : CIRCLE_SIZE;
 
   const className = `contact-circle-btn ${isCta ? 'contact-circle-btn--cta' : ''}`;
+
+  const showCircularText = ready;
 
   const inner = (
     <>
       {!isCta && <span className="contact-circle-btn__glow" aria-hidden />}
       <span className="contact-circle-btn__inner">
         <span className="contact-circle-btn__text">
-          <CircularText
-            text={circularText}
-            spinDuration={10}
-            onHover="speedUp"
-            className="contact-circle-btn__circular-text"
-            radius={textRadius}
-            size={circleSize}
-            fontSize={isMobile ? 8 : undefined}
-            useSvgPath
-          />
+          {showCircularText ? (
+            <Suspense fallback={<span>Contact</span>}>
+              <CircularTextLazy
+                text={circularText}
+                spinDuration={10}
+                onHover="speedUp"
+                className="contact-circle-btn__circular-text"
+                radius={textRadius}
+                size={circleSize}
+                fontSize={sizeMobile ? 7 : undefined}
+                useSvgPath
+              />
+            </Suspense>
+          ) : (
+            <span>Contact</span>
+          )}
         </span>
         <svg
           className="contact-circle-btn__arrow"

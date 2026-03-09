@@ -30,6 +30,8 @@ export function ShirtManufacturer() {
                 src="https://images.unsplash.com/photo-1765614766382-2ff118e9095d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
                 alt="Shirt Manufacturing"
                 className="w-full h-full object-cover"
+                width={1080}
+                height={720}
               />
             </div>
           </div>

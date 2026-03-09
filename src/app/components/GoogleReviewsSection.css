@@ -1,0 +1,63 @@
+/* Section heading: match ContactCTASection / ProductCarouselSection – large display, bold, tight */
+.reviews-section-heading {
+  margin: 0 0 3rem;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: clamp(48px, 12vw, 72px);
+  line-height: 0.9;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  color: #000;
+}
+
+@media (min-width: 768px) {
+  .reviews-section-heading {
+    font-size: clamp(90px, 10vw, 160px);
+    margin-bottom: 4rem;
+  }
+}
+
+/* Stats row: gap below heading, spacing between metrics */
+.reviews-section-stats {
+  margin-top: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem 2.5rem;
+  align-items: baseline;
+}
+
+.reviews-section-metric-num {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  letter-spacing: -0.02em;
+  color: #111;
+}
+
+.reviews-section-metric-label {
+  margin-left: 0.35em;
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  font-weight: 400;
+  color: #374151;
+  vertical-align: baseline;
+}
+
+/* Paragraph column: shift paragraph right by 3 steps on desktop */
+.reviews-section-paragraph-wrap {
+  padding-left: 0;
+}
+
+@media (min-width: 1024px) {
+  .reviews-section-paragraph-wrap {
+    padding-left: 3rem;
+  }
+}
+
+/* Paragraph: larger size, comfortable line-height and spacing */
+.reviews-section-paragraph {
+  font-size: clamp(1.0625rem, 1.25vw, 1.25rem);
+  line-height: 1.7;
+  color: #374151;
+  max-width: 36em;
+  margin: 0;
+}

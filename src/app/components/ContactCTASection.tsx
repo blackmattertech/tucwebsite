@@ -1,86 +1,81 @@
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, Phone, Briefcase } from 'lucide-react';
 import { ContactCircleButton } from './ContactCircleButton';
+import './ContactCTASection.css';
 
-const SECTION_BG = '#F0EDEC';
+const SECTION_BG = '#ffffff';
 
 export function ContactCTASection() {
   return (
-    <section
-      className="py-14 md:py-20 lg:py-28"
-      id="contact"
-      style={{ backgroundColor: SECTION_BG }}
-    >
-      <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-        <div className="text-center mb-10 md:mb-14">
-          <h2
-            className="text-gray-900 mb-3 md:mb-4"
-            style={{ fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)', fontWeight: 700, lineHeight: 1.2 }}
-          >
-            Looking for a Reliable Apparel Manufacturer in Bangalore?
+    <section className="contact-cta-section" id="contact" style={{ backgroundColor: SECTION_BG }}>
+      <div className="contact-cta-inner">
+        <div className="contact-cta-heading-block">
+          <h2 className="contact-cta-heading" style={{ fontFamily: 'var(--font-heading)' }}>
+            Ready&nbsp;for
+            <br />
+            Commitment?
           </h2>
-          <p
-            className="text-gray-600 max-w-2xl mx-auto mb-8 md:mb-10"
-            style={{ fontSize: 'clamp(0.95rem, 1.1vw, 1.0625rem)', lineHeight: 1.6 }}
-          >
-            Get in touch with our team to discuss your manufacturing requirements and receive a detailed production quote.
+          <p className="contact-cta-subtext" style={{ fontFamily: 'var(--font-family)' }}>
+            We're not selling services, we're building relationships. Whether you're testing the waters or ready to go all-in, we've got the right setup to meet you where you are.
           </p>
-          <div className="flex justify-center">
-            <ContactCircleButton variant="cta" />
-          </div>
+        </div>
+        <div className="contact-cta-button-wrap">
+          <ContactCircleButton variant="cta" />
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto pt-4 md:pt-6 border-t border-gray-300/60">
-          <div className="text-center">
-            <div
-              className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4"
-              style={{ backgroundColor: 'rgba(0,0,0,0.06)' }}
-            >
-              <Phone className="text-gray-800" size={20} />
+        <div className="contact-cta-details grid grid-cols-3 gap-3 sm:gap-4 md:gap-8 max-w-4xl mx-auto pt-4 md:pt-6 border-t border-gray-300/60">
+          <div className="contact-cta-detail text-center">
+            <div className="contact-cta-detail-icon-wrap w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4">
+              <Mail className="text-gray-800 contact-cta-detail-icon" size={18} />
             </div>
-            <div className="text-gray-500 mb-1" style={{ fontSize: 'clamp(0.8rem, 1vw, 0.875rem)', fontWeight: 500 }}>
-              Phone Number
+            <div className="text-gray-500 mb-1" style={{ fontSize: 'clamp(0.7rem, 1vw, 0.875rem)', fontWeight: 500 }}>
+              Email
             </div>
             <a
-              href="tel:+918105751234"
-              className="text-gray-900 hover:text-gray-700 transition-colors"
-              style={{ fontSize: 'clamp(0.9rem, 1vw, 1rem)', fontWeight: 500 }}
+              href="mailto:care@tagunlimitedclothing.com"
+              className="text-gray-900 hover:text-gray-700 transition-colors break-all"
+              style={{ fontSize: 'clamp(0.75rem, 1vw, 1rem)', fontWeight: 500 }}
             >
-              +91 81057 51234
+              care@tagunlimitedclothing.com
             </a>
           </div>
 
-          <div className="text-center">
-            <div
-              className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4"
-              style={{ backgroundColor: 'rgba(0,0,0,0.06)' }}
-            >
-              <Mail className="text-gray-800" size={20} />
+          <div className="contact-cta-detail text-center">
+            <div className="contact-cta-detail-icon-wrap w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4">
+              <Phone className="text-gray-800 contact-cta-detail-icon" size={18} />
             </div>
-            <div className="text-gray-500 mb-1" style={{ fontSize: 'clamp(0.8rem, 1vw, 0.875rem)', fontWeight: 500 }}>
-              Email Address
+            <div className="text-gray-500 mb-1" style={{ fontSize: 'clamp(0.7rem, 1vw, 0.875rem)', fontWeight: 500 }}>
+              Phone
             </div>
             <a
-              href="mailto:contact@tagunlimited.com"
+              href="tel:+918095212121"
               className="text-gray-900 hover:text-gray-700 transition-colors"
-              style={{ fontSize: 'clamp(0.9rem, 1vw, 1rem)', fontWeight: 500 }}
+              style={{ fontSize: 'clamp(0.75rem, 1vw, 1rem)', fontWeight: 500 }}
             >
-              contact@tagunlimited.com
+              +91 8095212121
             </a>
           </div>
 
-          <div className="text-center">
-            <div
-              className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4"
-              style={{ backgroundColor: 'rgba(0,0,0,0.06)' }}
+          <div className="contact-cta-detail text-center">
+            <div className="contact-cta-detail-icon-wrap w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4">
+              <Briefcase className="text-gray-800 contact-cta-detail-icon" size={18} />
+            </div>
+            <div className="text-gray-500 mb-1" style={{ fontSize: 'clamp(0.7rem, 1vw, 0.875rem)', fontWeight: 500 }}>
+              Bulk and Corporate Orders
+            </div>
+            <a
+              href="tel:+919036788845"
+              className="text-gray-900 hover:text-gray-700 transition-colors block"
+              style={{ fontSize: 'clamp(0.75rem, 1vw, 1rem)', fontWeight: 500 }}
             >
-              <MapPin className="text-gray-800" size={20} />
-            </div>
-            <div className="text-gray-500 mb-1" style={{ fontSize: 'clamp(0.8rem, 1vw, 0.875rem)', fontWeight: 500 }}>
-              Location
-            </div>
-            <div className="text-gray-900" style={{ fontSize: 'clamp(0.9rem, 1vw, 1rem)', fontWeight: 500 }}>
-              Bangalore, Karnataka, India
-            </div>
+              +91 9036788845
+            </a>
+            <a
+              href="tel:+919535956724"
+              className="text-gray-900 hover:text-gray-700 transition-colors block"
+              style={{ fontSize: 'clamp(0.75rem, 1vw, 1rem)', fontWeight: 500 }}
+            >
+              +91 9535956724
+            </a>
           </div>
         </div>
       </div>

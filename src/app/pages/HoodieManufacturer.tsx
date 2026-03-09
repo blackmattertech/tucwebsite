@@ -30,6 +30,8 @@ export function HoodieManufacturer() {
                 src="https://images.unsplash.com/photo-1667586680656-6b8e381cddb5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
                 alt="Hoodie Manufacturing"
                 className="w-full h-full object-cover"
+                width={1080}
+                height={720}
               />
             </div>
           </div>

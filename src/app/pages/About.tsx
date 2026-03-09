@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { AboutBanner } from '../components/AboutBanner';
 import { CTASection } from '../components/CTASection';
 import './About.css';
@@ -46,68 +47,134 @@ const JOURNEY = [
   { year: '2024', text: 'Serving brands globally' },
 ];
 
+/** Intro video – ImageKit (Welcome To Tag Unlimited) */
+const INTRO_VIDEO_SRC =
+  'https://ik.imagekit.io/tagunlimited/YTDown.com_YouTube_Welcome-To-Tag-Unlimited_Media_tZJ2DsbGkzE_002_720p.mp4';
+
 export function About() {
+  const introSectionRef = useRef<HTMLElement>(null);
+  const introVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const section = introSectionRef.current;
+    const video = introVideoRef.current;
+    if (!section || !video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          video.muted = true;
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.25, rootMargin: '0px' }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       {/* 1. Hero – keep as is */}
       <AboutBanner />
 
-      {/* 2. Company Introduction (About TAG Unlimited) */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-            <div>
-              <h2 className="about-section-heading">About TAG Unlimited</h2>
-              <p className="about-intro-subheading">
-                A trusted apparel manufacturer in Bangalore, India, specializing in private label
-                clothing, bulk garment production, and custom apparel manufacturing for global
-                fashion brands.
+      {/* 2. Company Introduction (About TAG Unlimited) – full width, larger video */}
+      <section
+        ref={introSectionRef}
+        className="about-intro-section py-12 sm:py-16 md:py-20 lg:py-24 bg-white"
+      >
+        <div className="about-intro-section-inner px-4 sm:px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.35fr] gap-8 sm:gap-10 lg:gap-16 items-center">
+            <div className="about-intro-text">
+              <h2 className="about-section-heading about-intro-heading">About TAG Unlimited</h2>
+              <p>
+                Founded in 2006 by Mr. Rahul M Singh, TAG Unlimited is a Bangalore-based
+                apparel manufacturing company specializing in private label clothing and bulk
+                garment production for fashion brands, startups, and businesses worldwide.
               </p>
-              <p className="about-intro-seo">
-                TAG Unlimited is a Bangalore-based apparel manufacturing company focused on
-                delivering high-quality garments for fashion brands, startups, and corporate buyers
-                worldwide. Our manufacturing facility combines modern industrial machines, skilled
-                production teams, and ERP-driven workflows to ensure consistent quality and reliable
+              <p>
+                With nearly two decades of experience in the garment industry, TAG Unlimited has
+                established itself as a reliable apparel manufacturer in India, delivering
+                high-quality garments with consistent production standards and dependable
                 delivery timelines.
               </p>
+              <p>
+                Our manufacturing facility in Bangalore, India, is designed to support scalable
+                apparel manufacturing, combining modern industrial sewing machines, advanced
+                garment printing technologies, embroidery capabilities, and skilled production
+                teams.
+              </p>
+              <p>
+                From T-shirts, hoodies, shirts, jackets, and caps to custom apparel and
+                promotional garments, we help brands transform their concepts into
+                production-ready collections through structured workflows and efficient
+                manufacturing processes.
+              </p>
+              <p>
+                What makes TAG Unlimited different is our technology-driven production system,
+                powered by ERP-enabled manufacturing workflows that track every stage of an
+                order—from product development and sampling to bulk production and final
+                dispatch. This ensures transparency, efficient production planning, and reliable
+                delivery timelines for our clients.
+              </p>
+              <p>
+                Today, TAG Unlimited works with fashion brands, clothing startups, corporate
+                buyers, and international apparel businesses, providing flexible and scalable
+                garment manufacturing solutions built on quality, efficiency, and long-term
+                partnership.
+              </p>
             </div>
-            <div className="aspect-[16/9] lg:aspect-[2/1] rounded overflow-hidden">
-              <img
-                src={IMG.factoryWide}
-                alt="Large garment factory floor with tailors and fabric – apparel manufacturer Bangalore"
-                className="w-full h-full object-cover"
-                width={1920}
-                height={900}
-              />
+            <div className="about-intro-video-wrap">
+              {INTRO_VIDEO_SRC ? (
+                <video
+                  ref={introVideoRef}
+                  src={INTRO_VIDEO_SRC}
+                  title="About TAG Unlimited – apparel manufacturer Bangalore"
+                  controls
+                  playsInline
+                  preload="metadata"
+                  muted
+                  loop
+                >
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                <span style={{ color: '#666', fontSize: '0.875rem' }}>
+                  Video link will be added here
+                </span>
+              )}
             </div>
           </div>
         </div>
       </section>
 
       {/* 3. Who We Are */}
-      <section className="py-16 md:py-24 bg-gray-50">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
           <h2 className="about-section-heading">Who We Are</h2>
           <div className="about-section-body max-w-3xl mb-10">
             <p>
               TAG Unlimited is a private label apparel manufacturer in India specializing in bulk
-              production of T-shirts, hoodies, shirts, jackets, caps, and custom garments for
-              fashion brands and businesses.
+              garment production of T-shirts, hoodies, shirts, jackets, caps, and custom apparel for
+              fashion brands, startups, and businesses worldwide.
             </p>
             <p>
-              Our production facility is designed to support scalable garment manufacturing,
-              allowing brands to grow without worrying about production capacity, quality
-              consistency, or delivery timelines.
+              Our production facility in Bangalore, India is designed to support scalable apparel
+              manufacturing, enabling brands to grow without concerns about production capacity,
+              consistent garment quality, or reliable delivery timelines.
             </p>
             <p>
-              With a strong focus on structured workflows, modern industrial equipment, and
-              experienced production teams, we deliver garments that meet both design expectations
-              and international quality standards.
+              With a strong focus on structured manufacturing workflows, modern industrial sewing
+              machines, and skilled production teams, we produce garments that meet both design
+              expectations and international apparel quality standards.
             </p>
             <p>
-              From product development and sampling to bulk production and final dispatch, every
-              order follows a well-defined manufacturing process supported by our integrated
-              production management systems.
+              From product development and garment sampling to bulk apparel production and final
+              dispatch, every order follows a well-defined manufacturing process supported by our
+              ERP-driven production management system.
             </p>
           </div>
           <div className="about-image-grid size-4">
@@ -120,8 +187,8 @@ export function About() {
       </section>
 
       {/* 4. Our Journey */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
           <h2 className="about-section-heading">Our Journey</h2>
           <div className="about-section-body max-w-2xl">
             <p>
@@ -151,10 +218,10 @@ export function About() {
       </section>
 
       {/* 5. Manufacturing Strength */}
-      <section className="py-16 md:py-24 bg-gray-50">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
           <h2 className="about-section-heading">Our Manufacturing Capabilities</h2>
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-start">
             <div className="about-section-body">
               <p>
                 Our facility is equipped with modern production infrastructure designed for
@@ -184,8 +251,8 @@ export function About() {
       </section>
 
       {/* 6. Infrastructure & Facility */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
           <h2 className="about-section-heading">Infrastructure & Production Facility</h2>
           <div className="about-section-body max-w-3xl mb-10">
             <p>
@@ -208,9 +275,9 @@ export function About() {
       </section>
 
       {/* 7. ERP Powered Manufacturing */}
-      <section className="py-16 md:py-24 bg-gray-50">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
             <div>
               <h2 className="about-section-heading">Technology Driven Manufacturing</h2>
               <div className="about-section-body">
@@ -245,8 +312,8 @@ export function About() {
       </section>
 
       {/* 8. Brands & Businesses We Serve */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
           <h2 className="about-section-heading">Brands & Businesses We Serve</h2>
           <div className="about-section-body max-w-3xl">
             <p>
@@ -268,8 +335,8 @@ export function About() {
       </section>
 
       {/* 9. Quality Commitment */}
-      <section className="py-16 md:py-24 bg-gray-50">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
           <h2 className="about-section-heading">Quality & Consistency</h2>
           <div className="about-section-body max-w-3xl">
             <p>
@@ -286,9 +353,9 @@ export function About() {
       </section>
 
       {/* 10. Our Team */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
             <div>
               <h2 className="about-section-heading">Our Production Team</h2>
               <div className="about-section-body">
@@ -317,8 +384,8 @@ export function About() {
       </section>
 
       {/* 11. Factory Gallery */}
-      <section className="py-16 md:py-24 bg-gray-50">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
           <h2 className="about-section-heading">Factory Gallery</h2>
           <div className="about-gallery">
             {IMG.gallery.map((src, i) => (

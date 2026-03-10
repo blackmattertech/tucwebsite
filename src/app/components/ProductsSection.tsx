@@ -27,8 +27,11 @@ export function ProductsSection() {
                 alt={item.title}
                 width={400}
                 height={300}
+                quality={70}
+                sizes="(max-width: 768px) 100vw, 400px"
                 className="value-added-card-image"
                 loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
               />
             </div>

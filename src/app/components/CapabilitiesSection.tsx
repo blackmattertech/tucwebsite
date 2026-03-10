@@ -96,7 +96,10 @@ function CapabilityCardContent({
       onError={onError}
       width={640}
       height={450}
+      quality={70}
+      sizes="(max-width: 768px) 100vw, 640px"
       loading="lazy"
+      decoding="async"
       referrerPolicy="no-referrer"
       className="w-full h-full object-cover block"
       style={{ borderRadius: 12 }}

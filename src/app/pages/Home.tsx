@@ -2,9 +2,7 @@ import { lazy } from 'react';
 import { HeroSection } from '../components/HeroSection';
 import { BlankSection } from '../components/BlankSection';
 import { ProductsSection } from '../components/ProductsSection';
-import { TrustSection } from '../components/TrustSection';
 import { MapSection } from '../components/MapSection';
-import { TagFactorSection } from '../components/TagFactorSection';
 import { LazySection } from '../components/LazySection';
 
 const PrinciplesSection = lazy(() =>
@@ -21,6 +19,12 @@ const GoogleReviewsSection = lazy(() =>
 );
 const AboutSection = lazy(() =>
   import('../components/AboutSection').then((m) => ({ default: m.AboutSection }))
+);
+const TrustSection = lazy(() =>
+  import('../components/TrustSection').then((m) => ({ default: m.TrustSection }))
+);
+const TagFactorSection = lazy(() =>
+  import('../components/TagFactorSection').then((m) => ({ default: m.TagFactorSection }))
 );
 
 export function Home() {
@@ -50,11 +54,15 @@ export function Home() {
         <MapSection />
       </LazySection>
       <BlankSection />
-      <TrustSection />
+      <LazySection minHeightClass="min-h-[280px]">
+        <TrustSection />
+      </LazySection>
       <LazySection minHeightClass="min-h-[520px]">
         <ProductCarouselSection />
       </LazySection>
-      <TagFactorSection />
+      <LazySection minHeightClass="min-h-[400px]">
+        <TagFactorSection />
+      </LazySection>
       <LazySection minHeightClass="min-h-[420px]">
         <GoogleReviewsSection />
       </LazySection>

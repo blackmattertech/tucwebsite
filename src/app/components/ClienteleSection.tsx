@@ -52,6 +52,7 @@ export function ClienteleSection() {
                   unoptimized={name.endsWith('.svg')}
                   className="marquee-logo"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
             ))}

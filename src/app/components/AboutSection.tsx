@@ -58,8 +58,10 @@ export const AboutSection = React.memo(function AboutSection() {
               alt="Fabric rolls and materials at TAG Unlimited garment manufacturing facility"
               width={800}
               height={450}
+              quality={70}
               className="about-section-image w-full rounded-2xl overflow-hidden shadow-2xl"
               loading="lazy"
+              decoding="async"
               referrerPolicy="no-referrer"
               sizes="100vw"
             />
@@ -128,8 +130,10 @@ export const AboutSection = React.memo(function AboutSection() {
                 alt="Fabric rolls and materials at TAG Unlimited garment manufacturing facility"
                 width={800}
                 height={450}
+                quality={70}
                 className="about-section-image"
                 loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
                 sizes="(max-width: 1023px) 100vw, 58vw"
               />

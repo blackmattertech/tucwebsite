@@ -1,6 +1,5 @@
 import { Link } from 'react-router';
 import { PageHero } from '../components/PageHero';
-import { CTASection } from '../components/CTASection';
 import { ArrowRight } from 'lucide-react';
 
 export function Capabilities() {
@@ -122,13 +121,6 @@ export function Capabilities() {
           </div>
         </div>
       </section>
-
-      <CTASection
-        title="Ready to Start Your Manufacturing Project?"
-        description="Contact our team to discuss your requirements and get a detailed quote"
-        buttonText="Contact Us"
-        openContactModal
-      />
     </>
   );
 }

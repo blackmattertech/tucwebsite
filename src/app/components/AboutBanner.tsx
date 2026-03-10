@@ -15,6 +15,9 @@ export function AboutBanner() {
           height={1080}
           quality={80}
           unoptimized
+          sizes="100vw"
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover"
         />
       </div>

@@ -19,6 +19,9 @@ export function PageHero({ title, subtitle, backgroundImage, dark = true }: Page
               width={1920}
               height={1080}
               quality={80}
+              sizes="100vw"
+              loading="eager"
+              decoding="async"
               className="w-full h-full object-cover"
             />
           </div>

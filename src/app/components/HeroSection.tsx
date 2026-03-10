@@ -153,6 +153,7 @@ export const HeroSection = React.memo(function HeroSection() {
             >
               {!isMobileViewport && <source src={desktopVideoSrc} type="video/mp4" />}
             </video>
+            {/* Mobile: poster only (no video source) to avoid ~4.2MB payload on PageSpeed / slow networks */}
             <video
               ref={mobileVideoRef}
               autoPlay
@@ -165,7 +166,7 @@ export const HeroSection = React.memo(function HeroSection() {
               onEnded={(e) => e.currentTarget.play()}
               onError={() => setVideoError(true)}
             >
-              {isMobileViewport && <source src={mobileVideoSrc} type="video/mp4" />}
+              {false && isMobileViewport && <source src={mobileVideoSrc} type="video/mp4" />}
             </video>
           </>
         )}

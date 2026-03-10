@@ -32,7 +32,7 @@ export function ContactCTASection() {
             </div>
             <a
               href="mailto:care@tagunlimitedclothing.com"
-              className="text-gray-900 hover:text-gray-700 transition-colors break-all"
+              className="contact-cta-link text-gray-900 hover:text-gray-700 transition-colors break-all"
               style={{ fontSize: 'clamp(0.75rem, 1vw, 1rem)', fontWeight: 500 }}
             >
               care@tagunlimitedclothing.com
@@ -48,7 +48,7 @@ export function ContactCTASection() {
             </div>
             <a
               href="tel:+918095212121"
-              className="text-gray-900 hover:text-gray-700 transition-colors"
+              className="contact-cta-link text-gray-900 hover:text-gray-700 transition-colors"
               style={{ fontSize: 'clamp(0.75rem, 1vw, 1rem)', fontWeight: 500 }}
             >
               +91 8095212121
@@ -64,14 +64,14 @@ export function ContactCTASection() {
             </div>
             <a
               href="tel:+919036788845"
-              className="text-gray-900 hover:text-gray-700 transition-colors block"
+              className="contact-cta-link text-gray-900 hover:text-gray-700 transition-colors block"
               style={{ fontSize: 'clamp(0.75rem, 1vw, 1rem)', fontWeight: 500 }}
             >
               +91 9036788845
             </a>
             <a
               href="tel:+919535956724"
-              className="text-gray-900 hover:text-gray-700 transition-colors block"
+              className="contact-cta-link text-gray-900 hover:text-gray-700 transition-colors block"
               style={{ fontSize: 'clamp(0.75rem, 1vw, 1rem)', fontWeight: 500 }}
             >
               +91 9535956724

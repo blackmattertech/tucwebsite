@@ -1,0 +1,174 @@
+/* Capabilities page – hero heading matches About Infrastructure section styling, white + uppercase */
+
+.capabilities-hero-heading {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-heading, 'Montserrat', sans-serif);
+  font-weight: 900;
+  font-size: clamp(1.5rem, 6vw, 2.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #fff;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+@media (min-width: 375px) {
+  .capabilities-hero-heading {
+    font-size: clamp(1.75rem, 7vw, 2.5rem);
+  }
+}
+
+@media (min-width: 640px) {
+  .capabilities-hero-heading {
+    margin-bottom: 1.5rem;
+    font-size: clamp(2.25rem, 9vw, 60px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .capabilities-hero-heading {
+    margin-bottom: 1.75rem;
+    font-size: 60px;
+    line-height: 0.95;
+    letter-spacing: -2px;
+  }
+}
+
+.capabilities-hero-subtitle {
+  margin: 0 auto;
+  max-width: 36rem;
+  font-family: var(--font-family, 'Inter', sans-serif);
+  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Section headings – same styling as hero/Infrastructure, dark for light backgrounds */
+.capabilities-section-heading {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-heading, 'Montserrat', sans-serif);
+  font-weight: 900;
+  font-size: clamp(1.5rem, 6vw, 2.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #000;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+@media (min-width: 375px) {
+  .capabilities-section-heading {
+    font-size: clamp(1.75rem, 7vw, 2.5rem);
+  }
+}
+
+@media (min-width: 640px) {
+  .capabilities-section-heading {
+    margin-bottom: 1.5rem;
+    font-size: clamp(2.25rem, 9vw, 60px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .capabilities-section-heading {
+    margin-bottom: 1.75rem;
+    font-size: 60px;
+    line-height: 0.95;
+    letter-spacing: -2px;
+  }
+}
+
+/* Manufacturing Overview – 80px on large screens */
+@media (min-width: 640px) {
+  .capabilities-overview-heading-80 {
+    font-size: clamp(2.25rem, 9vw, 80px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .capabilities-overview-heading-80 {
+    font-size: 80px;
+  }
+}
+
+/* Product Development section – two images, height matches left column (heading + paragraph) */
+.capabilities-pd-visuals {
+  min-height: 200px;
+}
+
+.capabilities-pd-img {
+  flex: 1;
+  min-width: 0;
+  width: 0; /* with flex:1 allows equal width */
+  aspect-ratio: 3 / 4;
+}
+
+@media (min-width: 1024px) {
+  .capabilities-pd-visuals {
+    min-height: 0;
+    height: 100%;
+  }
+
+  .capabilities-pd-img {
+    width: auto;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+}
+
+/* Product Development mirrored section – left column: two images stacked vertically */
+.capabilities-pd-img-vertical {
+  aspect-ratio: 4 / 3;
+  min-height: 180px;
+}
+
+@media (min-width: 1024px) {
+  .capabilities-pd-img-vertical {
+    flex: 1;
+    min-height: 200px;
+    aspect-ratio: auto;
+  }
+}
+
+/* Stat cards – full background image, thick heading, counter */
+/* Second card: B&W industrial sewing machine look */
+.capabilities-stat-card-bg-grayscale {
+  filter: grayscale(100%);
+}
+
+.capabilities-stat-card-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%);
+}
+
+.capabilities-stat-number {
+  font-family: var(--font-heading, 'Montserrat', sans-serif);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  letter-spacing: -0.02em;
+  margin: 0 0 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .capabilities-stat-number {
+    font-size: clamp(1.75rem, 4.5vw, 3rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .capabilities-stat-number {
+    font-size: clamp(2rem, 2.5vw, 3.25rem);
+  }
+}
+
+.capabilities-stat-label {
+  font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+  line-height: 1.3;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}

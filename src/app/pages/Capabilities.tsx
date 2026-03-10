@@ -1,31 +1,79 @@
-import { Link } from 'react-router';
+import { useRef, useEffect, useState } from 'react';
+import { useInView } from 'motion/react';
 import { PageHero } from '../components/PageHero';
-import { ArrowRight } from 'lucide-react';
+import './Capabilities.css';
+
+const STAT_CARDS = [
+  {
+    target: 50000,
+    suffix: '+',
+    label: 'Sqft Factory',
+    image: 'https://ik.imagekit.io/tagunlimited/polo-tshirt-manufacturer-cap-manufacturer-hoodie-manufacturer.webp',
+    grayscale: true,
+  },
+  {
+    target: 200,
+    suffix: '+',
+    label: 'Industrial Stitching Machines',
+    image: 'https://ik.imagekit.io/tagunlimited/garment-stitching-floor-bangalore.webp',
+    grayscale: false,
+  },
+  {
+    target: 500000,
+    suffix: '+',
+    label: 'Garments stitched Every month',
+    image: 'https://ik.imagekit.io/tagunlimited/tshirt%20manufacturing%20in%20bangalore%20india.webp',
+    grayscale: true,
+  },
+  {
+    target: 300,
+    suffix: '+',
+    label: 'Team',
+    image: 'https://ik.imagekit.io/tagunlimited/infrastructure/best%20garment%20factory%20i%20india.webp',
+    grayscale: true,
+  },
+];
+
+function AnimatedStat({ target, suffix, inView, delay }: { target: number; suffix: string; inView: boolean; delay: number }) {
+  const [count, setCount] = useState(0);
+  const [started, setStarted] = useState(false);
+  const duration = 1800;
+  const startRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!inView) return;
+    const t = setTimeout(() => setStarted(true), delay);
+    return () => clearTimeout(t);
+  }, [inView, delay]);
+
+  useEffect(() => {
+    if (!started) return;
+    startRef.current = null;
+    setCount(0);
+    let rafId: number;
+    let cancelled = false;
+    const tick = (timestamp: number) => {
+      if (cancelled) return;
+      if (startRef.current === null) startRef.current = timestamp;
+      const elapsed = timestamp - startRef.current;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * target));
+      if (progress < 1) rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(rafId);
+    };
+  }, [started, target]);
+
+  return <>{count.toLocaleString()}{suffix}</>;
+}
 
 export function Capabilities() {
-  const capabilities = [
-    {
-      title: 'Apparel Manufacturing',
-      description: 'Bulk production with modern machinery and experienced workforce. High-capacity manufacturing for all types of garments.',
-      image: 'https://images.unsplash.com/photo-1758271141001-e4ff47f2b1c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-      link: '/capabilities/apparel-manufacturing-bangalore',
-      features: ['50K+ monthly capacity', 'Modern machinery', 'Quality control']
-    },
-    {
-      title: 'Private Label Manufacturing',
-      description: 'Complete private label services including branding, labeling, and custom packaging for your brand.',
-      image: 'https://images.unsplash.com/photo-1724155090003-fd4e48ab8c8f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-      link: '/capabilities/private-label-clothing-manufacturer',
-      features: ['Custom branding', 'Packaging design', 'Label printing']
-    },
-    {
-      title: 'Factory Infrastructure',
-      description: 'State-of-the-art manufacturing infrastructure with specialized departments for each production stage.',
-      image: 'https://images.unsplash.com/photo-1716191299945-4c5b89703971?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-      link: '/capabilities/garment-factory-infrastructure',
-      features: ['50,000 sq ft facility', 'Multiple production lines', 'Climate controlled']
-    }
-  ];
+  const statsRef = useRef<HTMLDivElement>(null);
+  const statsInView = useInView(statsRef, { once: true, amount: 0.2 });
 
   const qualitySystems = [
     'ISO 9001:2015 Certified',
@@ -39,58 +87,121 @@ export function Capabilities() {
   return (
     <>
       <PageHero
-        title="Apparel Manufacturing Capabilities"
+        title="Seamless Apparel Manufacturing from Concept to Delivery"
         subtitle="End-to-end manufacturing solutions for private label clothing and knitwear production"
-        backgroundImage="https://images.unsplash.com/photo-1768746350424-ee28a364dcf5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
+        backgroundImage="https://ik.imagekit.io/tagunlimited/garment-stitching-floor-bangalore.webp"
+        imageAlt="Bulk hoodie manufacturing production line in Bangalore apparel factory"
+        sectionClassName="min-h-[55vh] lg:min-h-[65vh]"
+        imageLoading="lazy"
+        headingClassName="capabilities-hero-heading"
+        subtitleClassName="capabilities-hero-subtitle"
       />
 
-      {/* Manufacturing Overview */}
-      <section className="py-24 bg-white">
-        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-gray-900 mb-6" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, lineHeight: 1.2 }}>
-              Manufacturing Overview
-            </h2>
-            <p className="text-gray-600" style={{ fontSize: '18px', lineHeight: 1.8 }}>
-              Our comprehensive manufacturing capabilities cover every aspect of garment production, from initial design consultation to final packaging and delivery. We combine traditional craftsmanship with modern technology to deliver exceptional quality at scale.
-            </p>
-          </div>
+      {/* Manufacturing Overview – same big heading style as page hero, center-aligned */}
+      <section className="pt-24 pb-6 bg-white">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-12 text-center">
+          <h2 className="capabilities-section-heading capabilities-overview-heading-80">
+            Manufacturing Overview
+          </h2>
+        </div>
+      </section>
 
-          <div className="grid lg:grid-cols-3 gap-8">
-            {capabilities.map((capability, index) => (
-              <Link
-                key={index}
-                to={capability.link}
-                className="group bg-white border border-gray-200 hover:shadow-xl transition-shadow duration-300"
+      {/* Stat cards – full background image, thick heading, smooth counter */}
+      <section className="pt-6 pb-12 lg:pb-16 bg-white" aria-label="Manufacturing stats">
+        <div ref={statsRef} className="max-w-[1440px] mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
+            {STAT_CARDS.map((card, i) => (
+              <div
+                key={card.label}
+                className="capabilities-stat-card relative overflow-hidden rounded-xl min-h-[140px] sm:min-h-[180px] lg:min-h-[220px] flex flex-col justify-end p-4 sm:p-5 lg:p-6"
               >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={capability.image}
-                    alt={capability.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    width={400}
-                    height={300}
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-gray-900 mb-3 flex items-center justify-between" style={{ fontSize: '24px', fontWeight: 600 }}>
-                    {capability.title}
-                    <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
-                  </h3>
-                  <p className="text-gray-600 mb-4" style={{ fontSize: '16px', lineHeight: 1.6 }}>
-                    {capability.description}
+                <div
+                  className={`absolute inset-0 rounded-xl ${card.grayscale ? 'capabilities-stat-card-bg-grayscale' : ''}`}
+                  style={{ backgroundImage: `url(${card.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+                  aria-hidden
+                />
+                <div className="capabilities-stat-card-overlay absolute inset-0 rounded-xl" aria-hidden />
+                <div className="relative z-10">
+                  <p className="capabilities-stat-number text-white font-black leading-tight">
+                    <AnimatedStat
+                      target={card.target}
+                      suffix={card.suffix}
+                      inView={statsInView}
+                      delay={i * 120}
+                    />
                   </p>
-                  <ul className="space-y-2">
-                    {capability.features.map((feature, idx) => (
-                      <li key={idx} className="text-gray-500 flex items-center gap-2" style={{ fontSize: '14px' }}>
-                        <span className="w-1 h-1 bg-gray-400 rounded-full" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+                  <p className="capabilities-stat-label text-white font-semibold">{card.label}</p>
                 </div>
-              </Link>
+              </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Product Development & Sampling – 2 columns: left content, right two images (height matches left) */}
+      <section className="py-24 bg-white" aria-labelledby="product-development-heading">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
+            <div className="min-w-0 text-left">
+              <h2 id="product-development-heading" className="capabilities-section-heading text-left">
+                Product Development & Sampling
+              </h2>
+              <p className="text-gray-600 text-left mt-4" style={{ fontSize: '1.125rem', lineHeight: 1.8 }}>
+                Our product development team works closely with brands to convert design concepts into production-ready garments. From pattern development and fabric inspection to garment sampling and fit testing, we ensure every product is refined before bulk manufacturing begins.
+              </p>
+            </div>
+            <div className="min-w-0 capabilities-pd-visuals flex gap-3 lg:gap-4">
+              <img
+                src="https://ik.imagekit.io/tagunlimited/hoodie-manufacturing%20in-%20bangalore.webp"
+                alt="Hoodie manufacturing in Bangalore – product development and sampling"
+                className="capabilities-pd-img rounded-2xl object-cover"
+                width={300}
+                height={400}
+                loading="lazy"
+              />
+              <img
+                src="https://ik.imagekit.io/tagunlimited/jacket-manufacturer-in-bangalore.webp"
+                alt="Jacket manufacturer in Bangalore – apparel production"
+                className="capabilities-pd-img rounded-2xl object-cover"
+                width={300}
+                height={400}
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Bulk Garment Production – left = 2 images (vertical), right = heading + paragraph; same layout alignment as Product Development section */}
+      <section className="py-24 bg-white" aria-labelledby="bulk-garment-production-heading">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
+            <div className="min-w-0 capabilities-pd-visuals flex gap-3 lg:gap-4 order-2 lg:order-1">
+              <img
+                src="/hero-poster.webp"
+                alt="Bulk garment production – apparel manufacturing facility"
+                className="capabilities-pd-img rounded-2xl object-cover"
+                width={300}
+                height={400}
+                loading="lazy"
+              />
+              <img
+                src="https://ik.imagekit.io/tagunlimited/polo-tshirt-manufacturer-cap-manufacturer-hoodie-manufacturer.webp?updatedAt=1773140541934"
+                alt="Polo, cap and hoodie manufacturer – bulk garment production"
+                className="capabilities-pd-img rounded-2xl object-cover"
+                width={300}
+                height={400}
+                loading="lazy"
+              />
+            </div>
+            <div className="min-w-0 text-left lg:text-right order-1 lg:order-2 flex flex-col justify-center">
+              <h2 id="bulk-garment-production-heading" className="capabilities-section-heading text-left lg:text-right">
+                Bulk Garment Production
+              </h2>
+              <p className="text-gray-600 text-left lg:text-right mt-4" style={{ fontSize: '1.125rem', lineHeight: 1.8 }}>
+                Our production facility is equipped with modern industrial sewing machines and organized stitching lines designed to support scalable bulk garment manufacturing. Skilled production teams ensure precise stitching, consistent quality, and efficient workflows, allowing us to manufacture large volumes of T-shirts, hoodies, shirts, and custom apparel while maintaining reliable delivery timelines for fashion brands and businesses.
+              </p>
+            </div>
           </div>
         </div>
       </section>

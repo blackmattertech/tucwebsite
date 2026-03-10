@@ -165,7 +165,7 @@ export function Infrastructure() {
         title="Visit Our Manufacturing Facility"
         description="Schedule a factory visit to see our infrastructure and capabilities firsthand"
         buttonText="Contact Us"
-        buttonLink="/contact-apparel-manufacturer-bangalore"
+        openContactModal
       />
     </>
   );

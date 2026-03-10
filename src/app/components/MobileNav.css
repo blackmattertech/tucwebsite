@@ -120,7 +120,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.5rem;
+  gap: 0.75rem;
   width: 100%;
   margin-left: 0.75rem;
   max-width: 20rem;
@@ -139,11 +139,11 @@
 
 .mobile-nav-link {
   display: block;
-  padding: 0.5rem 0;
+  padding: 0.35rem 0;
   color: #111827;
   background: transparent;
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 500;
   transition: color 0.2s ease;
 }

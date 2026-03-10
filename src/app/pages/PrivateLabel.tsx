@@ -156,7 +156,7 @@ export function PrivateLabel() {
         title="Ready to Launch Your Private Label Brand?"
         description="Get started with our private label manufacturing services today"
         buttonText="Get Started"
-        buttonLink="/contact-apparel-manufacturer-bangalore"
+        openContactModal
       />
     </>
   );

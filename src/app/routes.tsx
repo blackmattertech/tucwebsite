@@ -31,7 +31,6 @@ const HoodieManufacturer = lazy(() => import('./pages/HoodieManufacturer').then(
 const ShirtManufacturer = lazy(() => import('./pages/ShirtManufacturer').then((m) => ({ default: m.ShirtManufacturer })));
 const Blog = lazy(() => import('./pages/Blog').then((m) => ({ default: m.Blog })));
 const BlogPost = lazy(() => import('./pages/BlogPost').then((m) => ({ default: m.BlogPost })));
-const Contact = lazy(() => import('./pages/Contact').then((m) => ({ default: m.Contact })));
 const Social = lazy(() => import('./pages/Social').then((m) => ({ default: m.Social })));
 
 export const router = createBrowserRouter([
@@ -116,10 +115,6 @@ export const router = createBrowserRouter([
       {
         path: 'blog/best-fabric-for-tshirts',
         Component: BlogPost
-      },
-      {
-        path: 'contact-apparel-manufacturer-bangalore',
-        Component: Contact
       },
       {
         path: 'social',

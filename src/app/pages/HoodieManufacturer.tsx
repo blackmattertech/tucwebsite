@@ -146,7 +146,7 @@ export function HoodieManufacturer() {
         title="Start Your Hoodie Manufacturing Project"
         description="Get a customized quote for your hoodie production requirements"
         buttonText="Contact Us"
-        buttonLink="/contact-apparel-manufacturer-bangalore"
+        openContactModal
       />
     </>
   );

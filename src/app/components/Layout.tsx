@@ -1,9 +1,10 @@
 import { Suspense, lazy } from 'react';
-import { Outlet } from 'react-router';
+import { Outlet, useLocation } from 'react-router';
 import { ContactModalProvider } from '../context/ContactModalContext';
 import { ViewportProvider, useViewport } from '../context/ViewportContext';
 import { Header } from './Header';
 import { Footer } from './Footer';
+import { ContactCTASection } from './ContactCTASection';
 import { FloatingContactButtons } from './FloatingContactButtons';
 import { ContactCircleButton } from './ContactCircleButton';
 import { ContactModal } from './ContactModal';
@@ -16,7 +17,9 @@ const SectionScrollIndicatorsLazy = lazy(() =>
 
 function LayoutContent() {
   const { isDesktop, ready } = useViewport();
+  const location = useLocation();
   const showScrollIndicators = ready && isDesktop;
+  const isAboutPage = location.pathname.toLowerCase().includes('about-apparel-manufacturer-bangalore');
 
   return (
     <div className="min-h-screen bg-white relative overflow-x-hidden">
@@ -35,6 +38,7 @@ function LayoutContent() {
           <Outlet />
         </Suspense>
       </main>
+      {!isAboutPage && <ContactCTASection />}
       <Footer />
       <FloatingContactButtons />
       <ContactModal />

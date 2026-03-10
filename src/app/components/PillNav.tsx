@@ -365,27 +365,17 @@ export function PillNav({
                   </li>
                 ))}
               </ul>
-              {modal?.openModal ? (
-                <button
-                  type="button"
-                  className="mobile-menu-contact-btn"
-                  onClick={() => {
-                    toggleMobileMenu();
-                    modal.openModal();
-                  }}
-                  aria-label="Contact us"
-                >
-                  Contact
-                </button>
-              ) : (
-                <Link
-                  to="/contact-apparel-manufacturer-bangalore"
-                  className="mobile-menu-contact-btn"
-                  onClick={toggleMobileMenu}
-                >
-                  Contact
-                </Link>
-              )}
+              <button
+                type="button"
+                className="mobile-menu-contact-btn"
+                onClick={() => {
+                  toggleMobileMenu();
+                  modal?.openModal?.();
+                }}
+                aria-label="Contact us"
+              >
+                Contact
+              </button>
               <div className="mobile-menu-social">
               <span className="mobile-menu-social-label">Follow us</span>
               <div className="mobile-menu-social-icons">

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
-import { Link } from 'react-router';
 import { useContactModal } from '../context/useContactModal';
 import { useViewport } from '../context/ViewportContext';
 import './ContactCircleButton.css';
@@ -8,8 +7,6 @@ import './ContactCircleButton.css';
 const CircularTextLazy = lazy(() =>
   import('./CircularText').then((m) => ({ default: m.CircularText }))
 );
-
-const CONTACT_HREF = '/contact-apparel-manufacturer-bangalore';
 
 const CIRCLE_SIZE = 110;
 const CIRCLE_RADIUS = CIRCLE_SIZE / 2;
@@ -88,22 +85,14 @@ export function ContactCircleButton({ variant = 'default' }: { variant?: Contact
     </>
   );
 
-  if (modal?.openModal) {
-    return (
-      <button
-        type="button"
-        className={className}
-        aria-label="Contact us"
-        onClick={modal.openModal}
-      >
-        {inner}
-      </button>
-    );
-  }
-
   return (
-    <Link to={CONTACT_HREF} className={className} aria-label="Contact us">
+    <button
+      type="button"
+      className={className}
+      aria-label="Contact us"
+      onClick={modal?.openModal ?? undefined}
+    >
       {inner}
-    </Link>
+    </button>
   );
 }

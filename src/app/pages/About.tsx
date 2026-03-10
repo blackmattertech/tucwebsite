@@ -1,16 +1,44 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import { AboutBanner } from '../components/AboutBanner';
-import { CTASection } from '../components/CTASection';
 import { JourneySection } from '../components/JourneySection';
+import { ProductionIntelligenceLeft } from '../components/ProductionIntelligenceLeft';
+import { ContactCTASection } from '../components/ContactCTASection';
+import { MapFaqSection } from '../components/MapFaqSection';
+import { StatsCards } from '../components/StatsCards';
+import { clientLogos } from '../../data/client-logos';
+import { clientLogoUrl } from '../lib/imagekitStorage';
+import { useMediaAssets } from '../lib/useMediaAssets';
 import './About.css';
+
+/** Alt text for client logos (matches ClienteleSection). */
+function logoAlt(filename: string): string {
+  const known: Record<string, string> = {
+    '1024px-Cisco_logo.svg_.png': 'Cisco',
+    '98b4e8_d71ea6626990460c8891b856b61618bamv2.webp': 'Client',
+    'Acc_Logo_Black_Purple_RGB.png': 'Accenture',
+    'Bank_of_Baroda_logo-3.svg': 'Bank of Baroda',
+    'Tesco_Logo.svg_.png': 'Tesco',
+    'Zomato-Logo.png': 'Zomato',
+    'basf_logo.svg': 'BASF',
+    'download-17.png': 'Client',
+    'huawei_  logo.svg': 'Huawei',
+    "john_deere logo.svg": "John Deere",
+    "kellogg's_logo.svg": "Kellogg's",
+    'kfc_logo.svg': 'KFC',
+    'philips_logo.svg': 'Philips',
+    'pwc_logo.svg': 'PwC',
+    'red_bull logo.svg': 'Red Bull',
+  };
+  if (known[filename]) return known[filename];
+  const base = filename.replace(/\.[^.]+$/, '').replace(/[_\-]+/g, ' ').replace(/\s*logo\s*$/i, '').trim();
+  return base.length > 2 && base.length < 50 ? base : 'Client';
+}
 
 /* Factory/production imagery – replace with your own assets as needed */
 const IMG = {
   factoryWide:
     'https://images.unsplash.com/photo-1582735689369-4fe89db7114c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920',
   designSamples:
-    'https://images.unsplash.com/photo-1558171813-4c088753af8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200',
-  fabricInspection:
     'https://images.unsplash.com/photo-1558171813-4c088753af8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200',
   patternMaking:
     'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200',
@@ -30,14 +58,6 @@ const IMG = {
     'https://images.unsplash.com/photo-1557804506-669a67965ba0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200',
   workersSewing:
     'https://images.unsplash.com/photo-1582735689369-4fe89db7114c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200',
-  gallery: [
-    'https://images.unsplash.com/photo-1582735689369-4fe89db7114c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1000',
-    'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1000',
-    'https://images.unsplash.com/photo-1558171813-4c088753af8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1000',
-    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1000',
-    'https://images.unsplash.com/photo-1557804506-669a67965ba0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1000',
-    'https://images.unsplash.com/photo-1582735689369-4fe89db7114c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1000',
-  ],
 };
 
 /** Intro video – ImageKit (Welcome To Tag Unlimited) */
@@ -47,6 +67,14 @@ const INTRO_VIDEO_SRC =
 export function About() {
   const introSectionRef = useRef<HTMLElement>(null);
   const introVideoRef = useRef<HTMLVideoElement>(null);
+  const { getUrl, getFileNamesByFolder } = useMediaAssets();
+  const mediaLogos = getFileNamesByFolder('client-logos');
+  const brandsLogos = mediaLogos.length > 0 ? mediaLogos : clientLogos;
+  const mid = Math.ceil(brandsLogos.length / 2);
+  const brandsRow1 = brandsLogos.slice(0, mid);
+  const brandsRow2 = brandsLogos.slice(mid);
+  const getLogoUrl = (name: string) =>
+    mediaLogos.length > 0 ? getUrl('client-logos', name) : clientLogoUrl(name);
 
   useEffect(() => {
     const section = introSectionRef.current;
@@ -80,7 +108,7 @@ export function About() {
         className="about-intro-section py-12 sm:py-16 md:py-20 lg:py-24 bg-white"
       >
         <div className="about-intro-section-inner px-4 sm:px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.35fr] gap-8 sm:gap-10 lg:gap-16 items-center">
+          <div className="about-intro-grid grid grid-cols-1 lg:grid-cols-[1fr_1.35fr] gap-8 sm:gap-10 lg:gap-16">
             <div className="about-intro-text">
               <h2 className="about-section-heading about-intro-heading">About TAG Unlimited</h2>
               <p>
@@ -147,8 +175,8 @@ export function About() {
       {/* 3. Who We Are */}
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
-            <div>
+          <div className="about-who-grid grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
+            <div className="min-w-0">
               <h2 className="about-section-heading">Who We Are</h2>
               <div className="about-section-body max-w-3xl">
                 <p>
@@ -189,128 +217,246 @@ export function About() {
       {/* 4. Our Journey – thread stitch timeline */}
       <JourneySection />
 
-      {/* 5. Manufacturing Strength */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
-          <h2 className="about-section-heading">Our Manufacturing Capabilities</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-start">
-            <div className="about-section-body">
-              <p>
-                Our facility is equipped with modern production infrastructure designed for
-                high-volume garment manufacturing.
-              </p>
-              <p>Key capabilities include:</p>
-              <ul>
-                <li>Industrial garment stitching lines</li>
-                <li>Screen printing and DTF printing</li>
-                <li>Embroidery and branding</li>
-                <li>Fabric cutting and pattern development</li>
-                <li>Quality inspection and finishing</li>
-              </ul>
-              <p>
-                This integrated setup allows us to maintain quality control, faster turnaround
-                times, and reliable production capacity for bulk apparel orders.
-              </p>
-            </div>
-            <div className="about-image-grid size-4">
-              <img src={IMG.tailorsStitching} alt="Tailors stitching garments" width={1200} height={800} />
-              <img src={IMG.screenPrinting} alt="Screen printing" width={1200} height={800} />
-              <img src={IMG.embroidery} alt="Embroidery machine" width={1200} height={800} />
-              <img src={IMG.fabricCutting} alt="Fabric cutting table" width={1200} height={800} />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. Infrastructure & Facility */}
+      {/* 5. Infrastructure & Facility – mobile: interleaved (p1, img1, p2, img2, p3, img3, p4); desktop: text left, image stack right (reverted) */}
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
-          <h2 className="about-section-heading">Infrastructure & Production Facility</h2>
-          <div className="about-section-body max-w-3xl mb-10">
-            <p>
-              Our production facility includes modern industrial sewing machines, advanced printing
-              equipment, embroidery machines, and structured production lines designed to handle
-              bulk garment manufacturing.
-            </p>
-            <p>
-              With a growing infrastructure and dedicated production teams, we are capable of
-              managing large order volumes while maintaining consistent quality standards.
-            </p>
+          {/* Mobile only: interleaved paragraphs and images */}
+          <div className="about-infrastructure-grid about-infrastructure-mobile lg:hidden">
+            <h2 className="about-section-heading">Infrastructure</h2>
+            <div className="about-section-body about-infrastructure-text">
+              <p>
+                TAG Unlimited operates a professionally managed apparel manufacturing facility in
+                Bangalore, India, built to support large-scale private label clothing production and
+                bulk garment manufacturing for fashion brands, startups, and global apparel businesses.
+              </p>
+            </div>
+            <div className="about-infrastructure-stack__slot">
+              <img
+                src="https://ik.imagekit.io/tagunlimited/infrastructure/best%20garment%20factory%20i%20india.webp"
+                alt="Best garment factory in India – TAG Unlimited facility"
+                width={800}
+                height={400}
+              />
+            </div>
+            <div className="about-section-body about-infrastructure-text">
+              <p>
+                Our production infrastructure includes modern industrial sewing machines, advanced
+                screen and DTF printing systems, multi-head embroidery machines, fabric cutting
+                tables, and organized production lines designed for efficient and scalable apparel
+                manufacturing. Every stage of production—from fabric inspection and pattern
+                development to garment stitching, branding, finishing, and packing—is structured to
+                maintain consistent quality and streamlined workflows.
+              </p>
+            </div>
+            <div className="about-infrastructure-stack__slot">
+              <img
+                src="https://ik.imagekit.io/tagunlimited/infrastructure/best%20hoodie%20manufacturer%20in%20bangalore.webp"
+                alt="Best hoodie manufacturer in Bangalore"
+                width={800}
+                height={400}
+              />
+            </div>
+            <div className="about-section-body about-infrastructure-text">
+              <p>
+                With continuously expanding production capacity, experienced manufacturing teams, and
+                technology-supported production management systems, our facility is capable of
+                handling high-volume apparel orders while maintaining strict quality control,
+                manufacturing precision, and reliable delivery timelines for domestic and
+                international clients.
+              </p>
+            </div>
+            <div className="about-infrastructure-stack__slot">
+              <img
+                src="https://ik.imagekit.io/tagunlimited/infrastructure/best%20apparel%20manufacturer%20in%20india.webp"
+                alt="Best apparel manufacturer in India"
+                width={800}
+                height={400}
+              />
+            </div>
+            <div className="about-section-body about-infrastructure-text">
+              <p>
+                This robust infrastructure enables TAG Unlimited to function as a dependable apparel
+                manufacturing partner for fashion brands looking for scalable, high-quality garment
+                production in India.
+              </p>
+            </div>
           </div>
-          <div className="about-image-grid size-4">
-            <img src={IMG.factoryFloor} alt="Factory floor – garment manufacturer Bangalore" width={1200} height={800} />
-            <img src={IMG.tailorsStitching} alt="Production machines" width={1200} height={800} />
-            <img src={IMG.fabricInspection} alt="Fabric racks" width={1200} height={800} />
-            <img src={IMG.factoryWide} alt="Production lines" width={1200} height={800} />
-          </div>
-        </div>
-      </section>
 
-      {/* 7. ERP Powered Manufacturing */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
-            <div>
-              <h2 className="about-section-heading">Technology Driven Manufacturing</h2>
+          {/* Desktop only: text left, image stack right (original layout) */}
+          <div className="hidden lg:grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 lg:items-stretch about-infrastructure-grid-desktop">
+            <div className="min-w-0">
+              <h2 className="about-section-heading">Infrastructure</h2>
               <div className="about-section-body">
                 <p>
-                  Our manufacturing operations are supported by ERP-based production management
-                  systems that allow us to track every order stage — from sampling to dispatch.
+                  TAG Unlimited operates a professionally managed apparel manufacturing facility in
+                  Bangalore, India, built to support large-scale private label clothing production and
+                  bulk garment manufacturing for fashion brands, startups, and global apparel businesses.
                 </p>
-                <p>This digital production monitoring ensures:</p>
-                <ul>
-                  <li>Transparent order tracking</li>
-                  <li>Better production planning</li>
-                  <li>On-time delivery timelines</li>
-                  <li>Efficient communication with clients</li>
-                </ul>
                 <p>
-                  By combining technology and skilled manufacturing teams, we deliver reliable
-                  and scalable apparel production solutions.
+                  Our production infrastructure includes modern industrial sewing machines, advanced
+                  screen and DTF printing systems, multi-head embroidery machines, fabric cutting
+                  tables, and organized production lines designed for efficient and scalable apparel
+                  manufacturing. Every stage of production—from fabric inspection and pattern
+                  development to garment stitching, branding, finishing, and packing—is structured to
+                  maintain consistent quality and streamlined workflows.
+                </p>
+                <p>
+                  With continuously expanding production capacity, experienced manufacturing teams, and
+                  technology-supported production management systems, our facility is capable of
+                  handling high-volume apparel orders while maintaining strict quality control,
+                  manufacturing precision, and reliable delivery timelines for domestic and
+                  international clients.
+                </p>
+                <p>
+                  This robust infrastructure enables TAG Unlimited to function as a dependable apparel
+                  manufacturing partner for fashion brands looking for scalable, high-quality garment
+                  production in India.
                 </p>
               </div>
             </div>
-            <div className="aspect-[4/3] rounded overflow-hidden">
-              <img
-                src={IMG.erpManager}
-                alt="Factory manager with production dashboard – ERP powered apparel manufacturing"
-                className="w-full h-full object-cover"
-                width={1200}
-                height={800}
-              />
+            <div className="about-infrastructure-stack">
+              <div className="about-infrastructure-stack__slot">
+                <img
+                  src="https://ik.imagekit.io/tagunlimited/infrastructure/best%20garment%20factory%20i%20india.webp"
+                  alt="Best garment factory in India – TAG Unlimited facility"
+                  width={800}
+                  height={400}
+                />
+              </div>
+              <div className="about-infrastructure-stack__slot">
+                <img
+                  src="https://ik.imagekit.io/tagunlimited/infrastructure/best%20hoodie%20manufacturer%20in%20bangalore.webp"
+                  alt="Best hoodie manufacturer in Bangalore"
+                  width={800}
+                  height={400}
+                />
+              </div>
+              <div className="about-infrastructure-stack__slot">
+                <img
+                  src="https://ik.imagekit.io/tagunlimited/infrastructure/best%20apparel%20manufacturer%20in%20india.webp"
+                  alt="Best apparel manufacturer in India"
+                  width={800}
+                  height={400}
+                />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 8. Brands & Businesses We Serve */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
-          <h2 className="about-section-heading">Brands & Businesses We Serve</h2>
-          <div className="about-section-body max-w-3xl">
-            <p>
-              TAG Unlimited works with a wide range of clients including:
-            </p>
-            <ul>
-              <li>Fashion brands</li>
-              <li>Clothing startups</li>
-              <li>Corporate apparel buyers</li>
-              <li>Promotional merchandise companies</li>
-              <li>International apparel importers</li>
-            </ul>
-            <p>
-              Our flexible production capabilities allow us to support both growing brands and
-              large-scale apparel programs.
-            </p>
+      {/* 7. Technology-Driven Apparel Manufacturing – full width, minimal padding, equal column height */}
+      <section className="about-technology-section">
+        <div className="about-technology-section__inner">
+          <div className="about-technology-section__grid">
+            <div className="about-technology-images order-2 lg:order-1">
+              <ProductionIntelligenceLeft />
+            </div>
+            <div className="about-technology-content order-1 lg:order-2">
+              <h2 className="about-section-heading">Technology-Driven Apparel<br />Manufacturing</h2>
+              <div className="about-section-body">
+                <p>
+                  At TAG Unlimited, our manufacturing operations are powered by ERP-driven
+                  production management systems designed to bring transparency, efficiency, and
+                  control to every stage of apparel manufacturing. From product development and
+                  garment sampling to bulk production, quality inspection, and final dispatch,
+                  every order is monitored through our integrated digital production workflows.
+                </p>
+                <p>
+                  This technology-enabled manufacturing system allows our team to track real-time
+                  production progress, optimize manufacturing schedules, and maintain structured
+                  production timelines across large garment orders.
+                </p>
+                <p>Our ERP-supported manufacturing process enables:</p>
+                <ul className="about-list-yellow-bullets">
+                  <li>Transparent order tracking for fashion brands and buyers</li>
+                  <li>Improved production planning and resource management</li>
+                  <li>Reliable on-time delivery for bulk garment orders</li>
+                  <li>Streamlined communication between production teams and clients</li>
+                </ul>
+                <p>
+                  By combining over 20 years of garment manufacturing experience, skilled
+                  production teams, and technology-driven production management, TAG Unlimited
+                  delivers scalable, reliable, and high-quality apparel manufacturing solutions
+                  for fashion brands, startups, and global businesses.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 9. Quality Commitment */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
-          <h2 className="about-section-heading">Quality & Consistency</h2>
-          <div className="about-section-body max-w-3xl">
+      {/* 8. Brands & Businesses We Serve – 2 columns: left = copy, right = logos, full width */}
+      <section className="about-brands-section" aria-labelledby="brands-heading">
+        <div className="about-brands-section__inner">
+          <div className="about-brands-section__grid">
+            <div className="about-brands-content">
+              <h2 id="brands-heading" className="about-section-heading">Brands & Businesses We Serve</h2>
+              <div className="about-section-body">
+                <p>
+                  TAG Unlimited partners with fashion brands, startups, and global apparel businesses looking for reliable private label clothing manufacturing and bulk garment production.
+                </p>
+                <p>Our manufacturing facility in Bangalore supports a diverse range of clients, including:</p>
+                <ul>
+                  <li>Fashion & Apparel Brands</li>
+                  <li>Clothing Startups & D2C Labels</li>
+                  <li>Corporate Apparel Buyers</li>
+                  <li>Promotional Merchandise Companies</li>
+                  <li>International Apparel Importers & Distributors</li>
+                </ul>
+                <p>
+                  With scalable production capacity and flexible manufacturing workflows, we support both emerging fashion brands and large-scale apparel programs requiring consistent quality and reliable delivery timelines.
+                </p>
+              </div>
+            </div>
+            <div className="about-brands-logos-col">
+              <p className="about-brands-trust-label">Trusted Manufacturing Partner For</p>
+              <div className="about-brands-marquee-wrap">
+                <div className="about-brands-marquee-track about-brands-marquee-track--left" aria-hidden>
+                  <div className="about-brands-marquee-inner about-brands-marquee-inner--left">
+                    {[...brandsRow1, ...brandsRow1].map((filename: string, i: number) => (
+                      <div key={`${filename}-${i}`} className="about-brands-logo-item">
+                        <img
+                          src={getLogoUrl(filename)}
+                          alt={logoAlt(filename)}
+                          className="about-brands-logo-img"
+                          width={100}
+                          height={40}
+                          loading="lazy"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="about-brands-marquee-track about-brands-marquee-track--right" aria-hidden>
+                  <div className="about-brands-marquee-inner about-brands-marquee-inner--right">
+                    {[...brandsRow2, ...brandsRow2].map((filename: string, i: number) => (
+                      <div key={`${filename}-${i}`} className="about-brands-logo-item">
+                        <img
+                          src={getLogoUrl(filename)}
+                          alt={logoAlt(filename)}
+                          className="about-brands-logo-img"
+                          width={100}
+                          height={40}
+                          loading="lazy"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <p className="about-brands-trust-line">
+                Trusted by growing fashion brands, apparel startups, and global clothing businesses.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 9. Quality Commitment – banner, logo yellow, centered */}
+      <section className="about-quality-banner">
+        <div className="about-quality-banner__inner">
+          <h2 className="about-quality-banner__heading">Quality & Consistency</h2>
+          <div className="about-quality-banner__body">
             <p>
               Quality is at the core of our manufacturing process. Each garment undergoes multiple
               inspection stages including fabric checking, stitching inspection, and final quality
@@ -324,63 +470,19 @@ export function About() {
         </div>
       </section>
 
-      {/* 10. Our Team */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
-            <div>
-              <h2 className="about-section-heading">Our Production Team</h2>
-              <div className="about-section-body">
-                <p>
-                  Behind every garment produced at TAG Unlimited is a team of skilled designers,
-                  technicians, and production professionals dedicated to delivering quality
-                  apparel.
-                </p>
-                <p>
-                  Our experienced workforce ensures precision at every stage of the manufacturing
-                  process.
-                </p>
-              </div>
-            </div>
-            <div className="aspect-[4/3] rounded overflow-hidden">
-              <img
-                src={IMG.workersSewing}
-                alt="Workers sewing garments – TAG Unlimited production team"
-                className="w-full h-full object-cover"
-                width={1200}
-                height={800}
-              />
-            </div>
-          </div>
+      {/* 10. Why TAG Unlimited – light yellow background, navy heading + navy stat cards */}
+      <section className="about-why-section">
+        <div className="about-why-section__inner">
+          <h2 className="about-why-section__heading">Why TAG Unlimited?</h2>
+          <StatsCards cardBgColor="#0f172a" className="about-why-section__stats" />
         </div>
       </section>
 
-      {/* 11. Factory Gallery */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
-          <h2 className="about-section-heading">Factory Gallery</h2>
-          <div className="about-gallery">
-            {IMG.gallery.map((src, i) => (
-              <div key={i} className="about-gallery-item rounded overflow-hidden">
-                <img
-                  src={src}
-                  alt={`Factory and production facility – garment manufacturer Bangalore ${i + 1}`}
-                  width={1000}
-                  height={700}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* 12. Ready for Commitment – above Map + FAQ on About only */}
+      <ContactCTASection />
 
-      {/* 12. Final CTA */}
-      <CTASection
-        title="Looking for a Reliable Apparel Manufacturing Partner?"
-        description="Partner with TAG Unlimited for scalable apparel manufacturing, consistent quality, and dependable delivery timelines."
-        buttonText="Get a Manufacturing Quote"
-        buttonLink="/contact-apparel-manufacturer-bangalore"
-      />
+      {/* 13. Map + FAQ – About page only */}
+      <MapFaqSection />
     </>
   );
 }

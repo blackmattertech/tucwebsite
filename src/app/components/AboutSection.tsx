@@ -1,74 +1,10 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
-import { motion, useInView } from 'motion/react';
 import { useMediaAssets } from '../lib/useMediaAssets';
 import { HERO_POSTER } from '../../hero-poster-config';
 import { OptimizedImage } from './OptimizedImage';
+import { StatsCards } from './StatsCards';
 import './AboutSection.css';
-
-const STATS = [
-  { target: 100000, suffix: '+', label: 'Pieces Manufactured Monthly' },
-  { target: 3000, suffix: '+', label: 'Brands Served Globally' },
-  { target: 200, suffix: '+', label: 'Industrial Machines' },
-  { target: 20, suffix: '+', label: 'Years of Experience' },
-];
-
-function AnimatedCount({
-  target,
-  suffix,
-  inView,
-  delay = 0,
-}: {
-  target: number;
-  suffix: string;
-  inView: boolean;
-  delay?: number;
-}) {
-  const [count, setCount] = useState(0);
-  const [started, setStarted] = useState(false);
-  const duration = 1800;
-  const startRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    if (!inView) return;
-    const t = setTimeout(() => {
-      setStarted(true);
-    }, delay);
-    return () => clearTimeout(t);
-  }, [inView, delay]);
-
-  useEffect(() => {
-    if (!started) return;
-    startRef.current = null;
-    setCount(0);
-    let rafId: number;
-    let cancelled = false;
-
-    const tick = (timestamp: number) => {
-      if (cancelled) return;
-      if (startRef.current === null) startRef.current = timestamp;
-      const elapsed = timestamp - startRef.current;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * target));
-      if (progress < 1) rafId = requestAnimationFrame(tick);
-    };
-
-    rafId = requestAnimationFrame(tick);
-    return () => {
-      cancelled = true;
-      cancelAnimationFrame(rafId);
-    };
-  }, [started, target]);
-
-  const formatted = count.toLocaleString();
-  return (
-    <>
-      {formatted}
-      {suffix}
-    </>
-  );
-}
 
 const LOGO_YELLOW = '#fecc00';
 
@@ -78,8 +14,6 @@ const ABOUT_IMAGE_ALT =
   'Best garment factory in Bangalore – TAG Unlimited, leading best apparel manufacturer in India for private label clothing, knitwear, T-shirts, hoodies and bulk garment production';
 
 export const AboutSection = React.memo(function AboutSection() {
-  const statsRef = useRef<HTMLDivElement>(null);
-  const statsInView = useInView(statsRef, { once: true, amount: 0.3 });
   const { getUrl } = useMediaAssets();
 
   return (
@@ -204,27 +138,7 @@ export const AboutSection = React.memo(function AboutSection() {
         </div>
 
         {/* Statistics grid - yellow cards */}
-        <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          {STATS.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.6, delay: 0.1 * (i + 1) }}
-              whileHover={{ scale: 1.05 }}
-              className="p-4 sm:p-5 md:p-8 rounded-xl shadow-lg transition-shadow duration-300"
-              style={{ backgroundColor: LOGO_YELLOW }}
-            >
-              <div className="text-white font-black text-2xl sm:text-3xl md:text-5xl leading-tight mb-2">
-                <AnimatedCount target={stat.target} suffix={stat.suffix} inView={statsInView} delay={i * 120} />
-              </div>
-              <div className="text-gray-700 font-medium text-xs sm:text-sm md:text-base">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        <StatsCards cardBgColor={LOGO_YELLOW} />
       </div>
     </section>
   );

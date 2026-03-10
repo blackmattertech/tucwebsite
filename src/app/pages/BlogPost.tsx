@@ -1,8 +1,10 @@
 import { Link } from 'react-router';
 import { PageHero } from '../components/PageHero';
+import { useContactModal } from '../context/useContactModal';
 import { ArrowLeft, Calendar, User } from 'lucide-react';
 
 export function BlogPost() {
+  const modal = useContactModal();
   const relatedPosts = [
     {
       title: 'How to Choose a Clothing Manufacturer in India',
@@ -123,13 +125,14 @@ export function BlogPost() {
                 <p className="text-white/90 mb-6" style={{ fontSize: '17px' }}>
                   Get started with our comprehensive private label manufacturing services
                 </p>
-                <Link
-                  to="/contact-apparel-manufacturer-bangalore"
+                <button
+                  type="button"
+                  onClick={() => modal?.openModal?.()}
                   className="inline-block bg-white text-gray-900 px-8 py-4 hover:bg-gray-100 transition-colors"
                   style={{ fontSize: '16px', fontWeight: 600 }}
                 >
                   Contact Us
-                </Link>
+                </button>
               </div>
 
               <h3 className="text-gray-900 mb-3 mt-8" style={{ fontSize: '24px', fontWeight: 600, lineHeight: 1.4 }}>

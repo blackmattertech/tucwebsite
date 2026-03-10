@@ -157,7 +157,7 @@ export function Products() {
         title="Need Custom Product Manufacturing?"
         description="Contact us to discuss your specific product requirements and customization needs"
         buttonText="Contact Us"
-        buttonLink="/contact-apparel-manufacturer-bangalore"
+        openContactModal
       />
     </>
   );

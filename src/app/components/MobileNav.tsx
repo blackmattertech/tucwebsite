@@ -99,27 +99,17 @@ export function MobileNav({ items }: MobileNavProps) {
                   </li>
                 ))}
               </ul>
-              {modal?.openModal ? (
-                <button
-                  type="button"
-                  className="mobile-nav-contact-btn"
-                  onClick={() => {
-                    close();
-                    modal.openModal();
-                  }}
-                  aria-label="Contact us"
-                >
-                  Contact
-                </button>
-              ) : (
-                <Link
-                  to="/contact-apparel-manufacturer-bangalore"
-                  className="mobile-nav-contact-btn"
-                  onClick={close}
-                >
-                  Contact
-                </Link>
-              )}
+              <button
+                type="button"
+                className="mobile-nav-contact-btn"
+                onClick={() => {
+                  close();
+                  modal?.openModal?.();
+                }}
+                aria-label="Contact us"
+              >
+                Contact
+              </button>
               <div className="mobile-nav-social">
                 <span className="mobile-nav-social-label">Follow us</span>
                 <div className="mobile-nav-social-icons">

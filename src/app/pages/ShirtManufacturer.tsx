@@ -135,7 +135,7 @@ export function ShirtManufacturer() {
         title="Need Custom Shirt Manufacturing?"
         description="Contact us for shirt manufacturing quotes and customization details"
         buttonText="Contact Us"
-        buttonLink="/contact-apparel-manufacturer-bangalore"
+        openContactModal
       />
     </>
   );

@@ -1,0 +1,168 @@
+/* Map + FAQ section: full width, white background; card-style FAQ with light logo-yellow glow */
+
+.map-faq-section {
+  width: 100%;
+}
+
+.map-faq-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: clamp(2rem, 6vw, 4rem) clamp(1rem, 5vw, 24px);
+}
+
+/* Map: perfect rectangle (wider than tall), rounded corners */
+.map-faq-map-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  max-height: 380px;
+  background: #f0f0f0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.map-faq-map-wrap iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.map-faq-faq-wrap {
+  min-width: 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.map-faq-title {
+  margin: 0 0 1.5rem;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.25;
+  color: #333;
+  text-align: center;
+}
+
+/* FAQ list: centered, card layout */
+.map-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 560px;
+}
+
+/* Card style: white, soft rounded corners, light logo-yellow glow (replaces lavender) */
+.map-faq-item {
+  background: #fff;
+  border-radius: 24px;
+  padding: 0 1.25rem;
+  box-shadow:
+    0 4px 20px rgba(254, 204, 0, 0.12),
+    0 2px 8px rgba(254, 204, 0, 0.06);
+  transition: box-shadow 0.2s ease;
+}
+
+.map-faq-item:hover {
+  box-shadow:
+    0 6px 24px rgba(254, 204, 0, 0.16),
+    0 4px 12px rgba(254, 204, 0, 0.08);
+}
+
+.map-faq-question-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: #333;
+  font-weight: 600;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  line-height: 1.4;
+  transition: color 0.2s ease;
+}
+
+.map-faq-question-btn:hover {
+  color: #111;
+}
+
+.map-faq-question-text {
+  flex: 1;
+  padding-right: 1rem;
+}
+
+.map-faq-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f5f5f5;
+  color: #444;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.map-faq-question-btn:hover .map-faq-icon {
+  background: #fef08a;
+  color: #333;
+}
+
+.map-faq-question-btn[aria-expanded="true"] .map-faq-icon {
+  background: #fef9c3;
+  color: #222;
+}
+
+.map-faq-answer-wrap {
+  overflow: hidden;
+  padding-bottom: 1rem;
+}
+
+.map-faq-answer-wrap[hidden] {
+  display: none;
+}
+
+.map-faq-answer {
+  margin: 0;
+  padding: 0 0 0 0.25rem;
+  font-size: clamp(0.875rem, 1.5vw, 0.95rem);
+  line-height: 1.6;
+  color: #555;
+  font-weight: 400;
+}
+
+/* Desktop: full-width two columns, map vertically centered with FAQ */
+@media (min-width: 768px) {
+  .map-faq-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(4rem, 10vw, 6rem);
+    padding: clamp(3rem, 6vw, 5rem) clamp(2rem, 6vw, 4rem);
+    align-items: center;
+  }
+
+  .map-faq-map-wrap {
+    max-height: 420px;
+  }
+
+  .map-faq-faq-wrap {
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .map-faq-map-wrap {
+    max-height: 480px;
+  }
+}

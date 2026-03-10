@@ -1,0 +1,262 @@
+/* Production Intelligence – left half, full height, equal margins throughout */
+.about-production-intelligence {
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  height: 100%;
+  background: transparent;
+  border-radius: 0.5rem;
+  padding: 0.75rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .about-production-intelligence {
+    padding: 1rem 0.75rem;
+    border-radius: 0.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-production-intelligence {
+    padding: 1.25rem 1rem 1.25rem 1.25rem;
+    padding-top: 0;
+  }
+}
+
+.about-production-intelligence__inner {
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Header – spacing between heading and subheading */
+.about-production-intelligence__header {
+  text-align: center;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .about-production-intelligence__header {
+    margin-bottom: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-production-intelligence__header {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.about-production-intelligence__title {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-family, 'Inter', sans-serif);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  line-height: 1.2;
+  color: #0f172a;
+  letter-spacing: 0.02em;
+}
+
+@media (min-width: 1024px) {
+  .about-production-intelligence__title {
+    font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+    margin-bottom: 0.875rem;
+  }
+}
+
+.about-production-intelligence__subtitle {
+  margin: 0;
+  font-family: var(--font-family, 'Inter', sans-serif);
+  font-size: clamp(0.9375rem, 1.25vw, 1.125rem);
+  line-height: 1.5;
+  color: #475569;
+  max-width: 22em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Desktop: 3×3 grid – vertical (taller) cards, left side only */
+.about-production-intelligence__cards-desktop {
+  display: none;
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .about-production-intelligence__cards-desktop {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: 1rem;
+    flex: 1;
+    margin-top: 1rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-production-intelligence__cards-desktop {
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Mobile: vertical stack – equal gap between cards */
+.about-production-intelligence__cards-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .about-production-intelligence__cards-mobile {
+    display: none;
+  }
+}
+
+/* Card (shared) – increased height and padding for better proportion */
+.production-intel-card {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.5rem;
+  padding: 1.25rem 1rem;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  min-width: 0;
+  min-height: 7rem;
+}
+
+.production-intel-card:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+@media (min-width: 768px) {
+  .production-intel-card {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    padding: 1.25rem 1rem;
+    border-radius: 1.25rem;
+    min-height: 8.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .production-intel-card {
+    padding: 1.375rem 1rem;
+    border-radius: 1.5rem;
+    min-height: 10rem;
+  }
+}
+
+.production-intel-card__badge {
+  display: inline-block;
+  background: #10b981;
+  color: #fff;
+  font-family: var(--font-family, 'Inter', sans-serif);
+  font-weight: 500;
+  font-size: 0.6875rem;
+  line-height: 1.33;
+  padding: 0.2rem 0.4rem;
+  border-radius: 9999px;
+  margin-bottom: 0.4rem;
+}
+
+@media (min-width: 1024px) {
+  .production-intel-card__badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.production-intel-card__title {
+  margin: 0 0 0.2rem;
+  font-family: var(--font-family, 'Inter', sans-serif);
+  font-weight: 700;
+  font-size: clamp(0.9375rem, 1.25vw, 1.125rem);
+  line-height: 1.25;
+  color: #0f172a;
+  letter-spacing: 0.02em;
+}
+
+@media (min-width: 1024px) {
+  .production-intel-card__title {
+    font-size: 1rem;
+  }
+}
+
+.production-intel-card__desc {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-family, 'Inter', sans-serif);
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: #64748b;
+}
+
+@media (min-width: 1024px) {
+  .production-intel-card__desc {
+    font-size: 0.8125rem;
+    margin-bottom: 0.6rem;
+  }
+}
+
+.production-intel-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  color: #fff;
+}
+
+@media (min-width: 1024px) {
+  .production-intel-card__icon {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+}
+
+.production-intel-card__icon-svg {
+  flex-shrink: 0;
+}
+
+/* Footer message – proper spacing from cards, pushed to bottom on desktop */
+.about-production-intelligence__footer {
+  margin: 0;
+  font-family: var(--font-family, 'Inter', sans-serif);
+  font-size: clamp(0.8125rem, 1.1vw, 0.9375rem);
+  line-height: 1.6;
+  color: #334155;
+  text-align: center;
+  max-width: 28em;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 0.25rem;
+  flex-shrink: 0;
+}
+
+@media (min-width: 1024px) {
+  .about-production-intelligence__footer {
+    font-size: clamp(0.875rem, 1vw, 1rem);
+    max-width: 26em;
+    margin-top: auto;
+    padding-top: 1.5rem;
+  }
+}

@@ -153,7 +153,7 @@ export function Manufacturing() {
         title="Need Bulk Manufacturing Services?"
         description="Contact us to discuss your production requirements and capacity needs"
         buttonText="Contact Us"
-        buttonLink="/contact-apparel-manufacturer-bangalore"
+        openContactModal
       />
     </>
   );

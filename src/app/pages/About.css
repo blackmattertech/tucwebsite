@@ -1,27 +1,31 @@
 /* About page – section headings match ContactCTASection (Ready for Commitment), responsive */
 
+/* All About section headings: uniform 60px on desktop */
 .about-section-heading {
-  margin: 0 0 1rem;
+  margin: 0 0 1.25rem;
   font-family: var(--font-heading, 'Montserrat', sans-serif);
   font-weight: 900;
-  font-size: clamp(1.75rem, 8vw, 72px);
+  font-size: clamp(2rem, 15vw, 120px);
   line-height: 0.95;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   color: #000;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 @media (min-width: 640px) {
   .about-section-heading {
-    margin-bottom: 1.25rem;
-    font-size: clamp(2.25rem, 9vw, 60px);
+    margin-bottom: 1.5rem;
+    font-size: clamp(3rem, 22vw, 200px);
   }
 }
 
 @media (min-width: 1024px) {
   .about-section-heading {
-    margin-bottom: 1.5rem;
-    font-size: clamp(48px, 12vw, 72px);
+    margin-bottom: 1.75rem;
+    font-size: 60px;
     letter-spacing: -2px;
   }
 }
@@ -44,7 +48,7 @@
 }
 
 .about-section-body p {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .about-section-body p:last-child {
@@ -58,6 +62,16 @@
 
 .about-section-body li {
   margin-bottom: 0.5rem;
+}
+
+/* Yellow circle bullets (e.g. Technology section list) */
+.about-list-yellow-bullets {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+.about-list-yellow-bullets li::marker {
+  color: #EAB308;
+  font-size: 1.2em;
 }
 
 /* Company intro (below hero) – responsive */
@@ -77,12 +91,21 @@
   margin-bottom: 0;
 }
 
-/* Company intro section – full width */
+/* Company intro section – full width, top-aligned columns */
 .about-intro-section-inner {
   width: 100%;
   max-width: none;
   margin-left: auto;
   margin-right: auto;
+}
+
+.about-intro-grid {
+  align-items: center;
+}
+
+.about-intro-grid .about-intro-text,
+.about-intro-grid .about-intro-video-wrap {
+  min-width: 0;
 }
 
 /* Video – responsive, larger frame in column */
@@ -204,11 +227,18 @@
   grid-template-columns: repeat(2, 1fr);
 }
 
+.about-image-grid.size-3 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
 .about-image-grid.size-4 {
   grid-template-columns: repeat(2, 1fr);
 }
 
 @media (min-width: 768px) {
+  .about-image-grid.size-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
   .about-image-grid.size-4 {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -220,6 +250,561 @@
   object-fit: cover;
   aspect-ratio: 4/3;
   display: block;
+}
+
+/* Who We Are – top-aligned columns */
+.about-who-grid {
+  align-items: center;
+}
+
+.about-who-grid > div {
+  min-width: 0;
+}
+
+/* Infrastructure section – vertical image stack on the right (1h×2w, aligned with text height) */
+.about-infrastructure-grid {
+  align-items: stretch;
+}
+
+.about-infrastructure-grid > div:first-child {
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .about-infrastructure-grid .about-infrastructure-stack {
+    height: 100%;
+  }
+}
+
+.about-infrastructure-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .about-infrastructure-stack {
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-infrastructure-stack {
+    gap: 1.25rem;
+  }
+}
+
+/* Each slot 1h×2w (aspect-ratio 2/1); on lg they share column height and stay 2:1 */
+.about-infrastructure-stack__slot {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  aspect-ratio: 2 / 1;
+}
+
+@media (min-width: 640px) {
+  .about-infrastructure-stack__slot {
+    border-radius: 0.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-infrastructure-stack {
+    align-items: center;
+  }
+  .about-infrastructure-stack__slot {
+    width: auto;
+    max-width: 100%;
+    aspect-ratio: 2 / 1;
+  }
+}
+
+.about-infrastructure-stack__slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Technology section – full available height, full width; left half = Production Intelligence background edge-to-edge */
+.about-technology-section {
+  width: 100%;
+  min-height: 100vh;
+  background: #fff;
+  padding: 2.5rem 0 2.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 640px) {
+  .about-technology-section {
+    padding: 3rem 0;
+  }
+}
+@media (min-width: 1024px) {
+  .about-technology-section {
+    padding: 3.5rem 0;
+    min-height: 130vh;
+  }
+}
+
+.about-technology-section__inner {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.about-technology-section__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  align-items: stretch;
+  min-height: 100%;
+}
+@media (min-width: 640px) {
+  .about-technology-section__grid {
+    gap: 0;
+  }
+}
+@media (min-width: 1024px) {
+  .about-technology-section__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    align-items: stretch;
+    min-height: 100%;
+  }
+}
+
+/* Left column: Production Intelligence background on full left side, full height */
+.about-technology-images {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(137deg, rgb(241, 245, 249) 0%, rgb(248, 250, 252) 50%, rgb(241, 245, 249) 100%);
+  min-height: 100%;
+  padding: 1rem;
+}
+@media (min-width: 640px) {
+  .about-technology-images {
+    padding: 1.25rem;
+  }
+}
+@media (min-width: 1024px) {
+  .about-technology-images {
+    padding: 1.5rem 1.5rem 1.5rem;
+  }
+}
+
+/* Right column: text content, internal padding only */
+.about-technology-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 1rem;
+  background: #fff;
+}
+@media (min-width: 640px) {
+  .about-technology-content {
+    padding: 1.25rem;
+  }
+}
+@media (min-width: 1024px) {
+  .about-technology-content {
+    padding: 1.5rem 2rem 1.5rem 1.75rem;
+  }
+}
+
+/* Right column: heading – more space below; body – increased line height and paragraph spacing */
+.about-technology-content .about-section-heading {
+  margin-bottom: 1.75rem;
+  padding-top: 0.25rem;
+}
+@media (min-width: 1024px) {
+  .about-technology-content .about-section-heading {
+    padding-top: 0.5rem;
+    margin-bottom: 2.25rem;
+  }
+}
+.about-technology-content .about-section-body {
+  flex: 1;
+  line-height: 1.95;
+}
+.about-technology-content .about-section-body p,
+.about-technology-content .about-section-body ul {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+.about-technology-content .about-section-body p:first-child,
+.about-technology-content .about-section-body ul:first-child {
+  margin-top: 0;
+}
+@media (min-width: 1024px) {
+  .about-technology-content .about-section-body {
+    display: flex;
+    flex-direction: column;
+    line-height: 2.1;
+  }
+  .about-technology-content .about-section-body p,
+  .about-technology-content .about-section-body ul {
+    margin-bottom: 1.75rem;
+  }
+  .about-technology-content .about-section-body p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* Quality & Consistency – banner, logo yellow, centered */
+.about-quality-banner {
+  width: 100%;
+  background: #fecc00;
+  padding: clamp(3rem, 8vw, 5rem) clamp(1.5rem, 5vw, 3rem);
+}
+
+.about-quality-banner__inner {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Match .about-section-heading – uniform 60px, white color */
+.about-quality-banner__heading {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-heading, 'Montserrat', sans-serif);
+  font-weight: 900;
+  font-size: clamp(2rem, 15vw, 120px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+@media (min-width: 640px) {
+  .about-quality-banner__heading {
+    margin-bottom: 1.5rem;
+    font-size: clamp(3rem, 22vw, 200px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-quality-banner__heading {
+    margin-bottom: 1.75rem;
+    font-size: 60px;
+    letter-spacing: -2px;
+  }
+}
+
+.about-quality-banner__body {
+  font-family: var(--font-family, 'Inter', sans-serif);
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  line-height: 1.7;
+  color: #374151;
+}
+
+.about-quality-banner__body p {
+  margin: 0 0 1rem;
+}
+
+.about-quality-banner__body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Brands & Businesses We Serve – black background, yellow heading, white text, full width */
+.about-brands-section {
+  width: 100%;
+  background: #000;
+  min-height: 420px;
+  padding: 2rem 1rem;
+}
+@media (min-width: 640px) {
+  .about-brands-section {
+    min-height: 480px;
+    padding: 2.5rem 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .about-brands-section {
+    min-height: 520px;
+    padding: 3rem 2rem;
+  }
+}
+
+.about-brands-section .about-section-heading {
+  color: #EAB308;
+}
+
+.about-brands-section .about-section-body,
+.about-brands-section .about-section-body p,
+.about-brands-section .about-section-body li {
+  color: #fff;
+}
+
+.about-brands-section .about-section-body ul {
+  color: #fff;
+}
+
+.about-brands-section .about-section-body li::marker {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.about-brands-section__inner {
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+@media (min-width: 640px) {
+  .about-brands-section__inner {
+    padding: 0 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .about-brands-section__inner {
+    padding: 0 2rem;
+  }
+}
+
+.about-brands-section__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+@media (min-width: 1024px) {
+  .about-brands-section__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+}
+
+.about-brands-content {
+  min-width: 0;
+}
+
+.about-brands-logos-col {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-brands-trust-label {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-family, 'Inter', sans-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fff;
+  text-align: center;
+}
+@media (min-width: 640px) {
+  .about-brands-trust-label {
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Two-row marquee: row 1 scrolls left, row 2 scrolls right */
+.about-brands-marquee-wrap {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.about-brands-marquee-track {
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+}
+
+.about-brands-marquee-inner {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 0;
+}
+
+.about-brands-marquee-inner--left {
+  animation: about-brands-marquee-left 35s linear infinite;
+}
+
+.about-brands-marquee-inner--right {
+  animation: about-brands-marquee-right 35s linear infinite;
+}
+
+.about-brands-marquee-track:hover .about-brands-marquee-inner {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-brands-marquee-inner--left,
+  .about-brands-marquee-inner--right {
+    animation: none;
+  }
+}
+
+@keyframes about-brands-marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes about-brands-marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.about-brands-logo-item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem;
+  height: 3.5rem;
+}
+
+.about-brands-logo-img {
+  max-height: 36px;
+  max-width: 90px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.85;
+  transition: filter 0.3s ease, opacity 0.3s ease, transform 0.25s ease;
+}
+
+@media (hover: hover) {
+  .about-brands-logo-item:hover .about-brands-logo-img {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.about-brands-trust-line {
+  margin: 1.5rem 0 0;
+  font-family: var(--font-family, 'Inter', sans-serif);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #fff;
+  text-align: center;
+  font-style: italic;
+}
+@media (min-width: 640px) {
+  .about-brands-trust-line {
+    font-size: 0.9375rem;
+    margin-top: 1.75rem;
+  }
+}
+
+/* Why TAG Unlimited – lemon yellow in a contained rounded box, navy heading + cards */
+.about-why-section {
+  width: 100%;
+  overflow: visible;
+  padding: clamp(2rem, 5vw, 3rem) clamp(1.25rem, 4vw, 2rem);
+}
+
+@media (min-width: 768px) {
+  .about-why-section {
+    padding: clamp(2.25rem, 5vw, 3.5rem) clamp(1.5rem, 4vw, 2.5rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-why-section {
+    padding: clamp(2.5rem, 5vw, 4rem) clamp(2rem, 5vw, 3rem);
+  }
+}
+
+/* Inner: lemon yellow background, slightly wider so nothing overflows, rounded corners */
+.about-why-section__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.25rem, 3.5vw, 2rem);
+  background: #fef9c3;
+  border-radius: 20px;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .about-why-section__inner {
+    padding: clamp(1.75rem, 4vw, 3rem) clamp(1.5rem, 4vw, 2.25rem);
+    border-radius: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-why-section__inner {
+    max-width: 1280px;
+    padding: clamp(2rem, 4vw, 3rem) clamp(2rem, 5vw, 2.5rem);
+    border-radius: 28px;
+  }
+}
+
+.about-why-section__heading {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-heading, 'Montserrat', sans-serif);
+  font-weight: 900;
+  font-size: clamp(1.75rem, 8vw, 72px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #0f172a;
+}
+
+@media (min-width: 640px) {
+  .about-why-section__heading {
+    font-size: clamp(2.25rem, 9vw, 60px);
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-why-section__heading {
+    font-size: clamp(48px, 12vw, 72px);
+    letter-spacing: -2px;
+    margin-bottom: 1.75rem;
+  }
+}
+
+/* Stat cards: enough width so labels don’t overflow, grid fits inner */
+.about-why-section__stats {
+  margin-top: 0;
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .about-why-section__stats {
+    grid-template-columns: repeat(4, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+.about-why-section .stats-card {
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1024px) {
+  .about-why-section .stats-card {
+    min-width: 240px;
+  }
+}
+
+/* Navy cards: light label text for contrast */
+.about-why-section .stats-card__label {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* Gallery – responsive */

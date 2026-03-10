@@ -19,9 +19,6 @@ const ProductCarouselSection = lazy(() =>
 const GoogleReviewsSection = lazy(() =>
   import('../components/GoogleReviewsSection').then((m) => ({ default: m.GoogleReviewsSection }))
 );
-const ContactCTASection = lazy(() =>
-  import('../components/ContactCTASection').then((m) => ({ default: m.ContactCTASection }))
-);
 const AboutSection = lazy(() =>
   import('../components/AboutSection').then((m) => ({ default: m.AboutSection }))
 );
@@ -60,9 +57,6 @@ export function Home() {
       <TagFactorSection />
       <LazySection minHeightClass="min-h-[420px]">
         <GoogleReviewsSection />
-      </LazySection>
-      <LazySection minHeightClass="min-h-[360px]">
-        <ContactCTASection />
       </LazySection>
     </>
   );

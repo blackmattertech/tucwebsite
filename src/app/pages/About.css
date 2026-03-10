@@ -1,12 +1,12 @@
-/* About page – section headings match ContactCTASection (Ready for Commitment), responsive */
+/* About page – section headings fully responsive on mobile, uniform 60px on desktop */
 
-/* All About section headings: uniform 60px on desktop */
+/* Mobile-first: sensible size so headings fit and don’t overflow on small screens */
 .about-section-heading {
   margin: 0 0 1.25rem;
   font-family: var(--font-heading, 'Montserrat', sans-serif);
   font-weight: 900;
-  font-size: clamp(2rem, 15vw, 120px);
-  line-height: 0.95;
+  font-size: clamp(1.5rem, 6vw, 2.25rem);
+  line-height: 1.1;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   color: #000;
@@ -15,10 +15,16 @@
   word-wrap: break-word;
 }
 
+@media (min-width: 375px) {
+  .about-section-heading {
+    font-size: clamp(1.75rem, 7vw, 2.5rem);
+  }
+}
+
 @media (min-width: 640px) {
   .about-section-heading {
     margin-bottom: 1.5rem;
-    font-size: clamp(3rem, 22vw, 200px);
+    font-size: clamp(2.25rem, 9vw, 60px);
   }
 }
 
@@ -26,6 +32,7 @@
   .about-section-heading {
     margin-bottom: 1.75rem;
     font-size: 60px;
+    line-height: 0.95;
     letter-spacing: -2px;
   }
 }
@@ -261,19 +268,45 @@
   min-width: 0;
 }
 
-/* Infrastructure section – vertical image stack on the right (1h×2w, aligned with text height) */
-.about-infrastructure-grid {
+/* Infrastructure – mobile only: interleaved (p1, img1, p2, img2, p3, img3, p4); hidden on desktop */
+.about-infrastructure-mobile {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
   align-items: stretch;
-}
-
-.about-infrastructure-grid > div:first-child {
   min-width: 0;
 }
 
-@media (min-width: 1024px) {
-  .about-infrastructure-grid .about-infrastructure-stack {
-    height: 100%;
+@media (min-width: 640px) {
+  .about-infrastructure-mobile {
+    gap: 1.25rem;
   }
+}
+
+@media (min-width: 1024px) {
+  .about-infrastructure-mobile {
+    display: none !important;
+  }
+}
+
+/* Infrastructure – desktop only: text left, vertical image stack right (1h×2w); hidden on mobile */
+.about-infrastructure-grid-desktop {
+  display: none !important;
+}
+
+@media (min-width: 1024px) {
+  .about-infrastructure-grid-desktop {
+    display: grid !important;
+    align-items: stretch;
+  }
+}
+
+.about-infrastructure-grid-desktop > div:first-child {
+  min-width: 0;
+}
+
+.about-infrastructure-grid-desktop .about-infrastructure-stack {
+  height: 100%;
 }
 
 .about-infrastructure-stack {
@@ -295,10 +328,11 @@
   }
 }
 
-/* Each slot 1h×2w (aspect-ratio 2/1); on lg they share column height and stay 2:1 */
+/* Each slot 1h×2w (aspect-ratio 2/1); on desktop stack they share column height */
 .about-infrastructure-stack__slot {
   flex: 1 1 0;
   min-height: 0;
+  min-width: 0;
   overflow: hidden;
   border-radius: 0.5rem;
   aspect-ratio: 2 / 1;
@@ -314,7 +348,7 @@
   .about-infrastructure-stack {
     align-items: center;
   }
-  .about-infrastructure-stack__slot {
+  .about-infrastructure-stack .about-infrastructure-stack__slot {
     width: auto;
     max-width: 100%;
     aspect-ratio: 2 / 1;
@@ -472,22 +506,28 @@
   text-align: center;
 }
 
-/* Match .about-section-heading – uniform 60px, white color */
+/* Quality banner heading – responsive on mobile, 60px on desktop, white */
 .about-quality-banner__heading {
   margin: 0 0 1.25rem;
   font-family: var(--font-heading, 'Montserrat', sans-serif);
   font-weight: 900;
-  font-size: clamp(2rem, 15vw, 120px);
-  line-height: 0.95;
+  font-size: clamp(1.5rem, 6vw, 2.25rem);
+  line-height: 1.1;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   color: #fff;
 }
 
+@media (min-width: 375px) {
+  .about-quality-banner__heading {
+    font-size: clamp(1.75rem, 7vw, 2.5rem);
+  }
+}
+
 @media (min-width: 640px) {
   .about-quality-banner__heading {
     margin-bottom: 1.5rem;
-    font-size: clamp(3rem, 22vw, 200px);
+    font-size: clamp(2.25rem, 9vw, 60px);
   }
 }
 
@@ -495,6 +535,7 @@
   .about-quality-banner__heading {
     margin-bottom: 1.75rem;
     font-size: 60px;
+    line-height: 0.95;
     letter-spacing: -2px;
   }
 }
@@ -756,11 +797,17 @@
   margin: 0 0 1.25rem;
   font-family: var(--font-heading, 'Montserrat', sans-serif);
   font-weight: 900;
-  font-size: clamp(1.75rem, 8vw, 72px);
-  line-height: 0.95;
+  font-size: clamp(1.5rem, 6vw, 2.25rem);
+  line-height: 1.1;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   color: #0f172a;
+}
+
+@media (min-width: 375px) {
+  .about-why-section__heading {
+    font-size: clamp(1.75rem, 7vw, 2.5rem);
+  }
 }
 
 @media (min-width: 640px) {
@@ -773,6 +820,7 @@
 @media (min-width: 1024px) {
   .about-why-section__heading {
     font-size: clamp(48px, 12vw, 72px);
+    line-height: 0.95;
     letter-spacing: -2px;
     margin-bottom: 1.75rem;
   }

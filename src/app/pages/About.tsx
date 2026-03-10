@@ -58,14 +58,6 @@ const IMG = {
     'https://images.unsplash.com/photo-1557804506-669a67965ba0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200',
   workersSewing:
     'https://images.unsplash.com/photo-1582735689369-4fe89db7114c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200',
-  gallery: [
-    'https://images.unsplash.com/photo-1582735689369-4fe89db7114c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1000',
-    'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1000',
-    'https://images.unsplash.com/photo-1558171813-4c088753af8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1000',
-    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1000',
-    'https://images.unsplash.com/photo-1557804506-669a67965ba0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1000',
-    'https://images.unsplash.com/photo-1582735689369-4fe89db7114c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1000',
-  ],
 };
 
 /** Intro video – ImageKit (Welcome To Tag Unlimited) */
@@ -225,10 +217,73 @@ export function About() {
       {/* 4. Our Journey – thread stitch timeline */}
       <JourneySection />
 
-      {/* 5. Infrastructure & Facility */}
+      {/* 5. Infrastructure & Facility – mobile: interleaved (p1, img1, p2, img2, p3, img3, p4); desktop: text left, image stack right (reverted) */}
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 lg:items-stretch about-infrastructure-grid">
+          {/* Mobile only: interleaved paragraphs and images */}
+          <div className="about-infrastructure-grid about-infrastructure-mobile lg:hidden">
+            <h2 className="about-section-heading">Infrastructure</h2>
+            <div className="about-section-body about-infrastructure-text">
+              <p>
+                TAG Unlimited operates a professionally managed apparel manufacturing facility in
+                Bangalore, India, built to support large-scale private label clothing production and
+                bulk garment manufacturing for fashion brands, startups, and global apparel businesses.
+              </p>
+            </div>
+            <div className="about-infrastructure-stack__slot">
+              <img
+                src="https://ik.imagekit.io/tagunlimited/infrastructure/best%20garment%20factory%20i%20india.webp"
+                alt="Best garment factory in India – TAG Unlimited facility"
+                width={800}
+                height={400}
+              />
+            </div>
+            <div className="about-section-body about-infrastructure-text">
+              <p>
+                Our production infrastructure includes modern industrial sewing machines, advanced
+                screen and DTF printing systems, multi-head embroidery machines, fabric cutting
+                tables, and organized production lines designed for efficient and scalable apparel
+                manufacturing. Every stage of production—from fabric inspection and pattern
+                development to garment stitching, branding, finishing, and packing—is structured to
+                maintain consistent quality and streamlined workflows.
+              </p>
+            </div>
+            <div className="about-infrastructure-stack__slot">
+              <img
+                src="https://ik.imagekit.io/tagunlimited/infrastructure/best%20hoodie%20manufacturer%20in%20bangalore.webp"
+                alt="Best hoodie manufacturer in Bangalore"
+                width={800}
+                height={400}
+              />
+            </div>
+            <div className="about-section-body about-infrastructure-text">
+              <p>
+                With continuously expanding production capacity, experienced manufacturing teams, and
+                technology-supported production management systems, our facility is capable of
+                handling high-volume apparel orders while maintaining strict quality control,
+                manufacturing precision, and reliable delivery timelines for domestic and
+                international clients.
+              </p>
+            </div>
+            <div className="about-infrastructure-stack__slot">
+              <img
+                src="https://ik.imagekit.io/tagunlimited/infrastructure/best%20apparel%20manufacturer%20in%20india.webp"
+                alt="Best apparel manufacturer in India"
+                width={800}
+                height={400}
+              />
+            </div>
+            <div className="about-section-body about-infrastructure-text">
+              <p>
+                This robust infrastructure enables TAG Unlimited to function as a dependable apparel
+                manufacturing partner for fashion brands looking for scalable, high-quality garment
+                production in India.
+              </p>
+            </div>
+          </div>
+
+          {/* Desktop only: text left, image stack right (original layout) */}
+          <div className="hidden lg:grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 lg:items-stretch about-infrastructure-grid-desktop">
             <div className="min-w-0">
               <h2 className="about-section-heading">Infrastructure</h2>
               <div className="about-section-body">
@@ -415,26 +470,7 @@ export function About() {
         </div>
       </section>
 
-      {/* 10. Factory Gallery */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
-          <h2 className="about-section-heading">Factory Gallery</h2>
-          <div className="about-gallery">
-            {IMG.gallery.map((src, i) => (
-              <div key={i} className="about-gallery-item rounded overflow-hidden">
-                <img
-                  src={src}
-                  alt={`Factory and production facility – garment manufacturer Bangalore ${i + 1}`}
-                  width={1000}
-                  height={700}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 11. Why TAG Unlimited – light yellow background, navy heading + navy stat cards */}
+      {/* 10. Why TAG Unlimited – light yellow background, navy heading + navy stat cards */}
       <section className="about-why-section">
         <div className="about-why-section__inner">
           <h2 className="about-why-section__heading">Why TAG Unlimited?</h2>

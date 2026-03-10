@@ -51,14 +51,14 @@ export function getOptimizedImageSrcSet(
   }).join(', ');
 }
 
-/** Append ImageKit path-based transform (tr:w-400,q-70,f-webp) for responsive/WebP. */
+/** Append ImageKit path-based transform (tr:w-*,q-*,f-auto) for responsive + format auto (AVIF/WebP). */
 function appendImageKitTransform(url: string, width: number, quality: number): string {
   try {
     const u = new URL(url);
     const path = u.pathname.replace(/^\/+/, '').split('/');
     if (path.length < 2) return url;
     const [id, ...rest] = path;
-    const tr = `tr:w-${width},q-${quality},f-webp`;
+    const tr = `tr:w-${width},q-${quality},f-auto`;
     u.pathname = [id, tr, ...rest].join('/');
     return u.toString();
   } catch {

@@ -170,7 +170,9 @@ export const HeroSection = React.memo(function HeroSection() {
               muted
               playsInline
               poster={HERO_POSTER}
-              preload="none"
+              preload="metadata"
+              width={1920}
+              height={1080}
               className="absolute inset-0 w-full h-full object-cover hidden md:block"
               onEnded={(e) => e.currentTarget.play()}
               onError={() => setVideoError(true)}
@@ -184,7 +186,9 @@ export const HeroSection = React.memo(function HeroSection() {
               muted
               playsInline
               poster={HERO_POSTER}
-              preload="none"
+              preload="metadata"
+              width={1920}
+              height={1080}
               className="absolute inset-0 w-full h-full object-cover md:hidden"
               onEnded={(e) => e.currentTarget.play()}
               onError={() => setVideoError(true)}

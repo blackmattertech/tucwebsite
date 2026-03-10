@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef, useMemo, useState } from 'react';
 import { AboutBanner } from '../components/AboutBanner';
 import { JourneySection } from '../components/JourneySection';
 import { ProductionIntelligenceLeft } from '../components/ProductionIntelligenceLeft';
@@ -67,6 +67,7 @@ const INTRO_VIDEO_SRC =
 export function About() {
   const introSectionRef = useRef<HTMLElement>(null);
   const introVideoRef = useRef<HTMLVideoElement>(null);
+  const [introVideoInView, setIntroVideoInView] = useState(false);
   const { getUrl, getFileNamesByFolder } = useMediaAssets();
   const mediaLogos = getFileNamesByFolder('client-logos');
   const brandsLogos = mediaLogos.length > 0 ? mediaLogos : clientLogos;
@@ -78,8 +79,26 @@ export function About() {
 
   useEffect(() => {
     const section = introSectionRef.current;
+    if (!section) return;
+    let cancelled = false;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (cancelled) return;
+        if (entries[0]?.isIntersecting) setIntroVideoInView(true);
+      },
+      { rootMargin: '100px', threshold: 0.01 }
+    );
+    observer.observe(section);
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const section = introSectionRef.current;
     const video = introVideoRef.current;
-    if (!section || !video) return;
+    if (!section || !video || !introVideoInView) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -95,7 +114,7 @@ export function About() {
     );
     observer.observe(section);
     return () => observer.disconnect();
-  }, []);
+  }, [introVideoInView]);
 
   return (
     <>
@@ -152,13 +171,15 @@ export function About() {
               {INTRO_VIDEO_SRC ? (
                 <video
                   ref={introVideoRef}
-                  src={INTRO_VIDEO_SRC}
+                  src={introVideoInView ? INTRO_VIDEO_SRC : undefined}
                   title="About TAG Unlimited – apparel manufacturer Bangalore"
                   controls
                   playsInline
                   preload="metadata"
                   muted
                   loop
+                  width={1280}
+                  height={720}
                 >
                   Your browser does not support the video tag.
                 </video>

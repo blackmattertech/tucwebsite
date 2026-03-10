@@ -206,6 +206,232 @@ export function Capabilities() {
         </div>
       </section>
 
+      {/* Fabric Sourcing & Material Handling – left = heading + paragraph, right = 2 images (height matches left) */}
+      <section className="py-24 bg-white" aria-labelledby="fabric-sourcing-heading">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
+            <div className="min-w-0 text-left">
+              <h2 id="fabric-sourcing-heading" className="capabilities-section-heading text-left">
+                Fabric Sourcing & Material Handling
+              </h2>
+              <p className="text-gray-600 text-left mt-4" style={{ fontSize: '1.125rem', lineHeight: 1.8 }}>
+                Efficient fabric handling plays a critical role in maintaining consistency in bulk garment manufacturing. At TAG Unlimited, fabrics undergo structured processes including fabric inspection, quality checking, and organized storage before entering the production line.
+              </p>
+              <p className="text-gray-600 text-left mt-4" style={{ fontSize: '1.125rem', lineHeight: 1.8 }}>
+                Our team ensures proper fabric sourcing, material preparation, and cutting workflows to support large-scale apparel manufacturing. This systematic approach helps maintain fabric quality, minimize production errors, and ensure smooth manufacturing of T-shirts, hoodies, shirts, jackets, and custom garments for fashion brands and apparel businesses.
+              </p>
+            </div>
+            <div className="min-w-0 capabilities-pd-visuals flex gap-3 lg:gap-4">
+              <img
+                src="https://ik.imagekit.io/tagunlimited/other%20images/fabric%20rolls.webp?updatedAt=1772910857687"
+                alt="Fabric rolls – material handling and sourcing"
+                className="capabilities-pd-img rounded-2xl object-cover"
+                width={300}
+                height={400}
+                loading="lazy"
+              />
+              <img
+                src="https://ik.imagekit.io/tagunlimited/other%20images/cap-manufacturer-in-bangalore-cap-maker-in-india.webp"
+                alt="Cap manufacturer in Bangalore – cap maker in India"
+                className="capabilities-pd-img rounded-2xl object-cover"
+                width={300}
+                height={400}
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Value Added Services – full width, same heading style as Manufacturing Overview */}
+      <section className="py-24 bg-white w-full" aria-labelledby="value-added-services-heading">
+        <div className="w-full px-6 lg:px-12 text-center">
+          <h2 id="value-added-services-heading" className="capabilities-section-heading capabilities-overview-heading-80">
+            Value Added Services
+          </h2>
+        </div>
+      </section>
+
+      {/* Premium Garment Printing Techniques – left = 2 image cards with bottom overlay (yellow + white text), right = heading + paragraph */}
+      <section className="py-24 bg-white" aria-labelledby="premium-printing-heading">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
+            <div className="min-w-0 capabilities-pd-visuals flex gap-3 lg:gap-4 order-2 lg:order-1">
+              <div className="capabilities-printing-card flex-1 min-w-0 flex flex-col rounded-2xl overflow-hidden">
+                <div className="relative flex-1 min-h-[200px]">
+                  <img
+                    src="https://ik.imagekit.io/tagunlimited/screen%20print%20in%20bangalore.webp"
+                    alt="Screen printing in Bangalore – bulk apparel production"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    width={400}
+                    height={300}
+                    loading="lazy"
+                  />
+                </div>
+                <div className="capabilities-printing-overlay p-4 sm:p-5">
+                  <p className="capabilities-printing-subheading text-gray-900 font-semibold mb-1">Screen Printing</p>
+                  <p className="capabilities-printing-text text-gray-800 text-sm sm:text-base leading-relaxed">
+                    A widely used printing technique for bulk apparel production, delivering vibrant colors and long-lasting prints ideal for T-shirts, hoodies, and promotional garments.
+                  </p>
+                </div>
+              </div>
+              <div className="capabilities-printing-card flex-1 min-w-0 flex flex-col rounded-2xl overflow-hidden">
+                <div className="relative flex-1 min-h-[200px]">
+                  <img
+                    src="https://ik.imagekit.io/tagunlimited/puff%20printing%20in%20bangalore.webp"
+                    alt="Puff printing in Bangalore – 3D texture on garments"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    width={400}
+                    height={300}
+                    loading="lazy"
+                  />
+                </div>
+                <div className="capabilities-printing-overlay p-4 sm:p-5">
+                  <p className="capabilities-printing-subheading text-gray-900 font-semibold mb-1">Puff Printing</p>
+                  <p className="capabilities-printing-text text-gray-800 text-sm sm:text-base leading-relaxed">
+                    A specialized screen printing technique that creates a raised 3D texture, adding depth and premium visual appeal to logos and graphics on garments.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="min-w-0 text-left lg:text-right order-1 lg:order-2 flex flex-col justify-center">
+              <h2 id="premium-printing-heading" className="capabilities-section-heading text-left lg:text-right">
+                Premium Garment Printing Techniques
+              </h2>
+              <p className="text-gray-600 text-left lg:text-right mt-4" style={{ fontSize: '1.125rem', lineHeight: 1.8 }}>
+                Enhance garments with durable and high-quality printing methods designed for fashion brands, promotional apparel, and custom clothing production.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Advanced Apparel Printing Solutions – full width; heading + paragraph left, 3 vertical cards in one row right */}
+      <section className="py-24 bg-white w-full" aria-labelledby="advanced-printing-heading">
+        <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            <div className="min-w-0 text-left flex flex-col justify-center">
+              <h2 id="advanced-printing-heading" className="capabilities-section-heading text-left">
+                Advanced Apparel Printing Solutions
+              </h2>
+              <p className="text-gray-600 text-left mt-4" style={{ fontSize: '1.125rem', lineHeight: 1.8 }}>
+                Modern garment printing technologies that allow brands to apply detailed graphics, vibrant designs, and custom branding on apparel with precision.
+              </p>
+            </div>
+            <div className="min-w-0 capabilities-advanced-printing-grid grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+              <div className="capabilities-advanced-printing-vertical-card capabilities-advanced-printing-card flex flex-col rounded-2xl overflow-hidden">
+                <div className="relative w-full aspect-[3/4] overflow-hidden">
+                  <img
+                    src="https://ik.imagekit.io/tagunlimited/tshirt%20printing%20in%20bangalore.webp"
+                    alt="DTF printing – direct-to-film garment transfer"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    width={300}
+                    height={400}
+                    loading="lazy"
+                  />
+                </div>
+                <div className="capabilities-printing-overlay p-4 sm:p-5">
+                  <p className="capabilities-printing-subheading text-gray-900 font-semibold mb-1">DTF Printing (Direct-to-Film)</p>
+                  <p className="capabilities-printing-text text-gray-800 text-sm sm:text-base leading-relaxed">
+                    DTF printing enables high-detail graphics and vibrant color transfers onto garments, making it ideal for custom apparel and branded merchandise.
+                  </p>
+                </div>
+              </div>
+              <div className="capabilities-advanced-printing-vertical-card capabilities-advanced-printing-card flex flex-col rounded-2xl overflow-hidden">
+                <div className="relative w-full aspect-[3/4] overflow-hidden">
+                  <img
+                    src="https://ik.imagekit.io/tagunlimited/hoodies%20manufacturer%20in%20bangalore.webp"
+                    alt="Sublimation printing – full-color dye transfer"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    width={300}
+                    height={400}
+                    loading="lazy"
+                  />
+                </div>
+                <div className="capabilities-printing-overlay p-4 sm:p-5">
+                  <p className="capabilities-printing-subheading text-gray-900 font-semibold mb-1">Sublimation Printing</p>
+                  <p className="capabilities-printing-text text-gray-800 text-sm sm:text-base leading-relaxed">
+                    A dye-transfer printing process used for high-resolution, full-color graphics, commonly applied to polyester fabrics and performance apparel.
+                  </p>
+                </div>
+              </div>
+              <div className="capabilities-advanced-printing-vertical-card capabilities-advanced-printing-card flex flex-col rounded-2xl overflow-hidden">
+                <div className="relative w-full aspect-[3/4] overflow-hidden">
+                  <img
+                    src="https://ik.imagekit.io/tagunlimited/private%20label%20manufacturing%20in%20bangalore.webp"
+                    alt="Vinyl heat transfer printing"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    width={300}
+                    height={400}
+                    loading="lazy"
+                  />
+                </div>
+                <div className="capabilities-printing-overlay p-4 sm:p-5">
+                  <p className="capabilities-printing-subheading text-gray-900 font-semibold mb-1">Vinyl Printing</p>
+                  <p className="capabilities-printing-text text-gray-800 text-sm sm:text-base leading-relaxed">
+                    Vinyl heat transfer printing allows clean, bold logos and lettering to be applied to garments, often used for sportswear, team apparel, and custom branding.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Custom Embroidery & Apparel Branding – left = heading + subheading, right = 2 cards (image placeholder + detail); images to be added later */}
+      <section className="py-24 bg-white" aria-labelledby="custom-embroidery-heading">
+        <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
+            <div className="min-w-0 text-left flex flex-col justify-center">
+              <h2 id="custom-embroidery-heading" className="capabilities-section-heading text-left">
+                Custom Embroidery & Apparel Branding
+              </h2>
+              <p className="text-gray-600 text-left mt-4" style={{ fontSize: '1.125rem', lineHeight: 1.8 }}>
+                Professional embroidery techniques that add durable stitched logos and premium branding to garments for fashion labels and corporate apparel.
+              </p>
+            </div>
+            <div className="min-w-0 capabilities-pd-visuals flex gap-3 lg:gap-4">
+              <div className="capabilities-printing-card flex-1 min-w-0 flex flex-col rounded-2xl overflow-hidden">
+                <div className="relative flex-1 min-h-[200px]">
+                  <img
+                    src="https://ik.imagekit.io/tagunlimited/embroidery%20in%20bangalore.webp"
+                    alt="Machine embroidery in Bangalore – stitched logos and branding"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    width={400}
+                    height={300}
+                    loading="lazy"
+                  />
+                </div>
+                <div className="capabilities-printing-overlay p-4 sm:p-5">
+                  <p className="capabilities-printing-subheading text-gray-900 font-semibold mb-1">Machine Embroidery</p>
+                  <p className="capabilities-printing-text text-gray-800 text-sm sm:text-base leading-relaxed">
+                    High-precision embroidery using multi-head machines to create detailed stitched logos, text, and branding on garments like caps, jackets, and hoodies.
+                  </p>
+                </div>
+              </div>
+              <div className="capabilities-printing-card flex-1 min-w-0 flex flex-col rounded-2xl overflow-hidden">
+                <div className="relative flex-1 min-h-[200px]">
+                  <img
+                    src="https://ik.imagekit.io/tagunlimited/chenille%20embroidery%20in%20bangalore.webp"
+                    alt="Chenille embroidery in Bangalore – textured patches and lettering"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    width={400}
+                    height={300}
+                    loading="lazy"
+                  />
+                </div>
+                <div className="capabilities-printing-overlay p-4 sm:p-5">
+                  <p className="capabilities-printing-subheading text-gray-900 font-semibold mb-1">Chenille Embroidery</p>
+                  <p className="capabilities-printing-text text-gray-800 text-sm sm:text-base leading-relaxed">
+                    A textured embroidery style using looped yarn to produce bold, raised lettering and vintage-style patches, commonly used for varsity jackets and premium apparel.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Quality Systems */}
       <section className="py-24 bg-gray-50">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12">

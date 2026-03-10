@@ -123,6 +123,66 @@
   }
 }
 
+/* Single image column – match height of heading + paragraph (e.g. Premium Printing section) */
+.capabilities-pd-single-img {
+  height: 100%;
+  min-height: 200px;
+}
+
+@media (min-width: 1024px) {
+  .capabilities-pd-single-img {
+    min-height: 280px;
+  }
+}
+
+/* Premium Printing section – image on top, detail block below (after image ends), more transparent yellow */
+.capabilities-printing-card {
+  min-height: 200px;
+  aspect-ratio: 3 / 4;
+}
+
+@media (min-width: 1024px) {
+  .capabilities-printing-card {
+    height: 100%;
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+}
+
+.capabilities-printing-overlay {
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+}
+
+.capabilities-printing-subheading {
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  letter-spacing: 0.02em;
+}
+
+.capabilities-printing-text {
+  margin: 0;
+  opacity: 0.98;
+  line-height: 1.5;
+}
+
+/* Advanced Apparel Printing Solutions – 3 vertical cards in one row, full width */
+.capabilities-advanced-printing-grid {
+  width: 100%;
+}
+
+.capabilities-advanced-printing-vertical-card {
+  width: 100%;
+  min-width: 0;
+}
+
+.capabilities-advanced-printing-card {
+  transition: box-shadow 0.2s ease;
+}
+
+.capabilities-advanced-printing-card:hover {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
 /* Product Development mirrored section – left column: two images stacked vertically */
 .capabilities-pd-img-vertical {
   aspect-ratio: 4 / 3;

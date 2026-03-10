@@ -128,10 +128,11 @@ export const HeroSection = React.memo(function HeroSection() {
         <img
           ref={posterImgRef}
           src={HERO_POSTER}
-          alt="TAG Unlimited - Private label apparel manufacturer in Bangalore"
+          alt="TAG Unlimited – Private label apparel manufacturer in Bangalore"
           width={1920}
           height={1080}
           sizes="100vw"
+          loading="eager"
           decoding="async"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ zIndex: videoError || !shouldLoadVideo ? 0 : -1 }}

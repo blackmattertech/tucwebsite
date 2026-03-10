@@ -15,7 +15,7 @@ export function PageHero({ title, subtitle, backgroundImage, dark = true }: Page
           <div className="absolute inset-0">
             <OptimizedImage
               src={backgroundImage}
-              alt=""
+              alt="Page hero background – apparel manufacturing and custom clothing"
               width={1920}
               height={1080}
               quality={80}

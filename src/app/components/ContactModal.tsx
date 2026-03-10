@@ -77,6 +77,18 @@ export function ContactModal() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [isOpen, closeModal]);
 
+  // Focus trap: move focus into modal when opened (accessibility)
+  const panelRef = React.useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!isOpen) return;
+    const panel = panelRef.current;
+    if (!panel) return;
+    const focusable = panel.querySelector<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusable) focusable.focus();
+  }, [isOpen]);
+
   const getFormValue = (form: HTMLFormElement, name: string): string => {
     const el = form.elements.namedItem(name);
     if (!el || !('value' in el)) return '';
@@ -127,7 +139,7 @@ export function ContactModal() {
       aria-labelledby="contact-modal-title"
     >
       <ModalErrorBoundary onClose={closeModal}>
-      <div className="contact-modal-panel">
+      <div ref={panelRef} className="contact-modal-panel">
         <button
           type="button"
           className="contact-modal-close"

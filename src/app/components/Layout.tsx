@@ -9,6 +9,7 @@ import { FloatingContactButtons } from './FloatingContactButtons';
 import { ContactCircleButton } from './ContactCircleButton';
 import { ContactModal } from './ContactModal';
 import { ThirdPartyScripts } from './ThirdPartyScripts';
+import { PageMeta } from './PageMeta';
 
 /** Loaded only on desktop – not used on mobile. */
 const SectionScrollIndicatorsLazy = lazy(() =>
@@ -23,6 +24,7 @@ function LayoutContent() {
 
   return (
     <div className="min-h-screen bg-white relative overflow-x-hidden">
+      <PageMeta />
       <ThirdPartyScripts />
       <Header />
       {showScrollIndicators && (

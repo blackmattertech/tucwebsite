@@ -676,11 +676,15 @@
 }
 
 .about-brands-marquee-inner--left {
+  -webkit-animation: about-brands-marquee-left 35s linear infinite;
   animation: about-brands-marquee-left 35s linear infinite;
+  will-change: transform;
 }
 
 .about-brands-marquee-inner--right {
+  -webkit-animation: about-brands-marquee-right 35s linear infinite;
   animation: about-brands-marquee-right 35s linear infinite;
+  will-change: transform;
 }
 
 .about-brands-marquee-track:hover .about-brands-marquee-inner {
@@ -691,17 +695,26 @@
   .about-brands-marquee-inner--left,
   .about-brands-marquee-inner--right {
     animation: none;
+    will-change: auto;
   }
 }
 
+@-webkit-keyframes about-brands-marquee-left {
+  0% { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+  100% { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
+}
 @keyframes about-brands-marquee-left {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
+@-webkit-keyframes about-brands-marquee-right {
+  0% { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
+  100% { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+}
 @keyframes about-brands-marquee-right {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
+  0% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
 .about-brands-logo-item {

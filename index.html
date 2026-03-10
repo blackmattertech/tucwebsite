@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Critical CSS: allow first paint before main stylesheet (reduces render-blocking impact) -->
     <style>
-      body{margin:0;background:#0a0a0a;font-family:system-ui,sans-serif}
-      #root{min-height:100vh;display:block}
+      body{margin:0;background:#0a0a0a;font-family:system-ui,sans-serif;overflow-x:hidden}
+      #root{min-height:100vh;display:block;overflow-x:hidden}
       #hero{min-height:clamp(400px,85dvh,900px);position:relative}
     </style>
     <title>Premium Apparel Manufacturer | Custom Clothing &amp; Private Label Production</title>
@@ -47,6 +47,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="manifest" href="/manifest.json" />
     <!-- Schema: Organization + LocalBusiness + FAQ -->
     <script type="application/ld+json">
     {
@@ -84,14 +85,17 @@
       ]
     }
     </script>
-    <!-- IndexNow (optional: set key and run after deploy for faster Bing indexing) -->
+    <!-- IndexNow (optional: deferred so it does not block LCP/TBT) -->
     <script>
     (function(){
       var key = "YOUR_INDEXNOW_API_KEY";
       var url = "https://tucwebsite.vercel.app/";
-      if (key && key !== "YOUR_INDEXNOW_API_KEY") {
+      if (!key || key === "YOUR_INDEXNOW_API_KEY") return;
+      function ping() {
         fetch("https://api.indexnow.org/indexnow?url=" + encodeURIComponent(url) + "&key=" + key).catch(function(){});
       }
+      if (typeof requestIdleCallback !== "undefined") requestIdleCallback(ping, { timeout: 3000 });
+      else setTimeout(ping, 2000);
     })();
     </script>
   </head>

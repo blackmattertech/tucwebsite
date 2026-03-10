@@ -57,6 +57,7 @@ export function Header() {
           <Link to="/" className="flex-shrink-0 flex items-center gap-2">
             <img
               src="/logo.svg"
+              srcSet="/logo.svg 1x, /logo.svg 2x"
               alt="TAG UNLIMITED - Private Label Apparel Manufacturer Bangalore"
               className="h-12 w-auto md:h-14 lg:h-16"
               width={160}

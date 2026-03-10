@@ -222,6 +222,7 @@ export function Footer() {
         <Link to="/" className="footer-signature-logo-link">
           <img
             src="/logo.svg"
+            srcSet="/logo.svg 1x, /logo.svg 2x"
             alt="TAG UNLIMITED - Private Label Apparel Manufacturer Bangalore"
             className="footer-signature-logo"
             width={280}

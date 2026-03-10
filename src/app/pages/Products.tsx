@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { PageHero } from '../components/PageHero';
-import { CTASection } from '../components/CTASection';
+import { ProductsWeManufactureSection } from '../components/ProductsWeManufactureSection';
 
 export function Products() {
   const products = [
@@ -53,8 +53,15 @@ export function Products() {
       <PageHero
         title="Knitwear Products Manufacturing"
         subtitle="Comprehensive range of apparel products manufactured with precision and quality"
-        backgroundImage="https://images.unsplash.com/photo-1485920784995-d65789b1c3af?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
+        backgroundImage="https://ik.imagekit.io/tagunlimited/products-hero-section-best-apparel-manufacturer.webp"
+        showOverlay={false}
+        showText={false}
+        sectionClassName="min-h-[65vh] lg:min-h-[80vh]"
+        imageQuality={92}
+        imageStartsBelowHeader
       />
+
+      <ProductsWeManufactureSection />
 
       {/* Products Grid */}
       <section className="py-24 bg-white">
@@ -152,13 +159,6 @@ export function Products() {
           </div>
         </div>
       </section>
-
-      <CTASection
-        title="Need Custom Product Manufacturing?"
-        description="Contact us to discuss your specific product requirements and customization needs"
-        buttonText="Contact Us"
-        openContactModal
-      />
     </>
   );
 }

@@ -328,7 +328,7 @@ export function PillNav({
           <div className="mobile-menu-backdrop" onClick={handleBackdropClick} aria-hidden />
           <div className="mobile-menu-top-bar">
             <Link to="/" className="mobile-menu-logo" onClick={toggleMobileMenu}>
-              <img src="/logo.svg" alt="TAG UNLIMITED" className="mobile-menu-logo-img" width={120} height={42} />
+              <img src="/logo.svg" srcSet="/logo.svg 1x, /logo.svg 2x" alt="TAG UNLIMITED" className="mobile-menu-logo-img" width={120} height={42} />
             </Link>
             <button
               type="button"

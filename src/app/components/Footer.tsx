@@ -35,7 +35,7 @@ export function Footer() {
   const navigationLinks = [
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about-apparel-manufacturer-bangalore' },
-    { label: 'Capabilities', href: '/capabilities' },
+    { label: 'Capabilities', href: '/capabilities/best-tshirt-manufacturer-in-india' },
     { label: 'Manufacturing', href: '/capabilities/apparel-manufacturing-bangalore' },
     { label: 'Private Label', href: '/capabilities/private-label-clothing-manufacturer' },
     { label: 'Products', href: '/products' },
@@ -71,7 +71,7 @@ export function Footer() {
     { label: 'Cap manufacturer in India', href: '/products' },
     { label: 'T-shirt manufacturer Bangalore', href: '/products/t-shirt-manufacturer-bangalore' },
     { label: 'Hoodie manufacturer India', href: '/products/hoodie-manufacturer-india' },
-    { label: 'Bulk apparel manufacturer', href: '/capabilities' },
+    { label: 'Bulk apparel manufacturer', href: '/capabilities/best-tshirt-manufacturer-in-india' },
     { label: 'Custom clothing manufacturer India', href: '/about-apparel-manufacturer-bangalore' }
   ];
 

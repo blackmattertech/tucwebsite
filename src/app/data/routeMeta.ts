@@ -25,8 +25,8 @@ export const ROUTE_META: Record<string, RouteMeta> = {
     title: 'About Us | Apparel Manufacturer Bangalore | TAG Unlimited Clothing',
     description: 'We let our threads do the talking. Meet TAG Unlimited Clothing – your trusted apparel manufacturing partner in Bangalore for private label and bulk garment production.',
   },
-  '/capabilities': {
-    title: 'Capabilities | Apparel Manufacturing & Private Label | Bangalore',
+  '/capabilities/best-tshirt-manufacturer-in-india': {
+    title: 'Capabilities | Best T-Shirt Manufacturer in India | Apparel Manufacturing Bangalore',
     description: 'End-to-end apparel manufacturing capabilities: design, sourcing, private label clothing, and garment factory infrastructure in Bangalore.',
   },
   '/capabilities/apparel-manufacturing-bangalore': {

@@ -75,15 +75,6 @@ export function Capabilities() {
   const statsRef = useRef<HTMLDivElement>(null);
   const statsInView = useInView(statsRef, { once: true, amount: 0.2 });
 
-  const qualitySystems = [
-    'ISO 9001:2015 Certified',
-    'Multi-stage quality inspection',
-    'Fabric testing laboratory',
-    'Final product audit',
-    'Defect tracking system',
-    'Quality assurance team'
-  ];
-
   return (
     <>
       <PageHero
@@ -306,10 +297,10 @@ export function Capabilities() {
         </div>
       </section>
 
-      {/* Advanced Apparel Printing Solutions – full width; heading + paragraph left, 3 vertical cards in one row right */}
+      {/* Advanced Apparel Printing Solutions – full width; heading + paragraph left, 3 vertical cards in one row right; image height = text block height per card */}
       <section className="py-24 bg-white w-full" aria-labelledby="advanced-printing-heading">
-        <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="w-full px-6 lg:px-12">
+          <div className="grid lg:grid-cols-[minmax(0,28rem)_1fr] gap-12 lg:gap-16 items-center">
             <div className="min-w-0 text-left flex flex-col justify-center">
               <h2 id="advanced-printing-heading" className="capabilities-section-heading text-left">
                 Advanced Apparel Printing Solutions
@@ -319,8 +310,8 @@ export function Capabilities() {
               </p>
             </div>
             <div className="min-w-0 capabilities-advanced-printing-grid grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
-              <div className="capabilities-advanced-printing-vertical-card capabilities-advanced-printing-card flex flex-col rounded-2xl overflow-hidden">
-                <div className="relative w-full aspect-[3/4] overflow-hidden">
+              <div className="capabilities-advanced-printing-vertical-card capabilities-advanced-printing-card rounded-2xl overflow-hidden">
+                <div className="relative w-full capabilities-advanced-printing-card-image overflow-hidden">
                   <img
                     src="https://ik.imagekit.io/tagunlimited/tshirt%20printing%20in%20bangalore.webp"
                     alt="DTF printing – direct-to-film garment transfer"
@@ -337,8 +328,8 @@ export function Capabilities() {
                   </p>
                 </div>
               </div>
-              <div className="capabilities-advanced-printing-vertical-card capabilities-advanced-printing-card flex flex-col rounded-2xl overflow-hidden">
-                <div className="relative w-full aspect-[3/4] overflow-hidden">
+              <div className="capabilities-advanced-printing-vertical-card capabilities-advanced-printing-card rounded-2xl overflow-hidden">
+                <div className="relative w-full capabilities-advanced-printing-card-image overflow-hidden">
                   <img
                     src="https://ik.imagekit.io/tagunlimited/hoodies%20manufacturer%20in%20bangalore.webp"
                     alt="Sublimation printing – full-color dye transfer"
@@ -355,8 +346,8 @@ export function Capabilities() {
                   </p>
                 </div>
               </div>
-              <div className="capabilities-advanced-printing-vertical-card capabilities-advanced-printing-card flex flex-col rounded-2xl overflow-hidden">
-                <div className="relative w-full aspect-[3/4] overflow-hidden">
+              <div className="capabilities-advanced-printing-vertical-card capabilities-advanced-printing-card rounded-2xl overflow-hidden">
+                <div className="relative w-full capabilities-advanced-printing-card-image overflow-hidden">
                   <img
                     src="https://ik.imagekit.io/tagunlimited/private%20label%20manufacturing%20in%20bangalore.webp"
                     alt="Vinyl heat transfer printing"
@@ -378,19 +369,11 @@ export function Capabilities() {
         </div>
       </section>
 
-      {/* Custom Embroidery & Apparel Branding – left = heading + subheading, right = 2 cards (image placeholder + detail); images to be added later */}
+      {/* Custom Embroidery & Apparel Branding – left = 2 image cards, right = heading + paragraph */}
       <section className="py-24 bg-white" aria-labelledby="custom-embroidery-heading">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
-            <div className="min-w-0 text-left flex flex-col justify-center">
-              <h2 id="custom-embroidery-heading" className="capabilities-section-heading text-left">
-                Custom Embroidery & Apparel Branding
-              </h2>
-              <p className="text-gray-600 text-left mt-4" style={{ fontSize: '1.125rem', lineHeight: 1.8 }}>
-                Professional embroidery techniques that add durable stitched logos and premium branding to garments for fashion labels and corporate apparel.
-              </p>
-            </div>
-            <div className="min-w-0 capabilities-pd-visuals flex gap-3 lg:gap-4">
+            <div className="min-w-0 capabilities-pd-visuals flex gap-3 lg:gap-4 order-2 lg:order-1">
               <div className="capabilities-printing-card flex-1 min-w-0 flex flex-col rounded-2xl overflow-hidden">
                 <div className="relative flex-1 min-h-[200px]">
                   <img
@@ -428,33 +411,81 @@ export function Capabilities() {
                 </div>
               </div>
             </div>
+            <div className="min-w-0 text-left lg:text-right flex flex-col justify-center order-1 lg:order-2">
+              <h2 id="custom-embroidery-heading" className="capabilities-section-heading text-left lg:text-right">
+                Custom Embroidery & Apparel Branding
+              </h2>
+              <p className="text-gray-600 text-left lg:text-right mt-4" style={{ fontSize: '1.125rem', lineHeight: 1.8 }}>
+                Professional embroidery techniques that add durable stitched logos and premium branding to garments for fashion labels and corporate apparel.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Quality Systems */}
-      <section className="py-24 bg-gray-50">
+      {/* Quality Control & Garment Inspection – left = heading + paragraph, right = 2 image cards */}
+      <section className="py-24 bg-white" aria-labelledby="quality-control-heading">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-gray-900 text-center mb-6" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, lineHeight: 1.2 }}>
-              Quality Systems
-            </h2>
-            <p className="text-gray-600 text-center mb-12" style={{ fontSize: '18px', lineHeight: 1.8 }}>
-              We maintain strict quality standards throughout the manufacturing process with comprehensive testing and inspection protocols.
-            </p>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {qualitySystems.map((system, index) => (
-                <div key={index} className="bg-white p-6 border border-gray-200">
-                  <div className="w-10 h-10 bg-gray-900 text-white rounded-full flex items-center justify-center mb-4" style={{ fontSize: '18px', fontWeight: 600 }}>
-                    {index + 1}
-                  </div>
-                  <p className="text-gray-700" style={{ fontSize: '16px', fontWeight: 500 }}>
-                    {system}
-                  </p>
-                </div>
-              ))}
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
+            <div className="min-w-0 text-left flex flex-col justify-center">
+              <h2 id="quality-control-heading" className="capabilities-section-heading text-left">
+                Quality Control & Garment Inspection
+              </h2>
+              <p className="text-gray-600 text-left mt-4" style={{ fontSize: '1.125rem', lineHeight: 1.8 }}>
+                Maintaining consistent quality is a critical part of our apparel manufacturing process. Every garment undergoes structured quality control inspections including fabric checking, stitching verification, print and embroidery alignment, measurement accuracy, and finishing standards. This multi-stage inspection ensures reliable bulk garment production, consistent product quality, and export-grade apparel manufacturing for fashion brands and businesses worldwide.
+              </p>
             </div>
+            <div className="min-w-0 capabilities-pd-visuals flex gap-3 lg:gap-4">
+              <img
+                src="https://ik.imagekit.io/tagunlimited/infrastructure/best%20garment%20factory%20i%20india.webp"
+                alt="Quality control and garment inspection at apparel manufacturing facility in India"
+                className="capabilities-pd-img rounded-2xl object-cover"
+                width={300}
+                height={400}
+                loading="lazy"
+              />
+              <img
+                src="https://ik.imagekit.io/tagunlimited/tshirt%20manufacturing%20in%20bangalore%20india.webp"
+                alt="Garment inspection and quality checking in Bangalore apparel factory"
+                className="capabilities-pd-img rounded-2xl object-cover"
+                width={300}
+                height={400}
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quality Systems – black background with marquee text only (Tag Factor style) */}
+      <section className="capabilities-quality-section py-24" aria-label="Quality and TAG Factor">
+        <div className="capabilities-quality-dots" aria-hidden />
+        <div className="capabilities-quality-marquees-wrap">
+          <div className="capabilities-quality-marquees">
+            {[
+              { text: 'Well-diversified products.', color: '#FECC00' },
+              { text: 'Adhering to high-standard of EHS compliance.', color: '#FFFFFF' },
+              { text: 'Globally recognised for complex value-added garments.', color: '#FECC00' },
+              { text: 'Professionally managed and focused on sustainable business processes.', color: '#FFFFFF' },
+            ].map(({ text, color }, index) => (
+              <div key={index} className="capabilities-quality-marquee-track">
+                <div className="capabilities-quality-marquee-inner">
+                  {[1, 2, 3].map((n) => (
+                    <span
+                      key={n}
+                      className="capabilities-quality-marquee-text"
+                      style={{
+                        color: 'transparent',
+                        WebkitTextStroke: `2px ${color}`,
+                      }}
+                      aria-hidden
+                    >
+                      {text}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

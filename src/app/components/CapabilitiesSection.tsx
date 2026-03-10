@@ -209,7 +209,7 @@ export function CapabilitiesSection() {
             <h2 className="capabilities-title" aria-live="polite">{currentItem.title}</h2>
             <p className="capabilities-description">{currentItem.description}</p>
           </div>
-          <Link to="/capabilities" className="primary-btn capabilities-cta-btn">
+          <Link to="/capabilities/best-tshirt-manufacturer-in-india" className="primary-btn capabilities-cta-btn">
             Explore Our Manufacturing Capabilities
           </Link>
         </div>

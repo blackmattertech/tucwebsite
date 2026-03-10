@@ -14,7 +14,7 @@ const CATALOGUE_PDF = '/tshirt%20manufacturing%20hoodies%20manufacturing%20catal
 const NAV_ITEMS = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about-apparel-manufacturer-bangalore' },
-  { label: 'Capabilities', href: '/capabilities' },
+  { label: 'Capabilities', href: '/capabilities/best-tshirt-manufacturer-in-india' },
   { label: 'Products', href: '/products' },
   { label: 'Blog', href: '/blog-apparel-manufacturing-guides' },
   { label: 'Catalogue', href: CATALOGUE_PDF, download: true },

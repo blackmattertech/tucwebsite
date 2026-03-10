@@ -165,14 +165,40 @@
   line-height: 1.5;
 }
 
-/* Advanced Apparel Printing Solutions – 3 vertical cards in one row, full width */
+/* Advanced Apparel Printing Solutions – full width; cards content-sized, wider when space allows */
 .capabilities-advanced-printing-grid {
   width: 100%;
+  min-width: 0;
 }
 
 .capabilities-advanced-printing-vertical-card {
   width: 100%;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.capabilities-advanced-printing-card-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.capabilities-advanced-printing-card .capabilities-printing-overlay {
+  flex: 0 0 auto;
+  padding: 0.875rem 1rem;
+}
+
+.capabilities-advanced-printing-card .capabilities-printing-overlay .capabilities-printing-text {
+  margin-bottom: 0;
+}
+
+@media (min-width: 640px) {
+  .capabilities-advanced-printing-card .capabilities-printing-overlay {
+    padding: 1rem 1.25rem;
+  }
 }
 
 .capabilities-advanced-printing-card {
@@ -231,4 +257,83 @@
   line-height: 1.3;
   margin: 0;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Quality Systems – black background, marquee text only (Tag Factor style) */
+.capabilities-quality-section {
+  position: relative;
+  background: #000000;
+  overflow: hidden;
+}
+
+.capabilities-quality-dots {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.14) 0, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+  background-size: 12px 12px;
+  pointer-events: none;
+}
+
+.capabilities-quality-marquees-wrap {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: clamp(1.5rem, 4vw, 3rem) 0;
+  overflow: visible;
+}
+
+.capabilities-quality-marquees {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.5vw, 0.75rem);
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  box-sizing: border-box;
+}
+
+.capabilities-quality-marquee-track {
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+}
+
+.capabilities-quality-marquee-inner {
+  display: flex;
+  width: max-content;
+  animation: capabilities-quality-marquee 40s linear infinite;
+  padding-right: 2rem;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capabilities-quality-marquee-inner {
+    animation: none;
+    will-change: auto;
+  }
+}
+
+.capabilities-quality-marquee-text {
+  flex-shrink: 0;
+  font-family: 'Khand', sans-serif;
+  font-size: clamp(2rem, 10vw, 5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding-right: 3rem;
+  letter-spacing: 0.02em;
+  paint-order: stroke fill;
+  -webkit-text-stroke-width: 2px;
+}
+
+@keyframes capabilities-quality-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-33.333%, 0, 0);
+  }
 }

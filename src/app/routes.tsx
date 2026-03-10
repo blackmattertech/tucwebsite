@@ -69,7 +69,7 @@ export const router = createBrowserRouter([
         Component: About
       },
       {
-        path: 'capabilities',
+        path: 'capabilities/best-tshirt-manufacturer-in-india',
         Component: Capabilities
       },
       {

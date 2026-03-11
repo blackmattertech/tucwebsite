@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router';
 import { ContactModalProvider } from '../context/ContactModalContext';
 import { ViewportProvider, useViewport } from '../context/ViewportContext';
@@ -21,6 +21,10 @@ function LayoutContent() {
   const location = useLocation();
   const showScrollIndicators = ready && isDesktop;
   const isAboutPage = location.pathname.toLowerCase().includes('about-apparel-manufacturer-bangalore');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <div className="min-h-screen bg-white relative overflow-x-hidden">

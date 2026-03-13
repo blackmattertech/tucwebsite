@@ -77,7 +77,7 @@ export function Footer() {
 
   const footerLinks = {
     social: [
-      { label: 'Facebook', href: 'https://www.facebook.com/' },
+      // { label: 'Facebook', href: 'https://www.facebook.com/' },
       { label: 'Instagram', href: 'https://www.instagram.com/tagunlimited?igsh=MTRuOHdzdjYzeW5zbQ==' },
       { label: 'YouTube', href: 'https://www.youtube.com/@tagunlimited3251' },
       { label: 'LinkedIn', href: 'https://www.linkedin.com/company/tag-unlimited-clothing/' }

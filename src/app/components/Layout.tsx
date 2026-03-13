@@ -26,6 +26,15 @@ function LayoutContent() {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  /* Prefetch About page chunk when on home so initial load of About has minimal FOUC */
+  useEffect(() => {
+    if (location.pathname !== '/') return;
+    const t = setTimeout(() => {
+      import('../pages/About').catch(() => {});
+    }, 1500);
+    return () => clearTimeout(t);
+  }, [location.pathname]);
+
   return (
     <div className="min-h-screen bg-white relative overflow-x-hidden">
       <PageMeta />

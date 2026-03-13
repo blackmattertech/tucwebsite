@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router';
-import { Facebook, Instagram, Youtube, X } from 'lucide-react';
+import { Instagram, Youtube, Linkedin, X } from 'lucide-react';
 import { useContactModal } from '../context/useContactModal';
 import './MobileNav.css';
 
 const MOBILE_MENU_SOCIAL = [
-  { label: 'Facebook', href: 'https://www.facebook.com/', Icon: Facebook, brand: 'facebook' as const },
-  { label: 'Instagram', href: 'https://www.instagram.com/', Icon: Instagram, brand: 'instagram' as const },
-  { label: 'YouTube', href: 'https://www.youtube.com/', Icon: Youtube, brand: 'youtube' as const },
+  { label: 'Instagram', href: 'https://www.instagram.com/tagunlimited?igsh=MTRuOHdzdjYzeW5zbQ==', Icon: Instagram, brand: 'instagram' as const },
+  { label: 'YouTube', href: 'https://www.youtube.com/@tagunlimited3251', Icon: Youtube, brand: 'youtube' as const },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/tag-unlimited-clothing/', Icon: Linkedin, brand: 'linkedin' as const },
 ];
 
 export interface MobileNavItem {
@@ -20,6 +20,8 @@ export interface MobileNavItem {
 
 export interface MobileNavProps {
   items: MobileNavItem[];
+  /** Optional handler to open the catalogue download form. */
+  onOpenCatalogue?: () => void;
 }
 
 function isExternalLink(href: string) {
@@ -30,7 +32,7 @@ function isRouterLink(href: string, item?: MobileNavItem) {
   return href && !isExternalLink(href) && !item?.download;
 }
 
-export function MobileNav({ items }: MobileNavProps) {
+export function MobileNav({ items, onOpenCatalogue }: MobileNavProps) {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const modal = useContactModal();
@@ -62,7 +64,7 @@ export function MobileNav({ items }: MobileNavProps) {
           <div className="mobile-nav-backdrop" onClick={close} aria-hidden />
           <div className="mobile-nav-top-bar">
             <Link to="/" className="mobile-nav-logo" onClick={close}>
-              <img src="/logo.svg" alt="TAG UNLIMITED" className="mobile-nav-logo-img" width={120} height={42} />
+              <img src="/logo.svg" srcSet="/logo.svg 1x, /logo.svg 2x" alt="Tag Unlimited" className="mobile-nav-logo-img" width={120} height={42} />
             </Link>
             <button
               type="button"
@@ -101,7 +103,7 @@ export function MobileNav({ items }: MobileNavProps) {
               </ul>
               <button
                 type="button"
-                className="mobile-nav-contact-btn"
+                className="mobile-nav-contact-btn mobile-nav-contact-btn--highlighted"
                 onClick={() => {
                   close();
                   modal?.openModal?.();
@@ -110,6 +112,19 @@ export function MobileNav({ items }: MobileNavProps) {
               >
                 Contact
               </button>
+              {onOpenCatalogue && (
+                <button
+                  type="button"
+                  className="mobile-nav-contact-btn"
+                  onClick={() => {
+                    close();
+                    onOpenCatalogue();
+                  }}
+                  aria-label="Download catalogue"
+                >
+                  Catalogue
+                </button>
+              )}
               <div className="mobile-nav-social">
                 <span className="mobile-nav-social-label">Follow us</span>
                 <div className="mobile-nav-social-icons">

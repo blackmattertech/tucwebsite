@@ -172,6 +172,10 @@
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
+.mobile-nav-contact-btn--highlighted {
+  box-shadow: 0 0 0 2px #111827;
+}
+
 .mobile-nav-contact-btn:hover {
   background: #e6b800;
   transform: scale(1.02);
@@ -215,14 +219,18 @@
   transform: scale(1.08);
 }
 
-.mobile-nav-social-link--facebook {
-  background: #1877f2;
-}
-
 .mobile-nav-social-link--instagram {
   background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
 }
 
 .mobile-nav-social-link--youtube {
   background: #ff0000;
+}
+
+.mobile-nav-social-link--linkedin {
+  background: #0a66c2;
+}
+
+.mobile-nav-social-link--linkedin:hover {
+  background: #004182;
 }

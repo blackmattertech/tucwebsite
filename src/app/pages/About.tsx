@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef, useMemo, useState } from 'react';
 import { AboutBanner } from '../components/AboutBanner';
 import { JourneySection } from '../components/JourneySection';
 import { ProductionIntelligenceLeft } from '../components/ProductionIntelligenceLeft';
@@ -67,6 +67,7 @@ const INTRO_VIDEO_SRC =
 export function About() {
   const introSectionRef = useRef<HTMLElement>(null);
   const introVideoRef = useRef<HTMLVideoElement>(null);
+  const [introVideoInView, setIntroVideoInView] = useState(false);
   const { getUrl, getFileNamesByFolder } = useMediaAssets();
   const mediaLogos = getFileNamesByFolder('client-logos');
   const brandsLogos = mediaLogos.length > 0 ? mediaLogos : clientLogos;
@@ -78,8 +79,26 @@ export function About() {
 
   useEffect(() => {
     const section = introSectionRef.current;
+    if (!section) return;
+    let cancelled = false;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (cancelled) return;
+        if (entries[0]?.isIntersecting) setIntroVideoInView(true);
+      },
+      { rootMargin: '100px', threshold: 0.01 }
+    );
+    observer.observe(section);
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const section = introSectionRef.current;
     const video = introVideoRef.current;
-    if (!section || !video) return;
+    if (!section || !video || !introVideoInView) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -95,33 +114,43 @@ export function About() {
     );
     observer.observe(section);
     return () => observer.disconnect();
-  }, []);
+  }, [introVideoInView]);
 
   return (
-    <>
+    <div className="about-page" role="main">
       {/* 1. Hero – keep as is */}
       <AboutBanner />
 
-      {/* 2. Company Introduction (About TAG Unlimited) – full width, larger video */}
+      {/* 2. Company Introduction (About Tag Unlimited) – full width, larger video */}
       <section
         ref={introSectionRef}
         className="about-intro-section py-12 sm:py-16 md:py-20 lg:py-24 bg-white"
       >
-        <div className="about-intro-section-inner px-4 sm:px-6 lg:px-12">
+        <div className="about-intro-section-inner">
           <div className="about-intro-grid grid grid-cols-1 lg:grid-cols-[1fr_1.35fr] gap-8 sm:gap-10 lg:gap-16">
             <div className="about-intro-text">
-              <h2 className="about-section-heading about-intro-heading">About TAG Unlimited</h2>
+              <h2 className="about-section-heading about-intro-heading">About Tag Unlimited</h2>
               <p>
-                Founded in 2006 by Mr. Rahul M Singh, TAG Unlimited is a Bangalore-based
-                apparel manufacturing company specializing in private label clothing and bulk
-                garment production for fashion brands, startups, and businesses worldwide.
+                Tag Unlimited Clothing is a Bangalore-based apparel manufacturing company
+                specializing in customized apparel, private label clothing, and bulk garment
+                production for fashion brands, startups, and businesses across the globe.
               </p>
               <p>
-                With nearly two decades of experience in the garment industry, TAG Unlimited has
+                The company traces its roots back to 1977, when it was founded as Sri Sai Screens
+                by Late Sri T.V. Mahesh Raaj Singh, beginning as a screen printing unit serving
+                local businesses and garment manufacturers.
+              </p>
+              <p>
+                In 2014, the company was rebranded and expanded by Mr. Rahul Raj M Singh into Tag
+                Unlimited Clothing, transforming it into a modern apparel manufacturing company
+                built to support emerging fashion brands and growing businesses.
+              </p>
+              {/* <p>
+                With nearly two decades of experience in the garment industry, Tag Unlimited has
                 established itself as a reliable apparel manufacturer in India, delivering
                 high-quality garments with consistent production standards and dependable
                 delivery timelines.
-              </p>
+              </p> */}
               <p>
                 Our manufacturing facility in Bangalore, India, is designed to support scalable
                 apparel manufacturing, combining modern industrial sewing machines, advanced
@@ -134,15 +163,15 @@ export function About() {
                 production-ready collections through structured workflows and efficient
                 manufacturing processes.
               </p>
-              <p>
-                What makes TAG Unlimited different is our technology-driven production system,
+              {/* <p>
+                What makes Tag Unlimited different is our technology-driven production system,
                 powered by ERP-enabled manufacturing workflows that track every stage of an
                 order—from product development and sampling to bulk production and final
                 dispatch. This ensures transparency, efficient production planning, and reliable
                 delivery timelines for our clients.
-              </p>
+              </p> */}
               <p>
-                Today, TAG Unlimited works with fashion brands, clothing startups, corporate
+                Today, Tag Unlimited works with fashion brands, clothing startups, corporate
                 buyers, and international apparel businesses, providing flexible and scalable
                 garment manufacturing solutions built on quality, efficiency, and long-term
                 partnership.
@@ -152,13 +181,15 @@ export function About() {
               {INTRO_VIDEO_SRC ? (
                 <video
                   ref={introVideoRef}
-                  src={INTRO_VIDEO_SRC}
-                  title="About TAG Unlimited – apparel manufacturer Bangalore"
+                  src={introVideoInView ? INTRO_VIDEO_SRC : undefined}
+                  title="About Tag Unlimited – apparel manufacturer Bangalore"
                   controls
                   playsInline
                   preload="metadata"
                   muted
                   loop
+                  width={1280}
+                  height={720}
                 >
                   Your browser does not support the video tag.
                 </video>
@@ -180,9 +211,11 @@ export function About() {
               <h2 className="about-section-heading">Who We Are</h2>
               <div className="about-section-body max-w-3xl">
                 <p>
-                  TAG Unlimited is a private label apparel manufacturer in India specializing in bulk
-                  garment production of T-shirts, hoodies, shirts, jackets, caps, and custom apparel for
-                  fashion brands, startups, and businesses worldwide.
+                  Tag Unlimited Clothing is a Bangalore-based apparel manufacturing company
+                  specializing in customized apparel, private label clothing, and bulk garment
+                  production for fashion brands, startups, and businesses across the globe. The
+                  company traces its roots to 1977 (Sri Sai Screens) and was rebranded as Tag
+                  Unlimited Clothing in 2014 by Mr. Rahul Raj M Singh.
                 </p>
                 <p>
                   Our production facility in Bangalore, India is designed to support scalable apparel
@@ -204,7 +237,7 @@ export function About() {
             <div className="rounded-2xl overflow-hidden">
               <img
                 src="https://ik.imagekit.io/tagunlimited/Indian%20apparel%20manufacturing%20factory%20in%20Bangalore%20with%20tailors%20stitching%20garments%20and%20fabric%20rolls%20_%20TAG%20Unlimited%20private%20label%20apparel%20manufacturer?updatedAt=1773079732034"
-                alt="Indian apparel manufacturing factory in Bangalore with tailors stitching garments and fabric rolls – TAG Unlimited private label apparel manufacturer"
+                alt="Indian apparel manufacturing factory in Bangalore with tailors stitching garments and fabric rolls – Tag Unlimited private label apparel manufacturer"
                 className="w-full h-auto object-cover"
                 width={1200}
                 height={800}
@@ -225,7 +258,7 @@ export function About() {
             <h2 className="about-section-heading">Infrastructure</h2>
             <div className="about-section-body about-infrastructure-text">
               <p>
-                TAG Unlimited operates a professionally managed apparel manufacturing facility in
+                Tag Unlimited operates a professionally managed apparel manufacturing facility in
                 Bangalore, India, built to support large-scale private label clothing production and
                 bulk garment manufacturing for fashion brands, startups, and global apparel businesses.
               </p>
@@ -233,7 +266,7 @@ export function About() {
             <div className="about-infrastructure-stack__slot">
               <img
                 src="https://ik.imagekit.io/tagunlimited/infrastructure/best%20garment%20factory%20i%20india.webp"
-                alt="Best garment factory in India – TAG Unlimited facility"
+                alt="Best garment factory in India – Tag Unlimited facility"
                 width={800}
                 height={400}
               />
@@ -275,7 +308,7 @@ export function About() {
             </div>
             <div className="about-section-body about-infrastructure-text">
               <p>
-                This robust infrastructure enables TAG Unlimited to function as a dependable apparel
+                This robust infrastructure enables Tag Unlimited to function as a dependable apparel
                 manufacturing partner for fashion brands looking for scalable, high-quality garment
                 production in India.
               </p>
@@ -288,7 +321,7 @@ export function About() {
               <h2 className="about-section-heading">Infrastructure</h2>
               <div className="about-section-body">
                 <p>
-                  TAG Unlimited operates a professionally managed apparel manufacturing facility in
+                  Tag Unlimited operates a professionally managed apparel manufacturing facility in
                   Bangalore, India, built to support large-scale private label clothing production and
                   bulk garment manufacturing for fashion brands, startups, and global apparel businesses.
                 </p>
@@ -308,7 +341,7 @@ export function About() {
                   international clients.
                 </p>
                 <p>
-                  This robust infrastructure enables TAG Unlimited to function as a dependable apparel
+                  This robust infrastructure enables Tag Unlimited to function as a dependable apparel
                   manufacturing partner for fashion brands looking for scalable, high-quality garment
                   production in India.
                 </p>
@@ -318,7 +351,7 @@ export function About() {
               <div className="about-infrastructure-stack__slot">
                 <img
                   src="https://ik.imagekit.io/tagunlimited/infrastructure/best%20garment%20factory%20i%20india.webp"
-                  alt="Best garment factory in India – TAG Unlimited facility"
+                  alt="Best garment factory in India – Tag Unlimited facility"
                   width={800}
                   height={400}
                 />
@@ -352,10 +385,10 @@ export function About() {
               <ProductionIntelligenceLeft />
             </div>
             <div className="about-technology-content order-1 lg:order-2">
-              <h2 className="about-section-heading">Technology-Driven Apparel<br />Manufacturing</h2>
+              <h2 className="about-section-heading">Technology-Driven<br />Manufacturing</h2>
               <div className="about-section-body">
                 <p>
-                  At TAG Unlimited, our manufacturing operations are powered by ERP-driven
+                  At Tag Unlimited, our manufacturing operations are powered by ERP-driven
                   production management systems designed to bring transparency, efficiency, and
                   control to every stage of apparel manufacturing. From product development and
                   garment sampling to bulk production, quality inspection, and final dispatch,
@@ -366,16 +399,18 @@ export function About() {
                   production progress, optimize manufacturing schedules, and maintain structured
                   production timelines across large garment orders.
                 </p>
-                <p>Our ERP-supported manufacturing process enables:</p>
+                <p>What sets Tag Unlimited apart is our technology-driven manufacturing system. <br /> Our operations are powered by ERP-enabled production workflows that track every stage of an order:</p>
                 <ul className="about-list-yellow-bullets">
-                  <li>Transparent order tracking for fashion brands and buyers</li>
-                  <li>Improved production planning and resource management</li>
-                  <li>Reliable on-time delivery for bulk garment orders</li>
-                  <li>Streamlined communication between production teams and clients</li>
+                  <li>Product development</li>
+                  <li>Sampling</li>
+                  <li>Fabric sourcing</li>
+                  <li>Bulk production</li>
+                  <li>Quality control</li>
+                  <li>Final dispatch</li>
                 </ul>
                 <p>
                   By combining over 20 years of garment manufacturing experience, skilled
-                  production teams, and technology-driven production management, TAG Unlimited
+                  production teams, and technology-driven production management, Tag Unlimited
                   delivers scalable, reliable, and high-quality apparel manufacturing solutions
                   for fashion brands, startups, and global businesses.
                 </p>
@@ -393,19 +428,20 @@ export function About() {
               <h2 id="brands-heading" className="about-section-heading">Brands & Businesses We Serve</h2>
               <div className="about-section-body">
                 <p>
-                  TAG Unlimited partners with fashion brands, startups, and global apparel businesses looking for reliable private label clothing manufacturing and bulk garment production.
+                  Tag Unlimited partners with fashion brands, startups, and global apparel businesses looking for reliable private label clothing manufacturing and bulk garment production.
                 </p>
-                <p>Our manufacturing facility in Bangalore supports a diverse range of clients, including:</p>
+                <p>Today, Tag Unlimited works with:</p>
                 <ul>
-                  <li>Fashion & Apparel Brands</li>
+                  <li>Fashion Brands</li>
                   <li>Clothing Startups & D2C Labels</li>
-                  <li>Corporate Apparel Buyers</li>
+                  <li>Corporate Buyers</li>
+                  <li>Event companies</li>
                   <li>Promotional Merchandise Companies</li>
                   <li>International Apparel Importers & Distributors</li>
+                  <li>International apparel businesses</li>
                 </ul>
                 <p>
-                  With scalable production capacity and flexible manufacturing workflows, we support both emerging fashion brands and large-scale apparel programs requiring consistent quality and reliable delivery timelines.
-                </p>
+                We provide flexible, scalable garment manufacturing solutions built on quality, efficiency, and long-term partnerships.                </p>
               </div>
             </div>
             <div className="about-brands-logos-col">
@@ -452,7 +488,7 @@ export function About() {
         </div>
       </section>
 
-      {/* 9. Quality Commitment – banner, logo yellow, centered */}
+      {/* 9. Quality Customisation – banner, logo yellow, centered */}
       <section className="about-quality-banner">
         <div className="about-quality-banner__inner">
           <h2 className="about-quality-banner__heading">Quality & Consistency</h2>
@@ -470,19 +506,19 @@ export function About() {
         </div>
       </section>
 
-      {/* 10. Why TAG Unlimited – light yellow background, navy heading + navy stat cards */}
+      {/* 10. Why Tag Unlimited – light yellow background, navy heading + navy stat cards */}
       <section className="about-why-section">
         <div className="about-why-section__inner">
-          <h2 className="about-why-section__heading">Why TAG Unlimited?</h2>
+          <h2 className="about-why-section__heading">Why Tag Unlimited?</h2>
           <StatsCards cardBgColor="#0f172a" className="about-why-section__stats" />
         </div>
       </section>
 
-      {/* 12. Ready for Commitment – above Map + FAQ on About only */}
+      {/* 12. Ready for Customisation – above Map + FAQ on About only */}
       <ContactCTASection />
 
       {/* 13. Map + FAQ – About page only */}
       <MapFaqSection />
-    </>
+    </div>
   );
 }

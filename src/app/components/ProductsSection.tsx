@@ -20,15 +20,18 @@ export function ProductsSection() {
 
       <div className="value-added-cards">
         {VALUE_ADDED_ITEMS.map((item, index) => (
-          <Link key={index} to="/capabilities" className="value-added-card">
+          <Link key={index} to="/capabilities/best-tshirt-manufacturer-in-india" className="value-added-card">
             <div className="value-added-card-top">
               <OptimizedImage
                 src={getUrl('other images', item.file)}
                 alt={item.title}
                 width={400}
                 height={300}
+                quality={70}
+                sizes="(max-width: 768px) 100vw, 400px"
                 className="value-added-card-image"
                 loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
               />
             </div>

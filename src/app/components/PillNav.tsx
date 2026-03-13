@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router';
-import { Facebook, Instagram, Youtube, X } from 'lucide-react';
+import { Instagram, Youtube, Linkedin, X } from 'lucide-react';
 import { gsap } from 'gsap';
 import './PillNav.css';
 import { useContactModal } from '../context/useContactModal';
 
 const MOBILE_MENU_SOCIAL = [
-  { label: 'Facebook', href: 'https://www.facebook.com/', Icon: Facebook, brand: 'facebook' as const },
-  { label: 'Instagram', href: 'https://www.instagram.com/', Icon: Instagram, brand: 'instagram' as const },
-  { label: 'YouTube', href: 'https://www.youtube.com/', Icon: Youtube, brand: 'youtube' as const },
+  { label: 'Instagram', href: 'https://www.instagram.com/tagunlimited?igsh=MTRuOHdzdjYzeW5zbQ==', Icon: Instagram, brand: 'instagram' as const },
+  { label: 'YouTube', href: 'https://www.youtube.com/@tagunlimited3251', Icon: Youtube, brand: 'youtube' as const },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/tag-unlimited-clothing/', Icon: Linkedin, brand: 'linkedin' as const },
 ];
 
 export interface PillNavItem {
@@ -328,7 +328,7 @@ export function PillNav({
           <div className="mobile-menu-backdrop" onClick={handleBackdropClick} aria-hidden />
           <div className="mobile-menu-top-bar">
             <Link to="/" className="mobile-menu-logo" onClick={toggleMobileMenu}>
-              <img src="/logo.svg" alt="TAG UNLIMITED" className="mobile-menu-logo-img" width={120} height={42} />
+              <img src="/logo.svg" srcSet="/logo.svg 1x, /logo.svg 2x" alt="Tag Unlimited" className="mobile-menu-logo-img" width={120} height={42} />
             </Link>
             <button
               type="button"
@@ -367,7 +367,7 @@ export function PillNav({
               </ul>
               <button
                 type="button"
-                className="mobile-menu-contact-btn"
+                className="mobile-menu-contact-btn mobile-menu-contact-btn--highlighted"
                 onClick={() => {
                   toggleMobileMenu();
                   modal?.openModal?.();

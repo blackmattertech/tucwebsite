@@ -1,6 +1,6 @@
 Design a Google Reviews section for a premium B2B apparel manufacturing website inspired by a real Google Reviews layout.
 
-The section represents TAG UNLIMITED – Apparel Manufacturer in Bangalore.
+The section represents Tag Unlimited – Apparel Manufacturer in Bangalore.
 
 The design should look:
 
@@ -44,7 +44,7 @@ Top block showing business information.
 
 Business Name
 
-TAG UNLIMITED
+Tag Unlimited
 
 Font:
 

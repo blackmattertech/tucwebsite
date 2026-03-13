@@ -8,7 +8,7 @@ export function Social() {
         Connect With Us
       </h1>
       <p className="text-gray-600 text-center max-w-md mb-8" style={{ fontSize: '18px', lineHeight: 1.6 }}>
-        Follow TAG UNLIMITED on social media for updates, behind-the-scenes, and industry insights.
+        Follow Tag Unlimited on social media for updates, behind-the-scenes, and industry insights.
       </p>
       <p className="text-gray-500 text-sm">
         Use the Social card (top right, next to Contact) to open Facebook, Instagram, and YouTube.

@@ -1,4 +1,4 @@
-import { getOptimizedImageUrl } from '../lib/optimizedImage';
+import { getOptimizedImageUrl, getOptimizedImageSrcSet } from '../lib/optimizedImage';
 
 type OptimizedImageProps = React.ImgHTMLAttributes<HTMLImageElement> & {
   src: string;
@@ -7,11 +7,15 @@ type OptimizedImageProps = React.ImgHTMLAttributes<HTMLImageElement> & {
   quality?: number;
   /** Skip optimization (e.g. for SVG, already-optimized local assets) */
   unoptimized?: boolean;
+  /** Responsive: sizes attribute (e.g. "(max-width: 768px) 100vw, 800px"). When set, srcSet is auto-generated unless provided. */
+  sizes?: string;
+  /** Optional explicit srcSet; otherwise derived from sizes + src when sizes is set. */
+  srcSet?: string;
 };
 
 /**
- * Image component that routes remote images through Vercel Image Optimization.
- * Use for Supabase and Unsplash images to serve WebP/AVIF via CDN.
+ * Image component that routes remote images through Vercel Image Optimization or ImageKit.
+ * Supports responsive srcset + sizes for smaller mobile payloads. Use loading="lazy" below the fold.
  */
 export function OptimizedImage({
   src,
@@ -23,12 +27,16 @@ export function OptimizedImage({
   className,
   loading,
   decoding = 'async',
+  sizes: sizesProp,
+  srcSet: srcSetProp,
   ...rest
 }: OptimizedImageProps) {
-  const imgSrc =
-    unoptimized || src.startsWith('data:') || src.endsWith('.svg')
-      ? src
-      : getOptimizedImageUrl(src, width, quality);
+  const skipOpt = unoptimized || src.startsWith('data:') || src.endsWith('.svg');
+  const imgSrc = skipOpt ? src : getOptimizedImageUrl(src, width, quality);
+  const srcSet =
+    srcSetProp ??
+    (sizesProp && !skipOpt ? getOptimizedImageSrcSet(src, quality) : undefined);
+  const sizes = sizesProp;
 
   return (
     <img
@@ -39,6 +47,8 @@ export function OptimizedImage({
       className={className}
       loading={loading}
       decoding={decoding}
+      srcSet={srcSet || undefined}
+      sizes={sizes || undefined}
       {...rest}
     />
   );

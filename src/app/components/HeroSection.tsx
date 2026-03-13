@@ -39,7 +39,10 @@ const HERO_ROTATING_PHRASES = [
 
 const BRAND_YELLOW = '#FECC00';
 
-const VIDEO_LOAD_DELAY_MS = 2000;
+/** Load video only when hero is in view (IntersectionObserver), both mobile and desktop. */
+const VIDEO_ROOT_MARGIN = '200px';
+/** Delay before attaching video source after intersection so LCP (poster) is not blocked. */
+const VIDEO_LOAD_DELAY_MS = 150;
 
 export const HeroSection = React.memo(function HeroSection() {
   const { getUrl } = useMediaAssets();
@@ -71,14 +74,35 @@ export const HeroSection = React.memo(function HeroSection() {
     return () => mq.removeEventListener('change', handle);
   }, []);
 
-  // LCP optimization: load video only after 2s idle or first scroll (dramatically improves mobile PageSpeed)
+  // Lazy-load video when hero enters viewport (mobile + desktop). Short delay so LCP stays poster.
   useEffect(() => {
-    const timer = setTimeout(() => setShouldLoadVideo(true), VIDEO_LOAD_DELAY_MS);
-    const onScroll = () => setShouldLoadVideo(true);
-    window.addEventListener('scroll', onScroll, { once: true, passive: true });
+    if (typeof window === 'undefined') return;
+    const section = sectionRef.current;
+    if (!section) return;
+    let cancelled = false;
+    let delayId: ReturnType<typeof setTimeout> | null = null;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (cancelled) return;
+        if (!entries[0]?.isIntersecting) return;
+        delayId = setTimeout(() => {
+          if (!cancelled) setShouldLoadVideo(true);
+        }, VIDEO_LOAD_DELAY_MS);
+      },
+      { rootMargin: VIDEO_ROOT_MARGIN, threshold: 0 }
+    );
+    io.observe(section);
+    // Hero is above the fold (or we're on mobile where hero is first): start load after short delay
+    const rect = section.getBoundingClientRect();
+    const isAboveFold = rect.top < window.innerHeight + 200;
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    if (isAboveFold || isMobile) {
+      delayId = setTimeout(() => setShouldLoadVideo(true), VIDEO_LOAD_DELAY_MS);
+    }
     return () => {
-      clearTimeout(timer);
-      window.removeEventListener('scroll', onScroll);
+      cancelled = true;
+      if (delayId) clearTimeout(delayId);
+      io.disconnect();
     };
   }, []);
 
@@ -128,13 +152,14 @@ export const HeroSection = React.memo(function HeroSection() {
         <img
           ref={posterImgRef}
           src={HERO_POSTER}
-          alt="TAG Unlimited - Private label apparel manufacturer in Bangalore"
+          alt="Tag Unlimited – Private label apparel manufacturer in Bangalore"
           width={1920}
           height={1080}
           sizes="100vw"
+          loading="eager"
           decoding="async"
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ zIndex: videoError || !shouldLoadVideo ? 0 : -1 }}
+          style={{ zIndex: videoError || !shouldLoadVideo ? 0 : -1, aspectRatio: '16/9' }}
         />
         {shouldLoadVideo && !videoError && (
           <>
@@ -145,12 +170,14 @@ export const HeroSection = React.memo(function HeroSection() {
               muted
               playsInline
               poster={HERO_POSTER}
-              preload="none"
+              preload="metadata"
+              width={1920}
+              height={1080}
               className="absolute inset-0 w-full h-full object-cover hidden md:block"
               onEnded={(e) => e.currentTarget.play()}
               onError={() => setVideoError(true)}
             >
-              {!isMobileViewport && <source src={desktopVideoSrc} type="video/mp4" />}
+              {!isMobileViewport && <source key="desktop" src={desktopVideoSrc} type="video/mp4" />}
             </video>
             <video
               ref={mobileVideoRef}
@@ -159,12 +186,14 @@ export const HeroSection = React.memo(function HeroSection() {
               muted
               playsInline
               poster={HERO_POSTER}
-              preload="none"
+              preload="metadata"
+              width={1920}
+              height={1080}
               className="absolute inset-0 w-full h-full object-cover md:hidden"
               onEnded={(e) => e.currentTarget.play()}
               onError={() => setVideoError(true)}
             >
-              {isMobileViewport && <source src={mobileVideoSrc} type="video/mp4" />}
+              {isMobileViewport && <source key="mobile" src={mobileVideoSrc} type="video/mp4" />}
             </video>
           </>
         )}

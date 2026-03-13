@@ -14,6 +14,14 @@
   padding: clamp(2rem, 6vw, 4rem) clamp(1rem, 5vw, 24px);
 }
 
+/* First column: map + address below (address was clipped when inside map-wrap due to overflow: hidden) */
+.map-faq-map-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+
 /* Map: perfect rectangle (wider than tall), rounded corners */
 .map-faq-map-wrap {
   position: relative;
@@ -30,6 +38,25 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Address below map – outside map-wrap so it is not clipped */
+.map-faq-address {
+  margin: 2.5rem 0 0;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #333;
+  font-family: var(--font-family, system-ui, sans-serif);
+}
+
+.map-faq-address-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.map-faq-address-link:hover {
+  text-decoration: underline;
 }
 
 .map-faq-faq-wrap {

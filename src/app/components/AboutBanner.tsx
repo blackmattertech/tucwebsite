@@ -10,11 +10,14 @@ export function AboutBanner() {
       <div className="about-banner-bg">
         <OptimizedImage
           src={BANNER_BACKGROUND}
-          alt=""
+          alt="Apparel manufacturing facility – TAG Unlimited Clothing Bangalore"
           width={1920}
           height={1080}
           quality={80}
           unoptimized
+          sizes="100vw"
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover"
         />
       </div>

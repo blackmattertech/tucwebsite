@@ -35,7 +35,7 @@ export function Footer() {
   const navigationLinks = [
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about-apparel-manufacturer-bangalore' },
-    { label: 'Capabilities', href: '/capabilities' },
+    { label: 'Capabilities', href: '/capabilities/best-tshirt-manufacturer-in-india' },
     { label: 'Manufacturing', href: '/capabilities/apparel-manufacturing-bangalore' },
     { label: 'Private Label', href: '/capabilities/private-label-clothing-manufacturer' },
     { label: 'Products', href: '/products' },
@@ -71,28 +71,29 @@ export function Footer() {
     { label: 'Cap manufacturer in India', href: '/products' },
     { label: 'T-shirt manufacturer Bangalore', href: '/products/t-shirt-manufacturer-bangalore' },
     { label: 'Hoodie manufacturer India', href: '/products/hoodie-manufacturer-india' },
-    { label: 'Bulk apparel manufacturer', href: '/capabilities' },
+    { label: 'Bulk apparel manufacturer', href: '/capabilities/best-tshirt-manufacturer-in-india' },
     { label: 'Custom clothing manufacturer India', href: '/about-apparel-manufacturer-bangalore' }
   ];
 
   const footerLinks = {
     social: [
-      { label: 'Facebook', href: 'https://www.facebook.com/' },
-      { label: 'Instagram', href: 'https://www.instagram.com/' },
-      { label: 'YouTube', href: 'https://www.youtube.com/' }
+      // { label: 'Facebook', href: 'https://www.facebook.com/' },
+      { label: 'Instagram', href: 'https://www.instagram.com/tagunlimited?igsh=MTRuOHdzdjYzeW5zbQ==' },
+      { label: 'YouTube', href: 'https://www.youtube.com/@tagunlimited3251' },
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/company/tag-unlimited-clothing/' }
     ]
   };
 
   const contactEmail = 'care@tagunlimitedclothing.com';
-  const contactPhone = '+91 80952 12121';
-  const contactAddress = 'Bangalore, Karnataka, India';
+  const contactPhone = '+91 8095212121';
+  const contactAddress = 'No.18, Jalageramma Temple Road,\n Devinagar, Lottegollahalli, Bangalore, \nKarnataka, India';
 
   return (
-    <footer className="footer-root bg-black text-white pt-12 md:pt-16 pb-6 md:pb-8 w-full">
+    <footer className="footer-root bg-black text-white w-full">
       <div className="footer-content-wrap w-full">
-        <div className="footer-content-inner w-full px-4 sm:px-6 lg:px-12 xl:px-16">
-          {/* Four columns – reference style: uppercase grey headings, larger white links, generous spacing */}
-          <div className="footer-columns grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10 md:gap-12 lg:gap-16 mb-14 md:mb-16">
+        <div className="footer-content-inner w-full">
+          {/* Four columns – equal side padding and responsive spacing */}
+          <div className="footer-columns grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
             {/* Navigation – full sitemap */}
             <div className="footer-col">
               <h3 className="footer-col-heading">Navigation</h3>
@@ -198,18 +199,12 @@ export function Footer() {
             </div>
           </div>
 
-        <div className="border-t border-white/10 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p
-              className="text-white/60 text-center md:text-left"
-              style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--text-footer)' }}
-            >
+        <div className="footer-bottom-bar border-t border-white/10">
+          <div className="footer-bottom-bar-inner flex flex-col md:flex-row justify-between items-center">
+            <p className="footer-copyright text-white/60 text-center md:text-left">
               © 2026 Apparel Manufacturing. All rights reserved.
             </p>
-            <p
-              className="text-white/60 text-center md:text-right"
-              style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--text-footer)' }}
-            >
+            <p className="footer-copyright text-white/60 text-center md:text-right">
               Powered by BlackMatter Technologies
             </p>
           </div>
@@ -217,12 +212,13 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Logo + TAG UNLIMITED text – full width signature block */}
+      {/* Logo + Tag Unlimited text – full width signature block */}
       <div className="footer-signature">
         <Link to="/" className="footer-signature-logo-link">
           <img
             src="/logo.svg"
-            alt="TAG UNLIMITED - Private Label Apparel Manufacturer Bangalore"
+            srcSet="/logo.svg 1x, /logo.svg 2x"
+            alt="Tag Unlimited - Private Label Apparel Manufacturer Bangalore"
             className="footer-signature-logo"
             width={280}
             height={120}
@@ -238,7 +234,7 @@ export function Footer() {
           role="presentation"
         >
           <span className="footer-signature-text-base" aria-hidden>
-            TAG UNLIMITED
+            Tag Unlimited
           </span>
           <span
             className="footer-signature-text-spotlight"
@@ -250,7 +246,7 @@ export function Footer() {
             }
             aria-hidden
           >
-            TAG UNLIMITED
+            Tag Unlimited
           </span>
         </div>
       </div>

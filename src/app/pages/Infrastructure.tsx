@@ -52,14 +52,14 @@ export function Infrastructure() {
               Factory Infrastructure Overview
             </h2>
             <p className="text-gray-600" style={{ fontSize: '18px', lineHeight: 1.8 }}>
-              Our 50,000 square foot manufacturing facility is designed for efficient garment production with dedicated sections for each stage of manufacturing. Every department is equipped with modern machinery and operated by trained professionals.
+              Our 12,000 square foot manufacturing facility is designed for efficient garment production with dedicated sections for each stage of manufacturing. Every department is equipped with modern machinery and operated by trained professionals.
             </p>
           </div>
 
           {/* Facility Stats */}
           <div className="grid md:grid-cols-4 gap-8">
             <div className="text-center p-6 bg-gray-50">
-              <div className="text-gray-900 mb-2" style={{ fontSize: '42px', fontWeight: 700 }}>50K</div>
+              <div className="text-gray-900 mb-2" style={{ fontSize: '42px', fontWeight: 700 }}>12K</div>
               <div className="text-gray-600" style={{ fontSize: '16px', fontWeight: 500 }}>Square Feet</div>
             </div>
             <div className="text-center p-6 bg-gray-50">

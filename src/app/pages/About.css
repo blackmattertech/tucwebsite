@@ -1,4 +1,19 @@
-/* About page – section headings fully responsive on mobile, uniform 60px on desktop */
+/* About page – critical base (prevents wrong layout on initial load / FOUC) */
+.about-page {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+.about-page *,
+.about-page *::before,
+.about-page *::after {
+  box-sizing: inherit;
+}
+
+/* Section headings fully responsive on mobile, uniform 60px on desktop */
 
 /* Mobile-first: sensible size so headings fit and don’t overflow on small screens */
 .about-section-heading {
@@ -88,6 +103,8 @@
   line-height: 1.75;
   color: #000;
   min-width: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .about-intro-text p {
@@ -98,12 +115,14 @@
   margin-bottom: 0;
 }
 
-/* Company intro section – full width, top-aligned columns */
+/* Company intro section – full width, responsive padding, top-aligned columns */
 .about-intro-section-inner {
   width: 100%;
-  max-width: none;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
+  padding-left: clamp(1rem, 4vw, 3rem);
+  padding-right: clamp(1rem, 4vw, 3rem);
 }
 
 .about-intro-grid {
@@ -115,12 +134,14 @@
   min-width: 0;
 }
 
-/* Video – responsive, larger frame in column */
+/* Video – responsive, larger frame in column, prevents layout shift */
 .about-intro-video-wrap {
   position: relative;
   width: 100%;
+  max-width: 100%;
   min-width: 0;
   aspect-ratio: 16/9;
+  min-height: 180px;
   background: #111;
   border-radius: 6px;
   overflow: hidden;
@@ -259,13 +280,21 @@
   display: block;
 }
 
-/* Who We Are – top-aligned columns */
+/* Who We Are – top-aligned columns, responsive */
 .about-who-grid {
   align-items: center;
 }
 
 .about-who-grid > div {
   min-width: 0;
+  max-width: 100%;
+}
+
+.about-who-grid img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
 }
 
 /* Infrastructure – mobile only: interleaved (p1, img1, p2, img2, p3, img3, p4); hidden on desktop */
@@ -358,28 +387,31 @@
 .about-infrastructure-stack__slot img {
   width: 100%;
   height: 100%;
+  max-width: 100%;
   object-fit: cover;
   display: block;
 }
 
-/* Technology section – full available height, full width; left half = Production Intelligence background edge-to-edge */
+/* Technology section – responsive height, full width; left half = Production Intelligence background edge-to-edge */
 .about-technology-section {
   width: 100%;
-  min-height: 100vh;
+  max-width: 100%;
+  min-height: min(100vh, 800px);
   background: #fff;
-  padding: 2.5rem 0 2.5rem;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 3vw, 2rem);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 @media (min-width: 640px) {
   .about-technology-section {
-    padding: 3rem 0;
+    padding: 3rem clamp(1.25rem, 4vw, 2rem);
   }
 }
 @media (min-width: 1024px) {
   .about-technology-section {
-    padding: 3.5rem 0;
+    padding: 3.5rem clamp(1.5rem, 4vw, 2.5rem);
     min-height: 130vh;
   }
 }
@@ -493,11 +525,13 @@
   }
 }
 
-/* Quality & Consistency – banner, logo yellow, centered */
+/* Quality & Consistency – banner, logo yellow, centered, responsive */
 .about-quality-banner {
   width: 100%;
+  max-width: 100%;
   background: #fecc00;
-  padding: clamp(3rem, 8vw, 5rem) clamp(1.5rem, 5vw, 3rem);
+  padding: clamp(2rem, 6vw, 5rem) clamp(1rem, 4vw, 3rem);
+  box-sizing: border-box;
 }
 
 .about-quality-banner__inner {
@@ -676,11 +710,15 @@
 }
 
 .about-brands-marquee-inner--left {
+  -webkit-animation: about-brands-marquee-left 35s linear infinite;
   animation: about-brands-marquee-left 35s linear infinite;
+  will-change: transform;
 }
 
 .about-brands-marquee-inner--right {
+  -webkit-animation: about-brands-marquee-right 35s linear infinite;
   animation: about-brands-marquee-right 35s linear infinite;
+  will-change: transform;
 }
 
 .about-brands-marquee-track:hover .about-brands-marquee-inner {
@@ -691,17 +729,26 @@
   .about-brands-marquee-inner--left,
   .about-brands-marquee-inner--right {
     animation: none;
+    will-change: auto;
   }
 }
 
+@-webkit-keyframes about-brands-marquee-left {
+  0% { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+  100% { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
+}
 @keyframes about-brands-marquee-left {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
+@-webkit-keyframes about-brands-marquee-right {
+  0% { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
+  100% { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+}
 @keyframes about-brands-marquee-right {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
+  0% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
 .about-brands-logo-item {
@@ -748,7 +795,7 @@
   }
 }
 
-/* Why TAG Unlimited – lemon yellow in a contained rounded box, navy heading + cards */
+/* Why Tag Unlimited – lemon yellow in a contained rounded box, navy heading + cards */
 .about-why-section {
   width: 100%;
   overflow: visible;

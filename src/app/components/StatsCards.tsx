@@ -2,10 +2,10 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'motion/react';
 
 const STATS = [
-  { target: 100000, suffix: '+', label: 'Pieces Manufactured Monthly' },
+  { target: 250000, suffix: '+', label: 'Pcs' },
   { target: 3000, suffix: '+', label: 'Brands Served Globally' },
-  { target: 200, suffix: '+', label: 'Industrial Machines' },
-  { target: 20, suffix: '+', label: 'Years of Experience' },
+  { target: 150, suffix: '+', label: 'Industrial Machines' },
+  { target: 40, suffix: '+', label: 'Years of Experience' },
 ];
 
 function AnimatedCount({

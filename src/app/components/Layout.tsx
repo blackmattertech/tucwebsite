@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router';
 import { ContactModalProvider } from '../context/ContactModalContext';
 import { ViewportProvider, useViewport } from '../context/ViewportContext';
@@ -9,6 +9,7 @@ import { FloatingContactButtons } from './FloatingContactButtons';
 import { ContactCircleButton } from './ContactCircleButton';
 import { ContactModal } from './ContactModal';
 import { ThirdPartyScripts } from './ThirdPartyScripts';
+import { PageMeta } from './PageMeta';
 
 /** Loaded only on desktop – not used on mobile. */
 const SectionScrollIndicatorsLazy = lazy(() =>
@@ -21,8 +22,22 @@ function LayoutContent() {
   const showScrollIndicators = ready && isDesktop;
   const isAboutPage = location.pathname.toLowerCase().includes('about-apparel-manufacturer-bangalore');
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  /* Prefetch About page chunk when on home so initial load of About has minimal FOUC */
+  useEffect(() => {
+    if (location.pathname !== '/') return;
+    const t = setTimeout(() => {
+      import('../pages/About').catch(() => {});
+    }, 1500);
+    return () => clearTimeout(t);
+  }, [location.pathname]);
+
   return (
     <div className="min-h-screen bg-white relative overflow-x-hidden">
+      <PageMeta />
       <ThirdPartyScripts />
       <Header />
       {showScrollIndicators && (

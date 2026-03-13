@@ -52,6 +52,7 @@ export function ClienteleSection() {
                   unoptimized={name.endsWith('.svg')}
                   className="marquee-logo"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
             ))}
@@ -67,7 +68,9 @@ export function ClienteleSection() {
         .marquee-inner {
           display: flex;
           width: max-content;
+          -webkit-animation: marquee 40s linear infinite;
           animation: marquee 40s linear infinite;
+          will-change: transform;
         }
         .marquee-inner:hover {
           animation-play-state: paused;
@@ -75,6 +78,7 @@ export function ClienteleSection() {
         @media (prefers-reduced-motion: reduce) {
           .marquee-inner {
             animation: none;
+            will-change: auto;
           }
         }
         .marquee-item {
@@ -102,9 +106,13 @@ export function ClienteleSection() {
           filter: none;
           transform: translateY(-6px) scale(1.03);
         }
+        @-webkit-keyframes marquee {
+          0% { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+          100% { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
+        }
         @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          0% { transform: translate3d(0, 0, 0); }
+          100% { transform: translate3d(-50%, 0, 0); }
         }
       `}</style>
     </section>

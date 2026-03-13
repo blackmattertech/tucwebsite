@@ -2,13 +2,14 @@ import { lazy } from 'react';
 import { HeroSection } from '../components/HeroSection';
 import { BlankSection } from '../components/BlankSection';
 import { ProductsSection } from '../components/ProductsSection';
-import { TrustSection } from '../components/TrustSection';
 import { MapSection } from '../components/MapSection';
-import { TagFactorSection } from '../components/TagFactorSection';
 import { LazySection } from '../components/LazySection';
 
 const PrinciplesSection = lazy(() =>
   import('../components/PrinciplesSection').then((m) => ({ default: m.PrinciplesSection }))
+);
+const MottoSection = lazy(() =>
+  import('../components/MottoSection').then((m) => ({ default: m.MottoSection }))
 );
 const CapabilitiesSection = lazy(() =>
   import('../components/CapabilitiesSection').then((m) => ({ default: m.CapabilitiesSection }))
@@ -22,6 +23,12 @@ const GoogleReviewsSection = lazy(() =>
 const AboutSection = lazy(() =>
   import('../components/AboutSection').then((m) => ({ default: m.AboutSection }))
 );
+const TrustSection = lazy(() =>
+  import('../components/TrustSection').then((m) => ({ default: m.TrustSection }))
+);
+const TagFactorSection = lazy(() =>
+  import('../components/TagFactorSection').then((m) => ({ default: m.TagFactorSection }))
+);
 
 export function Home() {
   return (
@@ -32,6 +39,9 @@ export function Home() {
       </LazySection>
       <LazySection minHeightClass="min-h-[50vh]">
         <PrinciplesSection />
+      </LazySection>
+      <LazySection minHeightClass="min-h-[220px]">
+        <MottoSection />
       </LazySection>
       <div
         className="dotted-bg-wrap"
@@ -50,11 +60,15 @@ export function Home() {
         <MapSection />
       </LazySection>
       <BlankSection />
-      <TrustSection />
+      <LazySection minHeightClass="min-h-[280px]">
+        <TrustSection />
+      </LazySection>
       <LazySection minHeightClass="min-h-[520px]">
         <ProductCarouselSection />
       </LazySection>
-      <TagFactorSection />
+      <LazySection minHeightClass="min-h-[400px]">
+        <TagFactorSection />
+      </LazySection>
       <LazySection minHeightClass="min-h-[420px]">
         <GoogleReviewsSection />
       </LazySection>

@@ -8,7 +8,7 @@ const MILESTONES = [
     year: '2006',
     title: 'Company Founded',
     description:
-      'TAG Unlimited was established in Bangalore with the vision of supporting fashion brands with reliable apparel manufacturing. We started with a small team and a focus on quality stitching and on-time delivery for private label and bulk garment orders.',
+      'Tag Unlimited was established in Bangalore with the vision of supporting fashion brands with reliable apparel manufacturing. We started with a small team and a focus on quality stitching and on-time delivery for private label and bulk garment orders.',
   },
   {
     year: '2010',

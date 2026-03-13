@@ -11,7 +11,7 @@ const LOGO_YELLOW = '#fecc00';
 /** Reuse optimized hero poster (WebP when available) */
 const ABOUT_IMAGE = HERO_POSTER;
 const ABOUT_IMAGE_ALT =
-  'Best garment factory in Bangalore – TAG Unlimited, leading best apparel manufacturer in India for private label clothing, knitwear, T-shirts, hoodies and bulk garment production';
+  'Best garment factory in Bangalore – Tag Unlimited, leading best apparel manufacturer in India for private label clothing, knitwear, T-shirts, hoodies and bulk garment production';
 
 export const AboutSection = React.memo(function AboutSection() {
   const { getUrl } = useMediaAssets();
@@ -32,7 +32,16 @@ export const AboutSection = React.memo(function AboutSection() {
           }}
         >
           <p className="about-section-flow-p">
-            <span style={{ color: LOGO_YELLOW, fontWeight: 700 }}>TAG Unlimited</span> is a Bangalore-based private label clothing and knitwear manufacturer specializing in bulk production of T-Shirts, Hoodies, Shirts and custom apparel for fashion brands and businesses.
+            <span style={{ color: LOGO_YELLOW, fontWeight: 700 }}>TAG Unlimited Clothing</span> is a Bangalore-based apparel manufacturing company specializing in customized apparel, private label clothing, and bulk garment production for fashion brands, startups, and businesses across the globe.
+          </p>
+          <p className="about-section-flow-p">
+            The company traces its roots back to 1977, when it was founded as Sri Sai Screens by Late Sri T.V. Mahesh Raaj Singh, beginning as a screen printing unit serving local businesses and garment manufacturers.
+          </p>
+          <p className="about-section-flow-p">
+            In 2014, the company was rebranded and expanded by Mr. Rahul Raj M Singh into Tag Unlimited Clothing, transforming it into a modern apparel manufacturing company built to support emerging fashion brands and growing businesses.
+          </p>
+          <p className="about-section-flow-p">
+            Today, Tag Unlimited is a private label clothing and knitwear manufacturer specializing in bulk production of T-Shirts, Hoodies, Shirts and custom apparel for fashion brands and businesses.
           </p>
           <div className="about-section-flow-image">
             <img
@@ -46,27 +55,29 @@ export const AboutSection = React.memo(function AboutSection() {
               sizes="100vw"
             />
           </div>
-          <p className="about-section-flow-p">
+          {/* <p className="about-section-flow-p">
             Our manufacturing facility is designed for structured production with consistent quality standards and reliable delivery timelines. From sampling to final dispatch, every order follows organized workflows that ensure efficiency and accuracy.
-          </p>
-          <p className="about-section-flow-p">
+          </p> */}
+          {/* <p className="about-section-flow-p">
             Our operations are powered by integrated production management systems that allow us to track every order stage and maintain clear production timelines, ensuring dependable delivery and consistent manufacturing quality.
-          </p>
+          </p> */}
           <div className="about-section-flow-image">
             <OptimizedImage
               src={getUrl('other images', 'fabric rolls.webp')}
-              alt="Fabric rolls and materials at TAG Unlimited garment manufacturing facility"
+              alt="Fabric rolls and materials at Tag Unlimited garment manufacturing facility"
               width={800}
               height={450}
+              quality={70}
               className="about-section-image w-full rounded-2xl overflow-hidden shadow-2xl"
               loading="lazy"
+              decoding="async"
               referrerPolicy="no-referrer"
               sizes="100vw"
             />
           </div>
-          <p className="about-section-flow-p">
+          {/* <p className="about-section-flow-p">
             We work with fashion brands, startups, corporate buyers and export clients across India, supporting them with scalable apparel manufacturing solutions.
-          </p>
+          </p> */}
           <Link
             to="/about-apparel-manufacturer-bangalore"
             className="inline-block text-gray-900 font-semibold px-8 py-4 rounded-lg hover:opacity-90 transition-opacity duration-300 mt-6"
@@ -89,17 +100,26 @@ export const AboutSection = React.memo(function AboutSection() {
               }}
             >
               <p>
-                <span style={{ color: LOGO_YELLOW, fontWeight: 700 }}>TAG Unlimited</span> is a Bangalore-based private label clothing and knitwear manufacturer specializing in bulk production of T-Shirts, Hoodies, Shirts and custom apparel for fashion brands and businesses.
+                <span style={{ color: LOGO_YELLOW, fontWeight: 700 }}>TAG Unlimited Clothing</span> is a Bangalore-based apparel manufacturing company specializing in customized apparel, private label clothing, and bulk garment production for fashion brands, startups, and businesses across the globe.
               </p>
               <p>
+                The company traces its roots back to 1977, when it was founded as Sri Sai Screens by Late Sri T.V. Mahesh Raaj Singh, beginning as a screen printing unit serving local businesses and garment manufacturers.
+              </p>
+              <p>
+                In 2014, the company was rebranded and expanded by Mr. Rahul Raj M Singh into Tag Unlimited Clothing, transforming it into a modern apparel manufacturing company built to support emerging fashion brands and growing businesses.
+              </p>
+              <p>
+                Today, Tag Unlimited is a private label clothing and knitwear manufacturer specializing in bulk production of T-Shirts, Hoodies, Shirts and custom apparel for fashion brands and businesses.
+              </p>
+              {/* <p>
                 Our manufacturing facility is designed for structured production with consistent quality standards and reliable delivery timelines. From sampling to final dispatch, every order follows organized workflows that ensure efficiency and accuracy.
               </p>
               <p>
                 Our operations are powered by integrated production management systems that allow us to track every order stage and maintain clear production timelines, ensuring dependable delivery and consistent manufacturing quality.
-              </p>
-              <p>
+              </p> */}
+              {/* <p>
                 We work with fashion brands, startups, corporate buyers and export clients across India, supporting them with scalable apparel manufacturing solutions.
-              </p>
+              </p> */}
             </div>
             <Link
               to="/about-apparel-manufacturer-bangalore"
@@ -125,11 +145,13 @@ export const AboutSection = React.memo(function AboutSection() {
             <div className="about-section-image-wrap relative w-full rounded-2xl overflow-hidden shadow-2xl">
               <OptimizedImage
                 src={getUrl('other images', 'fabric rolls.webp')}
-                alt="Fabric rolls and materials at TAG Unlimited garment manufacturing facility"
+                alt="Fabric rolls and materials at Tag Unlimited garment manufacturing facility"
                 width={800}
                 height={450}
+                quality={70}
                 className="about-section-image"
                 loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
                 sizes="(max-width: 1023px) 100vw, 58vw"
               />

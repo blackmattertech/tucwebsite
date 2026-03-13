@@ -4,7 +4,7 @@ import './MapFaqSection.css';
 
 const SECTION_BG = '#FFFFFF';
 
-/** TAG UNLIMITED location – from Google Maps → Share → Embed a map */
+/** Tag Unlimited location – from Google Maps → Share → Embed a map */
 const MAP_EMBED_SRC =
   'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.8155693420686!2d77.56412257664833!3d13.047408587274989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3d62de87f213%3A0xc7e1898b5896eb34!2sTAG%20UNLIMITED!5e0!3m2!1sen!2sin!4v1773096879339!5m2!1sen!2sin';
 
@@ -56,17 +56,37 @@ export function MapFaqSection() {
       aria-label="Location and frequently asked questions"
     >
       <div className="map-faq-inner">
-        <div className="map-faq-map-wrap">
-          <iframe
-            src={MAP_EMBED_SRC}
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Company location map"
-          />
+        <div className="map-faq-map-col">
+          <div className="map-faq-map-wrap">
+            <iframe
+              src={MAP_EMBED_SRC}
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Company location map"
+            />
+          </div>
+          <div className="map-faq-address">
+            <strong>Address:</strong>
+            <br />
+            TAG UNLIMITED CLOTHING &ndash; Head Office
+            <br />
+            No.18, Jalageramma Temple Road,<br />
+            Devinagar, Lottegollahalli, Bengaluru &ndash; 560094 INDIA
+            <br />
+            <br />
+            <strong>Contact:</strong> <a href="tel:+918095212121" className="map-faq-address-link">+91 8095 212121</a>
+            <br />
+            <strong>Mail:</strong> <a href="mailto:care@tagunlimitedclothing.com" className="map-faq-address-link">care@tagunlimitedclothing.com</a>
+            <br />
+            <br />
+            <strong>For Corporate & Bulk orders :</strong> <a href="tel:+919036788845" className="map-faq-address-link">+91 9036788845</a>
+            <br />
+            <strong>For Corporate & Bulk orders :</strong> <a href="tel:+919535956724" className="map-faq-address-link">+91 9535956724</a>
+          </div>
         </div>
         <div className="map-faq-faq-wrap">
           <h2 className="map-faq-title" style={{ fontFamily: 'var(--font-heading)' }}>

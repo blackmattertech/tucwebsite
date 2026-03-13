@@ -339,6 +339,10 @@
     transition: background 0.2s ease, transform 0.2s ease;
   }
 
+  .mobile-menu-contact-btn--highlighted {
+    box-shadow: 0 0 0 2px #111827;
+  }
+
   .mobile-menu-contact-btn:hover {
     background: #e6b800;
     transform: scale(1.02);
@@ -382,15 +386,6 @@
     transform: scale(1.08);
   }
 
-  .mobile-menu-social-link--facebook {
-    color: #fff;
-    background: #1877f2;
-  }
-
-  .mobile-menu-social-link--facebook:hover {
-    background: #166fe5;
-  }
-
   .mobile-menu-social-link--instagram {
     color: #fff;
     background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
@@ -407,6 +402,15 @@
 
   .mobile-menu-social-link--youtube:hover {
     background: #e60000;
+  }
+
+  .mobile-menu-social-link--linkedin {
+    color: #fff;
+    background: #0a66c2;
+  }
+
+  .mobile-menu-social-link--linkedin:hover {
+    background: #004182;
   }
 }
 

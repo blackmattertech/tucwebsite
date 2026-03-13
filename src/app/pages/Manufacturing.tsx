@@ -38,7 +38,7 @@ export function Manufacturing() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
             <div className="text-center p-8 bg-gray-50">
               <Factory className="w-12 h-12 mx-auto mb-4 text-gray-900" />
-              <div className="text-gray-900 mb-2" style={{ fontSize: '36px', fontWeight: 700 }}>50K+</div>
+              <div className="text-gray-900 mb-2" style={{ fontSize: '36px', fontWeight: 700 }}>250K+</div>
               <div className="text-gray-600" style={{ fontSize: '16px', fontWeight: 500 }}>Pieces per Month</div>
             </div>
             <div className="text-center p-8 bg-gray-50">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, Instagram, Youtube } from 'lucide-react';
+import { Facebook, Instagram, Youtube, Linkedin } from 'lucide-react';
 import './HeaderSocial.css';
 
 const LOGO_YELLOW = '#fecc00';
@@ -7,9 +7,11 @@ const LOGO_LIGHT = '#fef08a';
 const LOGO_LIGHTER = '#fef9c3';
 
 const SOCIAL_LINKS = [
-  { label: 'Facebook', href: 'https://www.facebook.com/', Icon: Facebook },
-  { label: 'Instagram', href: 'https://www.instagram.com/', Icon: Instagram },
-  { label: 'YouTube', href: 'https://www.youtube.com/', Icon: Youtube },
+  // { label: 'Facebook', href: 'https://www.facebook.com/', Icon: Facebook },
+  { label: 'Instagram', href: 'https://www.instagram.com/tagunlimited?igsh=MTRuOHdzdjYzeW5zbQ==', Icon: Instagram },
+  { label: 'YouTube', href: 'https://www.youtube.com/@tagunlimited3251', Icon: Youtube },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/tag-unlimited-clothing/', Icon: Linkedin },
+
 ];
 
 export interface HeaderSocialProps {

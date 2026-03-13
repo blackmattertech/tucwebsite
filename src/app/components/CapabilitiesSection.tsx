@@ -41,29 +41,29 @@ function useCardSwapDimensions() {
 const CAPABILITY_ITEMS = [
   {
     image: 'Deep Design Proficiency.webp',
-    label: 'Deep Design Proficiency',
-    title: 'Deep Design Proficiency',
+    label: 'Advanced garment printing technologies',
+    title: 'Advanced garment printing technologies',
     description:
       'Our team brings deep design proficiency to every project—from concept to final artwork—ensuring your apparel reflects your brand vision with precision and creativity.',
   },
   {
     image: 'Expert Product Development.webp',
-    label: 'Expert Product Development',
-    title: 'Expert Product Development',
+    label: 'Embroidery capabilities',
+    title: 'Embroidery capabilities',
     description:
       'From concept to production, we bring expert product development to every garment—refining designs, materials, and fit so your product meets quality and commercial goals.',
   },
   {
     image: 'End-to-End Garment Manufacturing.webp',
-    label: 'End-to-End Garment Manufacturing',
-    title: 'End-to-End Garment Manufacturing',
+    label: 'Skilled production teams',
+    title: 'Skilled production teams',
     description:
       'We deliver end-to-end garment manufacturing—from sourcing and cutting to stitching, finishing, and quality control—so you get a single, reliable partner for your full production run.',
   },
   {
     image: 'image.webp',
-    label: 'ERP-Driven Production Managements',
-    title: 'ERP-Driven Production Management',
+    label: 'Modern industrial sewing machines',
+    title: 'Modern industrial sewing machines',
     description:
       'Our ERP system tracks every stage of garment production — from sampling to final dispatch — providing real-time visibility into order status, production timelines and delivery schedules.',
   },
@@ -96,7 +96,10 @@ function CapabilityCardContent({
       onError={onError}
       width={640}
       height={450}
+      quality={70}
+      sizes="(max-width: 768px) 100vw, 640px"
       loading="lazy"
+      decoding="async"
       referrerPolicy="no-referrer"
       className="w-full h-full object-cover block"
       style={{ borderRadius: 12 }}
@@ -206,7 +209,7 @@ export function CapabilitiesSection() {
             <h2 className="capabilities-title" aria-live="polite">{currentItem.title}</h2>
             <p className="capabilities-description">{currentItem.description}</p>
           </div>
-          <Link to="/capabilities" className="primary-btn capabilities-cta-btn">
+          <Link to="/capabilities/best-tshirt-manufacturer-in-india" className="primary-btn capabilities-cta-btn">
             Explore Our Manufacturing Capabilities
           </Link>
         </div>

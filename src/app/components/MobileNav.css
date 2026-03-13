@@ -172,6 +172,10 @@
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
+.mobile-nav-contact-btn--highlighted {
+  box-shadow: 0 0 0 2px #111827;
+}
+
 .mobile-nav-contact-btn:hover {
   background: #e6b800;
   transform: scale(1.02);

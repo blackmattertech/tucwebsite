@@ -11,7 +11,7 @@ const LOGO_YELLOW = '#fecc00';
 /** Reuse optimized hero poster (WebP when available) */
 const ABOUT_IMAGE = HERO_POSTER;
 const ABOUT_IMAGE_ALT =
-  'Best garment factory in Bangalore – TAG Unlimited, leading best apparel manufacturer in India for private label clothing, knitwear, T-shirts, hoodies and bulk garment production';
+  'Best garment factory in Bangalore – Tag Unlimited, leading best apparel manufacturer in India for private label clothing, knitwear, T-shirts, hoodies and bulk garment production';
 
 export const AboutSection = React.memo(function AboutSection() {
   const { getUrl } = useMediaAssets();
@@ -32,7 +32,7 @@ export const AboutSection = React.memo(function AboutSection() {
           }}
         >
           <p className="about-section-flow-p">
-            <span style={{ color: LOGO_YELLOW, fontWeight: 700 }}>TAG Unlimited</span> is a Bangalore-based private label clothing and knitwear manufacturer specializing in bulk production of T-Shirts, Hoodies, Shirts and custom apparel for fashion brands and businesses.
+            <span style={{ color: LOGO_YELLOW, fontWeight: 700 }}>Tag Unlimited</span> is a Bangalore-based private label clothing and knitwear manufacturer specializing in bulk production of T-Shirts, Hoodies, Shirts and custom apparel for fashion brands and businesses.
           </p>
           <div className="about-section-flow-image">
             <img
@@ -55,7 +55,7 @@ export const AboutSection = React.memo(function AboutSection() {
           <div className="about-section-flow-image">
             <OptimizedImage
               src={getUrl('other images', 'fabric rolls.webp')}
-              alt="Fabric rolls and materials at TAG Unlimited garment manufacturing facility"
+              alt="Fabric rolls and materials at Tag Unlimited garment manufacturing facility"
               width={800}
               height={450}
               quality={70}
@@ -91,7 +91,7 @@ export const AboutSection = React.memo(function AboutSection() {
               }}
             >
               <p>
-                <span style={{ color: LOGO_YELLOW, fontWeight: 700 }}>TAG Unlimited</span> is a Bangalore-based private label clothing and knitwear manufacturer specializing in bulk production of T-Shirts, Hoodies, Shirts and custom apparel for fashion brands and businesses.
+                <span style={{ color: LOGO_YELLOW, fontWeight: 700 }}>Tag Unlimited</span> is a Bangalore-based private label clothing and knitwear manufacturer specializing in bulk production of T-Shirts, Hoodies, Shirts and custom apparel for fashion brands and businesses.
               </p>
               <p>
                 Our manufacturing facility is designed for structured production with consistent quality standards and reliable delivery timelines. From sampling to final dispatch, every order follows organized workflows that ensure efficiency and accuracy.
@@ -127,7 +127,7 @@ export const AboutSection = React.memo(function AboutSection() {
             <div className="about-section-image-wrap relative w-full rounded-2xl overflow-hidden shadow-2xl">
               <OptimizedImage
                 src={getUrl('other images', 'fabric rolls.webp')}
-                alt="Fabric rolls and materials at TAG Unlimited garment manufacturing facility"
+                alt="Fabric rolls and materials at Tag Unlimited garment manufacturing facility"
                 width={800}
                 height={450}
                 quality={70}

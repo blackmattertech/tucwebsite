@@ -4,7 +4,7 @@ import './MapFaqSection.css';
 
 const SECTION_BG = '#FFFFFF';
 
-/** TAG UNLIMITED location – from Google Maps → Share → Embed a map */
+/** Tag Unlimited location – from Google Maps → Share → Embed a map */
 const MAP_EMBED_SRC =
   'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.8155693420686!2d77.56412257664833!3d13.047408587274989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3d62de87f213%3A0xc7e1898b5896eb34!2sTAG%20UNLIMITED!5e0!3m2!1sen!2sin!4v1773096879339!5m2!1sen!2sin';
 

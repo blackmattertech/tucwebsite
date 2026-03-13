@@ -22,8 +22,8 @@ const defaultMeta: RouteMeta = {
 export const ROUTE_META: Record<string, RouteMeta> = {
   '/': defaultMeta,
   '/about-apparel-manufacturer-bangalore': {
-    title: 'About Us | Apparel Manufacturer Bangalore | TAG Unlimited Clothing',
-    description: 'We let our threads do the talking. Meet TAG Unlimited Clothing – your trusted apparel manufacturing partner in Bangalore for private label and bulk garment production.',
+    title: 'About Us | Apparel Manufacturer Bangalore | Tag Unlimited Clothing',
+    description: 'We let our threads do the talking. Meet Tag Unlimited Clothing – your trusted apparel manufacturing partner in Bangalore for private label and bulk garment production.',
   },
   '/capabilities/best-tshirt-manufacturer-in-india': {
     title: 'Capabilities | Best T-Shirt Manufacturer in India | Apparel Manufacturing Bangalore',
@@ -58,7 +58,7 @@ export const ROUTE_META: Record<string, RouteMeta> = {
     description: 'Formal and casual shirt manufacturing in Bangalore. Dress shirts, casual shirts, and bulk orders with premium fabrics and finish.',
   },
   '/blog-apparel-manufacturing-guides': {
-    title: 'Apparel Manufacturing Guides & Blog | TAG Unlimited Clothing',
+    title: 'Apparel Manufacturing Guides & Blog | Tag Unlimited Clothing',
     description: 'Guides and insights on apparel manufacturing, private label process, fabrics, and garment production in India.',
   },
   '/blog/private-label-manufacturing-process': {
@@ -74,8 +74,8 @@ export const ROUTE_META: Record<string, RouteMeta> = {
     description: 'Choosing the best fabric for T-shirts: cotton, blends, GSM, and quality factors for comfort and durability.',
   },
   '/social': {
-    title: 'Social | TAG Unlimited Clothing – Apparel Manufacturer',
-    description: 'Connect with TAG Unlimited Clothing. Follow us for updates on apparel manufacturing, private label, and garment production.',
+    title: 'Social | Tag Unlimited Clothing – Apparel Manufacturer',
+    description: 'Connect with Tag Unlimited Clothing. Follow us for updates on apparel manufacturing, private label, and garment production.',
   },
 };
 

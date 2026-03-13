@@ -25,7 +25,7 @@ const PRINCIPLES = [
   {
     title: 'Innovation',
     description:
-      "It's clear that innovation is part of our DNA. At TAG Unlimited Clothing, we believe that success belongs to the brave, which is why we are not afraid to implement visionary ideas from the future.",
+      "It's clear that innovation is part of our DNA. At Tag Unlimited Clothing, we believe that success belongs to the brave, which is why we are not afraid to implement visionary ideas from the future.",
   },
 ];
 

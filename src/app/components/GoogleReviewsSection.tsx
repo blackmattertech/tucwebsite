@@ -112,7 +112,7 @@ const reviews: Review[] = [
     rating: 5,
     reviewTitle: 'Top notch quality, delivered on time',
     reviewText:
-      "Top notch quality, delivered on time, open to feedback and modifications - these are the few qualities you can expect when dealing with Rahul. I have had two purchases from TAG unlimited and Rahul has been very patient and professional. Will definitely recommend him to my peers."
+      "Top notch quality, delivered on time, open to feedback and modifications - these are the few qualities you can expect when dealing with Rahul. I have had two purchases from Tag Unlimited and Rahul has been very patient and professional. Will definitely recommend him to my peers."
   },
   {
     id: 12,

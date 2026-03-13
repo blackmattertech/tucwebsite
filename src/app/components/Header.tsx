@@ -58,7 +58,7 @@ export function Header() {
             <img
               src="/logo.svg"
               srcSet="/logo.svg 1x, /logo.svg 2x"
-              alt="TAG UNLIMITED - Private Label Apparel Manufacturer Bangalore"
+              alt="Tag Unlimited – Private Label Apparel Manufacturer Bangalore"
               className="h-12 w-auto md:h-14 lg:h-16"
               width={160}
               height={56}

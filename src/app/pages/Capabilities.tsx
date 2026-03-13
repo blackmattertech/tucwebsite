@@ -5,28 +5,28 @@ import './Capabilities.css';
 
 const STAT_CARDS = [
   {
-    target: 50000,
+    target: 12000,
     suffix: '+',
     label: 'Sqft Factory',
     image: 'https://ik.imagekit.io/tagunlimited/polo-tshirt-manufacturer-cap-manufacturer-hoodie-manufacturer.webp',
     grayscale: true,
   },
   {
-    target: 200,
+    target: 150,
     suffix: '+',
     label: 'Industrial Stitching Machines',
     image: 'https://ik.imagekit.io/tagunlimited/garment-stitching-floor-bangalore.webp',
     grayscale: false,
   },
   {
-    target: 500000,
+    target: 250000,
     suffix: '+',
     label: 'Garments stitched Every month',
     image: 'https://ik.imagekit.io/tagunlimited/tshirt%20manufacturing%20in%20bangalore%20india.webp',
     grayscale: true,
   },
   {
-    target: 300,
+    target: 200,
     suffix: '+',
     label: 'Team',
     image: 'https://ik.imagekit.io/tagunlimited/infrastructure/best%20garment%20factory%20i%20india.webp',
@@ -206,7 +206,7 @@ export function Capabilities() {
                 Fabric Sourcing & Material Handling
               </h2>
               <p className="text-gray-600 text-left mt-4" style={{ fontSize: '1.125rem', lineHeight: 1.8 }}>
-                Efficient fabric handling plays a critical role in maintaining consistency in bulk garment manufacturing. At TAG Unlimited, fabrics undergo structured processes including fabric inspection, quality checking, and organized storage before entering the production line.
+                Efficient fabric handling plays a critical role in maintaining consistency in bulk garment manufacturing. At Tag Unlimited, fabrics undergo structured processes including fabric inspection, quality checking, and organized storage before entering the production line.
               </p>
               <p className="text-gray-600 text-left mt-4" style={{ fontSize: '1.125rem', lineHeight: 1.8 }}>
                 Our team ensures proper fabric sourcing, material preparation, and cutting workflows to support large-scale apparel manufacturing. This systematic approach helps maintain fabric quality, minimize production errors, and ensure smooth manufacturing of T-shirts, hoodies, shirts, jackets, and custom garments for fashion brands and apparel businesses.
@@ -458,7 +458,7 @@ export function Capabilities() {
       </section>
 
       {/* Quality Systems – black background with marquee text only (Tag Factor style) */}
-      <section className="capabilities-quality-section py-24" aria-label="Quality and TAG Factor">
+      <section className="capabilities-quality-section py-24" aria-label="Quality and Tag Factor">
         <div className="capabilities-quality-dots" aria-hidden />
         <div className="capabilities-quality-marquees-wrap">
           <div className="capabilities-quality-marquees">

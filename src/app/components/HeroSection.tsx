@@ -152,7 +152,7 @@ export const HeroSection = React.memo(function HeroSection() {
         <img
           ref={posterImgRef}
           src={HERO_POSTER}
-          alt="TAG Unlimited – Private label apparel manufacturer in Bangalore"
+          alt="Tag Unlimited – Private label apparel manufacturer in Bangalore"
           width={1920}
           height={1080}
           sizes="100vw"

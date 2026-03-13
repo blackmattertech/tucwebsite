@@ -62,7 +62,7 @@ export function MobileNav({ items }: MobileNavProps) {
           <div className="mobile-nav-backdrop" onClick={close} aria-hidden />
           <div className="mobile-nav-top-bar">
             <Link to="/" className="mobile-nav-logo" onClick={close}>
-              <img src="/logo.svg" srcSet="/logo.svg 1x, /logo.svg 2x" alt="TAG UNLIMITED" className="mobile-nav-logo-img" width={120} height={42} />
+              <img src="/logo.svg" srcSet="/logo.svg 1x, /logo.svg 2x" alt="Tag Unlimited" className="mobile-nav-logo-img" width={120} height={42} />
             </Link>
             <button
               type="button"
@@ -101,7 +101,7 @@ export function MobileNav({ items }: MobileNavProps) {
               </ul>
               <button
                 type="button"
-                className="mobile-nav-contact-btn"
+                className="mobile-nav-contact-btn mobile-nav-contact-btn--highlighted"
                 onClick={() => {
                   close();
                   modal?.openModal?.();

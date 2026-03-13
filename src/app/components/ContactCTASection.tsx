@@ -12,7 +12,7 @@ export function ContactCTASection() {
           <h2 className="contact-cta-heading" style={{ fontFamily: 'var(--font-heading)' }}>
             Ready&nbsp;for
             <br />
-            Commitment?
+            Customisation?
           </h2>
           <p className="contact-cta-subtext" style={{ fontFamily: 'var(--font-family)' }}>
             We're not selling services, we're building relationships. Whether you're testing the waters or ready to go all-in, we've got the right setup to meet you where you are.

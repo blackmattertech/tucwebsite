@@ -56,17 +56,37 @@ export function MapFaqSection() {
       aria-label="Location and frequently asked questions"
     >
       <div className="map-faq-inner">
-        <div className="map-faq-map-wrap">
-          <iframe
-            src={MAP_EMBED_SRC}
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Company location map"
-          />
+        <div className="map-faq-map-col">
+          <div className="map-faq-map-wrap">
+            <iframe
+              src={MAP_EMBED_SRC}
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Company location map"
+            />
+          </div>
+          <div className="map-faq-address">
+            <strong>Address:</strong>
+            <br />
+            TAG UNLIMITED CLOTHING &ndash; Head Office
+            <br />
+            No.18, Jalageramma Temple Road,<br />
+            Devinagar, Lottegollahalli, Bengaluru &ndash; 560094 INDIA
+            <br />
+            <br />
+            <strong>Contact:</strong> <a href="tel:+918095212121" className="map-faq-address-link">+91 8095 212121</a>
+            <br />
+            <strong>Mail:</strong> <a href="mailto:care@tagunlimitedclothing.com" className="map-faq-address-link">care@tagunlimitedclothing.com</a>
+            <br />
+            <br />
+            <strong>For Corporate & Bulk orders :</strong> <a href="tel:+919036788845" className="map-faq-address-link">+91 9036788845</a>
+            <br />
+            <strong>For Corporate & Bulk orders :</strong> <a href="tel:+919535956724" className="map-faq-address-link">+91 9535956724</a>
+          </div>
         </div>
         <div className="map-faq-faq-wrap">
           <h2 className="map-faq-title" style={{ fontFamily: 'var(--font-heading)' }}>

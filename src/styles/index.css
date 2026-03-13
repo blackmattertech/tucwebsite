@@ -6,3 +6,11 @@
 #hero {
   min-height: clamp(400px, 85dvh, 900px);
 }
+
+/* About page critical (in main bundle to avoid FOUC when lazy chunk loads) */
+.about-page {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}

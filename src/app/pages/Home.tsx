@@ -8,6 +8,9 @@ import { LazySection } from '../components/LazySection';
 const PrinciplesSection = lazy(() =>
   import('../components/PrinciplesSection').then((m) => ({ default: m.PrinciplesSection }))
 );
+const MottoSection = lazy(() =>
+  import('../components/MottoSection').then((m) => ({ default: m.MottoSection }))
+);
 const CapabilitiesSection = lazy(() =>
   import('../components/CapabilitiesSection').then((m) => ({ default: m.CapabilitiesSection }))
 );
@@ -36,6 +39,9 @@ export function Home() {
       </LazySection>
       <LazySection minHeightClass="min-h-[50vh]">
         <PrinciplesSection />
+      </LazySection>
+      <LazySection minHeightClass="min-h-[220px]">
+        <MottoSection />
       </LazySection>
       <div
         className="dotted-bg-wrap"

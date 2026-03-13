@@ -20,6 +20,8 @@ export interface MobileNavItem {
 
 export interface MobileNavProps {
   items: MobileNavItem[];
+  /** Optional handler to open the catalogue download form. */
+  onOpenCatalogue?: () => void;
 }
 
 function isExternalLink(href: string) {
@@ -30,7 +32,7 @@ function isRouterLink(href: string, item?: MobileNavItem) {
   return href && !isExternalLink(href) && !item?.download;
 }
 
-export function MobileNav({ items }: MobileNavProps) {
+export function MobileNav({ items, onOpenCatalogue }: MobileNavProps) {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const modal = useContactModal();
@@ -110,6 +112,19 @@ export function MobileNav({ items }: MobileNavProps) {
               >
                 Contact
               </button>
+              {onOpenCatalogue && (
+                <button
+                  type="button"
+                  className="mobile-nav-contact-btn"
+                  onClick={() => {
+                    close();
+                    onOpenCatalogue();
+                  }}
+                  aria-label="Download catalogue"
+                >
+                  Catalogue
+                </button>
+              )}
               <div className="mobile-nav-social">
                 <span className="mobile-nav-social-label">Follow us</span>
                 <div className="mobile-nav-social-icons">

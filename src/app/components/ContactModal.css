@@ -39,9 +39,69 @@
     opacity: 0.95;
   }
   to {
-    transform: translateY(0);
+    transform: translateY(14%);
     opacity: 1;
   }
+}
+
+/* Catalogue sidebar: mobile uses flex centering; desktop positioned in media query below */
+.catalogue-sidebar-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* transform: translate(-50%, -50%, -50%); */
+  height: auto;
+  max-height: 80vh;
+  max-width: 520px;
+  width: calc(100% - 2.5rem);
+  margin: 0;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  animation: none;
+}
+
+/* Desktop: form on right, vertically centered */
+@media (min-width: 768px) {
+  .catalogue-overlay .catalogue-sidebar-panel {
+    left: auto;
+    right: 0;
+    top: 50%;
+    transform: translateY(14%);
+    max-width: 520px;
+    width: 100%;
+    border-radius: 16px 0 0 16px;
+    box-shadow: -24px 0 60px rgba(0, 0, 0, 0.35);
+  }
+}
+
+@media (max-width: 767px) {
+  .catalogue-overlay {
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .catalogue-overlay .catalogue-sidebar-panel {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: translate(0px, 45vh);;
+    max-width: 420px;
+    width: calc(100% - 3rem);
+    border-radius: 16px;
+  }
+}
+
+.catalogue-submit {
+  background: #ffffff;
+  color: #000000;
+  border: 2px solid #fecc00;
+}
+
+.catalogue-submit:hover {
+  background: #fecc00;
+  color: #ffffff;
 }
 
 @media (min-width: 640px) {

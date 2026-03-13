@@ -23,11 +23,15 @@
   box-sizing: border-box;
 }
 
-/* Four columns – responsive gap and bottom margin, reduced height */
+/* Four columns – responsive gap and bottom margin; cols can shrink so content doesn’t overflow */
 .footer-columns {
   align-items: start;
   gap: clamp(0.75rem, 3vw, 1.5rem);
   margin-bottom: clamp(0.75rem, 3vw, 1.5rem);
+}
+
+.footer-col {
+  min-width: 0; /* allow column to shrink so long email/address don’t escape */
 }
 
 .footer-col-heading {
@@ -63,6 +67,9 @@
   transition: color 0.2s ease, opacity 0.2s ease;
   text-decoration: none;
   display: inline-block;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .footer-col-link:hover {
@@ -82,6 +89,7 @@
   align-items: flex-start;
   gap: 0.75rem;
   margin-bottom: 0 !important;
+  min-width: 0; /* allow flex item to shrink so email/address wrap */
 }
 
 .footer-contact-icon {

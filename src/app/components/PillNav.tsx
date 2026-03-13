@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router';
-import { Facebook, Instagram, Youtube, X } from 'lucide-react';
+import { Instagram, Youtube, Linkedin, X } from 'lucide-react';
 import { gsap } from 'gsap';
 import './PillNav.css';
 import { useContactModal } from '../context/useContactModal';
 
 const MOBILE_MENU_SOCIAL = [
-  { label: 'Facebook', href: 'https://www.facebook.com/', Icon: Facebook, brand: 'facebook' as const },
-  { label: 'Instagram', href: 'https://www.instagram.com/', Icon: Instagram, brand: 'instagram' as const },
-  { label: 'YouTube', href: 'https://www.youtube.com/', Icon: Youtube, brand: 'youtube' as const },
+  { label: 'Instagram', href: 'https://www.instagram.com/tagunlimited?igsh=MTRuOHdzdjYzeW5zbQ==', Icon: Instagram, brand: 'instagram' as const },
+  { label: 'YouTube', href: 'https://www.youtube.com/@tagunlimited3251', Icon: Youtube, brand: 'youtube' as const },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/tag-unlimited-clothing/', Icon: Linkedin, brand: 'linkedin' as const },
 ];
 
 export interface PillNavItem {

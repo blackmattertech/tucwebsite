@@ -51,6 +51,33 @@ const PRODUCT_5 = {
   imageAlt: 'Jacket manufacturing in India - outerwear, bulk production, custom designs, private label',
 };
 
+const PRODUCT_6 = {
+  heading: 'Oversized T-Shirt Manufacturing',
+  description:
+    'Trendy oversized t-shirts manufactured for streetwear brands and fashion labels, designed for comfort and modern style with scalable bulk garment production.',
+  imageSrc:
+    'https://ik.imagekit.io/tagunlimited/productspage/oversize%20tshirt%20in%20bangalore-oversize-tshirt-manufacturer.png',
+  imageAlt: 'Oversized t-shirt manufacturing in Bangalore - streetwear, bulk production',
+};
+
+const PRODUCT_7 = {
+  heading: 'Sports Jersey Manufacturing',
+  description:
+    'High-performance sports jerseys manufactured for teams, sports brands, and athletic apparel companies, designed with breathable fabrics and durable stitching for professional use. Our facility supports bulk sports jersey manufacturing with sublimation printing, custom team branding, and private label sportswear production.',
+  imageSrc:
+    'https://ik.imagekit.io/tagunlimited/productspage/sports%20jersey%20maker%20in%20bangalore.png',
+  imageAlt: 'Sports jersey manufacturing in Bangalore - teams, sublimation, custom branding',
+};
+
+const PRODUCT_8 = {
+  heading: 'Custom Cap Manufacturing',
+  description:
+    'Stylish caps manufactured for fashion brands, promotional merchandise companies, and corporate programs, with embroidery branding and scalable bulk production.',
+  imageSrc:
+    'https://ik.imagekit.io/tagunlimited/productspage/cap-manufacturer-in-india.png',
+  imageAlt: 'Cap manufacturing in India - embroidery, promotional, corporate, bulk',
+};
+
 export function ProductsWeManufactureSection() {
   const image1Ref = useRef<HTMLDivElement>(null);
   const text1Ref = useRef<HTMLDivElement>(null);
@@ -62,6 +89,12 @@ export function ProductsWeManufactureSection() {
   const text4Ref = useRef<HTMLDivElement>(null);
   const image5Ref = useRef<HTMLDivElement>(null);
   const text5Ref = useRef<HTMLDivElement>(null);
+  const image6Ref = useRef<HTMLDivElement>(null);
+  const text6Ref = useRef<HTMLDivElement>(null);
+  const image7Ref = useRef<HTMLDivElement>(null);
+  const text7Ref = useRef<HTMLDivElement>(null);
+  const image8Ref = useRef<HTMLDivElement>(null);
+  const text8Ref = useRef<HTMLDivElement>(null);
   const image1InView = useInView(image1Ref, { once: true, amount: 0.2 });
   const text1InView = useInView(text1Ref, { once: true, amount: 0.2 });
   const image2InView = useInView(image2Ref, { once: true, amount: 0.2 });
@@ -72,6 +105,12 @@ export function ProductsWeManufactureSection() {
   const text4InView = useInView(text4Ref, { once: true, amount: 0.2 });
   const image5InView = useInView(image5Ref, { once: true, amount: 0.2 });
   const text5InView = useInView(text5Ref, { once: true, amount: 0.2 });
+  const image6InView = useInView(image6Ref, { once: true, amount: 0.2 });
+  const text6InView = useInView(text6Ref, { once: true, amount: 0.2 });
+  const image7InView = useInView(image7Ref, { once: true, amount: 0.2 });
+  const text7InView = useInView(text7Ref, { once: true, amount: 0.2 });
+  const image8InView = useInView(image8Ref, { once: true, amount: 0.2 });
+  const text8InView = useInView(text8Ref, { once: true, amount: 0.2 });
 
   return (
     <section className="w-full bg-white" aria-labelledby="products-we-manufacture-heading">
@@ -429,6 +468,213 @@ export function ProductsWeManufactureSection() {
                 style={{ fontSize: '1.0625rem', lineHeight: 1.8 }}
               >
                 {PRODUCT_5.description}
+              </p>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Block 6: text (left) + image (right) - Oversized T-Shirt */}
+        <div className="w-full flex flex-col lg:flex-row-reverse min-h-0">
+          <div
+            ref={image6Ref}
+            className="w-full lg:w-[45%] min-h-[50vh] lg:h-screen shrink-0 overflow-hidden order-1"
+          >
+            <motion.div
+              className="w-full h-full min-h-[50vh] lg:h-full"
+              initial="hidden"
+              animate={image6InView ? 'visible' : 'hidden'}
+              variants={{
+                hidden: { opacity: 0, scale: 0.98 },
+                visible: {
+                  opacity: 1,
+                  scale: 1,
+                  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+                },
+              }}
+            >
+              <OptimizedImage
+                src={PRODUCT_6.imageSrc}
+                alt={PRODUCT_6.imageAlt}
+                width={1200}
+                height={1600}
+                quality={85}
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full min-h-[50vh] lg:min-h-screen object-cover object-center"
+              />
+            </motion.div>
+          </div>
+          <div
+            ref={text6Ref}
+            className="w-full lg:w-[55%] flex items-center py-12 lg:py-20 px-4 sm:px-6 lg:pl-10 lg:pr-4 xl:pl-12 xl:pr-6 order-2"
+          >
+            <motion.div
+              className="max-w-lg mx-auto lg:ml-auto lg:mr-0"
+              initial="hidden"
+              animate={text6InView ? 'visible' : 'hidden'}
+              variants={{
+                hidden: { opacity: 0, y: 36 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 0.6,
+                    delay: 0.1,
+                    ease: [0.22, 1, 0.36, 1],
+                  },
+                },
+              }}
+            >
+              <h3
+                className="mb-6 line-clamp-2"
+                style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 700, lineHeight: 1.25, color: LOGO_YELLOW }}
+              >
+                {PRODUCT_6.heading}
+              </h3>
+              <p
+                className="text-gray-600"
+                style={{ fontSize: '1.0625rem', lineHeight: 1.8 }}
+              >
+                {PRODUCT_6.description}
+              </p>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Block 7: image (left) + text (right) - Sports Jersey */}
+        <div className="w-full flex flex-col lg:flex-row min-h-0">
+          <div
+            ref={image7Ref}
+            className="w-full lg:w-[45%] min-h-[50vh] lg:h-screen shrink-0 overflow-hidden"
+          >
+            <motion.div
+              className="w-full h-full min-h-[50vh] lg:h-full"
+              initial="hidden"
+              animate={image7InView ? 'visible' : 'hidden'}
+              variants={{
+                hidden: { opacity: 0, scale: 0.98 },
+                visible: {
+                  opacity: 1,
+                  scale: 1,
+                  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+                },
+              }}
+            >
+              <OptimizedImage
+                src={PRODUCT_7.imageSrc}
+                alt={PRODUCT_7.imageAlt}
+                width={1200}
+                height={1600}
+                quality={85}
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full min-h-[50vh] lg:min-h-screen object-cover object-center"
+              />
+            </motion.div>
+          </div>
+          <div
+            ref={text7Ref}
+            className="w-full lg:w-[55%] flex items-center py-12 lg:py-20 px-4 sm:px-6 lg:pl-4 lg:pr-10 xl:pl-6 xl:pr-12"
+          >
+            <motion.div
+              className="max-w-lg mx-auto lg:mx-0"
+              initial="hidden"
+              animate={text7InView ? 'visible' : 'hidden'}
+              variants={{
+                hidden: { opacity: 0, y: 36 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 0.6,
+                    delay: 0.1,
+                    ease: [0.22, 1, 0.36, 1],
+                  },
+                },
+              }}
+            >
+              <h3
+                className="mb-6 line-clamp-2"
+                style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 700, lineHeight: 1.25, color: LOGO_YELLOW }}
+              >
+                {PRODUCT_7.heading}
+              </h3>
+              <p
+                className="text-gray-600"
+                style={{ fontSize: '1.0625rem', lineHeight: 1.8 }}
+              >
+                {PRODUCT_7.description}
+              </p>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Block 8: text (left) + image (right) - Custom Cap */}
+        <div className="w-full flex flex-col lg:flex-row-reverse min-h-0">
+          <div
+            ref={image8Ref}
+            className="w-full lg:w-[45%] min-h-[50vh] lg:h-screen shrink-0 overflow-hidden order-1"
+          >
+            <motion.div
+              className="w-full h-full min-h-[50vh] lg:h-full"
+              initial="hidden"
+              animate={image8InView ? 'visible' : 'hidden'}
+              variants={{
+                hidden: { opacity: 0, scale: 0.98 },
+                visible: {
+                  opacity: 1,
+                  scale: 1,
+                  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+                },
+              }}
+            >
+              <OptimizedImage
+                src={PRODUCT_8.imageSrc}
+                alt={PRODUCT_8.imageAlt}
+                width={1200}
+                height={1600}
+                quality={85}
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full min-h-[50vh] lg:min-h-screen object-cover object-center"
+              />
+            </motion.div>
+          </div>
+          <div
+            ref={text8Ref}
+            className="w-full lg:w-[55%] flex items-center py-12 lg:py-20 px-4 sm:px-6 lg:pl-10 lg:pr-4 xl:pl-12 xl:pr-6 order-2"
+          >
+            <motion.div
+              className="max-w-lg mx-auto lg:ml-auto lg:mr-0"
+              initial="hidden"
+              animate={text8InView ? 'visible' : 'hidden'}
+              variants={{
+                hidden: { opacity: 0, y: 36 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 0.6,
+                    delay: 0.1,
+                    ease: [0.22, 1, 0.36, 1],
+                  },
+                },
+              }}
+            >
+              <h3
+                className="mb-6 line-clamp-2"
+                style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 700, lineHeight: 1.25, color: LOGO_YELLOW }}
+              >
+                {PRODUCT_8.heading}
+              </h3>
+              <p
+                className="text-gray-600"
+                style={{ fontSize: '1.0625rem', lineHeight: 1.8 }}
+              >
+                {PRODUCT_8.description}
               </p>
             </motion.div>
           </div>

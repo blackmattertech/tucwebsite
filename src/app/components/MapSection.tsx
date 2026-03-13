@@ -61,9 +61,9 @@ export function MapSection() {
           <h2 className="map-section-heading-line1" style={{ fontFamily: 'var(--font-heading)' }}>
             Stitching&nbsp;The
           </h2>
-          <h2 className="map-section-heading-line2" style={{ fontFamily: 'var(--font-heading)' }}>
+          <h4 className="map-section-heading-line2" style={{ fontFamily: 'var(--font-heading)' }}>
             World&nbsp;Together
-          </h2>
+          </h4>
         </div>
       </div>
     </section>

@@ -24,7 +24,7 @@
 .map-section-heading-line2 {
   margin: 0;
   font-weight: 900;
-  font-size: clamp(2.5rem, 12vw, 144px);
+  font-size: clamp(2.5rem, 12vw, 8.5rem);
   line-height: 1.15;
   letter-spacing: -0.04em;
   text-transform: uppercase;

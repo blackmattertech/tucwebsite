@@ -14,7 +14,7 @@ export interface RouteMeta {
 }
 
 const defaultMeta: RouteMeta = {
-  title: 'Premium Apparel Manufacturer | Custom Clothing & Private Label Production',
+  title: 'TAG Unlimited Clothing',
   description: 'Leading apparel manufacturer offering custom clothing, private label production, and bulk garment manufacturing with premium quality and on-time delivery.',
 };
 

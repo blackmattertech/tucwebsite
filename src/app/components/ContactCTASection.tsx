@@ -1,5 +1,6 @@
 import { Mail, Phone, Briefcase } from 'lucide-react';
 import { ContactCircleButton } from './ContactCircleButton';
+import { ContactCard } from './ContactCard';
 import './ContactCTASection.css';
 
 const SECTION_BG = '#ffffff';
@@ -23,44 +24,41 @@ export function ContactCTASection() {
         </div>
       </div>
 
-      {/* Edge-to-edge yellowish strip: only this block has the highlight background */}
+      {/* Contact info in Uiverse-style 3D cards */}
       <div className="contact-cta-details-strip">
         <div className="contact-cta-details-inner">
-          <div className="contact-cta-details">
-            <div className="contact-cta-detail">
-              <div className="contact-cta-detail-icon-wrap">
-                <Mail className="contact-cta-detail-icon" size={20} />
-              </div>
-              <span className="contact-cta-detail-label">Email</span>
-              <a href="mailto:care@tagunlimitedclothing.com" className="contact-cta-link break-all">
+          <div className="contact-cta-cards-grid">
+            <ContactCard
+              icon={<Mail size={22} strokeWidth={2.25} aria-hidden />}
+              title="Email"
+              actionHref="mailto:care@tagunlimitedclothing.com"
+              actionLabel="Email us"
+            >
+              <a href="mailto:care@tagunlimitedclothing.com" className="break-all">
                 care@tagunlimitedclothing.com
               </a>
-            </div>
+            </ContactCard>
 
-            <div className="contact-cta-detail">
-              <div className="contact-cta-detail-icon-wrap">
-                <Phone className="contact-cta-detail-icon" size={20} />
-              </div>
-              <span className="contact-cta-detail-label">Phone</span>
-              <a href="tel:+918095212121" className="contact-cta-link">
-                +91 8095212121
-              </a>
-            </div>
+            <ContactCard
+              icon={<Phone size={22} strokeWidth={2.25} aria-hidden />}
+              title="Phone"
+              actionHref="tel:+918095212121"
+              actionLabel="Call"
+            >
+              <a href="tel:+918095212121">+91 8095212121</a>
+            </ContactCard>
 
-            <div className="contact-cta-detail">
-              <div className="contact-cta-detail-icon-wrap">
-                <Briefcase className="contact-cta-detail-icon" size={20} />
-              </div>
-              <span className="contact-cta-detail-label">Bulk and Corporate Orders</span>
-              <div className="contact-cta-detail-links">
-                <a href="tel:+919036788845" className="contact-cta-link">
-                  +91 9036788845
-                </a>
-                <a href="tel:+919535956724" className="contact-cta-link">
-                  +91 9535956724
-                </a>
-              </div>
-            </div>
+            <ContactCard
+              icon={<Briefcase size={22} strokeWidth={2.25} aria-hidden />}
+              title="Bulk and Corporate Orders"
+              actionHref="tel:+919036788845"
+              actionLabel="Call"
+            >
+              <a href="tel:+919036788845">+91 9036788845</a>
+              <span className="link-block">
+                <a href="tel:+919535956724">+91 9535956724</a>
+              </span>
+            </ContactCard>
           </div>
         </div>
       </div>

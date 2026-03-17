@@ -52,7 +52,6 @@
   margin-left: -50vw;
   margin-right: -50vw;
   margin-top: 0;
-  border-top: 0.1px solid #919191;
   margin-bottom: clamp(2rem, 5vw, 3.5rem);
   background: transparent;
   box-sizing: border-box;
@@ -65,7 +64,27 @@
   box-sizing: border-box;
 }
 
-/* Contact details: 3 columns, equal width, aligned and centered */
+/* Grid of Uiverse-style contact cards */
+.contact-cta-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 4vw, 2rem);
+  max-width: 64rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  min-width: 0;
+  align-items: stretch;
+}
+
+@media (min-width: 640px) {
+  .contact-cta-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+  }
+}
+
+/* Legacy: contact details (kept for any other use) */
 .contact-cta-details {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

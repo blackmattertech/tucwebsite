@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { HeaderSocial } from './HeaderSocial';
 import { MobileNav } from './MobileNav';
 import { useViewport } from '../context/ViewportContext';
-import { CatalogueSidebar } from './CatalogueSidebar';
+import { useCatalogue } from '../context/useCatalogue';
 
 /** Loaded only on desktop – avoids GSAP and heavy PillNav on mobile. */
 const PillNavLazy = lazy(() =>
@@ -25,7 +25,7 @@ const LOGO_YELLOW = '#fecc00';
 export function Header() {
   const { isDesktop, ready } = useViewport();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isCatalogueOpen, setIsCatalogueOpen] = useState(false);
+  const { openCatalogue } = useCatalogue() ?? {};
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,7 +74,7 @@ export function Header() {
               </Suspense>
               <button
                 type="button"
-                onClick={() => setIsCatalogueOpen(true)}
+                onClick={() => openCatalogue?.()}
                 className="hidden md:inline-flex items-center rounded-full bg-white border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-900 transition-colors hover:border-[#fecc00] hover:bg-[#fecc00]"
               >
                 Catalogue
@@ -85,13 +85,12 @@ export function Header() {
             <div className="flex items-center gap-2">
               <MobileNav
                 items={NAV_ITEMS}
-                onOpenCatalogue={() => setIsCatalogueOpen(true)}
+                onOpenCatalogue={() => openCatalogue?.()}
               />
             </div>
           )}
         </div>
       </div>
-      <CatalogueSidebar isOpen={isCatalogueOpen} onClose={() => setIsCatalogueOpen(false)} />
     </header>
   );
 }

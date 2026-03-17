@@ -1,0 +1,197 @@
+/* Product card – website color scheme: #fecc00 (brand yellow), #e6b800 (hover), #0a0a0a (text) */
+.product-card-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.product-card {
+  width: 100%;
+  max-width: 620px;
+  aspect-ratio: 1;
+  background: #ffffff;
+  border-radius: 44px;
+  padding: 1rem;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.03) 0px 25px 50px -12px, rgba(0, 0, 0, 0.04) 0px 8px 16px -8px;
+  transition: all 0.5s ease-in-out;
+}
+
+.product-card .product-image-wrap {
+  position: absolute;
+  width: calc(100% - 2rem);
+  height: calc(100% - 2rem);
+  top: 1rem;
+  left: 1rem;
+  border-radius: 36px;
+  z-index: 1;
+  border: 0 solid #fecc00;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out 0.2s, z-index 0.5s ease-in-out 0.2s;
+}
+
+.product-card .product-image-wrap img {
+  object-fit: contain;
+  object-position: center;
+  width: 100%;
+  height: 100%;
+  transition: all 0.5s ease-in-out 0s;
+}
+
+/* Yellow background panel – behind the circle on hover (z-index 2) */
+.product-card .bottom-bg {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  top: 100%;
+  background: #fecc00;
+  border-radius: 36px;
+  z-index: 2;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 6px -2px inset;
+  pointer-events: none;
+  transition: top 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) 0s;
+}
+
+/* Text + button layer – above the circle (z-index 4), no background */
+.product-card .bottom {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  top: 100%;
+  border-radius: 36px;
+  z-index: 4;
+  overflow: hidden;
+  transition: top 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) 0s;
+  pointer-events: auto;
+}
+
+.product-card .bottom .content {
+  position: absolute;
+  bottom: 0;
+  left: 1.75rem;
+  right: 1.75rem;
+  height: 260px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease 0.15s;
+}
+
+
+.product-card .bottom .content .name {
+  display: block;
+  font-size: 1.4rem;
+  color: #0a0a0a;
+  font-weight: bold;
+}
+
+.product-card .bottom .content .about-me {
+  display: block;
+  font-size: 1.05rem;
+  color: #1a1a1a;
+  margin-top: 0.85rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-card .bottom .bottom-bottom {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.75rem;
+  right: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease 0.15s;
+}
+
+.product-card .bottom .bottom-bottom .button {
+  appearance: none;
+  background: #ffffff;
+  color: #0a0a0a;
+  border: none;
+  border-radius: 24px;
+  font-size: 0.75rem;
+  padding: 0.5rem 0.85rem;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s, color 0.2s;
+  font-family: inherit;
+}
+
+.product-card .bottom .bottom-bottom .button:hover {
+  background: #e6b800;
+  color: #0a0a0a;
+}
+
+/* Hover state – panel expands and text appears */
+.product-card:hover {
+  border-top-left-radius: 80px;
+}
+
+.product-card:hover .bottom-bg,
+.product-card:hover .bottom {
+  top: 22%;
+  border-radius: 110px 40px 40px 40px;
+  transition: top 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) 0s;
+}
+
+@media (max-width: 767px) {
+  .product-card .bottom .content {
+    left: 2rem;
+    right: 1.5rem;
+    padding-left: 0.5rem;
+  }
+
+  .product-card .bottom .bottom-bottom {
+    left: 2rem;
+    right: 1.5rem;
+  }
+
+  .product-card:hover .bottom-bg,
+  .product-card:hover .bottom {
+    border-radius: 56px 32px 32px 32px;
+  }
+}
+
+.product-card:hover .bottom .content,
+.product-card:hover .bottom .bottom-bottom {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.product-card:hover .product-image-wrap {
+  width: 148px;
+  height: 148px;
+  aspect-ratio: 1;
+  top: 16px;
+  left: 16px;
+  border-radius: 50%;
+  z-index: 3;
+  border: 8px solid #fecc00;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 6px -2px;
+  transition: all 0.5s ease-in-out, z-index 0.5s ease-in-out 0.1s;
+}
+
+.product-card:hover .product-image-wrap:hover {
+  transform: scale(1.08);
+  border-radius: 50%;
+}
+
+/* Image fits inside circle on hover: no scale, cover fills the circle */
+.product-card:hover .product-image-wrap img {
+  transform: none;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 100%;
+  transition: all 0.5s ease-in-out 0.2s;
+}

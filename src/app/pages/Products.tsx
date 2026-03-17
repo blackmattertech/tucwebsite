@@ -1,5 +1,7 @@
 import { PageHero } from '../components/PageHero';
-import { ProductsWeManufactureSection } from '../components/ProductsWeManufactureSection';
+import { ProductCard } from '../components/ProductCard';
+import { PRODUCTS_WE_MANUFACTURE } from '../data/productsWeManufacture';
+import './Products.css';
 
 export function Products() {
   return (
@@ -15,7 +17,21 @@ export function Products() {
         imageStartsBelowHeader
       />
 
-      <ProductsWeManufactureSection />
+      <section className="products-cards-section" aria-labelledby="products-we-manufacture-heading">
+        <div className="products-cards-section-inner">
+          <h2
+            id="products-we-manufacture-heading"
+            className="products-cards-heading"
+          >
+            Private Label Apparel Categories
+          </h2>
+          <div className="products-cards-grid">
+            {PRODUCTS_WE_MANUFACTURE.map((product, index) => (
+              <ProductCard key={index} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Product Features */}
       <section className="py-24 bg-gray-50">

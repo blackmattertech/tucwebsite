@@ -16,7 +16,7 @@ const StyledWrapper = styled.div`
     max-width: 320px;
     margin-left: auto;
     margin-right: auto;
-    height: 280px;
+    height: 200px;
     perspective: 1000px;
   }
 
@@ -52,10 +52,16 @@ const StyledWrapper = styled.div`
   }
 
   .content {
-    padding: 100px 24px 64px 24px;
+    padding: 80px 24px 48px 24px;
     transform: translate3d(0, 0, 26px);
     position: relative;
     z-index: 1;
+  }
+
+  @media (min-width: 640px) {
+    .content {
+      padding: 100px 24px 64px 24px;
+    }
   }
 
   .content .title {
@@ -271,7 +277,7 @@ const StyledWrapper = styled.div`
     .logo .circle4 { width: 40px; }
     .logo .circle5 { width: 34px; top: 24px; right: 24px; }
     .logo .circle5 .icon-inner svg { width: 18px; height: 18px; }
-    .content { padding: 88px 16px 56px 16px; }
+    .content { padding: 72px 16px 44px 16px; }
     .content .title { font-size: 0.875rem; }
     .content .text { font-size: 0.9375rem; }
   }

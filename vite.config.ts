@@ -46,9 +46,9 @@ export default defineConfig({
           if (id.includes('node_modules')) {
             if (id.includes('react-router')) return 'router';
             if (id.includes('react-dom') || id.includes('/react/')) return 'react-vendor';
-            if (id.includes('motion') || id.includes('framer-motion')) return 'motion';
             if (id.includes('gsap')) return 'gsap';
             if (id.includes('@radix-ui')) return 'radix';
+            // motion/framer-motion not split to avoid circular chunk with react-vendor
           }
         },
       },

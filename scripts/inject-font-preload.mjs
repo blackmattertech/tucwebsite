@@ -28,7 +28,6 @@ function run() {
     .map((p) => files.find((f) => p.test(f)))
     .filter(Boolean);
   if (fontFiles.length === 0) {
-    console.warn('Critical font files not found, skipping preload');
     return;
   }
   const preloadLines = fontFiles

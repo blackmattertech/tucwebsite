@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router';
 import { ContactModalProvider } from '../context/ContactModalContext';
+import { CatalogueProvider } from '../context/CatalogueContext';
 import { ViewportProvider, useViewport } from '../context/ViewportContext';
 import { Header } from './Header';
 import { Footer } from './Footer';
@@ -65,7 +66,9 @@ export function Layout() {
   return (
     <ViewportProvider>
       <ContactModalProvider>
-        <LayoutContent />
+        <CatalogueProvider>
+          <LayoutContent />
+        </CatalogueProvider>
       </ContactModalProvider>
     </ViewportProvider>
   );

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { submitContactForm } from '../lib/contactSubmission';
 import './ContactModal.css';
 
@@ -74,7 +75,7 @@ export function CatalogueSidebar({ isOpen, onClose }: CatalogueSidebarProps) {
     }
   };
 
-  return (
+  const overlay = (
     <div
       className="contact-modal-overlay catalogue-overlay"
       role="dialog"
@@ -167,5 +168,7 @@ export function CatalogueSidebar({ isOpen, onClose }: CatalogueSidebarProps) {
       </div>
     </div>
   );
+
+  return createPortal(overlay, document.body);
 }
 

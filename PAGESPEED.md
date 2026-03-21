@@ -17,7 +17,7 @@ This project has been optimized for [PageSpeed Insights](https://pagespeed.web.d
 
 2. **Deploy and test**
    - Deploy to production (e.g. Vercel).
-   - Run [PageSpeed Insights](https://pagespeed.web.dev/) for your production URL (e.g. `https://tucwebsite.vercel.app/`) on **Mobile** and **Desktop**.
+   - Run [PageSpeed Insights](https://pagespeed.web.dev/) for your production URL (e.g. `https://tagunlimitedclothing.com/`) on **Mobile** and **Desktop**.
 
 3. **If Performance is below 100**
    - Confirm hero image is the LCP element and loads first (preload + `loading="eager"` are set).
@@ -31,6 +31,6 @@ This project has been optimized for [PageSpeed Insights](https://pagespeed.web.d
 
 5. **If SEO is below 100**
    - Confirm `document.title` and meta description update when navigating (they do via `PageMeta`).
-   - Ensure canonical URL matches the production domain (set `VITE_APP_URL` in production env if different from `https://tucwebsite.vercel.app`).
+   - Ensure canonical URL matches the production domain (set `VITE_APP_URL` in production env if different from `https://tagunlimitedclothing.com/`).
 
 Re-run the report after each change to track progress.

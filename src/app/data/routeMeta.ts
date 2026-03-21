@@ -4,7 +4,7 @@
  */
 const BASE = typeof import.meta.env !== 'undefined' && (import.meta.env as { VITE_APP_URL?: string }).VITE_APP_URL
   ? (import.meta.env as { VITE_APP_URL: string }).VITE_APP_URL.replace(/\/$/, '')
-  : 'https://tucwebsite.vercel.app';
+  : 'https://tagunlimitedclothing.com/';
 
 export const APP_BASE_URL = BASE;
 

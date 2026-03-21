@@ -42,7 +42,7 @@
 
 | Issue | Reason | Resolution |
 |-------|--------|------------|
-| Sitemap lists `https://tucwebsite.vercel.app/contact-apparel-manufacturer-bangalore` but there is no route for it; contact is modal-only. | Crawlers may get 404 or same HTML as home; bad for SEO and crawl budget. | **Remove** the `<url>` entry for `/contact-apparel-manufacturer-bangalore` from `public/sitemap.xml`. |
+| Sitemap lists `https://tagunlimitedclothing.com/contact-apparel-manufacturer-bangalore` but there is no route for it; contact is modal-only. | Crawlers may get 404 or same HTML as home; bad for SEO and crawl budget. | **Remove** the `<url>` entry for `/contact-apparel-manufacturer-bangalore` from `public/sitemap.xml`. |
 
 **Verification:** Sitemap validates; no 404s for sitemap URLs.
 

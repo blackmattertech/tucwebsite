@@ -5,6 +5,20 @@
  */
 
 const ALLOWED_SIZES = [256, 384, 400, 640, 750, 828, 1080, 1200, 1920, 2048];
+const SRCSET_WIDTHS = [400, 640, 828, 1080, 1200];
+
+function isImageKitUrl(src: string): boolean {
+  return src.includes('ik.imagekit.io');
+}
+
+/**
+ * Vercel optimizer is only available when explicitly enabled.
+ * Keep this opt-in so non-Vercel hosts (Hostinger, Netlify, etc.) never generate /_vercel/image URLs.
+ */
+function shouldUseVercelOptimizer(): boolean {
+  const env = (import.meta.env as { VITE_USE_VERCEL_IMAGE?: string }).VITE_USE_VERCEL_IMAGE;
+  return import.meta.env.PROD && env === 'true';
+}
 
 function nearestSize(width: number): number {
   return ALLOWED_SIZES.reduce((prev, curr) =>
@@ -21,15 +35,21 @@ export function getOptimizedImageUrl(
   width: number,
   quality: number = 75
 ): string {
-  if (!import.meta.env.PROD) return src;
   const w = nearestSize(width);
   const q = Math.min(100, Math.max(1, quality));
-  return `/_vercel/image?url=${encodeURIComponent(src)}&w=${w}&q=${q}`;
+
+  if (isImageKitUrl(src)) {
+    return appendImageKitTransform(src, w, q);
+  }
+
+  if (shouldUseVercelOptimizer()) {
+    return `/_vercel/image?url=${encodeURIComponent(src)}&w=${w}&q=${q}`;
+  }
+
+  return src;
 }
 
 /** Widths for responsive srcset (mobile-first: 400–1200). */
-const SRCSET_WIDTHS = [400, 640, 828, 1080, 1200];
-
 /**
  * Build srcset string for responsive images (Vercel or raw URLs).
  * Use with sizes attribute for proper mobile payload reduction.
@@ -41,12 +61,11 @@ export function getOptimizedImageSrcSet(
   if (src.startsWith('data:') || src.endsWith('.svg')) return '';
   const q = Math.min(100, Math.max(1, quality));
   return SRCSET_WIDTHS.map((w) => {
-    const url =
-      import.meta.env.PROD && !src.includes('imagekit.io')
+    const url = isImageKitUrl(src)
+      ? appendImageKitTransform(src, w, q)
+      : shouldUseVercelOptimizer()
         ? `/_vercel/image?url=${encodeURIComponent(src)}&w=${w}&q=${q}`
-        : src.includes('imagekit.io')
-          ? appendImageKitTransform(src, w, q)
-          : src;
+        : src;
     return `${url} ${w}w`;
   }).join(', ');
 }

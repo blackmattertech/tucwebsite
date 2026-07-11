@@ -200,12 +200,9 @@ export function Footer() {
           </div>
 
         <div className="footer-bottom-bar border-t border-white/10">
-          <div className="footer-bottom-bar-inner flex flex-col md:flex-row justify-between items-center">
+          <div className="footer-bottom-bar-inner flex items-center justify-center md:justify-start">
             <p className="footer-copyright text-white/60 text-center md:text-left">
               © 2026 Apparel Manufacturing. All rights reserved.
-            </p>
-            <p className="footer-copyright text-white/60 text-center md:text-right">
-              Powered by BlackMatter Technologies
             </p>
           </div>
         </div>

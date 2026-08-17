@@ -56,7 +56,7 @@ export function ContactCTASection() {
             >
               <a href="tel:+919036788845">+91 9036788845</a>
               <span className="link-block">
-                <a href="tel:+919535956724">+91 9535956724</a>
+                <a href="tel:+918618267077">+91 8618267077</a>
               </span>
             </ContactCard>
           </div>

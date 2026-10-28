@@ -55,9 +55,6 @@ export function ContactCTASection() {
               actionLabel="Call"
             >
               <a href="tel:+919036788845">+91 9036788845</a>
-              <span className="link-block">
-                <a href="tel:+918618267077">+91 8618267077</a>
-              </span>
             </ContactCard>
           </div>
         </div>

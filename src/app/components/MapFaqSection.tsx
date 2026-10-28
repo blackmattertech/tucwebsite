@@ -84,8 +84,6 @@ export function MapFaqSection() {
             <br />
             <br />
             <strong>For Corporate & Bulk orders :</strong> <a href="tel:+919036788845" className="map-faq-address-link">+91 9036788845</a>
-            <br />
-            <strong>For Corporate & Bulk orders :</strong> <a href="tel:+919535956724" className="map-faq-address-link">+91 9535956724</a>
           </div>
         </div>
         <div className="map-faq-faq-wrap">
